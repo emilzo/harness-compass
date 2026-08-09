@@ -821,12 +821,32 @@ function t(k, vars){
 function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); }); }
 function qAnswers(v){ const a=[]; for(let i=0;i<6;i++){ const s=$("#qq-"+i); if(v){ if(s) s.value=v[i]; } else a.push(s?+s.value:0); } return v?null:a; }
 function currentAuditScores(){ const s={}; DIMENSIONS.forEach(([id])=>{ const o=document.querySelector(`[data-out="${id}"]`); if(o) s[id]=+o.textContent||0; }); return s; }
-function setLang(l){ LANG = LANGUAGES[l] ? l : "en"; try{ localStorage.setItem("hc-lang", LANG); }catch(e){} const sel=$("#lang"); if(sel) sel.value = LANG; document.documentElement.lang = LANG; const qa = window.__quizDone ? qAnswers() : null; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); if(window.__sel) showDetail(window.__sel, true); if(window.__auditEntries){ const ov=currentAuditScores(); const fields={}; ["au-name","au-vendor","au-type","au-tags","au-blurb"].forEach(id=>{ const el=document.getElementById(id); if(el) fields[id]=el.value; }); const planEl=$("#au-plan-preview"); const planHTML=planEl?planEl.innerHTML:""; showAuditResult(window.__auditEntries, ov); Object.entries(fields).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.value=v; }); if(planHTML&&$("#au-plan-preview")) $("#au-plan-preview").innerHTML=planHTML; applyI18n(); } if(qa){ qAnswers(qa); runQuiz(true); } }
+function persistLang(l){ LANG = LANGUAGES[l] ? l : "en"; try{ localStorage.setItem("hc-lang", LANG); }catch(e){} const sel=$("#lang"); if(sel) sel.value = LANG; document.documentElement.lang = LANG; }
+function replayOpenState(){
+  /* Re-renderiza, na língua nova, o que está aberto: detail + auditoria (preservando
+     sliders, campos de texto e preview do plano). O quiz é tratado no setLang (qa). */
+  if(window.__sel) showDetail(window.__sel, true);
+  if(!window.__auditEntries) return;
+  const ov=currentAuditScores();
+  const fields={}; ["au-name","au-vendor","au-type","au-tags","au-blurb"].forEach(id=>{ const el=document.getElementById(id); if(el) fields[id]=el.value; });
+  const planEl=$("#au-plan-preview"); const planHTML=planEl?planEl.innerHTML:"";
+  showAuditResult(window.__auditEntries, ov);
+  Object.entries(fields).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.value=v; });
+  if(planHTML&&$("#au-plan-preview")) $("#au-plan-preview").innerHTML=planHTML;
+  applyI18n();
+}
+function setLang(l){
+  persistLang(l);
+  const qa = window.__quizDone ? qAnswers() : null; /* respostas ANTES do buildQuiz (que as reseta) */
+  applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap();
+  replayOpenState();
+  if(qa){ qAnswers(qa); runQuiz(true); }
+}
 function initLang(){
   try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
   if(!LANGUAGES[LANG]) LANG = "en";
   const sel = $("#lang");
-  if(sel){ sel.innerHTML = Object.entries(LANGUAGES).map(([k,v])=>`<option value="${k}">${v}</option>`).join(""); sel.value = LANG; }
+  if(sel){ sel.innerHTML = Object.entries(LANGUAGES).map(([k,v])=>`<option value="${esc(k)}">${esc(v)}</option>`).join(""); sel.value = LANG; }
   document.documentElement.lang = LANG;
   applyI18n();
 }
@@ -1069,7 +1089,7 @@ function buildQuiz(){
   window.__quiz=q;
   $("#quiz-questions").innerHTML=q.map((qq,i)=>`
     <div class="quiz-q"><label>${i+1}. ${t(qq[0])}</label>
-    <select id="qq-${i}">${qq[1].map((o,j)=>`<option value="${j}">${t(o[0])}</option>`).join("")}</select></div>`).join("");
+    <select id="qq-${i}">${qq[1].map((o,j)=>`<option value="${esc(j)}">${t(o[0])}</option>`).join("")}</select></div>`).join("");
 }
 function runQuiz(noScroll){
   window.__quizDone = true;
@@ -1376,8 +1396,8 @@ function showAuditResult(entries, ov){
     return `<div class="dim-row">
       <div class="name" title="${esc(dimDesc(id))}"><b>${esc(dimName(id))}</b></div>
       <div class="why" title="${esc(reasons[id]&&reasons[id].length?fmtWhy(reasons[id]):t("au_nosignals"))}">${esc(reasons[id]&&reasons[id].length?fmtWhy(reasons[id]):t("au_nosignals_short"))}</div>
-      <input type="range" min="0" max="10" value="${scores[id]}" data-dim="${id}" oninput="auditSlide(this)">
-      <output data-out="${id}">${scores[id]}</output></div>`; };
+      <input type="range" min="0" max="10" value="${esc(scores[id])}" data-dim="${id}" oninput="auditSlide(this)">
+      <output data-out="${id}">${esc(scores[id])}</output></div>`; };
   $("#audit-result").innerHTML=`
     <div class="card result-card">
       <div class="grid2" style="margin-top:0">

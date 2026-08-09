@@ -41,7 +41,31 @@ if (missingAttr.length) {
   console.error(`❌ data-i18n sem chave EN: ${missingAttr.join(", ")}`);
 }
 
-// 2) todas as chaves EN existem nas outras línguas (reporta, não falha — fallback EN é válido)
+// 2) chaves literais usadas em t("...") existem em EN
+const tKeys = new Set();
+const tRe = /\bt\("([A-Za-z0-9_]+)"/g;
+let tk;
+while ((tk = tRe.exec(js))) tKeys.add(tk[1]);
+const missingT = [...tKeys].filter(k => !langs.en[k]);
+if (missingT.length) {
+  fail = 1;
+  console.error(`❌ t("...") sem chave EN: ${missingT.join(", ")}`);
+}
+
+// 3) interpolação em atributos HTML perigosos SEM esc() → injeção latente (regressão conhecida)
+const attrUnescaped = [];
+const attrInterpRe = /(?:value|title|placeholder|alt|download|href)="\$\{(?!esc\()/g;
+let ai;
+while ((ai = attrInterpRe.exec(js))) {
+  const lineNo = js.slice(0, ai.index).split("\n").length;
+  attrUnescaped.push(`linha ${lineNo}: ${js.slice(ai.index, ai.index + 50).split("\n")[0].trim()}`);
+}
+if (attrUnescaped.length) {
+  fail = 1;
+  console.error(`❌ ${attrUnescaped.length} interpolação(ões) em atributo sem esc() (injeção):\n  ` + attrUnescaped.join("\n  "));
+}
+
+// 4) todas as chaves EN existem nas outras línguas (reporta, não falha — fallback EN é válido)
 for (const lang of Object.keys(langs)) {
   if (lang === "en") continue;
   const missing = Object.keys(langs.en).filter(k => !langs[lang][k]);
@@ -51,6 +75,6 @@ for (const lang of Object.keys(langs)) {
     console.log(`✅ ${lang}: completo (${Object.keys(langs.en).length} chaves)`);
   }
 }
-console.log(`✅ EN: ${Object.keys(langs.en).length} chaves | data-i18n usadas: ${used.size}`);
+console.log(`✅ EN: ${Object.keys(langs.en).length} chaves | data-i18n usadas: ${used.size} | t() literais: ${tKeys.size}`);
 if (!fail) console.log("i18n OK — norma respeitada.");
 process.exit(fail);

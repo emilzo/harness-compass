@@ -4,118 +4,147 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harness Compass — Escolhe o teu harness de IA</title>
-<meta name="description" content="Agent = Model + Harness. Ranking, mapa e calculadora para escolheres o harness certo e usares LLMs mais económicos.">
+<meta name="description" content="Agent = Model + Harness. Ranking, mapa, calculadora e auditoria local de harnesses. Escolhe o harness certo e usa LLMs mais económicos.">
 <style>
   :root{
-    --bg:#faf9f7; --ink:#2b2a33; --muted:#6b6a76; --card:#ffffff; --line:#e4e1da;
-    --lav:#e8e4f5; --lav2:#d8d1ef; --blue:#dbe7f5; --green:#dcead8; --yellow:#f7ecd4;
-    --pink:#f5dfe4; --cyan:#d9efee; --orange:#f7e2cf;
-    --accent:#5b4b9e; --accent2:#8a7bc8;
+    --bg:#07070f; --bg2:#0c0c1a; --ink:#e2e8f0; --muted:#8b93a7; --line:rgba(255,255,255,.08);
+    --card:rgba(255,255,255,.035); --card2:rgba(255,255,255,.06);
+    --violet:#8b5cf6; --cyan:#22d3ee; --emerald:#34d399; --amber:#fbbf24; --rose:#fb7185;
+    --grad:linear-gradient(135deg,#8b5cf6,#22d3ee);
+    --grad2:linear-gradient(135deg,#34d399,#22d3ee);
+    --radius:16px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{font-family:"Segoe UI", system-ui, -apple-system, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55;}
-  .wrap{max-width:1100px; margin:0 auto; padding:0 20px 60px;}
-  header{padding:34px 0 10px;}
-  .logo{font-size:26px; font-weight:800; letter-spacing:-.5px;}
-  .logo span{color:var(--accent);}
-  .tagline{color:var(--muted); font-size:14px; margin-top:2px;}
-  nav{display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 26px;}
-  nav button{background:var(--card); border:1px solid var(--line); border-radius:999px; padding:8px 16px;
-    font-size:14px; cursor:pointer; color:var(--ink); transition:all .15s;}
-  nav button:hover{border-color:var(--accent2);}
-  nav button.active{background:var(--lav2); border-color:var(--accent); color:var(--accent); font-weight:700;}
+  html{scroll-behavior:smooth;}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; min-height:100vh;
+    background-image:radial-gradient(1200px 500px at 80% -10%, rgba(139,92,246,.14), transparent 60%),
+                     radial-gradient(900px 400px at 10% 110%, rgba(34,211,238,.10), transparent 60%);}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 22px 70px; position:relative;}
+  header{padding:38px 0 6px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .logo{font-size:27px; font-weight:800; letter-spacing:-.6px; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .tagline{color:var(--muted); font-size:13.5px; margin-top:2px;}
+  nav{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 28px; position:sticky; top:10px; z-index:50;
+    background:rgba(7,7,15,.75); backdrop-filter:blur(14px); border:1px solid var(--line); border-radius:999px; padding:6px; width:fit-content; max-width:100%;}
+  nav button{background:transparent; border:none; border-radius:999px; padding:8px 15px; font-size:13.5px; cursor:pointer; color:var(--muted); transition:all .18s; font-weight:600;}
+  nav button:hover{color:var(--ink);}
+  nav button.active{background:var(--grad); color:#fff; box-shadow:0 4px 18px rgba(139,92,246,.35);}
   section{display:none;}
-  section.active{display:block; animation:fade .25s ease;}
-  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
-  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:18px;}
-  h2{font-size:20px; margin-bottom:8px;}
-  h3{font-size:16px; margin:16px 0 6px;}
+  section.active{display:block; animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:18px; backdrop-filter:blur(8px);}
+  h2{font-size:21px; margin-bottom:6px; letter-spacing:-.3px;}
+  h3{font-size:15.5px; margin:18px 0 6px;}
   .muted{color:var(--muted); font-size:13px;}
-  .badge{display:inline-block; font-size:11px; font-weight:700; border-radius:999px; padding:2px 9px; margin-left:6px; vertical-align:middle;}
-  .b-audit{background:#dcead8; color:#2d6a2d;}
-  .b-est{background:#f7ecd4; color:#8a6d1a;}
-  .b-dom{background:var(--blue); color:#2b4a7a;}
-  table{width:100%; border-collapse:collapse; font-size:13.5px;}
-  th,td{padding:8px 10px; text-align:left; border-bottom:1px solid var(--line);}
-  th{cursor:pointer; user-select:none; white-space:nowrap; font-size:12.5px; color:var(--muted);}
-  th:hover{color:var(--accent);}
-  th.sorted::after{content:" ▾";}
-  th.sorted.asc::after{content:" ▴";}
+  .badge{display:inline-block; font-size:10.5px; font-weight:800; border-radius:999px; padding:2.5px 10px; margin-left:6px; vertical-align:middle; letter-spacing:.3px; text-transform:uppercase;}
+  .b-audit{background:rgba(52,211,153,.14); color:var(--emerald); border:1px solid rgba(52,211,153,.35);}
+  .b-est{background:rgba(251,191,36,.12); color:var(--amber); border:1px solid rgba(251,191,36,.3);}
+  .b-prel{background:rgba(34,211,238,.12); color:var(--cyan); border:1px solid rgba(34,211,238,.3);}
+  .tbl-wrap{overflow-x:auto; border-radius:12px; border:1px solid var(--line);}
+  table{width:100%; border-collapse:collapse; font-size:13.5px; min-width:760px;}
+  th,td{padding:10px 12px; text-align:left; border-bottom:1px solid var(--line);}
+  thead th{position:sticky; top:0; background:#10101f; z-index:5; cursor:pointer; user-select:none; white-space:nowrap; font-size:12px; color:var(--muted); letter-spacing:.4px; text-transform:uppercase;}
+  thead th:hover{color:var(--cyan);}
+  thead th.sorted{color:var(--violet);} thead th.sorted::after{content:" ▾";} thead th.sorted.asc::after{content:" ▴";}
+  tbody tr{cursor:pointer; transition:background .12s;}
+  tbody tr:hover{background:rgba(139,92,246,.08);}
   td.num, th.num{text-align:right;}
-  tr.harness-row{cursor:pointer;}
-  tr.harness-row:hover{background:#f4f2fb;}
-  .score-cell{font-weight:800; font-size:15px;}
-  .bar{height:6px; background:var(--line); border-radius:3px; overflow:hidden; min-width:70px;}
-  .bar i{display:block; height:100%; background:var(--accent2); border-radius:3px;}
-  .pill{display:inline-block; background:var(--lav); border-radius:6px; padding:1px 8px; font-size:11.5px; margin:1px 2px 1px 0;}
-  details{border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin-bottom:10px; background:var(--card);}
-  summary{cursor:pointer; font-weight:600; font-size:14.5px;}
-  .domain{margin-bottom:18px;}
-  .domain h4{display:flex; align-items:center; gap:10px; font-size:15px; margin-bottom:8px;}
-  .chip{font-size:11px; font-weight:800; border-radius:6px; padding:2px 8px;}
-  .c-A{background:var(--blue); color:#2b4a7a;} .c-B{background:var(--green); color:#2d6a2d;}
-  .c-C{background:var(--yellow); color:#8a6d1a;} .c-D{background:var(--pink); color:#8a2b3a;}
-  .c-E{background:var(--lav); color:#5b4b9e;} .c-F{background:var(--cyan); color:#1e6a6a;}
+  .score-cell{font-weight:800; font-size:15.5px;}
+  .bar{height:6px; background:rgba(255,255,255,.07); border-radius:3px; overflow:hidden; min-width:64px;}
+  .bar i{display:block; height:100%; border-radius:3px; background:var(--grad2);}
+  .pill{display:inline-block; background:rgba(139,92,246,.12); border:1px solid rgba(139,92,246,.25); color:#c4b5fd; border-radius:7px; padding:1px 9px; font-size:11.5px; margin:2px 3px 2px 0;}
+  details{border:1px solid var(--line); border-radius:12px; padding:13px 17px; margin-bottom:10px; background:var(--card);}
+  summary{cursor:pointer; font-weight:700; font-size:14.5px; list-style:none; display:flex; align-items:center; gap:10px;}
+  summary::-webkit-details-marker{display:none;}
+  summary::before{content:"▸"; color:var(--violet); transition:transform .2s;}
+  details[open] summary::before{transform:rotate(90deg);}
+  .chip{font-size:11px; font-weight:800; border-radius:7px; padding:2px 9px; letter-spacing:.4px;}
+  .c-A{background:rgba(59,130,246,.16); color:#93c5fd;} .c-B{background:rgba(52,211,153,.14); color:#6ee7b7;}
+  .c-C{background:rgba(251,191,36,.13); color:#fcd34d;} .c-D{background:rgba(251,113,133,.13); color:#fda4af;}
+  .c-E{background:rgba(139,92,246,.15); color:#c4b5fd;} .c-F{background:rgba(34,211,238,.13); color:#67e8f9;}
   .quiz-q{margin-bottom:18px;}
-  .quiz-q label{display:block; font-weight:600; margin-bottom:6px;}
-  .quiz-q select{width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:9px; font-size:14px; background:#fff;}
-  button.primary{background:var(--accent); color:#fff; border:none; border-radius:999px; padding:11px 26px; font-size:15px; font-weight:700; cursor:pointer;}
-  button.primary:hover{background:var(--accent2);}
-  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
-  .result-card{border-left:5px solid var(--accent2);}
-  .calc input{width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:9px; font-size:14px;}
-  .calc label{display:block; font-size:13px; color:var(--muted); margin:10px 0 4px; font-weight:600;}
+  .quiz-q label{display:block; font-weight:700; margin-bottom:6px; font-size:14.5px;}
+  .quiz-q select{width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:11px; font-size:14px; background:#12122a; color:var(--ink);}
+  button.primary{background:var(--grad); color:#fff; border:none; border-radius:999px; padding:12px 28px; font-size:15px; font-weight:800; cursor:pointer; box-shadow:0 6px 24px rgba(139,92,246,.35); transition:transform .15s, box-shadow .15s;}
+  button.primary:hover{transform:translateY(-1px); box-shadow:0 10px 32px rgba(139,92,246,.5);}
+  button.ghost{background:transparent; border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:10px 20px; font-size:14px; cursor:pointer; font-weight:600; transition:all .15s;}
+  button.ghost:hover{border-color:var(--violet); color:var(--violet);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:780px){.grid2{grid-template-columns:1fr;}}
+  .result-card{border-left:4px solid var(--violet);}
+  .calc input{width:100%; padding:10px 13px; border:1px solid var(--line); border-radius:11px; font-size:14px; background:#12122a; color:var(--ink);}
+  .calc label{display:block; font-size:12.5px; color:var(--muted); margin:11px 0 4px; font-weight:700; letter-spacing:.2px;}
   .range-row{display:flex; align-items:center; gap:12px;}
-  .range-row input[type=range]{flex:1;}
-  .range-row output{font-weight:700; min-width:52px; text-align:right;}
-  .big{font-size:30px; font-weight:800; color:var(--accent);}
-  .green{color:#2d6a2d;} .red{color:#a02b3a;}
-  .hero{background:linear-gradient(135deg,var(--lav) 0%,var(--blue) 100%); border:1px solid var(--line); border-radius:16px; padding:30px; margin-bottom:20px;}
-  .hero h2{font-size:26px;}
-  .hero .sub{color:#4a4468; font-size:15px; margin-top:6px;}
-  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:18px;}
-  .step{background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px;}
-  .step b{display:block; color:var(--accent); font-size:13px; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px;}
-  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12.5px;}
-  a{color:var(--accent);}
-  .legend{font-size:12.5px; color:var(--muted); margin-top:8px;}
+  .range-row input[type=range]{flex:1; accent-color:var(--violet);}
+  .range-row output{font-weight:800; min-width:52px; text-align:right; color:var(--cyan);}
+  .big{font-size:32px; font-weight:800; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .green{color:var(--emerald);} .red{color:var(--rose);}
+  .hero{background:linear-gradient(135deg, rgba(139,92,246,.16), rgba(34,211,238,.10)); border:1px solid var(--line); border-radius:20px; padding:34px; margin-bottom:20px; position:relative; overflow:hidden;}
+  .hero::after{content:""; position:absolute; inset:0; background:radial-gradient(600px 200px at 85% 0%, rgba(139,92,246,.18), transparent 70%); pointer-events:none;}
+  .hero h2{font-size:27px; letter-spacing:-.5px;}
+  .hero .sub{color:#b8bdd0; font-size:15px; margin-top:8px; max-width:780px;}
+  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:20px;}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px;}
+  .step b{display:block; color:var(--cyan); font-size:12px; text-transform:uppercase; letter-spacing:.8px; margin-bottom:7px;}
+  footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:12.5px;}
+  a{color:var(--cyan); text-decoration:none;} a:hover{text-decoration:underline;}
+  .legend{font-size:12px; color:var(--muted); margin-top:8px;}
+  .audit-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;}
+  @media(max-width:900px){.audit-grid{grid-template-columns:1fr;}}
+  .dim-row{display:flex; align-items:center; gap:10px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,.05);}
+  .dim-row .name{flex:0 0 190px; font-size:12.5px;}
+  .dim-row .why{flex:1; font-size:11.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .dim-row input[type=range]{width:90px; accent-color:var(--violet);}
+  .dim-row output{font-weight:800; font-size:12.5px; min-width:22px; text-align:right;}
+  .radar-wrap{display:flex; justify-content:center; padding:6px 0;}
+  .donut-row{display:flex; align-items:center; gap:14px;}
+  .spin{display:inline-block; width:14px; height:14px; border:2px solid rgba(139,92,246,.3); border-top-color:var(--violet); border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px;}
+  @keyframes sp{to{transform:rotate(360deg);}}
+  .notice{border:1px solid rgba(251,191,36,.3); background:rgba(251,191,36,.07); border-radius:12px; padding:12px 16px; font-size:13px; color:#fde68a; margin:12px 0;}
+  .ok{border-color:rgba(52,211,153,.3); background:rgba(52,211,153,.07); color:#a7f3d0;}
+  .dim-grad{height:7px; border-radius:4px; background:var(--line); overflow:hidden; flex:1;}
+  .dim-grad i{display:block; height:100%; background:var(--grad); border-radius:4px;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="logo">Harness <span>Compass</span></div>
-    <div class="tagline">Agent = Model + Harness · Escolhe o harness certo e o modelo barato chega lá.</div>
+    <div>
+      <div class="logo">🧭 Harness Compass</div>
+      <div class="tagline">Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.</div>
+    </div>
+    <button class="ghost" onclick="switchView('audit')">📂 Auditar uma pasta</button>
   </header>
 
   <nav id="nav">
     <button data-view="home" class="active">Paradigma</button>
     <button data-view="ranking">Ranking</button>
-    <button data-view="map">Mapa do Harness</button>
+    <button data-view="map">Mapa</button>
+    <button data-view="audit">Auditar pasta</button>
     <button data-view="quiz">Que harness para ti?</button>
-    <button data-view="economy">Calculadora de economia</button>
-    <button data-view="method">Método &amp; evidência</button>
+    <button data-view="economy">Calculadora</button>
+    <button data-view="method">Método</button>
   </nav>
 
   <!-- ============ HOME ============ -->
   <section id="view-home" class="active">
     <div class="hero">
       <h2>O harness decide quanto do teu dinheiro em tokens é desperdiçado.</h2>
-      <p class="sub">Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão de contexto, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se sozinho na primeira semana de produção.</p>
+      <p class="sub">Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se na primeira semana de produção. E agora podes <b>auditar o teu próprio projeto</b> e vê-lo entrar no ranking.</p>
     </div>
     <div class="card">
       <h2>O paradigma em 3 passos</h2>
       <div class="steps">
         <div class="step"><b>1 · Mede</b>O harness é a camada entre o modelo e o teu produto: guia (prompts, AGENTS.md, skills), executa (loop, tools, sandbox), verifica (testes, evals) e decide (permissões, julgamento, custo).</div>
-        <div class="step"><b>2 · Compara</b>Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — não por marketing. Harnesses auditados e estimativas marcadas separadamente.</div>
-        <div class="step"><b>3 · Decide</b>Com um harness potente, um modelo barato (DeepSeek, Gemini Flash, Qwen) chega ao nível de um caro. O quiz diz-te qual harness encaixa no teu caso — e a calculadora mostra quanto poupas.</div>
+        <div class="step"><b>2 · Compara</b>Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.</div>
+        <div class="step"><b>3 · Decide</b>Com um harness potente, um modelo barato chega ao nível de um caro. O quiz diz-te qual encaixa no teu caso — e a calculadora mostra quanto poupas.</div>
       </div>
     </div>
     <div class="card">
-      <h2>O que o gráfico da anatomia mostra — e o que lhe falta</h2>
-      <p class="muted">A anatomia clássica (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade, Codebase) está certa. A versão completa acrescenta o que a auditação real de harnesses revelou:</p>
-      <p style="margin-top:10px"><span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span></p>
+      <h2>Da anatomia clássica ao sistema cibernético</h2>
+      <p class="muted">A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:</p>
+      <p style="margin-top:10px">
+        <span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span>
+      </p>
       <p class="legend">"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."</p>
     </div>
   </section>
@@ -123,18 +152,20 @@
   <!-- ============ RANKING ============ -->
   <section id="view-ranking">
     <div class="card">
-      <h2>Ranking de harnesses</h2>
-      <p class="muted">Score composto 0–10 = média das 22 dimensões. Clica numa coluna para ordenar; clica numa linha para o detalhe. <span class="badge b-audit">AUDITADO</span> = dados de auditoria real com evidência file:line · <span class="badge b-est">ESTIMATIVA</span> = avaliação informada, a validar.</p>
-      <div style="margin:12px 0"><b class="muted">Filtrar por domínio:</b>
-        <button class="pill" data-f="all" style="cursor:pointer;border:none">Todos</button>
-        <button class="pill" data-f="A" style="cursor:pointer;border:none">A · Núcleo</button>
-        <button class="pill" data-f="B" style="cursor:pointer;border:none">B · Guias</button>
-        <button class="pill" data-f="C" style="cursor:pointer;border:none">C · Sensores</button>
-        <button class="pill" data-f="D" style="cursor:pointer;border:none">D · Governação ★</button>
-        <button class="pill" data-f="E" style="cursor:pointer;border:none">E · Aprendizagem</button>
-        <button class="pill" data-f="F" style="cursor:pointer;border:none">F · Operacional</button>
+      <h2>Ranking de harnesses <span id="rank-count"></span></h2>
+      <p class="muted">Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa.
+        <span class="badge b-audit">Auditado</span> = evidência file:line · <span class="badge b-prel">Preliminar</span> = análise local de pasta · <span class="badge b-est">Estimativa</span> = informada, a validar.</p>
+      <div style="margin:14px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase">Filtrar domínio:</b>
+        <button class="pill fbtn" data-f="all" style="cursor:pointer">Todos</button>
+        <button class="pill fbtn" data-f="A" style="cursor:pointer">A Núcleo</button>
+        <button class="pill fbtn" data-f="B" style="cursor:pointer">B Guias</button>
+        <button class="pill fbtn" data-f="C" style="cursor:pointer">C Sensores</button>
+        <button class="pill fbtn" data-f="D" style="cursor:pointer">D Governação ★</button>
+        <button class="pill fbtn" data-f="E" style="cursor:pointer">E Aprendizagem</button>
+        <button class="pill fbtn" data-f="F" style="cursor:pointer">F Operacional</button>
       </div>
-      <div style="overflow-x:auto">
+      <div class="tbl-wrap">
         <table id="rank-table">
           <thead><tr id="rank-head"></tr></thead>
           <tbody id="rank-body"></tbody>
@@ -149,7 +180,22 @@
     <div class="card">
       <h2>Mapa do Harness — 6 domínios × 22 dimensões</h2>
       <p class="muted">A taxonomia usada para auditar qualquer harness. Cada dimensão tem KPIs próprios e escala de maturidade 0–10.</p>
-      <div id="map-container"></div>
+      <div id="map-container" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <!-- ============ AUDIT ============ -->
+  <section id="view-audit">
+    <div class="card">
+      <h2>📂 Auditar uma pasta e rankeá-la</h2>
+      <p class="muted">Abre a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>Tudo corre no teu browser — nada sai da tua máquina.</b></p>
+      <div style="margin:18px 0; display:flex; gap:10px; flex-wrap:wrap">
+        <button class="primary" onclick="pickFolder()">Escolher pasta do projeto</button>
+        <button class="ghost" onclick="resetAudit()">Limpar</button>
+        <input type="file" id="folder-input" webkitdirectory directory multiple style="display:none">
+      </div>
+      <div id="audit-status" class="muted"></div>
+      <div id="audit-result" style="margin-top:16px"></div>
     </div>
   </section>
 
@@ -158,7 +204,7 @@
     <div class="card">
       <h2>Que harness para ti?</h2>
       <p class="muted">Responde a 6 perguntas. O Compass pondera as 22 dimensões conforme o teu perfil e recomenda os 3 harnesses com justificação.</p>
-      <div id="quiz-questions"></div>
+      <div id="quiz-questions" style="margin:16px 0"></div>
       <button class="primary" onclick="runQuiz()">Calcular recomendação</button>
       <div id="quiz-result" style="margin-top:18px"></div>
     </div>
@@ -169,7 +215,7 @@
     <div class="card">
       <h2>Calculadora do paradigma: quanto poupa um harness potente?</h2>
       <p class="muted">O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.</p>
-      <div class="grid2">
+      <div class="grid2" style="margin-top:14px">
         <div class="calc">
           <label>Tokens de entrada / mês (milhões)</label>
           <input type="number" id="ec-tokens" value="200" min="1">
@@ -187,15 +233,15 @@
         <div class="calc">
           <label>Eficiência do harness — cache de prompt (hit rate %)</label>
           <div class="range-row"><input type="range" id="ec-cache" min="0" max="90" value="55" oninput="calcEconomy()"><output id="ec-cache-o">55%</output></div>
-          <label>Falhas evitadas — retry/fallback inteligente (% de chamadas não desperdiçadas)</label>
+          <label>Falhas evitadas — retry/fallback inteligente (% não desperdiçado)</label>
           <div class="range-row"><input type="range" id="ec-retry" min="0" max="60" value="25" oninput="calcEconomy()"><output id="ec-retry-o">25%</output></div>
-          <label>Compressão de contexto (redução % do contexto médio enviado)</label>
+          <label>Compressão de contexto (redução % do contexto enviado)</label>
           <div class="range-row"><input type="range" id="ec-comp" min="0" max="70" value="30" oninput="calcEconomy()"><output id="ec-comp-o">30%</output></div>
-          <label>Smart routing (fração de trabalho enviada para o modelo barato)</label>
+          <label>Smart routing (fração de trabalho no modelo barato)</label>
           <div class="range-row"><input type="range" id="ec-route" min="0" max="100" value="70" oninput="calcEconomy()"><output id="ec-route-o">70%</output></div>
         </div>
       </div>
-      <div id="ec-result" class="card" style="margin-top:16px; border-left:5px solid var(--green)"></div>
+      <div id="ec-result" class="card" style="margin-top:16px; border-left:4px solid var(--emerald)"></div>
     </div>
   </section>
 
@@ -203,153 +249,156 @@
   <section id="view-method">
     <div class="card">
       <h2>Método e evidência</h2>
-      <p>O Harness Compass nasce de auditorias reais a harnesses, não de opinião. Cada harness <span class="badge b-audit">AUDITADO</span> foi analisado linha-a-linha com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada.</p>
+      <p>O Harness Compass nasce de auditorias reais, não de opinião. Um harness <span class="badge b-audit">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class="badge b-prel">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.</p>
       <h3>Escala de maturidade (0–10)</h3>
-      <table>
-        <tr><td><b>0</b></td><td>Não existe (provado por busca)</td></tr>
-        <tr><td><b>2</b></td><td>Vestígio / stub não ligado ao caminho de execução</td></tr>
-        <tr><td><b>4</b></td><td>Funciona no caso simples, degrada previsivelmente</td></tr>
-        <tr><td><b>6</b></td><td>Funcional e integrado, gaps conhecidos</td></tr>
-        <tr><td><b>8</b></td><td>Sólido, erros tratados, testes</td></tr>
-        <tr><td><b>10</b></td><td>Razão de existir, profundidade além do requisito</td></tr>
-      </table>
-      <h3>Estudo de caso — Hermes Agent vs Kando (auditados)</h3>
-      <p>A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. A lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — Hermes lidera em contexto/caching/ferramentas/contenção; Kando lidera em avaliação/custo/julgamento. O port cruzado é o caminho.</p>
-      <h3>O que significa "descobrir o melhor harness"</h3>
-      <p>Não existe "o melhor" em absoluto — existe o melhor <b>para o teu caso</b>. O quiz pondera as dimensões pelo teu perfil. Mas há uma lei universal: <b>quanto mais potente o harness, menos depende do modelo ser caro</b>. Caching byte-estável, retry inteligente, compressão e routing recuperam, em $, o preço de qualquer harness.</p>
-      <p class="muted" style="margin-top:10px">Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md · contribuições bem-vindas: adiciona um harness ao array no fim deste ficheiro e faz um PR.</p>
+      <div class="tbl-wrap" style="margin-top:8px">
+        <table style="min-width:0">
+          <tr><td><b>0</b></td><td>Não existe (provado por busca)</td></tr>
+          <tr><td><b>2</b></td><td>Vestígio / stub não ligado ao caminho de execução</td></tr>
+          <tr><td><b>4</b></td><td>Funciona no caso simples, degrada previsivelmente</td></tr>
+          <tr><td><b>6</b></td><td>Funcional e integrado, gaps conhecidos</td></tr>
+          <tr><td><b>8</b></td><td>Sólido, erros tratados, testes</td></tr>
+          <tr><td><b>10</b></td><td>Razão de existir, profundidade além do requisito</td></tr>
+        </table>
+      </div>
+      <h3>Como funciona a auditoria local (badge Preliminar)</h3>
+      <p>A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.</p>
+      <h3>Estudo de caso — Hermes Agent vs Kando</h3>
+      <p>A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.</p>
+      <p class="muted" style="margin-top:10px">Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.</p>
     </div>
   </section>
 
-  <footer>Harness Compass · Agent = Model + Harness · dados auditados vs estimativas sempre distinguidos · MIT · feito com 22 dimensões de discernimento.</footer>
+  <footer>Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · MIT.</footer>
 </div>
 
 <script>
 /* ================= DADOS ================= */
 const DOMAINS = [
-  {id:"A", name:"Núcleo & Interface", color:"c-A", desc:"Como o harness liga, alimenta e faz correr o modelo."},
-  {id:"B", name:"Guias feedforward", color:"c-B", desc:"O que orienta o agente ANTES de agir."},
-  {id:"C", name:"Sensores feedback", color:"c-C", desc:"O que verifica e corrige DEPOIS de agir."},
-  {id:"D", name:"Governação, Julgamento & Guardrails ★", color:"c-D", desc:"Permissões, decisão, compliance, ética — o foco obrigatório."},
-  {id:"E", name:"Ciclo de vida & aprendizagem", color:"c-E", desc:"Como o harness evolui com o uso."},
-  {id:"F", name:"Operacional", color:"c-F", desc:"Execução, custo e resiliência."},
+  {id:"A", name:"Núcleo & Interface", color:"c-A"},
+  {id:"B", name:"Guias feedforward", color:"c-B"},
+  {id:"C", name:"Sensores feedback", color:"c-C"},
+  {id:"D", name:"Governação, Julgamento & Guardrails ★", color:"c-D"},
+  {id:"E", name:"Ciclo de vida & aprendizagem", color:"c-E"},
+  {id:"F", name:"Operacional", color:"c-F"},
 ];
 
 const DIMENSIONS = [
-  ["A1","Multi-modelo","Providers, fallback chain, pools de credenciais, smart routing."],
-  ["A2","Prompts & contexto","System prompt estável, caching, compressão, context files."],
-  ["A3","Agent loop & orquestração","Loop decide→executa→observa; subagentes; scheduling."],
-  ["A4","Ferramentas & extensibilidade","Registry, toolsets, MCP, plugins, footprint."],
-  ["B1","Especificação de intenção","Plans, briefs, tarefas estruturadas."],
+  ["A1","Multi-modelo","Providers, fallback, pools, routing."],
+  ["A2","Prompts & contexto","System prompt, caching, compressão, context files."],
+  ["A3","Agent loop & orquestração","Loop, subagentes, scheduling."],
+  ["A4","Ferramentas & extensibilidade","Registry, toolsets, MCP, plugins."],
+  ["B1","Especificação de intenção","Plans, briefs, tarefas."],
   ["B2","Skills & playbooks","Conhecimento procedural, curadoria."],
-  ["B3","Convenções de projeto","AGENTS.md, CLAUDE.md, .cursorrules — coerência."],
+  ["B3","Convenções de projeto","AGENTS.md, CLAUDE.md, .cursorrules."],
   ["B4","Políticas declaradas","Restrições explícitas e testáveis."],
-  ["C1","Testes & verificação","Suites, CI, linters, anti change-detectors."],
+  ["C1","Testes & verificação","Suites, CI, linters."],
   ["C2","Avaliação (evals, LLM-as-judge)","Benchmarks, juízes, drift."],
-  ["C3","Observabilidade","Logs, traces, métricas, classificação de erros."],
+  ["C3","Observabilidade","Logs, traces, métricas, erros."],
   ["C4","Auto-correção","Retry, circuit breakers, fix loops."],
-  ["D1","Guardrails de segurança","Anti-injection, validação de output, scanning."],
+  ["D1","Guardrails de segurança","Anti-injection, scanning, validação."],
   ["D2","Permissões & sandboxing","Approvals, least privilege, sandbox."],
-  ["D3","Julgamento & escalação","Onde decide sozinho vs humano; thresholds."],
-  ["D4","Compliance & legal","Trilhas de auditoria, retenção, GDPR."],
-  ["D5","Ética & alinhamento","Disclosure de IA, fairness, limitações."],
-  ["E1","Memória & aprendizagem","Persistência, anti-promptware, isolamento."],
+  ["D3","Julgamento & escalação","Decide sozinho vs humano; thresholds."],
+  ["D4","Compliance & legal","Auditoria, retenção, GDPR."],
+  ["D5","Ética & alinhamento","Disclosure, fairness, limitações."],
+  ["E1","Memória & aprendizagem","Persistência, anti-promptware."],
   ["E2","Steering loop humano","Como o humano itera no harness."],
-  ["F1","Execução & ambientes","Onde corre: local, docker, cloud, edge."],
-  ["F2","Custo & eficiência","Cap monetário, budgets, rate limiting."],
-  ["F3","Resiliência","Failover, timeouts, crash recovery, leases."],
+  ["F1","Execução & ambientes","Onde corre: local, docker, cloud."],
+  ["F2","Custo & eficiência","Cap, budgets, rate limiting."],
+  ["F3","Resiliência","Failover, timeouts, crash recovery."],
 ];
 
-const HARNESSES = [
+const BUILTIN_HARNESSES = [
   {id:"hermes", name:"Hermes Agent", vendor:"Nous Research", type:"Agente pessoal open-source", url:"https://github.com/NousResearch/hermes-agent", audited:true,
    tags:["conversacional","multi-provider","CLI/gateway/TUI"],
    blurb:"O harness mais completo em contexto/caching/ferramentas/contenção. Obsessão estrutural pelo prompt-cache byte-estável. Pontos fracos: sem evals, sem cap de custo, sem ledger de aprovações.",
    scores:{A1:8,A2:9,A3:9,A4:9,B1:5,B2:8,B3:8,B4:8,C1:9,C2:3,C3:8,C4:9,D1:8,D2:8,D3:7,D4:6,D5:3,E1:9,E2:8,F1:8,F2:7,F3:9}},
   {id:"kando", name:"Kando", vendor:"DevFactoryAI", type:"Control plane multi-agente", url:"", audited:true,
    tags:["multi-agente","verificação empírica","cost cap","leases"],
-   blurb:"Plataforma supervisora de agentes externos (Codex/Claude/OpenClaw). Lidera em avaliação (LLM-as-judge 3 camadas), cap duro de custo e julgamento como protocolo. Falta-lhe contenção de comandos destrutivos e ferramentas nativas.",
+   blurb:"Plataforma supervisora de agentes externos (Codex/Claude/OpenClaw). Lidera em avaliação (LLM-as-judge 3 camadas), cap duro de custo e julgamento como protocolo. Falta contenção de destrutivas e ferramentas nativas.",
    scores:{A1:7,A2:5,A3:6,A4:2,B1:8,B2:2,B3:8,B4:7,C1:7,C2:7,C3:7,C4:7,D1:5,D2:6,D3:7,D4:6,D5:4,E1:6,E2:6,F1:6,F2:8,F3:8}},
   {id:"claude-code", name:"Claude Code", vendor:"Anthropic", type:"Coding agent no terminal", url:"https://www.anthropic.com/claude-code", audited:false,
    tags:["coding","CLI","IDE"],
-   blurb:"Agente de coding com boa integração no ecossistema Anthropic, approvals e sandboxing razoáveis. Estimativa — a validar com auditoria.",
+   blurb:"Coding agent com boa integração no ecossistema Anthropic, approvals e sandboxing razoáveis. Estimativa — a validar.",
    scores:{A1:6,A2:8,A3:8,A4:7,B1:7,B2:7,B3:7,B4:6,C1:7,C2:5,C3:7,C4:7,D1:6,D2:7,D3:6,D4:5,D5:6,E1:4,E2:7,F1:7,F2:6,F3:7}},
   {id:"codex", name:"Codex CLI", vendor:"OpenAI", type:"Coding agent no terminal", url:"https://developers.openai.com/codex", audited:false,
    tags:["coding","CLI"],
-   blurb:"Agente da OpenAI com sandbox por defeito e approvals. Estimativa — a validar.",
+   blurb:"Agente da OpenAI com sandbox por defeito e approvals. Estimativa.",
    scores:{A1:7,A2:7,A3:7,A4:6,B1:7,B2:6,B3:6,B4:6,C1:7,C2:4,C3:6,C4:7,D1:6,D2:7,D3:6,D4:4,D5:5,E1:4,E2:6,F1:7,F2:6,F3:7}},
   {id:"cursor", name:"Cursor", vendor:"Anysphere", type:"IDE com IA", url:"https://cursor.com", audited:false,
    tags:["IDE","editor"],
-   blurb:"IDE-first, ótimo para edição assistida; menos focado em autonomia multi-step e governação. Estimativa.",
+   blurb:"IDE-first, ótimo para edição assistida; menos autonomia multi-step e governação. Estimativa.",
    scores:{A1:5,A2:7,A3:6,A4:6,B1:6,B2:6,B3:5,B4:5,C1:5,C2:4,C3:6,C4:5,D1:5,D2:6,D3:5,D4:4,D5:5,E1:5,E2:6,F1:6,F2:5,F3:6}},
   {id:"cline", name:"Cline", vendor:"Cline", type:"Coding agent open-source (VS Code)", url:"https://github.com/cline/cline", audited:false,
    tags:["coding","VS Code","open-source"],
-   blurb:"Agente open-source popular com aprovação manual de cada ação e BYOK (traz a tua chave). Estimativa.",
+   blurb:"Agente open-source com aprovação manual de cada ação e BYOK. Estimativa.",
    scores:{A1:6,A2:6,A3:7,A4:7,B1:6,B2:6,B3:5,B4:6,C1:6,C2:4,C3:6,C4:6,D1:6,D2:7,D3:6,D4:4,D5:5,E1:4,E2:6,F1:7,F2:6,F3:6}},
   {id:"openclaw", name:"OpenClaw", vendor:"OpenClaw", type:"Agente pessoal multi-plataforma", url:"", audited:false,
    tags:["agente pessoal","gateway","open-source"],
-   blurb:"Harness pessoal multi-plataforma (clone espiritual de Clawdbot/Moltbot). Estimativa — candidato a auditoria dada a base instalada.",
+   blurb:"Harness pessoal multi-plataforma. Estimativa — candidato a auditoria dada a base instalada.",
    scores:{A1:6,A2:6,A3:7,A4:7,B1:5,B2:6,B3:5,B4:5,C1:5,C2:4,C3:6,C4:6,D1:5,D2:6,D3:5,D4:4,D5:4,E1:6,E2:6,F1:7,F2:6,F3:6}},
   {id:"ccr", name:"claude-code-router", vendor:"musistudio", type:"Router de modelos para Claude Code", url:"https://github.com/musistudio/claude-code-router", audited:false,
    tags:["router","custo"],
-   blurb:"Router que permite usar modelos baratos com Claude Code. Foco único em A1/F2; sem harness completo. Estimativa.",
+   blurb:"Router para usar modelos baratos com Claude Code. Foco em A1/F2; sem harness completo. Estimativa.",
    scores:{A1:7,A2:5,A3:5,A4:3,B1:5,B2:4,B3:4,B4:4,C1:4,C2:3,C3:5,C4:4,D1:4,D2:5,D3:4,D4:3,D5:3,E1:3,E2:5,F1:5,F2:7,F3:6}},
-  {id:"langgraph", name:"LangGraph", vendor:"LangChain", type:"Framework de orquestração de agentes", url:"https://www.langchain.com/langgraph", audited:false,
+  {id:"langgraph", name:"LangGraph", vendor:"LangChain", type:"Framework de orquestração", url:"https://www.langchain.com/langgraph", audited:false,
    tags:["framework","orquestração","Python"],
-   blurb:"Framework para construir loops de agente com controlo fino (persistência, humano-no-loop). O harness és tu. Estimativa.",
+   blurb:"Framework para construir loops com controlo fino (persistência, humano-no-loop). O harness és tu. Estimativa.",
    scores:{A1:6,A2:5,A3:8,A4:8,B1:6,B2:5,B3:4,B4:5,C1:6,C2:5,C3:6,C4:6,D1:4,D2:5,D3:5,D4:4,D5:4,E1:5,E2:6,F1:6,F2:5,F3:6}},
   {id:"crewai", name:"CrewAI", vendor:"CrewAI Inc", type:"Framework multi-agente", url:"https://www.crewai.com", audited:false,
    tags:["framework","multi-agente","Python"],
-   blurb:"Framework de equipas de agentes; conveniente para pipelines, com governação mais leve. Estimativa.",
+   blurb:"Framework de equipas de agentes; conveniente, governação mais leve. Estimativa.",
    scores:{A1:6,A2:5,A3:7,A4:7,B1:6,B2:5,B3:4,B4:4,C1:5,C2:4,C3:5,C4:4,D1:3,D2:4,D3:4,D4:3,D5:3,E1:4,E2:5,F1:5,F2:4,F3:5}},
 ];
 
-/* ================= UI ================= */
-const $ = s => document.querySelector(s);
-const $$ = s => Array.from(document.querySelectorAll(s));
-
-function nav(){
-  $$("#nav button").forEach(b=>b.addEventListener("click",()=>{
-    $$("#nav button").forEach(x=>x.classList.remove("active"));
-    b.classList.add("active");
-    $$("section").forEach(s=>s.classList.remove("active"));
-    $("#view-"+b.dataset.view).classList.add("active");
-  }));
-}
-
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
-
-function score(h){const v=Object.values(h.scores); return v.reduce((a,b)=>a+b,0)/v.length;}
-function domainScore(h,d){const dims=DIMENSIONS.filter(x=>x[0][0]===d); return dims.reduce((a,dd)=>a+h.scores[dd[0]],0)/dims.length;}
-
+let HARNESSES = BUILTIN_HARNESSES.slice();
 let sortKey="total", sortAsc=false, filter="all";
 
+/* ================= UI helpers ================= */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const score = h => {const v=Object.values(h.scores); return v.reduce((a,b)=>a+b,0)/v.length;};
+const domainScore = (h,d) => DIMENSIONS.filter(x=>x[0][0]===d).reduce((a,dd)=>a+h.scores[dd[0]],0)/DIMENSIONS.filter(x=>x[0][0]===d).length;
+const badge = h => h.audited?'<span class="badge b-audit">Auditado</span>':(h.preliminar?'<span class="badge b-prel">Preliminar</span>':'<span class="badge b-est">Estimativa</span>');
+const dimName = id => (DIMENSIONS.find(d=>d[0]===id)||[])[1]||id;
+
+function switchView(v){
+  $$("#nav button").forEach(b=>b.classList.toggle("active", b.dataset.view===v));
+  $$("section").forEach(s=>s.classList.toggle("active", s.id==="view-"+v));
+  if(v==="ranking") renderRanking();
+  if(v==="audit") updateRankCount();
+  window.scrollTo({top:0});
+}
+function nav(){$$("#nav button").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));}
+
+/* ================= RANKING ================= */
 function buildRanking(){
   const head=$("#rank-head"); head.innerHTML="";
-  const cols=[["name","Harness"],["vendor","Vendor"],["total","Score"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]];
-  cols.forEach(([k,label])=>{
-    const th=document.createElement("th");
-    th.textContent=label;
-    th.dataset.k=k;
+  [["name","Harness"],["vendor","Vendor"],["total","Score"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]].forEach(([k,label])=>{
+    const th=document.createElement("th"); th.textContent=label; th.dataset.k=k;
     if(k==="total")th.classList.add("num");
     th.addEventListener("click",()=>{ if(sortKey===k)sortAsc=!sortAsc; else{sortKey=k; sortAsc=false;} renderRanking(); });
     head.appendChild(th);
   });
   renderRanking();
 }
-
+function updateRankCount(){
+  const el=$("#rank-count"); if(el) el.innerHTML = `<span class="muted" style="font-size:13px; font-weight:400">· ${HARNESSES.length} harnesses</span>`;
+}
 function renderRanking(){
   const rows=HARNESSES.slice();
   rows.sort((a,b)=>{
-    let va=sortKey==="total"?score(a):(sortKey==="name"?a.name:domainScore(a,sortKey));
-    let vb=sortKey==="total"?score(b):(sortKey==="name"?b.name:domainScore(b,sortKey));
+    const va=sortKey==="total"?score(a):(sortKey==="name"?a.name:domainScore(a,sortKey));
+    const vb=sortKey==="total"?score(b):(sortKey==="name"?b.name:domainScore(b,sortKey));
     if(typeof va==="string")return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
     return sortAsc?va-vb:vb-va;
   });
   const body=$("#rank-body"); body.innerHTML="";
   rows.forEach(h=>{
-    const tr=document.createElement("tr"); tr.className="harness-row";
+    const tr=document.createElement("tr");
     const nameCell=document.createElement("td");
-    nameCell.innerHTML=esc(h.name)+(h.audited?' <span class="badge b-audit">AUDITADO</span>':' <span class="badge b-est">ESTIMATIVA</span>');
+    nameCell.innerHTML=esc(h.name)+badge(h);
     tr.appendChild(nameCell);
     const v=document.createElement("td"); v.textContent=h.vendor; tr.appendChild(v);
     const t=document.createElement("td"); t.className="num score-cell";
@@ -358,121 +407,370 @@ function renderRanking(){
     tr.appendChild(t);
     ["A","B","C","D","E","F"].forEach(d=>{
       const td=document.createElement("td"); td.className="num";
-      const ds=domainScore(h,d);
-      td.innerHTML=ds.toFixed(1);
+      td.innerHTML=domainScore(h,d).toFixed(1);
       tr.appendChild(td);
     });
     tr.addEventListener("click",()=>showDetail(h));
     body.appendChild(tr);
   });
+  updateRankCount();
 }
-
 function showDetail(h){
   const el=$("#rank-detail");
-  const dims=DIMENSIONS.map(([id,name,desc])=>{
+  const radar = radarSVG([0,1,2,3,4,5].map(i=>domainScore(h,DOMAINS[i].id)), DOMAINS.map(d=>d.id), 150, 130);
+  const donut = donutSVG(score(h));
+  const dims = DIMENSIONS.map(([id,name,desc])=>{
     const s=h.scores[id];
-    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--line)">
-      <div style="flex:1"><b style="font-size:13px">${esc(name)}</b> <span class="muted" style="font-size:12px">${esc(desc)}</span></div>
-      <div style="min-width:120px;display:flex;align-items:center;gap:8px"><div class="bar" style="flex:1"><i style="width:${s*10}%"></i></div><b>${s}</b></div></div>`;
+    return `<div class="dim-row">
+      <div class="name"><b>${esc(name)}</b></div>
+      <div class="dim-grad"><i style="width:${s*10}%"></i></div>
+      <b style="font-size:12.5px">${s}</b></div>`;
   }).join("");
   el.innerHTML=`<div class="card result-card">
-    <h2>${esc(h.name)} <span class="badge ${h.audited?'b-audit':'b-est'}">${h.audited?'AUDITADO':'ESTIMATIVA'}</span></h2>
-    <p class="muted">${esc(h.vendor)} · ${esc(h.type)}${h.url?` · <a href="${esc(h.url)}" target="_blank">${esc(h.url)}</a>`:""}</p>
-    <p style="margin:10px 0">${esc(h.blurb)}</p>
-    <p>${h.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join("")}</p>
-    <h3>Score composto: <span class="big">${score(h).toFixed(1)}</span>/10</h3>
-    <div style="margin-top:8px">${dims}</div>
-    <p class="legend">${h.audited?"Dados de auditoria com evidência path:line (relatórios em docs/).":"Estimativa informada — candidato a auditoria via harness-audit."}</p>
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:18px; flex-wrap:wrap">
+      <div style="flex:1; min-width:280px">
+        <h2>${esc(h.name)} ${badge(h)}</h2>
+        <p class="muted">${esc(h.vendor)} · ${esc(h.type)}${h.url?` · <a href="${esc(h.url)}" target="_blank">${esc(h.url)}</a>`:""}</p>
+        <p style="margin:12px 0">${esc(h.blurb)}</p>
+        <p>${h.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join("")}</p>
+        <div class="donut-row" style="margin-top:16px"><div>${donut}</div>
+          <div><div class="muted" style="font-size:12px">Score composto</div><div class="big">${score(h).toFixed(1)}</div><div class="muted" style="font-size:11px">/10 · 22 dimensões</div></div>
+        </div>
+      </div>
+      <div style="min-width:300px">
+        <div class="muted" style="font-size:12px; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px">Fingerprint por domínio</div>
+        <div class="radar-wrap">${radar}</div>
+      </div>
+    </div>
+    <h3>22 dimensões</h3>
+    <div style="margin-top:6px">${dims}</div>
+    <p class="legend">${h.audited?"Auditoria com evidência path:line (relatórios em docs/).":h.preliminar?"Análise local heurística da pasta — para badge definitivo, auditoria com leitura real.":"Estimativa informada — candidata a auditoria."}</p>
   </div>`;
   el.scrollIntoView({behavior:"smooth"});
 }
 
+/* ================= SVG CHARTS ================= */
+function polar(cx,cy,r,angle){return [cx+r*Math.cos(angle), cy+r*Math.sin(angle)];}
+function radarSVG(values, labels, w, h){
+  const cx=w/2+6, cy=h/2+6, R=Math.min(w,h)/2-16, n=values.length;
+  const pt=(i,r)=>polar(cx,cy,r,-Math.PI/2 + i*2*Math.PI/n);
+  let grid="";
+  for(let g=2;g<=10;g+=2){
+    let p="";
+    for(let i=0;i<n;i++){const [x,y]=pt(i,R*g/10); p+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}
+    grid+=`<path d="${p}Z" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;
+  }
+  let spokes="";
+  for(let i=0;i<n;i++){const [x,y]=pt(i,R); spokes+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.06)"/>`;}
+  let data="";
+  for(let i=0;i<n;i++){const [x,y]=pt(i,Math.max(2,R*values[i]/10)); data+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}
+  data+="Z";
+  let dots="";
+  for(let i=0;i<n;i++){const [x,y]=pt(i,Math.max(2,R*values[i]/10)); dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#22d3ee"/>`;}
+  let labelsSvg="";
+  for(let i=0;i<n;i++){const [x,y]=pt(i,R+16); labelsSvg+=`<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="#8b93a7">${esc(labels[i])}</text>`;}
+  return `<svg width="${w+36}" height="${h+30}" viewBox="0 0 ${w+36} ${h+30}" style="max-width:100%">
+    <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity=".55"/><stop offset="100%" stop-color="#22d3ee" stop-opacity=".35"/>
+    </linearGradient></defs>
+    ${grid}${spokes}
+    <path d="${data}" fill="url(#rg)" stroke="#8b5cf6" stroke-width="2" stroke-linejoin="round"/>
+    ${dots}${labelsSvg}
+  </svg>`;
+}
+function donutSVG(v){
+  const R=34, C=2*Math.PI*R;
+  return `<svg width="92" height="92" viewBox="0 0 92 92">
+    <circle cx="46" cy="46" r="${R}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="9"/>
+    <circle cx="46" cy="46" r="${R}" fill="none" stroke="url(#dg)" stroke-width="9" stroke-linecap="round"
+      stroke-dasharray="${(v/10*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 46 46)"/>
+    <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient></defs>
+    <text x="46" y="50" text-anchor="middle" font-size="19" font-weight="800" fill="#e2e8f0">${v.toFixed(1)}</text>
+  </svg>`;
+}
+
+/* ================= MAP ================= */
 function buildMap(){
-  const el=$("#map-container");
-  el.innerHTML=DOMAINS.map(d=>{
-    const dims=DIMENSIONS.filter(x=>x[0][0]===d.id).map(([id,name,desc])=>
-      `<div style="padding:4px 0"><b style="font-size:13px">${id} · ${esc(name)}</b><br><span class="muted" style="font-size:12.5px">${esc(desc)}</span></div>`).join("");
-    return `<details><summary><span class="chip ${d.color}">${d.id}</span> ${esc(d.name)} — ${d.desc}</summary><div style="padding:10px 4px 2px">${dims}</div></details>`;
+  $("#map-container").innerHTML = DOMAINS.map(d=>{
+    const dims = DIMENSIONS.filter(x=>x[0][0]===d.id).map(([id,name,desc])=>
+      `<div style="padding:5px 0"><b style="font-size:13px">${id} · ${esc(name)}</b> <span class="muted" style="font-size:12px">— ${esc(desc)}</span></div>`).join("");
+    return `<details><summary><span class="chip ${d.color}">${d.id}</span> ${esc(d.name)}</summary><div style="padding:10px 4px 4px">${dims}</div></details>`;
   }).join("");
 }
 
+/* ================= QUIZ ================= */
 function buildQuiz(){
   const q=[
-    ["Orçamento mensal de LLM","Quanto gastas (ou toleras gastar) em tokens por mês?",
+    ["Orçamento mensal de LLM","Quanto gastas (ou toleras) em tokens por mês?",
       [["Até $50 — cada token conta",{F2:3,C4:2,A2:2}],["$50–500 — eficiência importa",{F2:2,C4:1,A2:1}],["$500+ — conforto, quero qualidade",{C2:2,D3:1,B2:1}]]],
     ["Autonomia desejada","Quanta autonomia queres dar ao agente?",
-      [["Máxima — aprovações mínimas",{D2:2,D3:1,D1:1}],["Equilibrada — aprova em destrutivas",{D2:3,D3:2}],["Conservadora — humano no loop em tudo",{D3:3,D2:2,D4:1}]]],
+      [["Máxima — aprovações mínimas",{D2:2,D3:1,D1:1}],["Equilibrada — aprova em destrutivas",{D2:3,D3:2}],["Conservadora — humano no loop",{D3:3,D2:2,D4:1}]]],
     ["Onde trabalhas","Onde o harness vai viver?",
-      [["Terminal / CLI",{A4:2,F1:1}],["IDE (VS Code, JetBrains)",{A4:2,B3:1}],["Gateway de mensagens (Telegram/Discord)",{A3:2,E2:2,D2:2}],["CI / automação / servidor",{F3:2,C1:2,F1:1}]]],
+      [["Terminal / CLI",{A4:2,F1:1}],["IDE (VS Code, JetBrains)",{A4:2,B3:1}],["Gateway de mensagens",{A3:2,E2:2,D2:2}],["CI / automação / servidor",{F3:2,C1:2,F1:1}]]],
     ["Modelos","Que relação com modelos?",
-      [["Uso um só provider",{A1:0}],["Quero trocar/fallback entre providers",{A1:3,F2:2}],["Quero routing inteligente (barato para o simples, caro para o difícil)",{A1:4,C2:1,F2:2}]]],
-    ["Qualidade de output","Como queres garantir que o resultado é bom?",
-      [["Confio no modelo",{C2:0}],["Testes e CI chegam",{C1:3}],["Quero evals/LLM-as-judge a rever o trabalho",{C2:4,C1:2}]]],
+      [["Uso um só provider",{A1:0}],["Trocar/fallback entre providers",{A1:3,F2:2}],["Routing inteligente (barato para o simples)",{A1:4,C2:1,F2:2}]]],
+    ["Qualidade de output","Como garantir que o resultado é bom?",
+      [["Confio no modelo",{C2:0}],["Testes e CI chegam",{C1:3}],["Evals/LLM-as-judge a rever",{C2:4,C1:2}]]],
     ["Extensibilidade","Vais precisar de ferramentas próprias?",
-      [["Só o que vem de fábrica",{A4:0}],["Plugins/skills do ecossistema",{B2:2,A4:2}],["Vou construir tools e skills próprias",{A4:3,B2:2,E1:1}]]],
+      [["Só o que vem de fábrica",{A4:0}],["Plugins/skills do ecossistema",{B2:2,A4:2}],["Vou construir tools e skills",{A4:3,B2:2,E1:1}]]],
   ];
+  window.__quiz=q;
   $("#quiz-questions").innerHTML=q.map((qq,i)=>`
     <div class="quiz-q"><label>${i+1}. ${esc(qq[1])}</label>
     <select id="qq-${i}">${qq[2].map((o,j)=>`<option value="${j}">${esc(o[0])}</option>`).join("")}</select></div>`).join("");
-  window.__quiz=q;
 }
-
 function runQuiz(){
-  const q=window.__quiz; const w={};
-  q.forEach((qq,i)=>{const sel=qq[2][+$("#qq-"+i).value][1]; Object.entries(sel).forEach(([k,v])=>{w[k]=(w[k]||0)+v;});});
+  const q=window.__quiz, w={};
+  q.forEach((qq,i)=>{Object.entries(qq[2][+$("#qq-"+i).value][1]).forEach(([k,v])=>{w[k]=(w[k]||0)+v;});});
   const ranked=HARNESSES.map(h=>{
     let tot=0,cnt=0;
     Object.entries(w).forEach(([k,v])=>{tot+=h.scores[k]*v; cnt+=v;});
-    return {h, w:tot/cnt};
+    return {h, w:cnt?tot/cnt:0};
   }).sort((a,b)=>b.w-a.w);
-  const top=ranked.slice(0,3);
-  const reason=h=>{
-    const strong=Object.entries(h.scores).filter(([k,v])=>v>=8).map(([k])=>DIMENSIONS.find(d=>d[0]===k)[1]).slice(0,3);
-    const weak=Object.entries(h.scores).filter(([k,v])=>v<=4).map(([k])=>DIMENSIONS.find(d=>d[0]===k)[1]).slice(0,2);
-    return `Forças: ${strong.join(", ")||"—"}. Fraquezas: ${weak.join(", ")||"nenhuma crítica"} (${h.audited?"auditado":"estimativa"}).`;
-  };
-  $("#quiz-result").innerHTML=`<h3>Recomendação para o teu perfil</h3>`+top.map((r,i)=>`
-    <div class="card result-card" style="${i===0?"border-left-width:7px":""}">
-      <h3>${i+1}. ${esc(r.h.name)} <span class="badge ${r.h.audited?'b-audit':'b-est'}">${r.h.audited?'AUDITADO':'ESTIMATIVA'}</span> <span class="muted">· ajuste ${r.w.toFixed(1)}</span></h3>
-      <p>${reason(r.h)}</p>
-    </div>`).join("")+`<p class="muted">O score composto ${esc("não")} é o critério — o ajuste pondera as dimensões que escolheste. Um harness com ${esc("score")} médio pode ser o certo para ti se for forte exatamente no que te importa.</p>`;
+  $("#quiz-result").innerHTML=`<h3>Recomendação para o teu perfil</h3>`+ranked.slice(0,3).map((r,i)=>{
+    const strong=Object.entries(r.h.scores).filter(([k,v])=>v>=8).map(([k])=>dimName(k)).slice(0,3);
+    const weak=Object.entries(r.h.scores).filter(([k,v])=>v<=4).map(([k])=>dimName(k)).slice(0,2);
+    return `<div class="card result-card">
+      <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· ajuste ${r.w.toFixed(1)}</span></h3>
+      <p class="muted">Forças: ${strong.join(", ")||"—"}. Fraquezas: ${weak.join(", ")||"nenhuma crítica"}. (${r.h.audited?"auditado":r.h.preliminar?"preliminar":"estimativa"})</p></div>`;
+  }).join("")+`<p class="muted">O score composto não é o critério — o ajuste pondera as dimensões que escolheste.</p>`;
   $("#quiz-result").scrollIntoView({behavior:"smooth"});
 }
 
+/* ================= ECONOMY ================= */
 function calcEconomy(){
   const tIn=+$("#ec-tokens").value||0, tOut=+$("#ec-out").value||0;
   const pi=+$("#ec-price-in").value||0, po=+$("#ec-price-out").value||0;
   const ppi=+$("#ec-price-in-p").value||0, ppo=+$("#ec-price-out-p").value||0;
   const cache=+$("#ec-cache").value/100, retry=+$("#ec-retry").value/100, comp=+$("#ec-comp").value/100, route=+$("#ec-route").value/100;
-  $("#ec-cache-o").textContent=$("#ec-cache").value+"%";
-  $("#ec-retry-o").textContent=$("#ec-retry").value+"%";
-  $("#ec-comp-o").textContent=$("#ec-comp").value+"%";
-  $("#ec-route-o").textContent=$("#ec-route").value+"%";
-  // Sem harness: tudo no modelo premium
-  const base= (tIn*ppi + tOut*ppo);
-  // Com harness: routing manda X% para o barato; cache reduz input efetivo; retry evita desperdício; compressão reduz input
-  const inputEff=tIn*(1-cache)*(1-comp);
-  const outputEff=tOut*(1-retry);
-  const routedIn=route*inputEff*pi + (1-route)*inputEff*ppi;
-  const routedOut=route*outputEff*po + (1-route)*outputEff*ppo;
-  const withHarness=routedIn+routedOut;
-  const save=base-withHarness;
-  const pct=base>0?(save/base*100):0;
+  $("#ec-cache-o").textContent=$("#ec-cache").value+"%"; $("#ec-retry-o").textContent=$("#ec-retry").value+"%";
+  $("#ec-comp-o").textContent=$("#ec-comp").value+"%"; $("#ec-route-o").textContent=$("#ec-route").value+"%";
+  const base=tIn*ppi + tOut*ppo;
+  const inputEff=tIn*(1-cache)*(1-comp), outputEff=tOut*(1-retry);
+  const withHarness = route*inputEff*pi + (1-route)*inputEff*ppi + route*outputEff*po + (1-route)*outputEff*ppo;
+  const save=base-withHarness, pct=base>0?(save/base*100):0;
   $("#ec-result").innerHTML=`
     <div class="grid2">
-      <div><h3>Sem harness potente</h3><p>Tudo no modelo premium, sem cache, sem fallback, sem routing.</p><p class="big red">$${base.toFixed(0)}/mês</p></div>
-      <div><h3>Com harness potente</h3><p>Cache ${$("#ec-cache").value}% · falhas evitadas ${$("#ec-retry").value}% · compressão ${$("#ec-comp").value}% · routing ${$("#ec-route").value}% para o barato.</p><p class="big green">$${withHarness.toFixed(0)}/mês</p></div>
+      <div><h3>Sem harness potente</h3><p class="muted">Tudo no modelo premium, sem cache, sem fallback, sem routing.</p><p class="big red" style="color:var(--rose)">$${base.toFixed(0)}/mês</p></div>
+      <div><h3>Com harness potente</h3><p class="muted">Cache ${$("#ec-cache").value}% · falhas evitadas ${$("#ec-retry").value}% · compressão ${$("#ec-comp").value}% · routing ${$("#ec-route").value}%.</p><p class="big green" style="color:var(--emerald)">$${withHarness.toFixed(0)}/mês</p></div>
     </div>
-    <p style="margin-top:12px;font-size:15px">Poupas <b class="green">$${save.toFixed(0)}/mês (${pct.toFixed(0)}%)</b> — só em tokens. A isto soma-se: menos retries pagos, menos interrupções manuais, menos debugging de contexto perdido. <span class="muted">Estimativa ilustrativa; usa os teus preços reais.</span></p>`;
+    <p style="margin-top:12px;font-size:15px">Poupas <b class="green" style="color:var(--emerald)">$${save.toFixed(0)}/mês (${pct.toFixed(0)}%)</b> — só em tokens. <span class="muted">Estimativa ilustrativa; usa os teus preços.</span></p>`;
 }
+
+/* ================= AUDIT (local folder) ================= */
+const AUDIT_SIGNALS = {
+  A1: {files:["provider","adapter","llm_client","model"], dirs:["providers","models"], kw:["fallback","base_url","api_key","provider"]},
+  A2: {files:["system_prompt","prompt_builder","prompt_caching","context"], dirs:[], kw:["cache_control","system prompt","prompt caching","compression","context window"]},
+  A3: {files:["conversation_loop","agent_executor","orchestrat","scheduler"], dirs:["agents","orchestration"], kw:["max_iterations","tool_call","agent loop","workflow"]},
+  A4: {files:["registry","tools","plugin","mcp"], dirs:["tools","plugins","mcps"], kw:["registry","toolset","mcp","plugin"]},
+  B1: {files:["roadmap","plan","spec"], dirs:["plans","docs","specs"], kw:["plan","roadmap","milestone","subtask"]},
+  B2: {files:["skill","playbook"], dirs:["skills","playbooks","prompts"], kw:["SKILL.md","playbook","prompt template"]},
+  B3: {files:["AGENTS.md","CLAUDE.md","CONTRIBUTING.md",".cursorrules"], dirs:[], kw:["AGENTS.md","do not","never","convention"]},
+  B4: {files:["policy","security"], dirs:["policies"], kw:["policy","restrict","forbidden","must not","allowlist"]},
+  C1: {files:[], dirs:["tests","test","specs","cypress","playwright"], kw:["pytest","jest","vitest","unittest","describe("]},
+  C2: {files:["eval","benchmark","judge"], dirs:["evals","benchmarks"], kw:["llm as judge","eval","benchmark","scorecard"]},
+  C3: {files:["logging","logger","metrics","observab","telemetry"], dirs:["logs","monitoring","observability"], kw:["logger","otel","prometheus","trace","metric"]},
+  C4: {files:["retry","circuit","backoff"], dirs:[], kw:["retry","circuit breaker","backoff","fallback"]},
+  D1: {files:["guardrail","sanitize","scanner","validation"], dirs:["security"], kw:["injection","guardrail","sanitiz","scan","redact"]},
+  D2: {files:["approval","permission","authz","sandbox"], dirs:[], kw:["approval","allowlist","permission","sandbox","deny"]},
+  D3: {files:["decision","policy"], dirs:[], kw:["human review","escalat","threshold","clarif","review"]},
+  D4: {files:["audit","retention","privacy"], dirs:[], kw:["audit","retention","gdpr","consent","redact"]},
+  D5: {files:["ethics","disclosure"], dirs:[], kw:["disclosure","bias","fairness","ethics","ai-generated"]},
+  E1: {files:["memory","curator","learning"], dirs:["memory"], kw:["memory","curator","learn","embedding","vector"]},
+  E2: {files:["commands","config","dashboard"], dirs:["dashboard","ui"], kw:["command","config","steer","/help"]},
+  F1: {files:["docker","environment","sandbox","terminal"], dirs:[], kw:["docker","sandbox","container","terminal","ssh"]},
+  F2: {files:["pricing","budget","cost","usage"], dirs:[], kw:["cost","budget","pricing","token","rate limit"]},
+  F3: {files:["recovery","failover","lease","lock"], dirs:["recovery"], kw:["recovery","failover","lease","lock","heartbeat"]},
+};
+const MAX_FILES=300, MAX_TOTAL_BYTES=2*1024*1024, MAX_FILE_BYTES=64*1024;
+
+async function pickFolder(){
+  const status=$("#audit-status");
+  $("#audit-result").innerHTML="";
+  let entries=null;
+  try{
+    if(window.showDirectoryPicker){
+      const dir=await window.showDirectoryPicker({mode:"read"});
+      status.innerHTML=`<span class="spin"></span> A ler <b>${esc(dir.name)}</b>… (análise 100% local)`;
+      entries=[];
+      let count=0, bytes=0;
+      const walk=async (handle, prefix)=>{
+        for await (const [name,child] of handle.entries()){
+          if(count>=MAX_FILES) return;
+          const rel=prefix?prefix+"/"+name:name;
+          if(child.kind==="directory"){
+            if([".git","node_modules","venv",".venv","__pycache__","dist","build","target",".next","coverage"].includes(name)) continue;
+            entries.push({path:rel,name,dir:true});
+            await walk(child, rel);
+          }else{
+            if(count>=MAX_FILES) return;
+            if(bytes>=MAX_TOTAL_BYTES){ entries.push({path:rel,name,dir:false}); count++; continue; }
+            let content="";
+            try{
+              const f=await child.getFile();
+              if(f.size<=MAX_FILE_BYTES){ content=await f.text(); bytes+=f.size; }
+            }catch(e){}
+            entries.push({path:rel,name,dir:false,content});
+            count++;
+          }
+        }
+      };
+      await walk(dir,"");
+    }else{
+      const inp=$("#folder-input"); inp.click();
+      await new Promise(res=>{ inp.onchange=()=>{ const files=[...inp.files].slice(0,MAX_FILES); entries=files.map(f=>({path:f.webkitRelativePath||f.name,name:f.name,dir:false})); res(); }; setTimeout(res,60000); });
+      if(!entries) return;
+    }
+  }catch(e){ status.innerHTML=`<span class="red">Cancelado ou erro: ${esc(e.message||e)}</span>`; return; }
+  if(!entries||!entries.length){ status.innerHTML=`<span class="red">Sem ficheiros lidos.</span>`; return; }
+  status.innerHTML=`<span class="muted">Lidos <b>${entries.length}</b> ficheiros — a analisar sinais…</span>`;
+  await new Promise(r=>setTimeout(r,30));
+  showAuditResult(entries);
+}
+
+function analyzeEntries(entries){
+  const names=entries.map(e=>e.name);
+  const paths=entries.map(e=>e.path.toLowerCase());
+  const contents=entries.filter(e=>e.content).map(e=>e.content);
+  const blob=contents.join("\n").slice(0,800000);
+  const blobL=blob.toLowerCase();
+  const testFiles=entries.filter(e=>/test|spec|e2e/i.test(e.name)).length;
+  const workflows=entries.filter(e=>/\.github\/workflows|\.github\/actions/i.test(e.path)).length;
+  const scores={}, reasons={};
+  for(const [dim,cfg] of Object.entries(AUDIT_SIGNALS)){
+    let hits=0, hitsNames=0;
+    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f))) hitsNames++; });
+    cfg.dirs.forEach(d=>{ if(paths.some(p=>p.split("/").includes(d))) hitsNames++; });
+    cfg.kw.forEach(k=>{
+      const re=new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g");
+      const occ=(blobL.match(re)||[]).length;
+      if(occ>0) hits += Math.min(3, 1+Math.floor(Math.log10(occ)));
+    });
+    if(dim==="C1"){ if(testFiles>0) hits+=Math.min(4,1+Math.floor(testFiles/8)); if(workflows>0) hits+=2; }
+    const total = hitsNames*3 + hits*2;
+    let s;
+    if(total===0) s=0;
+    else if(total<3) s=2;
+    else if(total<5) s=3;
+    else if(total<7) s=4;
+    else if(total<9) s=5;
+    else if(total<12) s=6;
+    else if(total<16) s=7;
+    else if(total<21) s=8;
+    else s=9;
+    const why=[];
+    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f))) why.push("ficheiro "+f); });
+    cfg.dirs.forEach(d=>{ if(paths.some(p=>p.split("/").includes(d))) why.push("pasta "+d); });
+    cfg.kw.forEach(k=>{ const c=(blobL.match(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length; if(c>0) why.push(`"${k}"×${c}`); });
+    if(dim==="C1" && testFiles>0) why.push(`${testFiles} ficheiros test/spec`);
+    if(dim==="C1" && workflows>0) why.push(`${workflows} workflows CI`);
+    scores[dim]=s;
+    reasons[dim]=why.slice(0,5).join(" · ");
+  }
+  return {scores, reasons, testFiles, workflows};
+}
+
+function showAuditResult(entries){
+  const {scores, reasons, testFiles, workflows} = analyzeEntries(entries);
+  const rootName = entries.find(e=>e.path.indexOf("/")<0)?.name || "projeto";
+  const defaultName = rootName.replace(/\.[a-z0-9]+$/i,"").replace(/[-_]+/g," ").replace(/\b\w/g,c=>c.toUpperCase());
+  const row = (id)=>{ const [n,desc]=DIMENSIONS.find(d=>d[0]===id);
+    return `<div class="dim-row">
+      <div class="name" title="${esc(desc)}"><b>${esc(n)}</b></div>
+      <div class="why" title="${esc(reasons[id]||"sem sinais detetados")}">${esc(reasons[id]||"sem sinais")}</div>
+      <input type="range" min="0" max="10" value="${scores[id]}" data-dim="${id}" oninput="auditSlide(this)">
+      <output data-out="${id}">${scores[id]}</output></div>`; };
+  $("#audit-result").innerHTML=`
+    <div class="card result-card">
+      <div class="grid2" style="margin-top:0">
+        <div>
+          <h3>🛠️ Identificação</h3>
+          <div class="calc">
+            <label>Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
+            <label>Vendor / autor</label><input id="au-vendor" placeholder="ex: A tua empresa">
+            <label>Tipo</label><input id="au-type" value="Projeto auditado localmente" placeholder="ex: Control plane, agente pessoal…">
+            <label>Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="coding, gateway, multi-agente…">
+            <label>Descrição curta (blurb)</label><input id="au-blurb" value="Análise local heurística da pasta — rever antes de publicar.">
+          </div>
+          <div style="margin-top:14px">
+            <label class="muted" style="font-size:12.5px"><input type="checkbox" id="au-mark"> Marcar como auditado manualmente (só se fizeste auditoria real com leitura de código)</label>
+          </div>
+          <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+            <button class="primary" onclick="addAuditedHarness()">+ Adicionar ao ranking</button>
+            <button class="ghost" onclick="exportAuditedJSON()">⬇ Exportar JSON</button>
+          </div>
+        </div>
+        <div>
+          <h3>📊 Scores preliminares (22 dimensões)</h3>
+          <p class="muted" style="font-size:11.5px">Baseados em sinais detetados na pasta. Ajusta os sliders — o score composto recalcula em tempo real.</p>
+          <div id="au-score-summary" style="margin:10px 0"></div>
+          <div style="max-height:520px; overflow-y:auto; padding-right:6px">${DIMENSIONS.map(d=>row(d[0])).join("")}</div>
+        </div>
+      </div>
+      <div class="notice" style="margin-top:16px">⚠️ Análise <b>heurística local</b> (padrões de ficheiros/conteúdo, máx 300 ficheiros) — primeiro corte útil, não substitui auditoria com leitura real de código. O badge ficará <span class="badge b-prel">Preliminar</span>. ${testFiles?`Detetados ${testFiles} ficheiros de teste e ${workflows} workflows CI.`:""}</div>
+    </div>`;
+  updateAuditSummary();
+}
+function auditSlide(el){ document.querySelector(`[data-out="${el.dataset.dim}"]`).textContent=el.value; updateAuditSummary(); }
+function updateAuditSummary(){
+  const total=22, sum=DIMENSIONS.reduce((a,d)=>a+(+document.querySelector(`[data-out="${d[0]}"]`).textContent||0),0);
+  const el=$("#au-score-summary");
+  if(el) el.innerHTML=`Score composto atual: <b class="big" style="font-size:22px">${(sum/total).toFixed(1)}</b><span class="muted">/10</span>`;
+}
+function collectAudit(){
+  const scores={};
+  DIMENSIONS.forEach(d=>{scores[d[0]]=+document.querySelector(`[data-out="${d[0]}"]`).textContent||0;});
+  return {
+    id:"local-"+Date.now().toString(36),
+    name: $("#au-name").value.trim()||"Projeto local",
+    vendor: $("#au-vendor").value.trim()||"—",
+    type: $("#au-type").value.trim()||"Projeto",
+    url:"",
+    audited: $("#au-mark").checked,
+    preliminar: !$("#au-mark").checked,
+    tags: $("#au-tags").value.split(",").map(t=>t.trim()).filter(Boolean),
+    blurb: $("#au-blurb").value.trim()||"Adicionado por auditoria local.",
+    scores
+  };
+}
+function addAuditedHarness(){
+  const h=collectAudit();
+  HARNESSES.push(h);
+  renderRanking();
+  switchView("ranking");
+  showDetail(h);
+}
+function exportAuditedJSON(){
+  const h=collectAudit();
+  const out=JSON.stringify(h,null,2);
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([out],{type:"application/json"}));
+  a.download=(h.name.toLowerCase().replace(/[^a-z0-9]+/g,"-")||"harness")+".json";
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+function resetAudit(){ $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
 
 /* ================= BOOT ================= */
 nav(); buildRanking(); buildMap(); buildQuiz(); calcEconomy();
-$$("[data-f]").forEach(b=>b.addEventListener("click",()=>{
+$$(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   filter=b.dataset.f;
-  $$("[data-f]").forEach(x=>x.style.fontWeight="400");
-  b.style.fontWeight="700";
-  renderRanking();
+  $$(".fbtn").forEach(x=>{x.style.background=x===b?"rgba(139,92,246,.35)":"", x.style.color=x===b?"#fff":"";});
+  const body=$("#rank-body");
+  if(filter==="all"){ renderRanking(); return; }
+  const rows=HARNESSES.slice().sort((a,b)=>domainScore(b,filter)-domainScore(a,filter));
+  body.innerHTML="";
+  rows.forEach(h=>{
+    const tr=document.createElement("tr");
+    const nc=document.createElement("td"); nc.innerHTML=esc(h.name)+badge(h); tr.appendChild(nc);
+    const v=document.createElement("td"); v.textContent=h.vendor; tr.appendChild(v);
+    const t=document.createElement("td"); t.className="num score-cell"; t.innerHTML=domainScore(h,filter).toFixed(1); tr.appendChild(t);
+    ["A","B","C","D","E","F"].forEach(d=>{const td=document.createElement("td"); td.className="num"; td.innerHTML= d===filter?`<b style="color:var(--cyan)">${domainScore(h,d).toFixed(1)}</b>`:domainScore(h,d).toFixed(1); tr.appendChild(td);});
+    tr.addEventListener("click",()=>showDetail(h));
+    body.appendChild(tr);
+  });
 }));
 </script>
 </body>

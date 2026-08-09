@@ -356,6 +356,59 @@ let HARNESSES = BUILTIN_HARNESSES.slice();
 let sortKey="total", sortAsc=false, filter="all";
 
 /* ================= UI helpers ================= */
+const LEVELS = [
+  {min:0,  name:"L1 · Inicial", desc:"Funciona por acaso — sem invariantes, sem medição."},
+  {min:3,  name:"L2 · Definido", desc:"Processos básicos existem, degradam previsivelmente."},
+  {min:5,  name:"L3 · Gerido", desc:"Medido e integrado; gaps conhecidos e documentados."},
+  {min:7,  name:"L4 · Otimizado", desc:"Auto-corrige: sensores, evals, custo controlado."},
+  {min:9,  name:"L5 · Referência", desc:"Razão de existir — profundidade além do requisito."},
+];
+const levelOf = s => LEVELS.filter(l=>s>=l.min).pop() || LEVELS[0];
+
+/* Base de conhecimento — padrões provados nas auditorias reais (Hermes/Kando/CCR).
+   Cada entrada: dimensão → conselhos acionáveis. Cresce com cada auditoria (PR). */
+const IMPROVEMENT_PATTERNS = {
+  A1:["Adiciona fallback chain multi-provider com dedup de config (padrão: Hermes `fallback_config.py:80-101`).","Considera smart routing por qualidade×custo — utilidade = quality − λ·custo − μ·latência (padrão: Kando `scored-selection.ts:107-150`).","Pools de credenciais com cooldown e rotação em 429 (padrão: Hermes `run_agent.py:310-330`)."],
+  A2:["System prompt byte-estável com split estático/volátil — é o que torna o prompt caching previsível (padrão: Hermes `system_prompt.py:549-573`).","Adiciona compressão de contexto por camadas (dedup → 1-linha → summary LLM) em vez de cortar por janela (padrão: Hermes `context_compressor.py:5840+`).","Aplica cache_control com copy-on-write: nunca reescrever o histórico persistido (padrão: Hermes `prompt_caching.py:175-220`)."],
+  A3:["Loop decide→executa→observa com orçamento de iterações hierárquico pai/filho (padrão: Hermes `iteration_budget.py` — 500/50).","Durabilidade de tarefas: persiste o estado ANTES de executar, claim atómico na conclusão (padrão: Hermes `async_delegation.py` SQLite + completion queue).","Timeout por inatividade com heartbeats, não wall-clock (padrão: Hermes gateway — warning 900s, kill 1800s)."],
+  A4:["Registry de ferramentas com footprint controlado — schemas carregadas sob demanda (padrão: Hermes `tools/registry.py` + `model_tools.py:288-364`).","Gating por configuração; extensão por plugins, nunca por edição do core."],
+  B1:["Especificação de intenção persistida: task → run → fases com modelo fixado por fase (padrão: Kando `task_orchestration_service.py:50,323-379`).","Roadmap canónico com estados e datas+SHA de validação (padrão: Kando `docs/MASTER-ROADMAP.md`)."],
+  B2:["Formato SKILL.md + carregamento sob demanda como user message — preserva o prompt cache (padrão: Hermes `skill_commands.py:569-613`).","Curadoria com ciclo active→stale→archived, dry-run e backup antes de mutar (padrão: Hermes `curator.py:305-432`).","Telemetria de uso com lock cross-process e writes atómicos (padrão: Hermes `skill_usage.py`)."],
+  B3:["AGENTS.md como fonte única com invariantes verificáveis, pitfalls com nº de PR e doutrina de testes (padrão: Hermes `AGENTS.md`).","Hierarquia multi-cliente: AGENTS.md fonte + CLAUDE.md/GEMINI.md ponteiros que não redefinem (padrão: Kando).","Regra de resolução de conflitos declarada: código ganha (padrão: Kando `README.md:73`)."],
+  B4:["Políticas com 3 níveis de enforcement: texto + CI + runtime (padrão: Hermes — 22 workflows + `tool_guardrails.py`).","Cada regra testável: uma regra boa é verificável (padrão: Kando chaos tests que testam as invariantes pelo nome)."],
+  C1:["Runner de testes hermético — env isolado + subprocesso por ficheiro (padrão: Hermes `run_tests.sh` + `run_tests_parallel.py`).","Doutrina anti change-detector e anti source-regex escrita e aplicada (padrão: Hermes `AGENTS.md:1333-1435`).","Gestão de flakiness com report dedicado — pass-on-retry é bug a corrigir, não ruído (padrão: Hermes)."],
+  C2:["LLM-as-judge em 3 camadas: determinístico → N especialistas paralelos → validator fresh-eyes, fail-closed (padrão: Kando `ai_review_service.py:1-25`).","Verificação empírica: correr os checks reais do projeto até verde, com escalada de modelo em retry (padrão: Kando `outcome_verification_service.py:504-617`).","Ledger de evidência de verificação com retenção (padrão: Hermes `verification_evidence.py`)."],
+  C3:["Redação de segredos em TODOS os handlers de log (padrão: Hermes `RedactingFormatter` + `redact.py`).","Classificador de erros com taxonomia + recovery hints estruturados consumidos pelo loop (padrão: Hermes `error_classifier.py:24-97`).","Métricas de sistema consultáveis + audit log por request com redação (padrão: Kando `/ops/metrics` + `audit_log.py`)."],
+  C4:["Retry com classificação transient/permanent + backoff com jitter + parse Retry-After (padrão: Hermes `retry_utils.py` + `llm_retry.py` do Kando).","Circuit breaker dedicado closed/open/half_open com clock injectable (padrão: Kando `llm_circuit_breaker.py:23-161`).","Fix loop com escalada de modelo para auto-correção de código (padrão: Kando `iterative_fixer_service.py`)."],
+  D1:["Anti-injection no pipeline de aprovação — strip de comentários shell (o vetor `rm -rf / # approve`) (padrão: Hermes `approval.py:2644-2662`).","Scanner de skills/plugins com trust levels e attestation por hash de conteúdo (padrão: Hermes `skills_guard.py`).","Cria um test set formal de prompt injection — nenhum dos harnesses auditados tem um.","Normalização anti-obfuscação antes do pattern-match: ANSI/NFKC/IFS/backslash (padrão: Hermes `approval.py:916-974`)."],
+  D2:["Denylist de comandos destrutivos com HARDLINE FLOOR abaixo de qualquer modo de bypass (padrão: Hermes `approval.py:337-454` — `rm -rf /` nunca corre mesmo com yolo).","Credential scope fail-closed por contexto — exceção ruidosa em vez de vazar (padrão: Hermes `secret_scope.py:123-177`).","Contrato de consentimento: 'silence is NOT consent' + mensagens BLOCKED que nomeiam a evasão (padrão: Hermes `approval.py:3683-3720`).","Sandbox de execução real — docker com cap-drop ou whole-process wrapping (padrão: Hermes `tools/environments/docker.py`)."],
+  D3:["Árvore de decisão explícita com categorias humano-obrigatório (padrão: Hermes `approval.py:3365-3834` — 6 categorias).","Ledger de decisões append-only (pattern_key, verdict, surface, choice, timestamp) — o Hermes não tem e sofre com isso; adiciona desde o dia 1.","Clarify regulado por contexto: só quando tools não resolvem; proibido em headless (padrão: Hermes `prompt_builder.py:463,297`)."],
+  D4:["Trilha de auditoria por request com redação + stats (padrão: Kando `audit_log.py` + `routes/audit.py`).","Retenção configurável por tipo de dado + export com redação (padrão: Hermes prune 90d + `export --redact`).","Telemetria hash-only — nunca conteúdo cru, só prompt_hash (padrão: Kando `outcomes.ts:3-14`)."],
+  D5:["Disclosure de IA no system prompt e por plataforma (padrão: Hermes `prompt_builder.py:145-146`).","Declaração honesta de limitações: o que é boundary vs heuristic (padrão: SECURITY.md do Hermes — raro e credível).","Política de fairness/bias com evals — ninguém auditado tem; é uma oportunidade de liderança."],
+  E1:["Memória com bulkhead: providers externos em thread com timeout, falha NUNCA bloqueia o turno (padrão: Hermes `memory_manager.py:525-595`).","Anti-promptware na memória: scan na escrita E no load com placeholder (padrão: Hermes `memory_tool.py:233-276`).","Snapshot congelado para o system prompt — escreve em disco, não mexe no prompt (padrão: Hermes `memory_tool.py:170-171`)."],
+  E2:["Steering loop humano: aprovação pré-ação de writes de memória/skills (padrão: Hermes `commands.py:246-254`).","Falha repetida → guia novo: injeta guidance na resposta ao humano (padrão: Hermes `thinking_timeout_guidance.py`).","Dashboard de insights + learning graph visível (padrão: Hermes `insights.py` + `learning_graph.py`)."],
+  F1:["Sandbox de execução com probes de capacidade reais — degrada graciosamente onde o host não suporta, falha alto onde a segurança depende (padrão: Hermes `docker.py:715-764`).","Portabilidade declarada por OS (Windows/Unix/Termux/Nix) (padrão: Hermes)."],
+  F2:["CAP MONETÁRIO duro por run + ledger append-only por chamada — o Hermes mede ao cêntimo e não controla nada; não repitas o erro (padrão: Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`).","Rate limiting com skip ativo de provider rate-limited no fallback (padrão: Kando `agent_llm_client.py:1286-1295`).","Pricing com proveniência: fonte + data + versão por entrada (padrão: Hermes `usage_pricing.py`)."],
+  F3:["At-most-once em agendamento: avançar next_run sob lock ANTES de executar (padrão: Hermes `cron/scheduler.py:4159`).","Crash recovery: repair least-destructive com backup + claim one-shot (padrão: Hermes `hermes_state.py:1248-1330`).","Leases/fencing para multi-instância e anti-duplicação (padrão: Kando `path_leases.py:13-54`)."],
+};
+function improvementPlan(h){
+  const s=score(h), lvl=levelOf(s);
+  const weak=DIMENSIONS.filter(([id])=>(h.scores[id]||0)<6);
+  const crit=weak.filter(([id])=>(h.scores[id]||0)<4), imp=weak.filter(([id])=>(h.scores[id]||0)>=4);
+  const list=arr=>arr.map(([id,name])=>{
+    const tips=(IMPROVEMENT_PATTERNS[id]||[]).slice(0,2).map(t=>`<li>${t}</li>`).join("");
+    return `<div style="margin:10px 0"><b style="font-size:13.5px">${esc(name)} — ${h.scores[id]}/10</b>
+      <ul style="margin:6px 0 0 18px; font-size:12.5px; color:#c7cbd9">${tips||"<li>Sem padrões catalogados ainda — contribui com um PR.</li>"}</ul></div>`;
+  }).join("");
+  return `<div class="card" style="border-left:4px solid var(--cyan)">
+    <h3>🧭 Plano de melhoria — o Compass como compass</h3>
+    <p>Nível de maturidade: <b style="color:var(--cyan)">${lvl.name}</b> <span class="muted">(${s.toFixed(1)}/10)</span> — ${lvl.desc}</p>
+    ${crit.length?`<h4 style="color:var(--rose); margin-top:12px">🔴 Crítico (score &lt; 4) — resolver primeiro</h4>${list(crit)}`:""}
+    ${imp.length?`<h4 style="color:var(--amber); margin-top:12px">🟠 Importante (4–5) — alavanca de score</h4>${list(imp)}`:""}
+    ${!crit.length&&!imp.length?`<p class="muted" style="margin-top:10px">Sem gaps críticos — acima de 6 em todas as dimensões. Parabéns: este harness está no nível gerido ou superior.</p>`:""}
+    <p class="legend" style="margin-top:10px">Conselhos derivados dos padrões provados em auditorias reais (Hermes/Kando/CCR). Cada padrão cita o mecanismo-fonte. Contribui com padrões novos via PR.</p>
+  </div>`;
+}
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 const esc = s => String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -445,6 +498,7 @@ function showDetail(h){
     </div>
     <h3>22 dimensões</h3>
     <div style="margin-top:6px">${dims}</div>
+    ${improvementPlan(h)}
     <p class="legend">${h.audited?"Auditoria com evidência path:line (relatórios em docs/).":h.preliminar?"Análise local heurística da pasta — para badge definitivo, auditoria com leitura real.":"Estimativa informada — candidata a auditoria."}</p>
   </div>`;
   el.scrollIntoView({behavior:"smooth"});
@@ -722,8 +776,10 @@ function showAuditResult(entries){
           </div>
           <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
             <button class="primary" onclick="addAuditedHarness()">+ Adicionar ao ranking</button>
+            <button class="ghost" onclick="previewPlan()">🧭 Ver plano de melhoria</button>
             <button class="ghost" onclick="exportAuditedJSON()">⬇ Exportar JSON</button>
           </div>
+          <div id="au-plan-preview" style="margin-top:12px"></div>
         </div>
         <div>
           <h3>📊 Scores preliminares (22 dimensões)</h3>
@@ -757,6 +813,12 @@ function collectAudit(){
     blurb: $("#au-blurb").value.trim()||"Adicionado por auditoria local.",
     scores
   };
+}
+function previewPlan(){
+  const h=collectAudit();
+  const el=$("#au-plan-preview");
+  el.innerHTML=improvementPlan(h);
+  el.scrollIntoView({behavior:"smooth"});
 }
 function addAuditedHarness(){
   const h=collectAudit();

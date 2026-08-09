@@ -60,9 +60,18 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 1. **Adicionar/afinar um harness**: edita o array `HARNESSES` no fim de `index.html` — cada entrada tem 22 scores (0–10), `audited: true/false`, tags e um blurb. Faz um PR.
 2. **Auditar um harness a sério**: segue o método em `docs/` (taxonomia + escala + regras de evidência) e muda `audited` para `true` com os relatórios.
-3. **Melhorar o mapa ou o quiz**: PR bem-vindo.
+3. **Melhorar a base de conhecimento**: o mapa `IMPROVEMENT_PATTERNS` (recomendações por dimensão, com o mecanismo-fonte citado) cresce a cada auditoria. Cada padrão novo = um PR — é assim que os rankings e os conselhos ficam mais precisos e robustos.
+4. **Melhorar o mapa ou o quiz**: PR bem-vindo.
 
-**Regra de ouro do projeto:** dados auditados e estimativas **nunca** se misturam sem etiqueta.
+**Regra de ouro do projeto:** dados auditados, preliminares e estimativas **nunca** se misturam sem etiqueta.
+
+## Ciclo de melhoria contínua (como o Compass fica mais esperto)
+
+1. **Auditoria local** (badge Preliminar) → primeiro corte em minutos.
+2. **Plano de melhoria** → o Compass aponta os gaps (dimensões < 6) com padrões provados e níveis de maturidade L1–L5 ("o que falta, o que fazer").
+3. **Auditoria completa** (badge Auditado) → scores definitivos com evidência.
+4. **Recalibração** → cada par (heurística vs auditada) é comparado e os pesos da heurística afiam-se (validado contra o Hermes: erro médio ~1.6/dimensão).
+5. **Base de conhecimento** → cada padrão novo entra no `IMPROVEMENT_PATTERNS` e beneficia todos os harnesses futuros.
 
 ## Método
 

@@ -56,6 +56,7 @@
   html[data-theme="light"] .dim-row{border-bottom-color:rgba(20,24,50,.08);}
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *,*::before,*::after{animation-duration:.01ms!important; transition-duration:.01ms!important;} }
   body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; min-height:100vh;
     background-image:radial-gradient(1200px 500px at 80% -10%, rgba(139,92,246,.14), transparent 60%),
                      radial-gradient(900px 400px at 10% 110%, rgba(34,211,238,.10), transparent 60%);}
@@ -135,6 +136,7 @@
   .dim-row .why{flex:1; font-size:11.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
   .dim-row input[type=range]{width:90px; accent-color:var(--violet);}
   .dim-row output{font-weight:800; font-size:12.5px; min-width:22px; text-align:right;}
+  @media(max-width:640px){ .dim-row{flex-wrap:wrap;} .dim-row .name{flex:1 1 100%;} .dim-row .why{flex:1; min-width:0;} .dim-row input[type=range]{width:120px;} }
   .radar-wrap{display:flex; justify-content:center; padding:6px 0;}
   .donut-row{display:flex; align-items:center; gap:14px;}
   .spin{display:inline-block; width:14px; height:14px; border:2px solid rgba(139,92,246,.3); border-top-color:var(--violet); border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px;}
@@ -154,13 +156,13 @@
       <div style="color:var(--muted); font-size:11px; margin-top:1px; opacity:.75">by @eluminaime · @emilzo · Agent Hermes (Tom)</div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <button id="theme-btn" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">☀️</button>
-      <select id="lang" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer"></select>
+      <button id="theme-btn" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" aria-label="Theme / Tema / 主题 / थीम" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">☀️</button>
+      <select id="lang" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" aria-label="Language / Idioma / 语言 / भाषा" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer"></select>
       <button class="ghost" onclick="switchView('audit')" data-i18n="audit_pick_top">📂 Auditar uma pasta</button>
     </div>
   </header>
 
-  <nav id="nav">
+  <nav id="nav" aria-label="Views">
     <button data-view="home" class="active" data-i18n="nav_home">Paradigma</button>
     <button data-view="ranking" data-i18n="nav_ranking">Ranking</button>
     <button data-view="cost" data-i18n="nav_cost">Custo real</button>
@@ -1560,6 +1562,7 @@ function improvementPlan(h){
 }
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
+const SMOOTH = (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth";
 const esc = s => String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const score = h => {const v=Object.values(h.scores); return v.reduce((a,b)=>a+b,0)/v.length;};
 const domainScore = (h,d) => DIMENSIONS.filter(x=>x[0][0]===d).reduce((a,dd)=>a+h.scores[dd[0]],0)/DIMENSIONS.filter(x=>x[0][0]===d).length;
@@ -1663,7 +1666,7 @@ function showDetail(h, noScroll){
     ${improvementPlan(h)}
     <p class="legend">${h.audited?t("dt_laud"):h.local?t("dt_llocal",{n:h.meta&&h.meta.filesRead||0,adj:h.adjusted>0?` — <b style="color:var(--rose)">${h.adjusted} ${t("dt_ladj")}</b>`:` — ${t("dt_lclean")}`}):t("dt_lest")}</p>
   </div>`;
-  if(!noScroll) el.scrollIntoView({behavior:"smooth"});
+  if(!noScroll) el.scrollIntoView({behavior:SMOOTH});
 }
 
 /* ================= SVG CHARTS ================= */
@@ -1749,7 +1752,7 @@ function runQuiz(noScroll){
       <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· fit ${r.w.toFixed(1)}</span></h3>
       <p class="muted">${t("qz_strong")} ${strong.join(", ")||"—"}. ${t("qz_weak")} ${weak.join(", ")||t("qz_none")}. (${prov})</p></div>`;
   }).join("")+`<p class="muted">${t("qz_note")}</p>`;
-  if(!noScroll) $("#quiz-result").scrollIntoView({behavior:"smooth"});
+  if(!noScroll) $("#quiz-result").scrollIntoView({behavior:SMOOTH});
 }
 
 /* ================= ECONOMY ================= */
@@ -2060,7 +2063,7 @@ function showAuditResult(entries, ov){
     return `<div class="dim-row">
       <div class="name" title="${esc(dimDesc(id))}"><b>${esc(dimName(id))}</b></div>
       <div class="why" title="${esc(reasons[id]&&reasons[id].length?fmtWhy(reasons[id]):t("au_nosignals"))}">${esc(reasons[id]&&reasons[id].length?fmtWhy(reasons[id]):t("au_nosignals_short"))}</div>
-      <input type="range" min="0" max="10" value="${esc(scores[id])}" data-dim="${id}" oninput="auditSlide(this)">
+      <input type="range" min="0" max="10" value="${esc(scores[id])}" data-dim="${id}" aria-label="${esc(dimName(id))}" oninput="auditSlide(this)">
       <output data-out="${id}">${esc(scores[id])}</output></div>`; };
   $("#audit-result").innerHTML=`
     <div class="card result-card">
@@ -2132,7 +2135,7 @@ function previewPlan(noScroll){
   const h=collectAudit();
   const el=$("#au-plan-preview");
   el.innerHTML=improvementPlan(h);
-  if(!noScroll) el.scrollIntoView({behavior:"smooth"});
+  if(!noScroll) el.scrollIntoView({behavior:SMOOTH});
 }
 function addAuditedHarness(){
   const h=collectAudit();

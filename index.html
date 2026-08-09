@@ -118,6 +118,7 @@
   <nav id="nav">
     <button data-view="home" class="active">Paradigma</button>
     <button data-view="ranking">Ranking</button>
+    <button data-view="cost">Custo real</button>
     <button data-view="map">Mapa</button>
     <button data-view="audit">Auditar pasta</button>
     <button data-view="quiz">Que harness para ti?</button>
@@ -179,6 +180,39 @@
       </div>
     </div>
     <div id="rank-detail"></div>
+  </section>
+
+  <!-- ============ COST (Same Model, Different Harness) ============ -->
+  <section id="view-cost">
+    <div class="card">
+      <h2>💰 Same Model, Different Harness — custo real por tarefa</h2>
+      <p class="muted">O mesmo volume de trabalho, o mesmo modelo, através de cada harness. O custo real (harness-adjusted) depende da eficiência da camada: <b>cache &amp; compressão</b> (A2), <b>falhas evitadas</b> (C4), <b>routing para o modelo barato</b> (A1). É o "Cost per Task" do Artificial Analysis — aplicado ao harness, não ao modelo. <span class="badge b-audit">Auditado</span> = eficiência medida; <span class="badge b-est">Estimativa</span> = aproximada.</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="calc">
+          <label>Tokens de entrada / mês (milhões)</label>
+          <input type="number" id="ct-tokens" value="200" min="1" oninput="renderCost()">
+          <label>Tokens de saída / mês (milhões)</label>
+          <input type="number" id="ct-out" value="20" min="1" oninput="renderCost()">
+          <label>Modelo económico — input $/M · output $/M</label>
+          <div style="display:flex;gap:8px"><input type="number" id="ct-pi" value="0.14" step="0.01" oninput="renderCost()"><input type="number" id="ct-po" value="0.42" step="0.01" oninput="renderCost()"></div>
+          <label>Modelo premium — input $/M · output $/M</label>
+          <div style="display:flex;gap:8px"><input type="number" id="ct-ppi" value="3.00" step="0.1" oninput="renderCost()"><input type="number" id="ct-ppo" value="15.00" step="0.5" oninput="renderCost()"></div>
+          <label style="margin-top:14px">Preencher com preços reais (OpenRouter)</label>
+          <select id="ct-model" onchange="useOpenRouterPriceCT()"></select>
+          <div id="ct-or-status" class="legend"></div>
+        </div>
+        <div>
+          <p class="muted" style="font-size:12.5px">Eficiência derivada dos scores: cache ≤85%, falhas evitadas ≤60%, routing ≤95% (escala proporcional ao score da dimensão).</p>
+          <div id="ct-chart"></div>
+        </div>
+      </div>
+      <div class="tbl-wrap" style="margin-top:14px">
+        <table id="cost-table">
+          <thead><tr><th>Harness</th><th class="num">Custo real $/mês</th><th class="num">vs sem harness</th><th class="num">Cache</th><th class="num">Falhas evit.</th><th class="num">Routing</th><th class="num">HCI</th></tr></thead>
+          <tbody id="cost-body"></tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
   <!-- ============ MAP ============ -->
@@ -433,6 +467,7 @@ function switchView(v){
   $$("#nav button").forEach(b=>b.classList.toggle("active", b.dataset.view===v));
   $$("section").forEach(s=>s.classList.toggle("active", s.id==="view-"+v));
   if(v==="ranking") renderRanking();
+  if(v==="cost") renderCost();
   if(v==="audit") updateRankCount();
   window.scrollTo({top:0});
 }
@@ -441,7 +476,7 @@ function nav(){$$("#nav button").forEach(b=>b.addEventListener("click",()=>switc
 /* ================= RANKING ================= */
 function buildRanking(){
   const head=$("#rank-head"); head.innerHTML="";
-  [["name","Harness"],["vendor","Vendor"],["total","Score"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]].forEach(([k,label])=>{
+  [["name","Harness"],["vendor","Vendor"],["total","HCI"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]].forEach(([k,label])=>{
     const th=document.createElement("th"); th.textContent=label; th.dataset.k=k;
     if(k==="total")th.classList.add("num");
     th.addEventListener("click",()=>{ if(sortKey===k)sortAsc=!sortAsc; else{sortKey=k; sortAsc=false;} renderRanking(); });
@@ -506,7 +541,7 @@ function showDetail(h){
         <p style="margin:12px 0">${esc(h.blurb)}</p>
         <p>${h.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join("")}</p>
         <div class="donut-row" style="margin-top:16px"><div>${donut}</div>
-          <div><div class="muted" style="font-size:12px">Score composto</div><div class="big">${score(h).toFixed(1)}</div><div class="muted" style="font-size:11px">/10 · 22 dimensões</div></div>
+          <div><div class="muted" style="font-size:12px">HCI · Harness Compass Index</div><div class="big">${score(h).toFixed(1)}</div><div class="muted" style="font-size:11px">/10 · 22 dimensões</div></div>
         </div>
       </div>
       <div style="min-width:300px">
@@ -608,7 +643,7 @@ function runQuiz(){
     return `<div class="card result-card">
       <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· ajuste ${r.w.toFixed(1)}</span></h3>
       <p class="muted">Forças: ${strong.join(", ")||"—"}. Fraquezas: ${weak.join(", ")||"nenhuma crítica"}. (${r.h.audited?"auditado":r.h.preliminar?"preliminar":"estimativa"})</p></div>`;
-  }).join("")+`<p class="muted">O score composto não é o critério — o ajuste pondera as dimensões que escolheste.</p>`;
+  }).join("")+`<p class="muted">O HCI (score composto) não é o critério — o ajuste pondera as dimensões que escolheste.</p>`;
   $("#quiz-result").scrollIntoView({behavior:"smooth"});
 }
 
@@ -630,6 +665,63 @@ function calcEconomy(){
       <div><h3>Com harness potente</h3><p class="muted">Cache ${$("#ec-cache").value}% · falhas evitadas ${$("#ec-retry").value}% · compressão ${$("#ec-comp").value}% · routing ${$("#ec-route").value}%.</p><p class="big green" style="color:var(--emerald)">$${withHarness.toFixed(0)}/mês</p></div>
     </div>
     <p style="margin-top:12px;font-size:15px">Poupas <b class="green" style="color:var(--emerald)">$${save.toFixed(0)}/mês (${pct.toFixed(0)}%)</b> — só em tokens. <span class="muted">Estimativa ilustrativa; usa os teus preços.</span></p>`;
+}
+
+/* ================= COST REAL (Same Model, Different Harness) ================= */
+let __ormodels=[];
+async function loadOpenRouter(){
+  try{
+    const r=await fetch("https://openrouter.ai/api/v1/models", {mode:"cors"});
+    if(!r.ok) throw new Error("http "+r.status);
+    const j=await r.json();
+    __ormodels=(j.data||[]).map(m=>({id:m.id, in:+m.pricing.prompt, out:+m.pricing.completion}))
+      .filter(m=>m.in>0 && m.out>0)
+      .sort((a,b)=>a.id.localeCompare(b.id));
+    const opts='<option value="">— escolhe um modelo —</option>'+__ormodels.map(m=>`<option value="${esc(m.id)}">${esc(m.id)}</option>`).join("");
+    const sel=$("#ct-model"); if(sel){ sel.innerHTML=opts; $("#ct-or-status").innerHTML=`<span class="green" style="font-size:12px">✓ ${__ormodels.length} modelos com preços reais carregados</span>`; }
+  }catch(e){ const s=$("#ct-or-status"); if(s) s.innerHTML=`<span class="muted" style="font-size:12px">Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).</span>`; }
+}
+function useOpenRouterPriceCT(){
+  const id=$("#ct-model").value; if(!id) return;
+  const m=__ormodels.find(x=>x.id===id); if(!m) return;
+  $("#ct-pi").value=(m.in*1e6).toFixed(3); $("#ct-po").value=(m.out*1e6).toFixed(3);
+  renderCost();
+}
+function harnessEff(h){
+  const A2=h.scores.A2/10, C4=h.scores.C4/10, A1=h.scores.A1/10;
+  return {cache:Math.min(0.85, A2*0.7), retry:Math.min(0.6, C4*0.5), comp:Math.min(0.6, A2*0.45), route:Math.min(0.95, 0.3+A1*0.65)};
+}
+function costFor(h, tIn, tOut, pi, po, ppi, ppo){
+  const e=harnessEff(h);
+  const base=tIn*ppi + tOut*ppo;
+  const inEff=tIn*(1-e.cache)*(1-e.comp), outEff=tOut*(1-e.retry);
+  const withH = e.route*inEff*pi + (1-e.route)*inEff*ppi + e.route*outEff*po + (1-e.route)*outEff*ppo;
+  return {base, withH, save:base-withH, pct:base>0?(base-withH)/base*100:0, e};
+}
+function renderCost(){
+  const tIn=+$("#ct-tokens").value||0, tOut=+$("#ct-out").value||0;
+  const pi=+$("#ct-pi").value||0, po=+$("#ct-po").value||0, ppi=+$("#ct-ppi").value||0, ppo=+$("#ct-ppo").value||0;
+  const rows=HARNESSES.map(h=>({h, r:costFor(h,tIn,tOut,pi,po,ppi,ppo)})).sort((a,b)=>a.r.withH-b.r.withH);
+  const body=$("#cost-body"); body.innerHTML="";
+  rows.forEach(({h,r})=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${esc(h.name)} ${badge(h)}</td>
+      <td class="num score-cell">$${r.withH.toFixed(0)}</td>
+      <td class="num" style="color:var(--emerald)">-${r.pct.toFixed(0)}%</td>
+      <td class="num">${(r.e.cache*100).toFixed(0)}%</td>
+      <td class="num">${(r.e.retry*100).toFixed(0)}%</td>
+      <td class="num">${(r.e.route*100).toFixed(0)}%</td>
+      <td class="num">${score(h).toFixed(1)}</td>`;
+    tr.addEventListener("click",()=>showDetail(h));
+    body.appendChild(tr);
+  });
+  const base=tIn*ppi+tOut*ppo;
+  const barMax=Math.max(base, ...rows.map(x=>x.r.withH), 1);
+  $("#ct-chart").innerHTML=`<div class="muted" style="font-size:12px;margin-bottom:6px">Sem harness: <b style="color:var(--rose)">$${base.toFixed(0)}/mês</b> · o que cada harness poupa:</div>`+
+    rows.slice(0,10).map(({h,r})=>`<div style="display:flex;align-items:center;gap:8px;margin:3px 0">
+      <div style="flex:0 0 132px;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(h.name)}">${esc(h.name)}</div>
+      <div class="dim-grad" style="flex:1"><i style="width:${Math.max(3,(barMax-r.withH)/barMax*100)}%"></i></div>
+      <b style="font-size:11.5px;min-width:72px;text-align:right">$${r.withH.toFixed(0)}</b></div>`).join("");
 }
 
 /* ================= AUDIT (local folder) ================= */
@@ -869,7 +961,7 @@ function exportAuditedJSON(){
 function resetAudit(){ $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
 
 /* ================= BOOT ================= */
-nav(); buildRanking(); buildMap(); buildQuiz(); calcEconomy();
+nav(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();
 $$(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   filter=b.dataset.f;
   $$(".fbtn").forEach(x=>{x.style.background=x===b?"rgba(139,92,246,.35)":"", x.style.color=x===b?"#fff":"";});

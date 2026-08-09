@@ -6,15 +6,18 @@
 
 ## O que é
 
-Uma web app de página única (zero dependências, zero build) com 7 vistas:
+Uma web app de página única (zero dependências, zero build) com 8 vistas:
 
 1. **Paradigma** — por que o harness decide quanto do teu dinheiro em tokens é desperdiçado.
-2. **Ranking** — harnesses classificados por **22 dimensões** com score composto 0–10, fingerprint radar e donut por harness; ordenável e filtrável. Dados **AUDITADOS** (evidência `path:line`), **PRELIMINARES** (análise local) e **ESTIMATIVAS** distinguidos — discernimento, não propaganda.
-3. **Mapa do Harness** — a taxonomia completa (6 domínios × 22 dimensões) usada para auditar qualquer harness.
-4. **📂 Auditar uma pasta** — abre a pasta de um repo local; a app lê até 300 ficheiros, deteta sinais objetivos (AGENTS.md, testes, CI, skills, security patterns, custo…) e produz scores preliminares para as 22 dimensões com justificação visível por dimensão. Ajusta os sliders, **adiciona ao ranking** (badge Preliminar) e **exporta JSON** para contribuir. 100% local — nada sai da tua máquina. (Validado contra o Hermes: erro médio ~1.6/dimensão vs auditoria real.)
-5. **Quiz de decisão** — 6 perguntas ponderam as dimensões pelo teu perfil e recomendam os 3 harnesses com justificação.
-6. **Calculadora de economia** — quanto poupas por mês em tokens com cache, retry inteligente, compressão e routing.
-7. **Método & evidência** — escala de maturidade, como funciona a auditoria local, estudos de caso, como contribuir.
+2. **Ranking** — harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index)** 0–10, fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL sempre distinguidos.
+3. **💰 Custo real** — *Same Model, Different Harness*: o mesmo volume de trabalho, o mesmo modelo, através de cada harness → **custo real por tarefa (harness-adjusted)** com cache/retry/routing derivados dos scores, preços reais do OpenRouter e ranking por custo. É o "Cost per Task" do Artificial Analysis aplicado à camada.
+4. **Mapa do Harness** — a taxonomia completa (6 domínios × 22 dimensões).
+5. **📂 Auditar uma pasta** — abre a pasta de um repo local; análise heurística das 22 dimensões com justificações, sliders ajustáveis (ajustes ficam marcados — integridade), plano de melhoria, adição ao ranking e export JSON. 100% local.
+6. **Quiz de decisão** — 6 perguntas ponderam as dimensões pelo teu perfil e recomendam os 3 harnesses com justificação.
+7. **Calculadora de economia** — quanto poupas por mês em tokens com cache, retry, compressão e routing.
+8. **Método & evidência** — escala de maturidade, integridade, como funciona a auditoria local, estudos de caso.
+
+O **benchmark padronizado** (o "ARC dos harnesses" — cenários B1–B8, protocolo de submissão, leaderboard) está especificado em `BENCHMARK-SPEC.md` — o roadmap do golpe de autoridade.
 
 ## Compatibilidade
 

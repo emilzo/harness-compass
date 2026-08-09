@@ -589,6 +589,7 @@ en:{
   ec_t_in:"Input tokens / month (millions)", ec_t_out:"Output tokens / month (millions)", ec_p_in:"Economy model price ($ / M input)", ec_p_out:"Economy model price ($ / M output)", ec_p_in_p:"Premium model price ($ / M input)", ec_p_out_p:"Premium model price ($ / M output)", ec_cache:"Harness efficiency — prompt cache (hit rate %)", ec_retry:"Avoided failures — smart retry/fallback (% not wasted)", ec_comp:"Context compression (reduction % of context sent)", ec_route:"Smart routing (fraction of work on the cheap model)",
   au_reading:"Reading <b>{name}</b>… (100% local analysis)", au_fallback:"Modern picker unavailable (file:// or unsupported browser) — using the classic file picker.", au_nofiles:"No files read — on Safari try Chrome/Edge for the full experience.", au_nosignals:"no signals detected", au_nosignals_short:"no signals", au_id:"Identification", au_name:"Harness name", au_vendor:"Vendor / author", au_type:"Type", au_type_v:"Locally audited project", au_tags:"Tags (comma separated)", au_blurb:"Short description (blurb)", au_blurb_v:"Local heuristic analysis of the folder — review before publishing.", au_integrity:"🔒 <b>Integrity:</b> the official <b>AUDITED</b> badge only exists in the project ranking via PR with an evidence report (see README). What you add here stays marked <b>LOCAL</b> — and any manual slider adjustment stays <b>visible to everyone</b> (adjusted-dimension counter). Anyone who sees your export can tell what the analysis detected from what you changed.", au_add:"+ Add to ranking", au_plan:"🧭 View improvement plan", au_export:"⬇ Export JSON", au_scores_title:"Preliminary scores (22 dimensions)", au_scores_desc:"Based on signals detected in the folder. Adjust the sliders — the composite score recalculates live.", au_notice:"⚠️ <b>Local heuristic</b> analysis (file/content patterns, max 300 files) — a useful first cut, not a substitute for an audit with real code reading. The badge will be", au_tests:"Detected {n} test files and {w} CI workflows.", au_adj_n:"{n} dimensions manually adjusted (stays marked)", au_adj_clean:"no adjustments — faithful to the analysis", au_cur:"Current composite score:", au_read_files:"Read <b>{n}</b> files — analyzing signals…",
   md_new:"new", md_removed:"removed since", md_stable:"✓ stable since {d} ({n} models)", md_first:"first snapshot saved today ({n} models)", md_hist:"Discontinued models (local history)",
+  au_ev_file:"file {f}", au_ev_dir:"folder {d}", au_ev_tests:"{n} test/spec files", au_ev_workflows:"{n} CI workflows", au_name_fallback:"Local project", au_blurb_fallback:"Added via local audit.", au_cancel:"Cancelled.", au_error:"Error",
   home_cta:"🧭 Audit your own harness — the app reads the folder in your browser and scores it (100% local, no upload)",
   method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"The first complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: harness-map.md taxonomy · HARNESS-AUDIT-HERMES-VS-KANDO.md and DEEP-HARNESS-AUDIT-HERMES.md reports.",
   footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
@@ -749,6 +750,7 @@ pt:{
   ec_t_in:"Tokens de entrada / mês (milhões)", ec_t_out:"Tokens de saída / mês (milhões)", ec_p_in:"Preço modelo económico ($ / M input)", ec_p_out:"Preço modelo económico ($ / M output)", ec_p_in_p:"Preço modelo premium ($ / M input)", ec_p_out_p:"Preço modelo premium ($ / M output)", ec_cache:"Eficiência do harness — cache de prompt (hit rate %)", ec_retry:"Falhas evitadas — retry/fallback inteligente (% não desperdiçado)", ec_comp:"Compressão de contexto (redução % do contexto enviado)", ec_route:"Smart routing (fração de trabalho no modelo barato)",
   au_reading:"A ler <b>{name}</b>… (análise 100% local)", au_fallback:"Seletor moderno indisponível (file:// ou browser sem suporte) — a usar o seletor clássico de ficheiros.", au_nofiles:"Sem ficheiros lidos — em Safari experimenta Chrome/Edge para a experiência completa.", au_nosignals:"sem sinais detetados", au_nosignals_short:"sem sinais", au_id:"Identificação", au_name:"Nome do harness", au_vendor:"Vendor / autor", au_type:"Tipo", au_type_v:"Projeto auditado localmente", au_tags:"Tags (vírgulas)", au_blurb:"Descrição curta (blurb)", au_blurb_v:"Análise local heurística da pasta — rever antes de publicar.", au_integrity:"🔒 <b>Integridade:</b> o badge oficial <b>AUDITADO</b> só existe no ranking do projeto via PR com relatório de evidência (ver README). O que adicionas aqui fica marcado <b>LOCAL</b> — e qualquer ajuste manual aos sliders fica <b>visível para toda a gente</b> (contador de dimensões ajustadas). Quem vê o teu export consegue distinguir o que a análise detetou do que tu mudaste.", au_add:"+ Adicionar ao ranking", au_plan:"🧭 Ver plano de melhoria", au_export:"⬇ Exportar JSON", au_scores_title:"Scores preliminares (22 dimensões)", au_scores_desc:"Baseados em sinais detetados na pasta. Ajusta os sliders — o score composto recalcula em tempo real.", au_notice:"⚠️ Análise <b>heurística local</b> (padrões de ficheiros/conteúdo, máx 300 ficheiros) — primeiro corte útil, não substitui auditoria com leitura real de código. O badge ficará", au_tests:"Detetados {n} ficheiros de teste e {w} workflows CI.", au_adj_n:"{n} dimensões ajustadas (fica marcado)", au_adj_clean:"sem ajustes — fiel à análise", au_cur:"Score composto atual:", au_read_files:"Lidos <b>{n}</b> ficheiros — a analisar sinais…",
   md_new:"novos", md_removed:"saíram desde", md_stable:"✓ estável desde {d} ({n} modelos)", md_first:"primeiro snapshot guardado hoje ({n} modelos)", md_hist:"Modelos descontinuados (histórico local)",
+  au_ev_file:"ficheiro {f}", au_ev_dir:"pasta {d}", au_ev_tests:"{n} ficheiros test/spec", au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projeto local", au_blurb_fallback:"Adicionado por auditoria local.", au_cancel:"Cancelado.", au_error:"Erro",
   home_cta:"🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)",
   method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.",
   footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
@@ -817,9 +819,12 @@ function t(k, vars){
   return s;
 }
 function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); }); }
-function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; document.documentElement.lang = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); if(window.__sel) showDetail(window.__sel); if(window.__auditEntries){ const ov={}; DIMENSIONS.forEach(([id])=>{ const o=document.querySelector(`[data-out="${id}"]`); if(o) ov[id]=+o.textContent; }); showAuditResult(window.__auditEntries, ov); } if(window.__quizDone) runQuiz(); }
+function qAnswers(v){ const a=[]; for(let i=0;i<6;i++){ const s=$("#qq-"+i); if(v){ if(s) s.value=v[i]; } else a.push(s?+s.value:0); } return v?null:a; }
+function currentAuditScores(){ const s={}; DIMENSIONS.forEach(([id])=>{ const o=document.querySelector(`[data-out="${id}"]`); if(o) s[id]=+o.textContent||0; }); return s; }
+function setLang(l){ LANG = LANGUAGES[l] ? l : "en"; try{ localStorage.setItem("hc-lang", LANG); }catch(e){} const sel=$("#lang"); if(sel) sel.value = LANG; document.documentElement.lang = LANG; const qa = window.__quizDone ? qAnswers() : null; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); if(window.__sel) showDetail(window.__sel, true); if(window.__auditEntries){ const ov=currentAuditScores(); const fields={}; ["au-name","au-vendor","au-type","au-tags","au-blurb"].forEach(id=>{ const el=document.getElementById(id); if(el) fields[id]=el.value; }); const planEl=$("#au-plan-preview"); const planHTML=planEl?planEl.innerHTML:""; showAuditResult(window.__auditEntries, ov); Object.entries(fields).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.value=v; }); if(planHTML&&$("#au-plan-preview")) $("#au-plan-preview").innerHTML=planHTML; applyI18n(); } if(qa){ qAnswers(qa); runQuiz(true); } }
 function initLang(){
   try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
+  if(!LANGUAGES[LANG]) LANG = "en";
   const sel = $("#lang");
   if(sel){ sel.innerHTML = Object.entries(LANGUAGES).map(([k,v])=>`<option value="${k}">${v}</option>`).join(""); sel.value = LANG; }
   document.documentElement.lang = LANG;
@@ -964,7 +969,7 @@ function renderRanking(){
   });
   updateRankCount();
 }
-function showDetail(h){
+function showDetail(h, noScroll){
   window.__sel = h;
   const el=$("#rank-detail");
   const radar = radarSVG([0,1,2,3,4,5].map(i=>domainScore(h,DOMAINS[i].id)), DOMAINS.map(d=>d.id), 150, 130);
@@ -997,7 +1002,7 @@ function showDetail(h){
     ${improvementPlan(h)}
     <p class="legend">${h.audited?t("dt_laud"):h.local?t("dt_llocal",{n:h.meta&&h.meta.filesRead||0,adj:h.adjusted>0?` — <b style="color:var(--rose)">${h.adjusted} ${t("dt_ladj")}</b>`:` — ${t("dt_lclean")}`}):t("dt_lest")}</p>
   </div>`;
-  el.scrollIntoView({behavior:"smooth"});
+  if(!noScroll) el.scrollIntoView({behavior:"smooth"});
 }
 
 /* ================= SVG CHARTS ================= */
@@ -1066,7 +1071,7 @@ function buildQuiz(){
     <div class="quiz-q"><label>${i+1}. ${t(qq[0])}</label>
     <select id="qq-${i}">${qq[1].map((o,j)=>`<option value="${j}">${t(o[0])}</option>`).join("")}</select></div>`).join("");
 }
-function runQuiz(){
+function runQuiz(noScroll){
   window.__quizDone = true;
   const q=window.__quiz, w={};
   q.forEach((qq,i)=>{Object.entries(qq[1][+$("#qq-"+i).value][1]).forEach(([k,v])=>{w[k]=(w[k]||0)+v;});});
@@ -1083,7 +1088,7 @@ function runQuiz(){
       <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· fit ${r.w.toFixed(1)}</span></h3>
       <p class="muted">${t("qz_strong")} ${strong.join(", ")||"—"}. ${t("qz_weak")} ${weak.join(", ")||t("qz_none")}. (${prov})</p></div>`;
   }).join("")+`<p class="muted">${t("qz_note")}</p>`;
-  $("#quiz-result").scrollIntoView({behavior:"smooth"});
+  if(!noScroll) $("#quiz-result").scrollIntoView({behavior:"smooth"});
 }
 
 /* ================= ECONOMY ================= */
@@ -1244,6 +1249,7 @@ async function pickFolder(){
   let entries=null;
   const viaPicker = async ()=>{
     const dir=await window.showDirectoryPicker({mode:"read"});
+    window.__auditRoot = dir.name;
     status.innerHTML=`<span class="spin"></span> ${t("au_reading",{name:esc(dir.name)})}`;
     entries=[];
     let bytes=0;
@@ -1273,6 +1279,7 @@ async function pickFolder(){
     inp.value="";
     inp.onchange=async ()=>{
       const files=[...inp.files].slice(0,MAX_FILES);
+      window.__auditRoot = (files[0]&&files[0].webkitRelativePath||"").split("/")[0]||null;
       entries=[];
       let bytes=0;
       for(const f of files){
@@ -1290,14 +1297,14 @@ async function pickFolder(){
     if(window.showDirectoryPicker){
       try{ await viaPicker(); }
       catch(err){
-        if(err && err.name==="AbortError"){ status.innerHTML=`<span class="muted">Cancelado.</span>`; return; }
+        if(err && err.name==="AbortError"){ status.innerHTML=`<span class="muted">${t("au_cancel")}</span>`; return; }
         status.innerHTML=`<span class="muted">${t("au_fallback")}</span>`;
         await viaInput();
       }
     }else{
       await viaInput();
     }
-  }catch(e){ status.innerHTML=`<span class="red">Erro: ${esc(e.message||e)}</span>`; return; }
+  }catch(e){ status.innerHTML=`<span class="red">${t("au_error")}: ${esc(e.message||e)}</span>`; return; }
   if(!entries||!entries.length){ status.innerHTML=`<span class="red">${t("au_nofiles")}</span>`; return; }
   status.innerHTML=`<span class="muted">${t("au_read_files",{n:entries.length})}</span>`;
   await new Promise(r=>setTimeout(r,30));
@@ -1335,28 +1342,40 @@ function analyzeEntries(entries){
     else if(total<21) s=8;
     else s=9;
     const why=[];
-    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f))) why.push("ficheiro "+f); });
-    cfg.dirs.forEach(d=>{ if(paths.some(p=>p.split("/").includes(d))) why.push("pasta "+d); });
-    cfg.kw.forEach(k=>{ const c=(blobL.match(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length; if(c>0) why.push(`"${k}"×${c}`); });
-    if(dim==="C1" && testFiles>0) why.push(`${testFiles} ficheiros test/spec`);
-    if(dim==="C1" && workflows>0) why.push(`${workflows} workflows CI`);
+    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f))) why.push(["f",f]); });
+    cfg.dirs.forEach(d=>{ if(paths.some(p=>p.split("/").includes(d))) why.push(["d",d]); });
+    cfg.kw.forEach(k=>{ const c=(blobL.match(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length; if(c>0) why.push(["k",k,c]); });
+    if(dim==="C1" && testFiles>0) why.push(["t",testFiles]);
+    if(dim==="C1" && workflows>0) why.push(["w",workflows]);
     scores[dim]=s;
-    reasons[dim]=why.slice(0,5).join(" · ");
+    reasons[dim]=why.slice(0,5);
   }
   return {scores, reasons, testFiles, workflows};
 }
 
+const fmtWhy = w => (w||[]).map(x=>{
+    if(x[0]==="f") return t("au_ev_file",{f:x[1]});
+    if(x[0]==="d") return t("au_ev_dir",{d:x[1]});
+    if(x[0]==="k") return `"${x[1]}"×${x[2]}`;
+    if(x[0]==="t") return t("au_ev_tests",{n:x[1]});
+    if(x[0]==="w") return t("au_ev_workflows",{n:x[1]});
+    return "";
+  }).join(" · ");
+
 function showAuditResult(entries, ov){
   window.__auditEntries = entries;
-  const {scores, reasons, testFiles, workflows} = analyzeEntries(entries);
+  let res;
+  if(ov && window.__auditCache && window.__auditCache.entries === entries){ res = window.__auditCache.result; }
+  else { res = analyzeEntries(entries); if(!ov) window.__auditCache = {entries, result: res}; }
+  const {scores, reasons, testFiles, workflows} = res;
   if(ov) Object.keys(ov).forEach(k=>{ if(scores[k]!==undefined) scores[k]=ov[k]; });
   if(!ov) window.__auditMeta = {filesRead: entries.filter(e=>!e.dir).length, heuristica: Object.assign({}, scores), timestamp: new Date().toISOString()};
-  const rootName = entries.find(e=>e.path.indexOf("/")<0)?.name || "project";
+  const rootName = window.__auditRoot || entries.find(e=>e.path.indexOf("/")<0)?.name || "project";
   const defaultName = rootName.replace(/\.[a-z0-9]+$/i,"").replace(/[-_]+/g," ").replace(/\b\w/g,c=>c.toUpperCase());
-  const row = (id)=>{ const [n,desc]=DIMENSIONS.find(d=>d[0]===id);
+  const row = (id)=>{
     return `<div class="dim-row">
       <div class="name" title="${esc(dimDesc(id))}"><b>${esc(dimName(id))}</b></div>
-      <div class="why" title="${esc(reasons[id]||t("au_nosignals"))}">${esc(reasons[id]||t("au_nosignals_short"))}</div>
+      <div class="why" title="${esc(reasons[id]&&reasons[id].length?fmtWhy(reasons[id]):t("au_nosignals"))}">${esc(reasons[id]&&reasons[id].length?fmtWhy(reasons[id]):t("au_nosignals_short"))}</div>
       <input type="range" min="0" max="10" value="${scores[id]}" data-dim="${id}" oninput="auditSlide(this)">
       <output data-out="${id}">${scores[id]}</output></div>`; };
   $("#audit-result").innerHTML=`
@@ -1367,9 +1386,9 @@ function showAuditResult(entries, ov){
           <div class="calc">
             <label data-i18n="au_name">Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
             <label data-i18n="au_vendor">Vendor / autor</label><input id="au-vendor" placeholder="ex: A tua empresa">
-            <label data-i18n="au_type">Tipo</label><input id="au-type" value="${t("au_type_v")}" placeholder="ex: Control plane, agente pessoal…">
+            <label data-i18n="au_type">Tipo</label><input id="au-type" value="${esc(t("au_type_v"))}" placeholder="ex: Control plane, agente pessoal…">
             <label data-i18n="au_tags">Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="coding, gateway, multi-agente…">
-            <label data-i18n="au_blurb">Descrição curta (blurb)</label><input id="au-blurb" value="${t("au_blurb_v")}">
+            <label data-i18n="au_blurb">Descrição curta (blurb)</label><input id="au-blurb" value="${esc(t("au_blurb_v"))}">
           </div>
           <div style="margin-top:14px">
             <div class="notice" style="margin:0; font-size:12px">${t("au_integrity")}</div>
@@ -1405,13 +1424,12 @@ function updateAuditSummary(){
   if(el) el.innerHTML=`${t("au_cur")} <b class="big" style="font-size:22px">${(sum/total).toFixed(1)}</b><span class="muted">/10</span>${adj}`;
 }
 function collectAudit(){
-  const scores={};
-  DIMENSIONS.forEach(d=>{scores[d[0]]=+document.querySelector(`[data-out="${d[0]}"]`).textContent||0;});
+  const scores=currentAuditScores();
   const meta=window.__auditMeta||{filesRead:0, heuristica:{}, timestamp:new Date().toISOString()};
   const adjusted=meta.filesRead?DIMENSIONS.filter(d=>meta.heuristica[d[0]]!==undefined && Math.abs(meta.heuristica[d[0]]-scores[d[0]])>0).length:0;
   return {
     id:"local-"+Date.now().toString(36),
-    name: $("#au-name").value.trim()||"Projeto local",
+    name: $("#au-name").value.trim()||t("au_name_fallback"),
     vendor: $("#au-vendor").value.trim()||"—",
     type: $("#au-type").value.trim()||"Project",
     url:"",
@@ -1421,7 +1439,7 @@ function collectAudit(){
     adjusted,
     meta,
     tags: $("#au-tags").value.split(",").map(t=>t.trim()).filter(Boolean),
-    blurb: $("#au-blurb").value.trim()||"Adicionado por auditoria local.",
+    blurb: $("#au-blurb").value.trim()||t("au_blurb_fallback"),
     scores
   };
 }
@@ -1443,11 +1461,11 @@ function exportAuditedJSON(){
   const out=JSON.stringify(h,null,2);
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([out],{type:"application/json"}));
-  a.download=(h.name.toLowerCase().replace(/[^a-z0-9]+/g,"-")||"harness")+".json";
+  a.download=((h.name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""))||"harness")+".json";
   a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
-function resetAudit(){ $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
+function resetAudit(){ window.__auditEntries=null; window.__auditRoot=null; $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
 
 /* ================= BOOT ================= */
 nav(); initLang(); initTheme(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();

@@ -110,55 +110,57 @@
   <header>
     <div>
       <div class="logo">🧭 Harness Compass</div>
-      <div class="tagline">Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.</div>
+      <div class="tagline" data-i18n="tagline">Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.</div>
     </div>
-    <button class="ghost" onclick="switchView('audit')">📂 Auditar uma pasta</button>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <select id="lang" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" style="background:#12122a;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer"></select>
+      <button class="ghost" onclick="switchView('audit')" data-i18n="audit_pick_top">📂 Auditar uma pasta</button>
+    </div>
   </header>
 
   <nav id="nav">
-    <button data-view="home" class="active">Paradigma</button>
-    <button data-view="ranking">Ranking</button>
-    <button data-view="cost">Custo real</button>
-    <button data-view="map">Mapa</button>
-    <button data-view="audit">Auditar pasta</button>
-    <button data-view="quiz">Que harness para ti?</button>
-    <button data-view="economy">Calculadora</button>
-    <button data-view="method">Método</button>
+    <button data-view="home" class="active" data-i18n="nav_home">Paradigma</button>
+    <button data-view="ranking" data-i18n="nav_ranking">Ranking</button>
+    <button data-view="cost" data-i18n="nav_cost">Custo real</button>
+    <button data-view="map" data-i18n="nav_map">Mapa</button>
+    <button data-view="audit" data-i18n="nav_audit">Auditar pasta</button>
+    <button data-view="quiz" data-i18n="nav_quiz">Que harness para ti?</button>
+    <button data-view="economy" data-i18n="nav_economy">Calculadora</button>
+    <button data-view="method" data-i18n="nav_method">Método</button>
   </nav>
 
   <!-- ============ HOME ============ -->
   <section id="view-home" class="active">
     <div class="hero">
-      <h2>O harness decide quanto do teu dinheiro em tokens é desperdiçado.</h2>
-      <p class="sub">Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se na primeira semana de produção. E agora podes <b>auditar o teu próprio projeto</b> e vê-lo entrar no ranking.</p>
+      <h2 data-i18n="home_hero_title">O harness decide quanto do teu dinheiro em tokens é desperdiçado.</h2>
+      <p class="sub" data-i18n="home_hero_sub">Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se na primeira semana de produção. E agora podes <b>auditar o teu próprio projeto</b> e vê-lo entrar no ranking.</p>
     </div>
     <div class="card">
-      <h2>O paradigma em 3 passos</h2>
+      <h2 data-i18n="home_steps_title">O paradigma em 3 passos</h2>
       <div class="steps">
-        <div class="step"><b>1 · Mede</b>O harness é a camada entre o modelo e o teu produto: guia (prompts, AGENTS.md, skills), executa (loop, tools, sandbox), verifica (testes, evals) e decide (permissões, julgamento, custo).</div>
-        <div class="step"><b>2 · Compara</b>Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.</div>
-        <div class="step"><b>3 · Decide</b>Com um harness potente, um modelo barato chega ao nível de um caro. O quiz diz-te qual encaixa no teu caso — e a calculadora mostra quanto poupas.</div>
+        <div class="step"><b data-i18n="step1_t">1 · Mede</b><span data-i18n="step1_d">O harness é a camada entre o modelo e o teu produto: guia (prompts, AGENTS.md, skills), executa (loop, tools, sandbox), verifica (testes, evals) e decide (permissões, julgamento, custo).</span></div>
+        <div class="step"><b data-i18n="step2_t">2 · Compara</b><span data-i18n="step2_d">Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.</span></div>
+        <div class="step"><b data-i18n="step3_t">3 · Decide</b><span data-i18n="step3_d">Com um harness potente, um modelo barato chega ao nível de um caro. O quiz diz-te qual encaixa no teu caso — e a calculadora mostra quanto poupas.</span></div>
       </div>
     </div>
     <div class="card">
-      <h2>Da anatomia clássica ao sistema cibernético</h2>
-      <p class="muted">A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:</p>
+      <h2 data-i18n="home_anatomy_title">Da anatomia clássica ao sistema cibernético</h2>
+      <p class="muted" data-i18n="home_anatomy_sub">A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:</p>
       <p style="margin-top:10px">
-        <span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span>
-      </p>
-      <p class="legend">"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."</p>
+        <span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span></p>
+      <p class="legend" data-i18n="home_anatomy_legend">"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."</p>
     </div>
   </section>
 
   <!-- ============ RANKING ============ -->
   <section id="view-ranking">
     <div class="card">
-      <h2>Ranking de harnesses <span id="rank-count"></span></h2>
-      <p class="muted">Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa.
+      <h2 data-i18n="rank_title">Ranking de harnesses <span id="rank-count"></span></h2>
+      <p class="muted" data-i18n="rank_desc">Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa.
         <span class="badge b-audit">Auditado</span> = evidência file:line · <span class="badge b-prel">Preliminar</span> = análise local de pasta · <span class="badge b-est">Estimativa</span> = informada, a validar.</p>
       <div style="margin:14px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
-        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase">Filtrar domínio:</b>
-        <button class="pill fbtn" data-f="all" style="cursor:pointer">Todos</button>
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_dom">Filtrar domínio:</b>
+        <button class="pill fbtn" data-f="all" style="cursor:pointer" data-i18n="dom_all">Todos</button>
         <button class="pill fbtn" data-f="A" style="cursor:pointer">A Núcleo</button>
         <button class="pill fbtn" data-f="B" style="cursor:pointer">B Guias</button>
         <button class="pill fbtn" data-f="C" style="cursor:pointer">C Sensores</button>
@@ -167,10 +169,10 @@
         <button class="pill fbtn" data-f="F" style="cursor:pointer">F Operacional</button>
       </div>
       <div style="margin:0 0 14px; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
-        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase">Proveniência (integridade):</b>
-        <button class="pill pbtn" data-p="all" style="cursor:pointer">Todos</button>
-        <button class="pill pbtn" data-p="oficial" style="cursor:pointer">✓ Oficial (verificado por PR)</button>
-        <button class="pill pbtn" data-p="local" style="cursor:pointer">Local (a tua sessão)</button>
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_prov">Proveniência (integridade):</b>
+        <button class="pill pbtn" data-p="all" style="cursor:pointer" data-i18n="prov_all">Todos</button>
+        <button class="pill pbtn" data-p="oficial" style="cursor:pointer" data-i18n="prov_oficial">✓ Oficial (verificado por PR)</button>
+        <button class="pill pbtn" data-p="local" style="cursor:pointer" data-i18n="prov_local">Local (a tua sessão)</button>
       </div>
       <div class="tbl-wrap">
         <table id="rank-table">
@@ -185,8 +187,8 @@
   <!-- ============ COST (Same Model, Different Harness) ============ -->
   <section id="view-cost">
     <div class="card">
-      <h2>💰 Same Model, Different Harness — custo real por tarefa</h2>
-      <p class="muted">O mesmo volume de trabalho, o mesmo modelo, através de cada harness. O custo real (harness-adjusted) depende da eficiência da camada: <b>cache &amp; compressão</b> (A2), <b>falhas evitadas</b> (C4), <b>routing para o modelo barato</b> (A1). É o "Cost per Task" do Artificial Analysis — aplicado ao harness, não ao modelo. <span class="badge b-audit">Auditado</span> = eficiência medida; <span class="badge b-est">Estimativa</span> = aproximada.</p>
+      <h2 data-i18n="cost_title">💰 Same Model, Different Harness — custo real por tarefa</h2>
+      <p class="muted" data-i18n="cost_desc">O mesmo volume de trabalho, o mesmo modelo, através de cada harness. O custo real (harness-adjusted) depende da eficiência da camada: <b>cache &amp; compressão</b> (A2), <b>falhas evitadas</b> (C4), <b>routing para o modelo barato</b> (A1). É o "Cost per Task" do Artificial Analysis — aplicado ao harness, não ao modelo. <span class="badge b-audit">Auditado</span> = eficiência medida; <span class="badge b-est">Estimativa</span> = aproximada.</p>
       <div class="grid2" style="margin-top:14px">
         <div class="calc">
           <label>Tokens de entrada / mês (milhões)</label>
@@ -218,8 +220,8 @@
   <!-- ============ MAP ============ -->
   <section id="view-map">
     <div class="card">
-      <h2>Mapa do Harness — 6 domínios × 22 dimensões</h2>
-      <p class="muted">A taxonomia usada para auditar qualquer harness. Cada dimensão tem KPIs próprios e escala de maturidade 0–10.</p>
+      <h2 data-i18n="map_title">Mapa do Harness — 6 domínios × 22 dimensões</h2>
+      <p class="muted" data-i18n="map_desc">A taxonomia usada para auditar qualquer harness. Cada dimensão tem KPIs próprios e escala de maturidade 0–10.</p>
       <div id="map-container" style="margin-top:14px"></div>
     </div>
   </section>
@@ -227,12 +229,12 @@
   <!-- ============ AUDIT ============ -->
   <section id="view-audit">
     <div class="card">
-      <h2>📂 Auditar uma pasta e rankeá-la</h2>
-      <p class="muted">Abre a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>Tudo corre no teu browser — nada sai da tua máquina.</b></p>
-      <p class="legend">🖥️ Compatibilidade: <b>Chrome/Edge</b> (qualquer OS) = experiência completa via seletor de pastas (requer HTTPS — o GitHub Pages dá). <b>Firefox</b> = usa o seletor clássico automaticamente. <b>Safari</b> = tudo funciona exceto a leitura de pastas (limitada pelo browser). O resto da app funciona em qualquer browser moderno.</p>
+      <h2 data-i18n="audit_title">📂 Auditar uma pasta e rankeá-la</h2>
+      <p class="muted" data-i18n="audit_desc">Abre a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>Tudo corre no teu browser — nada sai da tua máquina.</b></p>
+      <p class="legend" data-i18n="audit_compat">🖥️ Compatibilidade: <b>Chrome/Edge</b> (qualquer OS) = experiência completa via seletor de pastas (requer HTTPS — o GitHub Pages dá). <b>Firefox</b> = usa o seletor clássico automaticamente. <b>Safari</b> = tudo funciona exceto a leitura de pastas (limitada pelo browser). O resto da app funciona em qualquer browser moderno.</p>
       <div style="margin:18px 0; display:flex; gap:10px; flex-wrap:wrap">
-        <button class="primary" onclick="pickFolder()">Escolher pasta do projeto</button>
-        <button class="ghost" onclick="resetAudit()">Limpar</button>
+        <button class="primary" onclick="pickFolder()" data-i18n="audit_pick">Escolher pasta do projeto</button>
+        <button class="ghost" onclick="resetAudit()" data-i18n="audit_clear">Limpar</button>
         <input type="file" id="folder-input" webkitdirectory directory multiple style="display:none">
       </div>
       <div id="audit-status" class="muted"></div>
@@ -243,10 +245,10 @@
   <!-- ============ QUIZ ============ -->
   <section id="view-quiz">
     <div class="card">
-      <h2>Que harness para ti?</h2>
-      <p class="muted">Responde a 6 perguntas. O Compass pondera as 22 dimensões conforme o teu perfil e recomenda os 3 harnesses com justificação.</p>
+      <h2 data-i18n="quiz_title">Que harness para ti?</h2>
+      <p class="muted" data-i18n="quiz_desc">Responde a 6 perguntas. O Compass pondera as 22 dimensões conforme o teu perfil e recomenda os 3 harnesses com justificação.</p>
       <div id="quiz-questions" style="margin:16px 0"></div>
-      <button class="primary" onclick="runQuiz()">Calcular recomendação</button>
+      <button class="primary" onclick="runQuiz()" data-i18n="quiz_run">Calcular recomendação</button>
       <div id="quiz-result" style="margin-top:18px"></div>
     </div>
   </section>
@@ -254,8 +256,8 @@
   <!-- ============ ECONOMY ============ -->
   <section id="view-economy">
     <div class="card">
-      <h2>Calculadora do paradigma: quanto poupa um harness potente?</h2>
-      <p class="muted">O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.</p>
+      <h2 data-i18n="eco_title">Calculadora do paradigma: quanto poupa um harness potente?</h2>
+      <p class="muted" data-i18n="eco_desc">O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.</p>
       <div class="grid2" style="margin-top:14px">
         <div class="calc">
           <label>Tokens de entrada / mês (milhões)</label>
@@ -289,7 +291,7 @@
   <!-- ============ METHOD ============ -->
   <section id="view-method">
     <div class="card">
-      <h2>Método e evidência</h2>
+      <h2 data-i18n="method_title">Método e evidência</h2>
       <p>O Harness Compass nasce de auditorias reais, não de opinião. Um harness <span class="badge b-audit">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class="badge b-prel">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.</p>
       <h3>Escala de maturidade (0–10)</h3>
       <div class="tbl-wrap" style="margin-top:8px">
@@ -310,7 +312,7 @@
     </div>
   </section>
 
-  <footer>Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · MIT.</footer>
+  <footer data-i18n="footer">Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0.</footer>
 </div>
 
 <script>
@@ -395,6 +397,160 @@ const BUILTIN_HARNESSES = [
 let HARNESSES = BUILTIN_HARNESSES.slice();
 let sortKey="total", sortAsc=false, filter="all", provFilter="all";
 
+/* ================= I18N ================= */
+/* Língua norma: EN. Traduções parciais caem para EN (fallback). Corrige termos editando este dicionário (PR). */
+const LANGUAGES = {en:"English", pt:"Português", fr:"Français", de:"Deutsch", zh:"中文", hi:"हिन्दी"};
+const T = {
+en:{
+  tagline:"Agent = Model + Harness · choose the right harness and the cheap model gets there.",
+  audit_pick_top:"📂 Audit a folder",
+  nav_home:"Paradigm", nav_ranking:"Ranking", nav_cost:"Real cost", nav_map:"Map", nav_audit:"Audit folder", nav_quiz:"Which harness?", nav_economy:"Calculator", nav_method:"Method",
+  home_hero_title:"The harness decides how much of your token budget is wasted.",
+  home_hero_sub:"A powerful harness — byte-stable caching, smart retry, multi-provider fallback, compression, verification — makes cheap LLMs viable. The harness pays for itself in the first week of production. And now you can audit your own project and see it enter the ranking.",
+  home_steps_title:"The paradigm in 3 steps",
+  step1_t:"1 · Measure", step1_d:"The harness is the layer between the model and your product: it guides (prompts, AGENTS.md, skills), executes (loop, tools, sandbox), verifies (tests, evals) and decides (permissions, judgment, cost).",
+  step2_t:"2 · Compare", step2_d:"Not all harnesses are equal. This ranking scores them across 22 dimensions with evidence — audited, estimated and local analyses always distinguished.",
+  step3_t:"3 · Decide", step3_d:"With a powerful harness, a cheap model reaches the level of an expensive one. The quiz tells you which one fits — and the calculator shows how much you save.",
+  home_anatomy_title:"From classic anatomy to a cybernetic system",
+  home_anatomy_sub:"The anatomy (Interface → AGENT LOOP → LLM ↔ tools; Tools, Permissions, Sandbox, Verification, Observability) is right. The full version adds what real auditing revealed:",
+  home_anatomy_legend:"\"Loops coordinate. Harnesses guide, execute, verify and decide. Models generate.\"",
+  rank_title:"Harness ranking <span id=\"rank-count\"></span>",
+  rank_desc:"Composite score 0–10 = average of the 22 dimensions. Sort by column; click a row for the full fingerprint. <span class=\"badge b-audit\">Audited</span> = file:line evidence · <span class=\"badge b-prel\">Preliminary</span> = local folder analysis · <span class=\"badge b-est\">Estimate</span> = informed, to validate.",
+  rank_dom:"Filter domain:", dom_all:"All",
+  rank_prov:"Provenance (integrity):", prov_all:"All", prov_oficial:"✓ Official (verified by PR)", prov_local:"Local (your session)",
+  cost_title:"💰 Same Model, Different Harness — real cost per task",
+  cost_desc:"Same workload, same model, through each harness. Real (harness-adjusted) cost depends on layer efficiency: <b>cache &amp; compression</b> (A2), <b>avoided failures</b> (C4), <b>routing to the cheap model</b> (A1). It's the Artificial Analysis \"Cost per Task\" — applied to the harness, not the model.",
+  map_title:"Harness Map — 6 domains × 22 dimensions",
+  map_desc:"The taxonomy used to audit any harness. Each dimension has its own KPIs and a 0–10 maturity scale.",
+  audit_title:"📂 Audit a folder and rank it",
+  audit_desc:"Open a project/repo folder. The Compass reads structural signals (AGENTS.md, tests, CI, skills, security patterns…) and produces preliminary scores for the 22 dimensions. Adjust as you wish, add to the ranking and export the JSON to contribute. <b>Everything runs in your browser — nothing leaves your machine.</b>",
+  audit_compat:"🖥️ Compatibility: <b>Chrome/Edge</b> (any OS) = full experience via folder picker (needs HTTPS — GitHub Pages provides it). <b>Firefox</b> = classic picker automatically. <b>Safari</b> = everything works except folder reading (browser limitation). The rest of the app works on any modern browser.",
+  audit_pick:"Choose project folder", audit_clear:"Clear",
+  quiz_title:"Which harness for you?", quiz_desc:"Answer 6 questions. The Compass weights the 22 dimensions by your profile and recommends the top 3 with justification.",
+  quiz_run:"Calculate recommendation",
+  eco_title:"Paradigm calculator: how much does a powerful harness save?",
+  eco_desc:"Same workload, with and without an efficient harness. Drag the sliders and see the effect in $/month.",
+  method_title:"Method & evidence",
+  footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0.",
+  badge_audit:"Audited", badge_est:"Estimate", badge_prel:"Preliminary", badge_local:"Local", badge_adj:"adjusted",
+  quiz_q1:"Monthly LLM budget", quiz_o1a:"Up to $50 — every token counts", quiz_o1b:"$50–500 — efficiency matters", quiz_o1c:"$500+ — comfort, want quality",
+  quiz_q2:"Desired autonomy", quiz_o2a:"Maximum — minimal approvals", quiz_o2b:"Balanced — approve destructive", quiz_o2c:"Conservative — human in the loop",
+  quiz_q3:"Where you work", quiz_o3a:"Terminal / CLI", quiz_o3b:"IDE (VS Code, JetBrains)", quiz_o3c:"Messaging gateway", quiz_o3d:"CI / automation / server",
+  quiz_q4:"Models", quiz_o4a:"Single provider", quiz_o4b:"Switch/fallback between providers", quiz_o4c:"Smart routing (cheap for simple)",
+  quiz_q5:"Output quality", quiz_o5a:"Trust the model", quiz_o5b:"Tests and CI are enough", quiz_o5c:"Evals/LLM-as-judge reviewing",
+  quiz_q6:"Extensibility", quiz_o6a:"Factory tools only", quiz_o6b:"Ecosystem plugins/skills", quiz_o6c:"I'll build my own tools and skills"
+},
+pt:{
+  tagline:"Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.",
+  audit_pick_top:"📂 Auditar uma pasta",
+  nav_home:"Paradigma", nav_ranking:"Ranking", nav_cost:"Custo real", nav_map:"Mapa", nav_audit:"Auditar pasta", nav_quiz:"Que harness para ti?", nav_economy:"Calculadora", nav_method:"Método",
+  home_hero_title:"O harness decide quanto do teu dinheiro em tokens é desperdiçado.",
+  home_hero_sub:"Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se na primeira semana de produção. E agora podes <b>auditar o teu próprio projeto</b> e vê-lo entrar no ranking.",
+  home_steps_title:"O paradigma em 3 passos",
+  step1_t:"1 · Mede", step1_d:"O harness é a camada entre o modelo e o teu produto: guia (prompts, AGENTS.md, skills), executa (loop, tools, sandbox), verifica (testes, evals) e decide (permissões, julgamento, custo).",
+  step2_t:"2 · Compara", step2_d:"Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.",
+  step3_t:"3 · Decide", step3_d:"Com um harness potente, um modelo barato chega ao nível de um caro. O quiz diz-te qual encaixa no teu caso — e a calculadora mostra quanto poupas.",
+  home_anatomy_title:"Da anatomia clássica ao sistema cibernético",
+  home_anatomy_sub:"A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:",
+  home_anatomy_legend:"\"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram.\"",
+  rank_title:"Ranking de harnesses <span id=\"rank-count\"></span>",
+  rank_desc:"Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa. <span class=\"badge b-audit\">Auditado</span> = evidência file:line · <span class=\"badge b-prel\">Preliminar</span> = análise local de pasta · <span class=\"badge b-est\">Estimativa</span> = informada, a validar.",
+  rank_dom:"Filtrar domínio:", dom_all:"Todos",
+  rank_prov:"Proveniência (integridade):", prov_all:"Todos", prov_oficial:"✓ Oficial (verificado por PR)", prov_local:"Local (a tua sessão)",
+  cost_title:"💰 Same Model, Different Harness — custo real por tarefa",
+  cost_desc:"O mesmo volume de trabalho, o mesmo modelo, através de cada harness. O custo real (harness-adjusted) depende da eficiência da camada: <b>cache &amp; compressão</b> (A2), <b>falhas evitadas</b> (C4), <b>routing para o modelo barato</b> (A1). É o \"Cost per Task\" do Artificial Analysis — aplicado ao harness, não ao modelo.",
+  map_title:"Mapa do Harness — 6 domínios × 22 dimensões",
+  map_desc:"A taxonomia usada para auditar qualquer harness. Cada dimensão tem KPIs próprios e escala de maturidade 0–10.",
+  audit_title:"📂 Auditar uma pasta e rankeá-la",
+  audit_desc:"Abre a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>Tudo corre no teu browser — nada sai da tua máquina.</b>",
+  audit_compat:"🖥️ Compatibilidade: <b>Chrome/Edge</b> (qualquer OS) = experiência completa via seletor de pastas (requer HTTPS — o GitHub Pages dá). <b>Firefox</b> = usa o seletor clássico automaticamente. <b>Safari</b> = tudo funciona exceto a leitura de pastas (limitada pelo browser). O resto da app funciona em qualquer browser moderno.",
+  audit_pick:"Escolher pasta do projeto", audit_clear:"Limpar",
+  quiz_title:"Que harness para ti?", quiz_desc:"Responde a 6 perguntas. O Compass pondera as 22 dimensões conforme o teu perfil e recomenda os 3 harnesses com justificação.",
+  quiz_run:"Calcular recomendação",
+  eco_title:"Calculadora do paradigma: quanto poupa um harness potente?",
+  eco_desc:"O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.",
+  method_title:"Método e evidência",
+  footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0.",
+  badge_audit:"Auditado", badge_est:"Estimativa", badge_prel:"Preliminar", badge_local:"Local", badge_adj:"ajustadas",
+  quiz_q1:"Orçamento mensal de LLM", quiz_o1a:"Até $50 — cada token conta", quiz_o1b:"$50–500 — eficiência importa", quiz_o1c:"$500+ — conforto, quero qualidade",
+  quiz_q2:"Autonomia desejada", quiz_o2a:"Máxima — aprovações mínimas", quiz_o2b:"Equilibrada — aprova em destrutivas", quiz_o2c:"Conservadora — humano no loop",
+  quiz_q3:"Onde trabalhas", quiz_o3a:"Terminal / CLI", quiz_o3b:"IDE (VS Code, JetBrains)", quiz_o3c:"Gateway de mensagens", quiz_o3d:"CI / automação / servidor",
+  quiz_q4:"Modelos", quiz_o4a:"Uso um só provider", quiz_o4b:"Trocar/fallback entre providers", quiz_o4c:"Routing inteligente (barato para o simples)",
+  quiz_q5:"Qualidade de output", quiz_o5a:"Confio no modelo", quiz_o5b:"Testes e CI chegam", quiz_o5c:"Evals/LLM-as-judge a rever",
+  quiz_q6:"Extensibilidade", quiz_o6a:"Só o que vem de fábrica", quiz_o6b:"Plugins/skills do ecossistema", quiz_o6c:"Vou construir tools e skills"
+},
+fr:{
+  tagline:"Agent = Modèle + Harness · choisissez le bon harness et le modèle économique y arrive.",
+  audit_pick_top:"📂 Auditer un dossier",
+  nav_home:"Paradigme", nav_ranking:"Classement", nav_cost:"Coût réel", nav_map:"Carte", nav_audit:"Auditer un dossier", nav_quiz:"Quel harness ?", nav_economy:"Calculateur", nav_method:"Méthode",
+  home_hero_title:"Le harness décide combien de ton budget tokens est gaspillé.",
+  rank_title:"Classement des harnesses <span id=\"rank-count\"></span>",
+  cost_title:"💰 Même modèle, différent harness — coût réel par tâche",
+  map_title:"Carte du Harness", audit_title:"📂 Auditer un dossier et le classer",
+  quiz_title:"Quel harness pour vous ?", eco_title:"Calculateur : combien un harness puissant fait-il économiser ?", method_title:"Méthode et preuve",
+  audit_pick:"Choisir le dossier du projet", audit_clear:"Effacer", quiz_run:"Calculer la recommandation",
+  rank_dom:"Filtrer par domaine :", dom_all:"Tous", rank_prov:"Provenance (intégrité) :", prov_all:"Tous", prov_oficial:"✓ Officiel (vérifié par PR)", prov_local:"Local (votre session)",
+  footer:"Harness Compass · Agent = Modèle + Harness · audité / préliminaire / estimation ne se mélangent jamais sans étiquette · AGPL-3.0.",
+  badge_audit:"Audité", badge_est:"Estimation", badge_prel:"Préliminaire", badge_local:"Local", badge_adj:"ajustées"
+},
+de:{
+  tagline:"Agent = Modell + Harness · wähle das richtige Harness und das günstige Modell schafft es.",
+  audit_pick_top:"📂 Ordner prüfen",
+  nav_home:"Paradigma", nav_ranking:"Rangliste", nav_cost:"Echte Kosten", nav_map:"Karte", nav_audit:"Ordner prüfen", nav_quiz:"Welches Harness?", nav_economy:"Rechner", nav_method:"Methode",
+  home_hero_title:"Das Harness entscheidet, wie viel deines Token-Budgets verschwendet wird.",
+  rank_title:"Harness-Rangliste <span id=\"rank-count\"></span>",
+  cost_title:"💰 Gleiches Modell, anderes Harness — echte Kosten pro Aufgabe",
+  map_title:"Harness-Karte", audit_title:"📂 Ordner prüfen und einstufen",
+  quiz_title:"Welches Harness für dich?", eco_title:"Rechner: Wie viel spart ein starkes Harness?", method_title:"Methode & Beweis",
+  audit_pick:"Projektordner wählen", audit_clear:"Leeren", quiz_run:"Empfehlung berechnen",
+  rank_dom:"Domäne filtern:", dom_all:"Alle", rank_prov:"Herkunft (Integrität):", prov_all:"Alle", prov_oficial:"✓ Offiziell (per PR verifiziert)", prov_local:"Lokal (deine Sitzung)",
+  footer:"Harness Compass · Agent = Modell + Harness · auditiert / vorläufig / Schätzung nie unetikettiert · AGPL-3.0.",
+  badge_audit:"Auditiert", badge_est:"Schätzung", badge_prel:"Vorläufig", badge_local:"Lokal", badge_adj:"angepasst"
+},
+zh:{
+  tagline:"Agent = 模型 + Harness · 选对 Harness，廉价模型也能胜任。",
+  audit_pick_top:"📂 审计文件夹",
+  nav_home:"范式", nav_ranking:"排名", nav_cost:"实际成本", nav_map:"地图", nav_audit:"审计文件夹", nav_quiz:"选择哪个 Harness？", nav_economy:"计算器", nav_method:"方法",
+  home_hero_title:"Harness 决定了你的 token 预算被浪费多少。",
+  rank_title:"Harness 排名 <span id=\"rank-count\"></span>",
+  cost_title:"💰 同一模型，不同 Harness — 每任务真实成本",
+  map_title:"Harness 地图", audit_title:"📂 审计文件夹并排名",
+  quiz_title:"哪个 Harness 适合你？", eco_title:"计算器：强大的 Harness 能省多少？", method_title:"方法与证据",
+  audit_pick:"选择项目文件夹", audit_clear:"清除", quiz_run:"计算推荐",
+  rank_dom:"按领域筛选：", dom_all:"全部", rank_prov:"来源（完整性）：", prov_all:"全部", prov_oficial:"✓ 官方（经 PR 验证）", prov_local:"本地（你的会话）",
+  footer:"Harness Compass · Agent = 模型 + Harness · 审计/初步/估算绝不混标签 · AGPL-3.0.",
+  badge_audit:"已审计", badge_est:"估算", badge_prel:"初步", badge_local:"本地", badge_adj:"已调整"
+},
+hi:{
+  tagline:"एजेंट = मॉडल + हार्नेस · सही हार्नेस चुनें और सस्ता मॉडल काम करेगा।",
+  audit_pick_top:"📂 फ़ोल्डर ऑडिट करें",
+  nav_home:"प्रतिमान", nav_ranking:"रैंकिंग", nav_cost:"वास्तविक लागत", nav_map:"नक्शा", nav_audit:"फ़ोल्डर ऑडिट", nav_quiz:"कौन सा हार्नेस?", nav_economy:"कैलकुलेटर", nav_method:"विधि",
+  home_hero_title:"हार्नेस तय करता है कि आपका टोकन बजट कितना बर्बाद होता है।",
+  rank_title:"हार्नेस रैंकिंग <span id=\"rank-count\"></span>",
+  cost_title:"💰 एक ही मॉडल, अलग हार्नेस — प्रति कार्य वास्तविक लागत",
+  map_title:"हार्नेस नक्शा", audit_title:"📂 फ़ोल्डर ऑडिट और रैंक",
+  quiz_title:"आपके लिए कौन सा हार्नेस?", eco_title:"कैलकुलेटर: शक्तिशाली हार्नेस कितना बचाता है?", method_title:"विधि और सबूत",
+  audit_pick:"प्रोजेक्ट फ़ोल्डर चुनें", audit_clear:"साफ़ करें", quiz_run:"सिफारिश गणना करें",
+  rank_dom:"डोमेन फ़िल्टर करें:", dom_all:"सभी", rank_prov:"उत्पत्ति (अखंडता):", prov_all:"सभी", prov_oficial:"✓ आधिकारिक (PR द्वारा सत्यापित)", prov_local:"स्थानीय (आपका सत्र)",
+  footer:"Harness Compass · Agent = मॉडल + हार्नेस · ऑडिट/प्रारंभिक/अनुमान कभी बिना लेबल नहीं · AGPL-3.0.",
+  badge_audit:"ऑडिटेड", badge_est:"अनुमान", badge_prel:"प्रारंभिक", badge_local:"स्थानीय", badge_adj:"समायोजित"
+}
+};
+let LANG = "en";
+function t(k, vars){
+  let s = ((T[LANG]||{})[k]) || T.en[k] || k;
+  if(vars) Object.entries(vars).forEach(([a,b])=>{ s = s.replace("{"+a+"}", b); });
+  return s;
+}
+function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); }); }
+function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); }
+function initLang(){
+  try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
+  const sel = $("#lang");
+  if(sel){ sel.innerHTML = Object.entries(LANGUAGES).map(([k,v])=>`<option value="${k}">${v}</option>`).join(""); sel.value = LANG; }
+  applyI18n();
+}
+
 /* ================= UI helpers ================= */
 const LEVELS = [
   {min:0,  name:"L1 · Inicial", desc:"Funciona por acaso — sem invariantes, sem medição."},
@@ -455,10 +611,10 @@ const esc = s => String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replac
 const score = h => {const v=Object.values(h.scores); return v.reduce((a,b)=>a+b,0)/v.length;};
 const domainScore = (h,d) => DIMENSIONS.filter(x=>x[0][0]===d).reduce((a,dd)=>a+h.scores[dd[0]],0)/DIMENSIONS.filter(x=>x[0][0]===d).length;
 const badge = h => {
-  let b = h.audited ? '<span class="badge b-audit">Auditado</span>'
-        : (h.preliminar ? '<span class="badge b-prel">Preliminar</span>' : '<span class="badge b-est">Estimativa</span>');
-  if(h.local) b += ' <span class="badge" style="background:rgba(139,92,246,.14);color:#c4b5fd;border:1px solid rgba(139,92,246,.3)">Local</span>';
-  if(h.adjusted>0) b += ` <span class="badge" style="background:rgba(251,113,133,.13);color:#fda4af;border:1px solid rgba(251,113,133,.3)">⚠ ${h.adjusted} ajustadas</span>`;
+  let b = h.audited ? `<span class="badge b-audit">${t("badge_audit")}</span>`
+        : (h.preliminar ? `<span class="badge b-prel">${t("badge_prel")}</span>` : `<span class="badge b-est">${t("badge_est")}</span>`);
+  if(h.local) b += ` <span class="badge" style="background:rgba(139,92,246,.14);color:#c4b5fd;border:1px solid rgba(139,92,246,.3)">${t("badge_local")}</span>`;
+  if(h.adjusted>0) b += ` <span class="badge" style="background:rgba(251,113,133,.13);color:#fda4af;border:1px solid rgba(251,113,133,.3)">⚠ ${h.adjusted} ${t("badge_adj")}</span>`;
   return b;
 };
 const dimName = id => (DIMENSIONS.find(d=>d[0]===id)||[])[1]||id;
@@ -611,27 +767,21 @@ function buildMap(){
 /* ================= QUIZ ================= */
 function buildQuiz(){
   const q=[
-    ["Orçamento mensal de LLM","Quanto gastas (ou toleras) em tokens por mês?",
-      [["Até $50 — cada token conta",{F2:3,C4:2,A2:2}],["$50–500 — eficiência importa",{F2:2,C4:1,A2:1}],["$500+ — conforto, quero qualidade",{C2:2,D3:1,B2:1}]]],
-    ["Autonomia desejada","Quanta autonomia queres dar ao agente?",
-      [["Máxima — aprovações mínimas",{D2:2,D3:1,D1:1}],["Equilibrada — aprova em destrutivas",{D2:3,D3:2}],["Conservadora — humano no loop",{D3:3,D2:2,D4:1}]]],
-    ["Onde trabalhas","Onde o harness vai viver?",
-      [["Terminal / CLI",{A4:2,F1:1}],["IDE (VS Code, JetBrains)",{A4:2,B3:1}],["Gateway de mensagens",{A3:2,E2:2,D2:2}],["CI / automação / servidor",{F3:2,C1:2,F1:1}]]],
-    ["Modelos","Que relação com modelos?",
-      [["Uso um só provider",{A1:0}],["Trocar/fallback entre providers",{A1:3,F2:2}],["Routing inteligente (barato para o simples)",{A1:4,C2:1,F2:2}]]],
-    ["Qualidade de output","Como garantir que o resultado é bom?",
-      [["Confio no modelo",{C2:0}],["Testes e CI chegam",{C1:3}],["Evals/LLM-as-judge a rever",{C2:4,C1:2}]]],
-    ["Extensibilidade","Vais precisar de ferramentas próprias?",
-      [["Só o que vem de fábrica",{A4:0}],["Plugins/skills do ecossistema",{B2:2,A4:2}],["Vou construir tools e skills",{A4:3,B2:2,E1:1}]]],
+    ["quiz_q1",[["quiz_o1a",{F2:3,C4:2,A2:2}],["quiz_o1b",{F2:2,C4:1,A2:1}],["quiz_o1c",{C2:2,D3:1,B2:1}]]],
+    ["quiz_q2",[["quiz_o2a",{D2:2,D3:1,D1:1}],["quiz_o2b",{D2:3,D3:2}],["quiz_o2c",{D3:3,D2:2,D4:1}]]],
+    ["quiz_q3",[["quiz_o3a",{A4:2,F1:1}],["quiz_o3b",{A4:2,B3:1}],["quiz_o3c",{A3:2,E2:2,D2:2}],["quiz_o3d",{F3:2,C1:2,F1:1}]]],
+    ["quiz_q4",[["quiz_o4a",{A1:0}],["quiz_o4b",{A1:3,F2:2}],["quiz_o4c",{A1:4,C2:1,F2:2}]]],
+    ["quiz_q5",[["quiz_o5a",{C2:0}],["quiz_o5b",{C1:3}],["quiz_o5c",{C2:4,C1:2}]]],
+    ["quiz_q6",[["quiz_o6a",{A4:0}],["quiz_o6b",{B2:2,A4:2}],["quiz_o6c",{A4:3,B2:2,E1:1}]]],
   ];
   window.__quiz=q;
   $("#quiz-questions").innerHTML=q.map((qq,i)=>`
-    <div class="quiz-q"><label>${i+1}. ${esc(qq[1])}</label>
-    <select id="qq-${i}">${qq[2].map((o,j)=>`<option value="${j}">${esc(o[0])}</option>`).join("")}</select></div>`).join("");
+    <div class="quiz-q"><label>${i+1}. ${t(qq[0])}</label>
+    <select id="qq-${i}">${qq[1].map((o,j)=>`<option value="${j}">${t(o[0])}</option>`).join("")}</select></div>`).join("");
 }
 function runQuiz(){
   const q=window.__quiz, w={};
-  q.forEach((qq,i)=>{Object.entries(qq[2][+$("#qq-"+i).value][1]).forEach(([k,v])=>{w[k]=(w[k]||0)+v;});});
+  q.forEach((qq,i)=>{Object.entries(qq[1][+$("#qq-"+i).value][1]).forEach(([k,v])=>{w[k]=(w[k]||0)+v;});});
   const ranked=HARNESSES.map(h=>{
     let tot=0,cnt=0;
     Object.entries(w).forEach(([k,v])=>{tot+=h.scores[k]*v; cnt+=v;});
@@ -961,7 +1111,7 @@ function exportAuditedJSON(){
 function resetAudit(){ $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
 
 /* ================= BOOT ================= */
-nav(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();
+nav(); initLang(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();
 $$(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   filter=b.dataset.f;
   $$(".fbtn").forEach(x=>{x.style.background=x===b?"rgba(139,92,246,.35)":"", x.style.color=x===b?"#fff":"";});

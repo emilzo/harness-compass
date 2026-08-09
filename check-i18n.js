@@ -17,7 +17,7 @@ const tm = js.match(/const T = \{([\s\S]*?)\n\};/);
 if (!tm) { console.error("T dictionary not found"); process.exit(1); }
 const tSrc = tm[0];
 const langs = {};
-const langRe = /^\s*([a-z]{2}):\{([\s\S]*?)\n\},/gm;
+const langRe = /^\s*([a-z]{2}):\{([\s\S]*?)\n\},?/gm;
 let l;
 while ((l = langRe.exec(tSrc))) {
   const name = l[1], body = l[2];

@@ -111,4 +111,8 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 ## Internacionalização (i18n)
 
-Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): traduções parciais caem para Inglês (fallback), e qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. Traduções em crescimento: EN e PT completos; FR/DE/ZH/HI cobrem navegação, títulos e badges — conteúdo longo cai em EN até ser traduzido.
+Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): traduções parciais caem para Inglês (fallback), e qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. EN e PT completos (incluindo blurbs, 22 dimensões, padrões de melhoria e o método); FR/DE/ZH/HI cobrem navegação, títulos e badges. **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` — ou abre um PR.
+
+**Tema claro/escuro:** botão ☀️/🌙 no topo — respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
+
+**Assinatura:** construído por **@eluminaime (Major Tom) × Agent Hermes** — visível no rodapé de todas as páginas e nos metadados (`<meta name="author">`).

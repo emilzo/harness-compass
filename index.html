@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Harness Compass — Escolhe o teu harness de IA</title>
-<meta name="description" content="Agent = Model + Harness. Ranking, mapa, calculadora e auditoria local de harnesses. Escolhe o harness certo e usa LLMs mais económicos.">
+<meta name="author" content="@eluminaime (Major Tom) · Agent Hermes">
+<title>Harness Compass — The Harness Benchmark for AI Agents</title>
+<meta name="description" content="Agent = Model + Harness. Ranking, map, calculator and local folder audit of AI agent harnesses. Choose the right harness and use cheaper LLMs.">
 <style>
   :root{
     --bg:#07070f; --bg2:#0c0c1a; --ink:#e2e8f0; --muted:#8b93a7; --line:rgba(255,255,255,.08);
@@ -14,6 +15,21 @@
     --grad2:linear-gradient(135deg,#34d399,#22d3ee);
     --radius:16px;
   }
+  html[data-theme="light"]{
+    --bg:#f5f6fb; --bg2:#eceef6; --ink:#191c2b; --muted:#59617a; --line:rgba(20,24,50,.13);
+    --card:rgba(255,255,255,.8); --card2:rgba(20,24,50,.05);
+  }
+  html[data-theme="light"] body{background-image:radial-gradient(1200px 500px at 80% -10%, rgba(139,92,246,.12), transparent 60%),
+    radial-gradient(900px 400px at 10% 110%, rgba(34,211,238,.10), transparent 60%);}
+  html[data-theme="light"] nav{background:rgba(255,255,255,.88);}
+  html[data-theme="light"] thead th{background:#eef0f8;}
+  html[data-theme="light"] .quiz-q select,
+  html[data-theme="light"] .calc input,
+  html[data-theme="light"] select{background:#fff; color:var(--ink);}
+  html[data-theme="light"] .hero .sub{color:#3c4254;}
+  html[data-theme="light"] .bar{background:rgba(20,24,50,.12);}
+  html[data-theme="light"] tbody tr:hover{background:rgba(139,92,246,.10);}
+  html[data-theme="light"] .dim-row{border-bottom-color:rgba(20,24,50,.08);}
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; min-height:100vh;
@@ -113,6 +129,7 @@
       <div class="tagline" data-i18n="tagline">Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.</div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <button id="theme-btn" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" style="background:#12122a;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">☀️</button>
       <select id="lang" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" style="background:#12122a;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer"></select>
       <button class="ghost" onclick="switchView('audit')" data-i18n="audit_pick_top">📂 Auditar uma pasta</button>
     </div>
@@ -146,7 +163,7 @@
     <div class="card">
       <h2 data-i18n="home_anatomy_title">Da anatomia clássica ao sistema cibernético</h2>
       <p class="muted" data-i18n="home_anatomy_sub">A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:</p>
-      <p style="margin-top:10px">
+      <p style="margin-top:10px" data-i18n="home_pills">
         <span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span></p>
       <p class="legend" data-i18n="home_anatomy_legend">"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."</p>
     </div>
@@ -161,12 +178,12 @@
       <div style="margin:14px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
         <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_dom">Filtrar domínio:</b>
         <button class="pill fbtn" data-f="all" style="cursor:pointer" data-i18n="dom_all">Todos</button>
-        <button class="pill fbtn" data-f="A" style="cursor:pointer">A Núcleo</button>
-        <button class="pill fbtn" data-f="B" style="cursor:pointer">B Guias</button>
-        <button class="pill fbtn" data-f="C" style="cursor:pointer">C Sensores</button>
-        <button class="pill fbtn" data-f="D" style="cursor:pointer">D Governação ★</button>
-        <button class="pill fbtn" data-f="E" style="cursor:pointer">E Aprendizagem</button>
-        <button class="pill fbtn" data-f="F" style="cursor:pointer">F Operacional</button>
+        <button class="pill fbtn" data-f="A" style="cursor:pointer" data-i18n="fbtn_A">A Núcleo</button>
+        <button class="pill fbtn" data-f="B" style="cursor:pointer" data-i18n="fbtn_B">B Guias</button>
+        <button class="pill fbtn" data-f="C" style="cursor:pointer" data-i18n="fbtn_C">C Sensores</button>
+        <button class="pill fbtn" data-f="D" style="cursor:pointer" data-i18n="fbtn_D">D Governação ★</button>
+        <button class="pill fbtn" data-f="E" style="cursor:pointer" data-i18n="fbtn_E">E Aprendizagem</button>
+        <button class="pill fbtn" data-f="F" style="cursor:pointer" data-i18n="fbtn_F">F Operacional</button>
       </div>
       <div style="margin:0 0 14px; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
         <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_prov">Proveniência (integridade):</b>
@@ -191,26 +208,26 @@
       <p class="muted" data-i18n="cost_desc">O mesmo volume de trabalho, o mesmo modelo, através de cada harness. O custo real (harness-adjusted) depende da eficiência da camada: <b>cache &amp; compressão</b> (A2), <b>falhas evitadas</b> (C4), <b>routing para o modelo barato</b> (A1). É o "Cost per Task" do Artificial Analysis — aplicado ao harness, não ao modelo. <span class="badge b-audit">Auditado</span> = eficiência medida; <span class="badge b-est">Estimativa</span> = aproximada.</p>
       <div class="grid2" style="margin-top:14px">
         <div class="calc">
-          <label>Tokens de entrada / mês (milhões)</label>
+          <label data-i18n="ct_t_in">Tokens de entrada / mês (milhões)</label>
           <input type="number" id="ct-tokens" value="200" min="1" oninput="renderCost()">
-          <label>Tokens de saída / mês (milhões)</label>
+          <label data-i18n="ct_t_out">Tokens de saída / mês (milhões)</label>
           <input type="number" id="ct-out" value="20" min="1" oninput="renderCost()">
-          <label>Modelo económico — input $/M · output $/M</label>
+          <label data-i18n="ct_eco">Modelo económico — input $/M · output $/M</label>
           <div style="display:flex;gap:8px"><input type="number" id="ct-pi" value="0.14" step="0.01" oninput="renderCost()"><input type="number" id="ct-po" value="0.42" step="0.01" oninput="renderCost()"></div>
-          <label>Modelo premium — input $/M · output $/M</label>
+          <label data-i18n="ct_prem">Modelo premium — input $/M · output $/M</label>
           <div style="display:flex;gap:8px"><input type="number" id="ct-ppi" value="3.00" step="0.1" oninput="renderCost()"><input type="number" id="ct-ppo" value="15.00" step="0.5" oninput="renderCost()"></div>
-          <label style="margin-top:14px">Preencher com preços reais (OpenRouter)</label>
-          <select id="ct-model" onchange="useOpenRouterPriceCT()"></select>
+          <label style="margin-top:14px" data-i18n="ct_or">Preencher com preços reais (OpenRouter)</label>
+          <select id="ct-model" onchange="useOpenRouterPriceCT()"><option value="" data-i18n="ct_or_choose">— escolhe um modelo —</option></select>
           <div id="ct-or-status" class="legend"></div>
         </div>
         <div>
-          <p class="muted" style="font-size:12.5px">Eficiência derivada dos scores: cache ≤85%, falhas evitadas ≤60%, routing ≤95% (escala proporcional ao score da dimensão).</p>
+          <p class="muted" style="font-size:12.5px" data-i18n="ct_eff">Eficiência derivada dos scores: cache ≤85%, falhas evitadas ≤60%, routing ≤95% (escala proporcional ao score da dimensão).</p>
           <div id="ct-chart"></div>
         </div>
       </div>
       <div class="tbl-wrap" style="margin-top:14px">
         <table id="cost-table">
-          <thead><tr><th>Harness</th><th class="num">Custo real $/mês</th><th class="num">vs sem harness</th><th class="num">Cache</th><th class="num">Falhas evit.</th><th class="num">Routing</th><th class="num">HCI</th></tr></thead>
+          <thead><tr><th data-i18n="ct_col_h">Harness</th><th class="num" data-i18n="ct_col_c">Custo real $/mês</th><th class="num" data-i18n="ct_col_vs">vs sem harness</th><th class="num" data-i18n="ct_col_cache">Cache</th><th class="num" data-i18n="ct_col_retry">Falhas evit.</th><th class="num" data-i18n="ct_col_route">Routing</th><th class="num">HCI</th></tr></thead>
           <tbody id="cost-body"></tbody>
         </table>
       </div>
@@ -260,27 +277,27 @@
       <p class="muted" data-i18n="eco_desc">O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.</p>
       <div class="grid2" style="margin-top:14px">
         <div class="calc">
-          <label>Tokens de entrada / mês (milhões)</label>
+          <label data-i18n="ec_t_in">Tokens de entrada / mês (milhões)</label>
           <input type="number" id="ec-tokens" value="200" min="1">
-          <label>Tokens de saída / mês (milhões)</label>
+          <label data-i18n="ec_t_out">Tokens de saída / mês (milhões)</label>
           <input type="number" id="ec-out" value="20" min="1">
-          <label>Preço modelo económico ($ / M input)</label>
+          <label data-i18n="ec_p_in">Preço modelo económico ($ / M input)</label>
           <input type="number" id="ec-price-in" value="0.14" step="0.01">
-          <label>Preço modelo económico ($ / M output)</label>
+          <label data-i18n="ec_p_out">Preço modelo económico ($ / M output)</label>
           <input type="number" id="ec-price-out" value="0.42" step="0.01">
-          <label>Preço modelo premium ($ / M input)</label>
+          <label data-i18n="ec_p_in_p">Preço modelo premium ($ / M input)</label>
           <input type="number" id="ec-price-in-p" value="3.00" step="0.1">
-          <label>Preço modelo premium ($ / M output)</label>
+          <label data-i18n="ec_p_out_p">Preço modelo premium ($ / M output)</label>
           <input type="number" id="ec-price-out-p" value="15.00" step="0.5">
         </div>
         <div class="calc">
-          <label>Eficiência do harness — cache de prompt (hit rate %)</label>
+          <label data-i18n="ec_cache">Eficiência do harness — cache de prompt (hit rate %)</label>
           <div class="range-row"><input type="range" id="ec-cache" min="0" max="90" value="55" oninput="calcEconomy()"><output id="ec-cache-o">55%</output></div>
-          <label>Falhas evitadas — retry/fallback inteligente (% não desperdiçado)</label>
+          <label data-i18n="ec_retry">Falhas evitadas — retry/fallback inteligente (% não desperdiçado)</label>
           <div class="range-row"><input type="range" id="ec-retry" min="0" max="60" value="25" oninput="calcEconomy()"><output id="ec-retry-o">25%</output></div>
-          <label>Compressão de contexto (redução % do contexto enviado)</label>
+          <label data-i18n="ec_comp">Compressão de contexto (redução % do contexto enviado)</label>
           <div class="range-row"><input type="range" id="ec-comp" min="0" max="70" value="30" oninput="calcEconomy()"><output id="ec-comp-o">30%</output></div>
-          <label>Smart routing (fração de trabalho no modelo barato)</label>
+          <label data-i18n="ec_route">Smart routing (fração de trabalho no modelo barato)</label>
           <div class="range-row"><input type="range" id="ec-route" min="0" max="100" value="70" oninput="calcEconomy()"><output id="ec-route-o">70%</output></div>
         </div>
       </div>
@@ -292,105 +309,107 @@
   <section id="view-method">
     <div class="card">
       <h2 data-i18n="method_title">Método e evidência</h2>
-      <p>O Harness Compass nasce de auditorias reais, não de opinião. Um harness <span class="badge b-audit">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class="badge b-prel">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.</p>
-      <h3>Escala de maturidade (0–10)</h3>
+      <p data-i18n="method_p1">O Harness Compass nasce de auditorias reais, não de opinião. Um harness <span class="badge b-audit">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class="badge b-prel">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.</p>
+      <h3 data-i18n="method_mt">Escala de maturidade (0–10)</h3>
       <div class="tbl-wrap" style="margin-top:8px">
         <table style="min-width:0">
-          <tr><td><b>0</b></td><td>Não existe (provado por busca)</td></tr>
-          <tr><td><b>2</b></td><td>Vestígio / stub não ligado ao caminho de execução</td></tr>
-          <tr><td><b>4</b></td><td>Funciona no caso simples, degrada previsivelmente</td></tr>
-          <tr><td><b>6</b></td><td>Funcional e integrado, gaps conhecidos</td></tr>
-          <tr><td><b>8</b></td><td>Sólido, erros tratados, testes</td></tr>
-          <tr><td><b>10</b></td><td>Razão de existir, profundidade além do requisito</td></tr>
+          <tr><td><b>0</b></td><td data-i18n="m_m0">Não existe (provado por busca)</td></tr>
+          <tr><td><b>2</b></td><td data-i18n="m_m2">Vestígio / stub não ligado ao caminho de execução</td></tr>
+          <tr><td><b>4</b></td><td data-i18n="m_m4">Funciona no caso simples, degrada previsivelmente</td></tr>
+          <tr><td><b>6</b></td><td data-i18n="m_m6">Funcional e integrado, gaps conhecidos</td></tr>
+          <tr><td><b>8</b></td><td data-i18n="m_m8">Sólido, erros tratados, testes</td></tr>
+          <tr><td><b>10</b></td><td data-i18n="m_m10">Razão de existir, profundidade além do requisito</td></tr>
         </table>
       </div>
-      <h3>Como funciona a auditoria local (badge Preliminar)</h3>
-      <p>A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.</p>
-      <h3>Estudo de caso — Hermes Agent vs Kando</h3>
-      <p>A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.</p>
-      <p class="muted" style="margin-top:10px">Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.</p>
+      <h3 data-i18n="method_lt">Como funciona a auditoria local (badge Preliminar)</h3>
+      <p data-i18n="method_ld">A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.</p>
+      <h3 data-i18n="method_ct">Estudo de caso — Hermes Agent vs Kando</h3>
+      <p data-i18n="method_cd">A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.</p>
+      <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.</p>
     </div>
   </section>
 
-  <footer data-i18n="footer">Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0.</footer>
+  <footer data-i18n="footer">Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · Built by @eluminaime (Major Tom) × Agent Hermes.</footer>
 </div>
 
 <script>
 /* ================= DADOS ================= */
+/* ================= TAXONOMIA ================= */
 const DOMAINS = [
-  {id:"A", name:"Núcleo & Interface", color:"c-A"},
-  {id:"B", name:"Guias feedforward", color:"c-B"},
-  {id:"C", name:"Sensores feedback", color:"c-C"},
-  {id:"D", name:"Governação, Julgamento & Guardrails ★", color:"c-D"},
-  {id:"E", name:"Ciclo de vida & aprendizagem", color:"c-E"},
-  {id:"F", name:"Operacional", color:"c-F"},
+  {id:"A", name:"dom_A", color:"c-A"},
+  {id:"B", name:"dom_B", color:"c-B"},
+  {id:"C", name:"dom_C", color:"c-C"},
+  {id:"D", name:"dom_D", color:"c-D"},
+  {id:"E", name:"dom_E", color:"c-E"},
+  {id:"F", name:"dom_F", color:"c-F"},
 ];
-
 const DIMENSIONS = [
-  ["A1","Multi-modelo","Providers, fallback, pools, routing."],
-  ["A2","Prompts & contexto","System prompt, caching, compressão, context files."],
-  ["A3","Agent loop & orquestração","Loop, subagentes, scheduling."],
-  ["A4","Ferramentas & extensibilidade","Registry, toolsets, MCP, plugins."],
-  ["B1","Especificação de intenção","Plans, briefs, tarefas."],
-  ["B2","Skills & playbooks","Conhecimento procedural, curadoria."],
-  ["B3","Convenções de projeto","AGENTS.md, CLAUDE.md, .cursorrules."],
-  ["B4","Políticas declaradas","Restrições explícitas e testáveis."],
-  ["C1","Testes & verificação","Suites, CI, linters."],
-  ["C2","Avaliação (evals, LLM-as-judge)","Benchmarks, juízes, drift."],
-  ["C3","Observabilidade","Logs, traces, métricas, erros."],
-  ["C4","Auto-correção","Retry, circuit breakers, fix loops."],
-  ["D1","Guardrails de segurança","Anti-injection, scanning, validação."],
-  ["D2","Permissões & sandboxing","Approvals, least privilege, sandbox."],
-  ["D3","Julgamento & escalação","Decide sozinho vs humano; thresholds."],
-  ["D4","Compliance & legal","Auditoria, retenção, GDPR."],
-  ["D5","Ética & alinhamento","Disclosure, fairness, limitações."],
-  ["E1","Memória & aprendizagem","Persistência, anti-promptware."],
-  ["E2","Steering loop humano","Como o humano itera no harness."],
-  ["F1","Execução & ambientes","Onde corre: local, docker, cloud."],
-  ["F2","Custo & eficiência","Cap, budgets, rate limiting."],
-  ["F3","Resiliência","Failover, timeouts, crash recovery."],
+  ["A1","dim_A1","dim_A1_d"],
+  ["A2","dim_A2","dim_A2_d"],
+  ["A3","dim_A3","dim_A3_d"],
+  ["A4","dim_A4","dim_A4_d"],
+  ["B1","dim_B1","dim_B1_d"],
+  ["B2","dim_B2","dim_B2_d"],
+  ["B3","dim_B3","dim_B3_d"],
+  ["B4","dim_B4","dim_B4_d"],
+  ["C1","dim_C1","dim_C1_d"],
+  ["C2","dim_C2","dim_C2_d"],
+  ["C3","dim_C3","dim_C3_d"],
+  ["C4","dim_C4","dim_C4_d"],
+  ["D1","dim_D1","dim_D1_d"],
+  ["D2","dim_D2","dim_D2_d"],
+  ["D3","dim_D3","dim_D3_d"],
+  ["D4","dim_D4","dim_D4_d"],
+  ["D5","dim_D5","dim_D5_d"],
+  ["E1","dim_E1","dim_E1_d"],
+  ["E2","dim_E2","dim_E2_d"],
+  ["F1","dim_F1","dim_F1_d"],
+  ["F2","dim_F2","dim_F2_d"],
+  ["F3","dim_F3","dim_F3_d"],
 ];
-
+const domName = d => t((DOMAINS.find(x=>x.id===d)||{}).name || d);
+const dimName = id => t((DIMENSIONS.find(d=>d[0]===id)||[])[1]||id);
+const dimDesc = id => t((DIMENSIONS.find(d=>d[0]===id)||[])[2]||"");
 const BUILTIN_HARNESSES = [
-  {id:"hermes", name:"Hermes Agent", vendor:"Nous Research", type:"Agente pessoal open-source", url:"https://github.com/NousResearch/hermes-agent", audited:true,
-   tags:["conversacional","multi-provider","CLI/gateway/TUI"],
-   blurb:"O harness mais completo em contexto/caching/ferramentas/contenção. Obsessão estrutural pelo prompt-cache byte-estável. Pontos fracos: sem evals, sem cap de custo, sem ledger de aprovações.",
+  {id:"hermes", name:"Hermes Agent", vendor:"Nous Research", type:"Personal open-source agent", url:"https://github.com/NousResearch/hermes-agent", audited:true,
+   tags:["conversational","multi-provider","CLI/gateway/TUI"],
+   blurb:"blurb_hermes",
    scores:{A1:8,A2:9,A3:9,A4:9,B1:5,B2:8,B3:8,B4:8,C1:9,C2:3,C3:8,C4:9,D1:8,D2:8,D3:7,D4:6,D5:3,E1:9,E2:8,F1:8,F2:7,F3:9}},
-  {id:"kando", name:"Kando", vendor:"DevFactoryAI", type:"Control plane multi-agente", url:"", audited:true,
-   tags:["multi-agente","verificação empírica","cost cap","leases"],
-   blurb:"Plataforma supervisora de agentes externos (Codex/Claude/OpenClaw). Lidera em avaliação (LLM-as-judge 3 camadas), cap duro de custo e julgamento como protocolo. Falta contenção de destrutivas e ferramentas nativas.",
+  {id:"kando", name:"Kando", vendor:"DevFactoryAI", type:"Multi-agent control plane", url:"", audited:true,
+   tags:["multi-agent","empirical verification","cost cap","leases"],
+   blurb:"blurb_kando",
    scores:{A1:7,A2:5,A3:6,A4:2,B1:8,B2:2,B3:8,B4:7,C1:7,C2:7,C3:7,C4:7,D1:5,D2:6,D3:7,D4:6,D5:4,E1:6,E2:6,F1:6,F2:8,F3:8}},
-  {id:"claude-code", name:"Claude Code", vendor:"Anthropic", type:"Coding agent no terminal", url:"https://www.anthropic.com/claude-code", audited:false,
+  {id:"claude-code", name:"Claude Code", vendor:"Anthropic", type:"Terminal coding agent", url:"https://www.anthropic.com/claude-code", audited:false,
    tags:["coding","CLI","IDE"],
-   blurb:"Coding agent com boa integração no ecossistema Anthropic, approvals e sandboxing razoáveis. Estimativa — a validar.",
+   blurb:"blurb_claude_code",
    scores:{A1:6,A2:8,A3:8,A4:7,B1:7,B2:7,B3:7,B4:6,C1:7,C2:5,C3:7,C4:7,D1:6,D2:7,D3:6,D4:5,D5:6,E1:4,E2:7,F1:7,F2:6,F3:7}},
-  {id:"codex", name:"Codex CLI", vendor:"OpenAI", type:"Coding agent no terminal", url:"https://developers.openai.com/codex", audited:false,
+  {id:"codex", name:"Codex CLI", vendor:"OpenAI", type:"Terminal coding agent", url:"https://developers.openai.com/codex", audited:false,
    tags:["coding","CLI"],
-   blurb:"Agente da OpenAI com sandbox por defeito e approvals. Estimativa.",
+   blurb:"blurb_codex",
    scores:{A1:7,A2:7,A3:7,A4:6,B1:7,B2:6,B3:6,B4:6,C1:7,C2:4,C3:6,C4:7,D1:6,D2:7,D3:6,D4:4,D5:5,E1:4,E2:6,F1:7,F2:6,F3:7}},
-  {id:"cursor", name:"Cursor", vendor:"Anysphere", type:"IDE com IA", url:"https://cursor.com", audited:false,
+  {id:"cursor", name:"Cursor", vendor:"Anysphere", type:"AI IDE", url:"https://cursor.com", audited:false,
    tags:["IDE","editor"],
-   blurb:"IDE-first, ótimo para edição assistida; menos autonomia multi-step e governação. Estimativa.",
+   blurb:"blurb_cursor",
    scores:{A1:5,A2:7,A3:6,A4:6,B1:6,B2:6,B3:5,B4:5,C1:5,C2:4,C3:6,C4:5,D1:5,D2:6,D3:5,D4:4,D5:5,E1:5,E2:6,F1:6,F2:5,F3:6}},
-  {id:"cline", name:"Cline", vendor:"Cline", type:"Coding agent open-source (VS Code)", url:"https://github.com/cline/cline", audited:false,
+  {id:"cline", name:"Cline", vendor:"Cline", type:"Open-source coding agent (VS Code)", url:"https://github.com/cline/cline", audited:false,
    tags:["coding","VS Code","open-source"],
-   blurb:"Agente open-source com aprovação manual de cada ação e BYOK. Estimativa.",
+   blurb:"blurb_cline",
    scores:{A1:6,A2:6,A3:7,A4:7,B1:6,B2:6,B3:5,B4:6,C1:6,C2:4,C3:6,C4:6,D1:6,D2:7,D3:6,D4:4,D5:5,E1:4,E2:6,F1:7,F2:6,F3:6}},
-  {id:"openclaw", name:"OpenClaw", vendor:"OpenClaw", type:"Agente pessoal multi-plataforma", url:"", audited:false,
-   tags:["agente pessoal","gateway","open-source"],
-   blurb:"Harness pessoal multi-plataforma. Estimativa — candidato a auditoria dada a base instalada.",
+  {id:"openclaw", name:"OpenClaw", vendor:"OpenClaw", type:"Multi-platform personal agent", url:"", audited:false,
+   tags:["personal agent","gateway","open-source"],
+   blurb:"blurb_openclaw",
    scores:{A1:6,A2:6,A3:7,A4:7,B1:5,B2:6,B3:5,B4:5,C1:5,C2:4,C3:6,C4:6,D1:5,D2:6,D3:5,D4:4,D5:4,E1:6,E2:6,F1:7,F2:6,F3:6}},
-  {id:"ccr", name:"claude-code-router", vendor:"musistudio", type:"Router de modelos para Claude Code", url:"https://github.com/musistudio/claude-code-router", audited:false,
-   tags:["router","custo"],
-   blurb:"Router para usar modelos baratos com Claude Code. Foco em A1/F2; sem harness completo. Estimativa.",
+  {id:"ccr", name:"claude-code-router", vendor:"musistudio", type:"Model router for Claude Code", url:"https://github.com/musistudio/claude-code-router", audited:false,
+   tags:["router","cost"],
+   blurb:"blurb_ccr",
    scores:{A1:7,A2:5,A3:5,A4:3,B1:5,B2:4,B3:4,B4:4,C1:4,C2:3,C3:5,C4:4,D1:4,D2:5,D3:4,D4:3,D5:3,E1:3,E2:5,F1:5,F2:7,F3:6}},
-  {id:"langgraph", name:"LangGraph", vendor:"LangChain", type:"Framework de orquestração", url:"https://www.langchain.com/langgraph", audited:false,
-   tags:["framework","orquestração","Python"],
-   blurb:"Framework para construir loops com controlo fino (persistência, humano-no-loop). O harness és tu. Estimativa.",
+  {id:"langgraph", name:"LangGraph", vendor:"LangChain", type:"Orchestration framework", url:"https://www.langchain.com/langgraph", audited:false,
+   tags:["framework","orchestration","Python"],
+   blurb:"blurb_langgraph",
    scores:{A1:6,A2:5,A3:8,A4:8,B1:6,B2:5,B3:4,B4:5,C1:6,C2:5,C3:6,C4:6,D1:4,D2:5,D3:5,D4:4,D5:4,E1:5,E2:6,F1:6,F2:5,F3:6}},
-  {id:"crewai", name:"CrewAI", vendor:"CrewAI Inc", type:"Framework multi-agente", url:"https://www.crewai.com", audited:false,
-   tags:["framework","multi-agente","Python"],
-   blurb:"Framework de equipas de agentes; conveniente, governação mais leve. Estimativa.",
+  {id:"crewai", name:"CrewAI", vendor:"CrewAI Inc", type:"Multi-agent framework", url:"https://www.crewai.com", audited:false,
+   tags:["framework","multi-agent","Python"],
+   blurb:"blurb_crewai",
    scores:{A1:6,A2:5,A3:7,A4:7,B1:6,B2:5,B3:4,B4:4,C1:5,C2:4,C3:5,C4:4,D1:3,D2:4,D3:4,D4:3,D5:3,E1:4,E2:5,F1:5,F2:4,F3:5}},
 ];
 
@@ -438,7 +457,126 @@ en:{
   quiz_q3:"Where you work", quiz_o3a:"Terminal / CLI", quiz_o3b:"IDE (VS Code, JetBrains)", quiz_o3c:"Messaging gateway", quiz_o3d:"CI / automation / server",
   quiz_q4:"Models", quiz_o4a:"Single provider", quiz_o4b:"Switch/fallback between providers", quiz_o4c:"Smart routing (cheap for simple)",
   quiz_q5:"Output quality", quiz_o5a:"Trust the model", quiz_o5b:"Tests and CI are enough", quiz_o5c:"Evals/LLM-as-judge reviewing",
-  quiz_q6:"Extensibility", quiz_o6a:"Factory tools only", quiz_o6b:"Ecosystem plugins/skills", quiz_o6c:"I'll build my own tools and skills"
+  lv_n0:"L1 · Initial",
+  lv_d0:"Works by chance — no invariants, no measurement.",
+  lv_n1:"L2 · Defined",
+  lv_d1:"Basic processes exist; degrade predictably.",
+  lv_n2:"L3 · Managed",
+  lv_d2:"Measured and integrated; gaps known and documented.",
+  lv_n3:"L4 · Optimized",
+  lv_d3:"Self-correcting: sensors, evals, controlled cost.",
+  lv_n4:"L5 · Reference",
+  lv_d4:"Reason for existing — depth beyond the requirement.",
+  blurb_hermes:"The most complete harness in context/caching/tools/containment. Structural obsession with byte-stable prompt caching. Weak spots: no evals, no cost cap, no approval ledger.",
+  blurb_kando:"Supervisory platform for external agents (Codex/Claude/OpenClaw). Leads in evaluation (3-layer LLM-as-judge), hard cost cap and judgment as protocol. Lacks destructive-command containment and native tools.",
+  blurb_claude_code:"Coding agent with good Anthropic ecosystem integration, reasonable approvals and sandboxing. Estimate — to validate.",
+  blurb_codex:"OpenAI agent with sandbox by default and approvals. Estimate.",
+  blurb_cursor:"IDE-first, great for assisted editing; less multi-step autonomy and governance. Estimate.",
+  blurb_cline:"Open-source agent with manual approval of every action and BYOK. Estimate.",
+  blurb_openclaw:"Multi-platform personal harness. Estimate — audit candidate given its installed base.",
+  blurb_ccr:"Router to use cheap models with Claude Code. Focus on A1/F2; not a full harness. Estimate.",
+  blurb_langgraph:"Framework to build loops with fine control (persistence, human-in-the-loop). You are the harness. Estimate.",
+  blurb_crewai:"Multi-agent teams framework; convenient, lighter governance. Estimate.",
+  imp_A1_0:"Add a multi-provider fallback chain with config dedup (pattern: Hermes `fallback_config.py:80-101`).",
+  imp_A1_1:"Consider smart routing by quality×cost — utility = quality − λ·cost − μ·latency (pattern: Kando `scored-selection.ts:107-150`).",
+  imp_A1_2:"Credential pools with cooldown and rotation on 429 (pattern: Hermes `run_agent.py:310-330`).",
+  imp_A2_0:"Byte-stable system prompt with static/volatile split — that is what makes prompt caching predictable (pattern: Hermes `system_prompt.py:549-573`).",
+  imp_A2_1:"Layered context compression (dedup → one-liner → LLM summary) instead of window truncation (pattern: Hermes `context_compressor.py:5840+`).",
+  imp_A2_2:"Apply cache_control with copy-on-write: never rewrite persisted history (pattern: Hermes `prompt_caching.py:175-220`).",
+  imp_A3_0:"Decide→execute→observe loop with hierarchical parent/child iteration budget (pattern: Hermes `iteration_budget.py` — 500/50).",
+  imp_A3_1:"Task durability: persist state BEFORE executing, atomic claim on completion (pattern: Hermes `async_delegation.py` SQLite + completion queue).",
+  imp_A3_2:"Inactivity timeout with heartbeats, not wall-clock (pattern: Hermes gateway — warn 900s, kill 1800s).",
+  imp_A4_0:"Tool registry with controlled footprint — schemas loaded on demand (pattern: Hermes `tools/registry.py` + `model_tools.py:288-364`).",
+  imp_A4_1:"Gating by configuration; extension via plugins, never by editing the core.",
+  imp_B1_0:"Persisted intent specification: task → run → phases with model pinned per phase (pattern: Kando `task_orchestration_service.py:50,323-379`).",
+  imp_B1_1:"Canonical roadmap with states and validation dates+SHA (pattern: Kando `docs/MASTER-ROADMAP.md`).",
+  imp_B2_0:"SKILL.md format + on-demand loading as user message — preserves the prompt cache (pattern: Hermes `skill_commands.py:569-613`).",
+  imp_B2_1:"Curation with active→stale→archived cycle, dry-run and backup before mutating (pattern: Hermes `curator.py:305-432`).",
+  imp_B2_2:"Usage telemetry with cross-process lock and atomic writes (pattern: Hermes `skill_usage.py`).",
+  imp_B3_0:"AGENTS.md as single source with verifiable invariants, pitfalls with PR numbers and a testing doctrine (pattern: Hermes `AGENTS.md`).",
+  imp_B3_1:"Multi-client hierarchy: AGENTS.md source + CLAUDE.md/GEMINI.md pointers that do not redefine (pattern: Kando).",
+  imp_B3_2:"Declared conflict resolution rule: code wins (pattern: Kando `README.md:73`).",
+  imp_B4_0:"Policies with 3 enforcement levels: text + CI + runtime (pattern: Hermes — 22 workflows + `tool_guardrails.py`).",
+  imp_B4_1:"Every rule testable: a good rule is verifiable (pattern: Kando chaos tests that test invariants by name).",
+  imp_C1_0:"Hermetic test runner — isolated env + subprocess per file (pattern: Hermes `run_tests.sh` + `run_tests_parallel.py`).",
+  imp_C1_1:"Anti change-detector and anti source-regex doctrine written and enforced (pattern: Hermes `AGENTS.md:1333-1435`).",
+  imp_C1_2:"Flakiness management with dedicated report — pass-on-retry is a bug to fix, not noise (pattern: Hermes).",
+  imp_C2_0:"3-layer LLM-as-judge: deterministic → N parallel specialists → fresh-eyes validator, fail-closed (pattern: Kando `ai_review_service.py:1-25`).",
+  imp_C2_1:"Empirical verification: run the project real checks to green, with model escalation on retry (pattern: Kando `outcome_verification_service.py:504-617`).",
+  imp_C2_2:"Verification evidence ledger with retention (pattern: Hermes `verification_evidence.py`).",
+  imp_C3_0:"Secret redaction in ALL log handlers (pattern: Hermes `RedactingFormatter` + `redact.py`).",
+  imp_C3_1:"Error classifier with taxonomy + structured recovery hints consumed by the loop (pattern: Hermes `error_classifier.py:24-97`).",
+  imp_C3_2:"Queryable system metrics + per-request audit log with redaction (pattern: Kando `/ops/metrics` + `audit_log.py`).",
+  imp_C4_0:"Retry with transient/permanent classification + jittered backoff + Retry-After parsing (pattern: Hermes `retry_utils.py` + Kando `llm_retry.py`).",
+  imp_C4_1:"Dedicated circuit breaker closed/open/half_open with injectable clock (pattern: Kando `llm_circuit_breaker.py:23-161`).",
+  imp_C4_2:"Fix loop with model escalation for code self-correction (pattern: Kando `iterative_fixer_service.py`).",
+  imp_D1_0:"Anti-injection in the approval pipeline — shell comment stripping (the `rm -rf / # approve` vector) (pattern: Hermes `approval.py:2644-2662`).",
+  imp_D1_1:"Skill/plugin scanner with trust levels and content-hash attestation (pattern: Hermes `skills_guard.py`).",
+  imp_D1_2:"Create a formal prompt-injection test set — none of the audited harnesses has one.",
+  imp_D1_3:"Anti-obfuscation normalization before pattern matching: ANSI/NFKC/IFS/backslash (pattern: Hermes `approval.py:916-974`).",
+  imp_D2_0:"Destructive command denylist with HARDLINE FLOOR below any bypass mode (pattern: Hermes `approval.py:337-454` — `rm -rf /` never runs, even with yolo).",
+  imp_D2_1:"Fail-closed credential scope by context — noisy exception instead of leaking (pattern: Hermes `secret_scope.py:123-177`).",
+  imp_D2_2:"Consent contract: \"silence is NOT consent\" + BLOCKED messages that name the evasion (pattern: Hermes `approval.py:3683-3720`).",
+  imp_D2_3:"Real execution sandbox — docker with cap-drop or whole-process wrapping (pattern: Hermes `tools/environments/docker.py`).",
+  imp_D3_0:"Explicit decision tree with human-mandatory categories (pattern: Hermes `approval.py:3365-3834` — 6 categories).",
+  imp_D3_1:"Append-only decision ledger (pattern_key, verdict, surface, choice, timestamp) — Hermes lacks it and suffers; add it from day 1.",
+  imp_D3_2:"Context-regulated clarify: only when tools cannot resolve; forbidden headless (pattern: Hermes `prompt_builder.py:463,297`).",
+  imp_D4_0:"Per-request audit trail with redaction + stats (pattern: Kando `audit_log.py` + `routes/audit.py`).",
+  imp_D4_1:"Configurable retention by data type + redacted export (pattern: Hermes prune 90d + `export --redact`).",
+  imp_D4_2:"Hash-only telemetry — never raw content, only prompt_hash (pattern: Kando `outcomes.ts:3-14`).",
+  imp_D5_0:"AI disclosure in system prompt and per platform (pattern: Hermes `prompt_builder.py:145-146`).",
+  imp_D5_1:"Honest limitation statement: boundary vs heuristic (pattern: Hermes SECURITY.md — rare and credible).",
+  imp_D5_2:"Fairness/bias policy with evals — nobody audited has one; it is a leadership opportunity.",
+  imp_E1_0:"Memory with bulkhead: external providers in a thread with timeout; failure NEVER blocks the turn (pattern: Hermes `memory_manager.py:525-595`).",
+  imp_E1_1:"Anti-promptware in memory: scan on write AND on load with placeholder (pattern: Hermes `memory_tool.py:233-276`).",
+  imp_E1_2:"Frozen snapshot for the system prompt — writes to disk, does not touch the prompt (pattern: Hermes `memory_tool.py:170-171`).",
+  imp_E2_0:"Human steering loop: pre-action approval of memory/skill writes (pattern: Hermes `commands.py:246-254`).",
+  imp_E2_1:"Repeated failure → new guide: inject guidance into the human reply (pattern: Hermes `thinking_timeout_guidance.py`).",
+  imp_E2_2:"Insights dashboard + visible learning graph (pattern: Hermes `insights.py` + `learning_graph.py`).",
+  imp_F1_0:"Execution sandbox with real capability probes — degrades gracefully where the host cannot, fails loud where security depends on it (pattern: Hermes `docker.py:715-764`).",
+  imp_F1_1:"Declared portability per OS (Windows/Unix/Termux/Nix) (pattern: Hermes).",
+  imp_F2_0:"HARD monetary cap per run + append-only per-call ledger — Hermes measures to the cent and controls nothing; do not repeat the mistake (pattern: Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`).",
+  imp_F2_1:"Rate limiting with active skip of rate-limited providers in fallback (pattern: Kando `agent_llm_client.py:1286-1295`).",
+  imp_F2_2:"Pricing with provenance: source + date + version per entry (pattern: Hermes `usage_pricing.py`).",
+  imp_F3_0:"At-most-once scheduling: advance next_run under lock BEFORE executing (pattern: Hermes `cron/scheduler.py:4159`).",
+  imp_F3_1:"Crash recovery: least-destructive repair with backup + one-shot claim (pattern: Hermes `hermes_state.py:1248-1330`).",
+  imp_F3_2:"Leases/fencing for multi-instance and anti-duplication (pattern: Kando `path_leases.py:13-54`).",
+  quiz_q6:"Extensibility", quiz_o6a:"Factory tools only", quiz_o6b:"Ecosystem plugins/skills", quiz_o6c:"I'll build my own tools and skills",
+  dom_A:"Core & Interface", dom_B:"Feedforward guides", dom_C:"Feedback sensors", dom_D:"Governance, Judgment & Guardrails ★", dom_E:"Lifecycle & learning", dom_F:"Operations",
+  fbtn_A:"A Core", fbtn_B:"B Guides", fbtn_C:"C Sensors", fbtn_D:"D Governance ★", fbtn_E:"E Learning", fbtn_F:"F Ops",
+  home_pills:"Inferential evaluation (evals, LLM-as-judge) · Multi-model & routing · Judgment & escalation · Cost as control (cap) · Learning & curation · Compliance & privacy · Resilience & recovery · Human steering loop · Feedforward guides (AGENTS.md, skills, plans)",
+  dim_A1:"Multi-model & routing", dim_A1_d:"Who serves each call; fallback, failover.",
+  dim_A2:"Prompts & context", dim_A2_d:"System prompt, caching, compression, context files.",
+  dim_A3:"Agent loop & orchestration", dim_A3_d:"Loop, subagents, scheduling.",
+  dim_A4:"Tools & extensibility", dim_A4_d:"Registry, toolsets, MCP, plugins.",
+  dim_B1:"Intent specification", dim_B1_d:"Plans, briefs, tasks.",
+  dim_B2:"Skills & playbooks", dim_B2_d:"Procedural knowledge, curation.",
+  dim_B3:"Project conventions", dim_B3_d:"AGENTS.md, CLAUDE.md, .cursorrules.",
+  dim_B4:"Declared policies", dim_B4_d:"Explicit, testable restrictions.",
+  dim_C1:"Tests & verification", dim_C1_d:"Suites, CI, linters.",
+  dim_C2:"Evaluation (evals, LLM-as-judge)", dim_C2_d:"Benchmarks, judges, drift.",
+  dim_C3:"Observability", dim_C3_d:"Logs, traces, metrics, errors.",
+  dim_C4:"Self-correction", dim_C4_d:"Retry, circuit breakers, fix loops.",
+  dim_D1:"Security guardrails", dim_D1_d:"Anti-injection, scanning, validation.",
+  dim_D2:"Permissions & sandboxing", dim_D2_d:"Approvals, least privilege, sandbox.",
+  dim_D3:"Judgment & escalation", dim_D3_d:"Decides alone vs human; thresholds.",
+  dim_D4:"Compliance & legal", dim_D4_d:"Audit, retention, GDPR.",
+  dim_D5:"Ethics & alignment", dim_D5_d:"Disclosure, fairness, limitations.",
+  dim_E1:"Memory & learning", dim_E1_d:"Persistence, anti-promptware.",
+  dim_E2:"Human steering loop", dim_E2_d:"How the human iterates on the harness.",
+  dim_F1:"Execution & environments", dim_F1_d:"Where it runs: local, docker, cloud.",
+  dim_F2:"Cost & efficiency", dim_F2_d:"Cap, budgets, rate limiting.",
+  dim_F3:"Resilience", dim_F3_d:"Failover, timeouts, crash recovery.",
+  pl_title:"Improvement plan — the Compass as compass", pl_level:"Maturity level:", pl_crit:"🔴 Critical (score < 4) — fix first", pl_imp:"🟠 Important (4–5) — score lever", pl_nogaps:"No critical gaps — above 6 in every dimension. Congratulations: this harness is at managed level or higher.", pl_source:"Advice derived from patterns proven in real audits (Hermes/Kando/CCR). Each pattern cites its source mechanism. Contribute new patterns via PR.", pl_none:"No catalogued patterns yet — contribute one with a PR.",
+  dt_hci:"HCI · Harness Compass Index", dt_dims:"/10 · 22 dimensions", dt_dims_l:"dimensions", dt_fp:"Fingerprint by domain", dt_laud:"Audit with path:line evidence (reports in docs/).", dt_llocal:"Local heuristic analysis of {n} files{adj}. For an official badge, an audit with a reviewed report via PR is required.", dt_ladj:"dimensions manually adjusted (visible divergence)", dt_lclean:"no adjustments, faithful to the analysis", dt_lest:"Informed estimate — audit candidate.",
+  qz_res:"Recommendation for your profile", qz_strong:"Strengths:", qz_weak:"Weaknesses:", qz_none:"none critical", qz_note:"The HCI (composite score) is not the criterion — the weighting reflects the dimensions you chose.",
+  ec_no:"Without a powerful harness", ec_no_d:"Everything on the premium model, no cache, no fallback, no routing.", ec_yes:"With a powerful harness", ec_yes_d:"Cache {c}% · avoided failures {r}% · compression {co}% · routing {rt}%", ec_save:"You save <b class=\"green\" style=\"color:var(--emerald)\">${s}/month ({p}%)</b> — in tokens alone.", ec_hint:"Illustrative estimate; use your own prices.",
+  ct_or_choose:"— choose a model —", ct_or_loaded:"{n} models with real prices loaded", ct_or_offline:"Offline or CORS blocked — manual prices in use (real ones return on GitHub Pages).", ct_base:"Without harness: <b style=\"color:var(--rose)\">${b}/month</b> — what each harness saves:",
+  ct_t_in:"Input tokens / month (millions)", ct_t_out:"Output tokens / month (millions)", ct_eco:"Economy model — input $/M · output $/M", ct_prem:"Premium model — input $/M · output $/M", ct_or:"Fill with real prices (OpenRouter)", ct_eff:"Efficiency derived from scores: cache ≤85%, avoided failures ≤60%, routing ≤95% (proportional to the dimension score).", ct_col_h:"Harness", ct_col_c:"Real cost $/mo", ct_col_vs:"vs no harness", ct_col_cache:"Cache", ct_col_retry:"Failures avoided", ct_col_route:"Routing",
+  ec_t_in:"Input tokens / month (millions)", ec_t_out:"Output tokens / month (millions)", ec_p_in:"Economy model price ($ / M input)", ec_p_out:"Economy model price ($ / M output)", ec_p_in_p:"Premium model price ($ / M input)", ec_p_out_p:"Premium model price ($ / M output)", ec_cache:"Harness efficiency — prompt cache (hit rate %)", ec_retry:"Avoided failures — smart retry/fallback (% not wasted)", ec_comp:"Context compression (reduction % of context sent)", ec_route:"Smart routing (fraction of work on the cheap model)",
+  au_reading:"Reading <b>{name}</b>… (100% local analysis)", au_fallback:"Modern picker unavailable (file:// or unsupported browser) — using the classic file picker.", au_nofiles:"No files read — on Safari try Chrome/Edge for the full experience.", au_nosignals:"no signals detected", au_nosignals_short:"no signals", au_id:"Identification", au_name:"Harness name", au_vendor:"Vendor / author", au_type:"Type", au_type_v:"Locally audited project", au_tags:"Tags (comma separated)", au_blurb:"Short description (blurb)", au_blurb_v:"Local heuristic analysis of the folder — review before publishing.", au_integrity:"🔒 <b>Integrity:</b> the official <b>AUDITED</b> badge only exists in the project ranking via PR with an evidence report (see README). What you add here stays marked <b>LOCAL</b> — and any manual slider adjustment stays <b>visible to everyone</b> (adjusted-dimension counter). Anyone who sees your export can tell what the analysis detected from what you changed.", au_add:"+ Add to ranking", au_plan:"🧭 View improvement plan", au_export:"⬇ Export JSON", au_scores_title:"Preliminary scores (22 dimensions)", au_scores_desc:"Based on signals detected in the folder. Adjust the sliders — the composite score recalculates live.", au_notice:"⚠️ <b>Local heuristic</b> analysis (file/content patterns, max 300 files) — a useful first cut, not a substitute for an audit with real code reading. The badge will be", au_tests:"Detected {n} test files and {w} CI workflows.", au_adj_n:"{n} dimensions manually adjusted (stays marked)", au_adj_clean:"no adjustments — faithful to the analysis", au_cur:"Current composite score:", au_read_files:"Read <b>{n}</b> files — analyzing signals…",
+  method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"The first complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: harness-map.md taxonomy · HARNESS-AUDIT-HERMES-VS-KANDO.md and DEEP-HARNESS-AUDIT-HERMES.md reports.",
+  footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · Built by @eluminaime (Major Tom) × Agent Hermes."
 },
 pt:{
   tagline:"Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.",
@@ -477,7 +615,126 @@ pt:{
   quiz_q3:"Onde trabalhas", quiz_o3a:"Terminal / CLI", quiz_o3b:"IDE (VS Code, JetBrains)", quiz_o3c:"Gateway de mensagens", quiz_o3d:"CI / automação / servidor",
   quiz_q4:"Modelos", quiz_o4a:"Uso um só provider", quiz_o4b:"Trocar/fallback entre providers", quiz_o4c:"Routing inteligente (barato para o simples)",
   quiz_q5:"Qualidade de output", quiz_o5a:"Confio no modelo", quiz_o5b:"Testes e CI chegam", quiz_o5c:"Evals/LLM-as-judge a rever",
-  quiz_q6:"Extensibilidade", quiz_o6a:"Só o que vem de fábrica", quiz_o6b:"Plugins/skills do ecossistema", quiz_o6c:"Vou construir tools e skills"
+  lv_n0:"L1 · Inicial",
+  lv_d0:"Funciona por acaso — sem invariantes, sem medição.",
+  lv_n1:"L2 · Definido",
+  lv_d1:"Processos básicos existem, degradam previsivelmente.",
+  lv_n2:"L3 · Gerido",
+  lv_d2:"Medido e integrado; gaps conhecidos e documentados.",
+  lv_n3:"L4 · Otimizado",
+  lv_d3:"Auto-corrige: sensores, evals, custo controlado.",
+  lv_n4:"L5 · Referência",
+  lv_d4:"Razão de existir — profundidade além do requisito.",
+  blurb_hermes:"O harness mais completo em contexto/caching/ferramentas/contenção. Obsessão estrutural pelo prompt-cache byte-estável. Pontos fracos: sem evals, sem cap de custo, sem ledger de aprovações.",
+  blurb_kando:"Plataforma supervisora de agentes externos (Codex/Claude/OpenClaw). Lidera em avaliação (LLM-as-judge 3 camadas), cap duro de custo e julgamento como protocolo. Falta contenção de destrutivas e ferramentas nativas.",
+  blurb_claude_code:"Coding agent com boa integração no ecossistema Anthropic, approvals e sandboxing razoáveis. Estimativa — a validar.",
+  blurb_codex:"Agente da OpenAI com sandbox por defeito e approvals. Estimativa.",
+  blurb_cursor:"IDE-first, ótimo para edição assistida; menos autonomia multi-step e governação. Estimativa.",
+  blurb_cline:"Agente open-source com aprovação manual de cada ação e BYOK. Estimativa.",
+  blurb_openclaw:"Harness pessoal multi-plataforma. Estimativa — candidato a auditoria dada a base instalada.",
+  blurb_ccr:"Router para usar modelos baratos com Claude Code. Foco em A1/F2; sem harness completo. Estimativa.",
+  blurb_langgraph:"Framework para construir loops com controlo fino (persistência, humano-no-loop). O harness és tu. Estimativa.",
+  blurb_crewai:"Framework de equipas de agentes; conveniente, governação mais leve. Estimativa.",
+  imp_A1_0:"Adiciona fallback chain multi-provider com dedup de config (padrão: Hermes `fallback_config.py:80-101`).",
+  imp_A1_1:"Considera smart routing por qualidade×custo — utilidade = quality − λ·custo − μ·latência (padrão: Kando `scored-selection.ts:107-150`).",
+  imp_A1_2:"Pools de credenciais com cooldown e rotação em 429 (padrão: Hermes `run_agent.py:310-330`).",
+  imp_A2_0:"System prompt byte-estável com split estático/volátil — é o que torna o prompt caching previsível (padrão: Hermes `system_prompt.py:549-573`).",
+  imp_A2_1:"Adiciona compressão de contexto por camadas (dedup → 1-linha → summary LLM) em vez de cortar por janela (padrão: Hermes `context_compressor.py:5840+`).",
+  imp_A2_2:"Aplica cache_control com copy-on-write: nunca reescrever o histórico persistido (padrão: Hermes `prompt_caching.py:175-220`).",
+  imp_A3_0:"Loop decide→executa→observa com orçamento de iterações hierárquico pai/filho (padrão: Hermes `iteration_budget.py` — 500/50).",
+  imp_A3_1:"Durabilidade de tarefas: persiste o estado ANTES de executar, claim atómico na conclusão (padrão: Hermes `async_delegation.py` SQLite + completion queue).",
+  imp_A3_2:"Timeout por inatividade com heartbeats, não wall-clock (padrão: Hermes gateway — warning 900s, kill 1800s).",
+  imp_A4_0:"Registry de ferramentas com footprint controlado — schemas carregadas sob demanda (padrão: Hermes `tools/registry.py` + `model_tools.py:288-364`).",
+  imp_A4_1:"Gating por configuração; extensão por plugins, nunca por edição do core.",
+  imp_B1_0:"Especificação de intenção persistida: task → run → fases com modelo fixado por fase (padrão: Kando `task_orchestration_service.py:50,323-379`).",
+  imp_B1_1:"Roadmap canónico com estados e datas+SHA de validação (padrão: Kando `docs/MASTER-ROADMAP.md`).",
+  imp_B2_0:"Formato SKILL.md + carregamento sob demanda como user message — preserva o prompt cache (padrão: Hermes `skill_commands.py:569-613`).",
+  imp_B2_1:"Curadoria com ciclo active→stale→archived, dry-run e backup antes de mutar (padrão: Hermes `curator.py:305-432`).",
+  imp_B2_2:"Telemetria de uso com lock cross-process e writes atómicos (padrão: Hermes `skill_usage.py`).",
+  imp_B3_0:"AGENTS.md como fonte única com invariantes verificáveis, pitfalls com nº de PR e doutrina de testes (padrão: Hermes `AGENTS.md`).",
+  imp_B3_1:"Hierarquia multi-cliente: AGENTS.md fonte + CLAUDE.md/GEMINI.md ponteiros que não redefinem (padrão: Kando).",
+  imp_B3_2:"Regra de resolução de conflitos declarada: código ganha (padrão: Kando `README.md:73`).",
+  imp_B4_0:"Políticas com 3 níveis de enforcement: texto + CI + runtime (padrão: Hermes — 22 workflows + `tool_guardrails.py`).",
+  imp_B4_1:"Cada regra testável: uma regra boa é verificável (padrão: Kando chaos tests que testam as invariantes pelo nome).",
+  imp_C1_0:"Runner de testes hermético — env isolado + subprocesso por ficheiro (padrão: Hermes `run_tests.sh` + `run_tests_parallel.py`).",
+  imp_C1_1:"Doutrina anti change-detector e anti source-regex escrita e aplicada (padrão: Hermes `AGENTS.md:1333-1435`).",
+  imp_C1_2:"Gestão de flakiness com report dedicado — pass-on-retry é bug a corrigir, não ruído (padrão: Hermes).",
+  imp_C2_0:"LLM-as-judge em 3 camadas: determinístico → N especialistas paralelos → validator fresh-eyes, fail-closed (padrão: Kando `ai_review_service.py:1-25`).",
+  imp_C2_1:"Verificação empírica: correr os checks reais do projeto até verde, com escalada de modelo em retry (padrão: Kando `outcome_verification_service.py:504-617`).",
+  imp_C2_2:"Ledger de evidência de verificação com retenção (padrão: Hermes `verification_evidence.py`).",
+  imp_C3_0:"Redação de segredos em TODOS os handlers de log (padrão: Hermes `RedactingFormatter` + `redact.py`).",
+  imp_C3_1:"Classificador de erros com taxonomia + recovery hints estruturados consumidos pelo loop (padrão: Hermes `error_classifier.py:24-97`).",
+  imp_C3_2:"Métricas de sistema consultáveis + audit log por request com redação (padrão: Kando `/ops/metrics` + `audit_log.py`).",
+  imp_C4_0:"Retry com classificação transient/permanent + backoff com jitter + parse Retry-After (padrão: Hermes `retry_utils.py` + `llm_retry.py` do Kando).",
+  imp_C4_1:"Circuit breaker dedicado closed/open/half_open com clock injectable (padrão: Kando `llm_circuit_breaker.py:23-161`).",
+  imp_C4_2:"Fix loop com escalada de modelo para auto-correção de código (padrão: Kando `iterative_fixer_service.py`).",
+  imp_D1_0:"Anti-injection no pipeline de aprovação — strip de comentários shell (o vetor `rm -rf / # approve`) (padrão: Hermes `approval.py:2644-2662`).",
+  imp_D1_1:"Scanner de skills/plugins com trust levels e attestation por hash de conteúdo (padrão: Hermes `skills_guard.py`).",
+  imp_D1_2:"Cria um test set formal de prompt injection — nenhum dos harnesses auditados tem um.",
+  imp_D1_3:"Normalização anti-obfuscação antes do pattern-match: ANSI/NFKC/IFS/backslash (padrão: Hermes `approval.py:916-974`).",
+  imp_D2_0:"Denylist de comandos destrutivos com HARDLINE FLOOR abaixo de qualquer modo de bypass (padrão: Hermes `approval.py:337-454` — `rm -rf /` nunca corre mesmo com yolo).",
+  imp_D2_1:"Credential scope fail-closed por contexto — exceção ruidosa em vez de vazar (padrão: Hermes `secret_scope.py:123-177`).",
+  imp_D2_2:"Contrato de consentimento: 'silence is NOT consent' + mensagens BLOCKED que nomeiam a evasão (padrão: Hermes `approval.py:3683-3720`).",
+  imp_D2_3:"Sandbox de execução real — docker com cap-drop ou whole-process wrapping (padrão: Hermes `tools/environments/docker.py`).",
+  imp_D3_0:"Árvore de decisão explícita com categorias humano-obrigatório (padrão: Hermes `approval.py:3365-3834` — 6 categorias).",
+  imp_D3_1:"Ledger de decisões append-only (pattern_key, verdict, surface, choice, timestamp) — o Hermes não tem e sofre com isso; adiciona desde o dia 1.",
+  imp_D3_2:"Clarify regulado por contexto: só quando tools não resolvem; proibido em headless (padrão: Hermes `prompt_builder.py:463,297`).",
+  imp_D4_0:"Trilha de auditoria por request com redação + stats (padrão: Kando `audit_log.py` + `routes/audit.py`).",
+  imp_D4_1:"Retenção configurável por tipo de dado + export com redação (padrão: Hermes prune 90d + `export --redact`).",
+  imp_D4_2:"Telemetria hash-only — nunca conteúdo cru, só prompt_hash (padrão: Kando `outcomes.ts:3-14`).",
+  imp_D5_0:"Disclosure de IA no system prompt e por plataforma (padrão: Hermes `prompt_builder.py:145-146`).",
+  imp_D5_1:"Declaração honesta de limitações: o que é boundary vs heuristic (padrão: SECURITY.md do Hermes — raro e credível).",
+  imp_D5_2:"Política de fairness/bias com evals — ninguém auditado tem; é uma oportunidade de liderança.",
+  imp_E1_0:"Memória com bulkhead: providers externos em thread com timeout, falha NUNCA bloqueia o turno (padrão: Hermes `memory_manager.py:525-595`).",
+  imp_E1_1:"Anti-promptware na memória: scan na escrita E no load com placeholder (padrão: Hermes `memory_tool.py:233-276`).",
+  imp_E1_2:"Snapshot congelado para o system prompt — escreve em disco, não mexe no prompt (padrão: Hermes `memory_tool.py:170-171`).",
+  imp_E2_0:"Steering loop humano: aprovação pré-ação de writes de memória/skills (padrão: Hermes `commands.py:246-254`).",
+  imp_E2_1:"Falha repetida → guia novo: injeta guidance na resposta ao humano (padrão: Hermes `thinking_timeout_guidance.py`).",
+  imp_E2_2:"Dashboard de insights + learning graph visível (padrão: Hermes `insights.py` + `learning_graph.py`).",
+  imp_F1_0:"Sandbox de execução com probes de capacidade reais — degrada graciosamente onde o host não suporta, falha alto onde a segurança depende (padrão: Hermes `docker.py:715-764`).",
+  imp_F1_1:"Portabilidade declarada por OS (Windows/Unix/Termux/Nix) (padrão: Hermes).",
+  imp_F2_0:"CAP MONETÁRIO duro por run + ledger append-only por chamada — o Hermes mede ao cêntimo e não controla nada; não repitas o erro (padrão: Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`).",
+  imp_F2_1:"Rate limiting com skip ativo de provider rate-limited no fallback (padrão: Kando `agent_llm_client.py:1286-1295`).",
+  imp_F2_2:"Pricing com proveniência: fonte + data + versão por entrada (padrão: Hermes `usage_pricing.py`).",
+  imp_F3_0:"At-most-once em agendamento: avançar next_run sob lock ANTES de executar (padrão: Hermes `cron/scheduler.py:4159`).",
+  imp_F3_1:"Crash recovery: repair least-destructive com backup + claim one-shot (padrão: Hermes `hermes_state.py:1248-1330`).",
+  imp_F3_2:"Leases/fencing para multi-instância e anti-duplicação (padrão: Kando `path_leases.py:13-54`).",
+  quiz_q6:"Extensibilidade", quiz_o6a:"Só o que vem de fábrica", quiz_o6b:"Plugins/skills do ecossistema", quiz_o6c:"Vou construir tools e skills",
+  dom_A:"Núcleo & Interface", dom_B:"Guias feedforward", dom_C:"Sensores feedback", dom_D:"Governação, Julgamento & Guardrails ★", dom_E:"Ciclo de vida & aprendizagem", dom_F:"Operacional",
+  fbtn_A:"A Núcleo", fbtn_B:"B Guias", fbtn_C:"C Sensores", fbtn_D:"D Governação ★", fbtn_E:"E Aprendizagem", fbtn_F:"F Operacional",
+  home_pills:"Avaliação inferencial (evals, LLM-as-judge) · Multi-modelo &amp; routing · Julgamento &amp; escalação · Custo como controlo (cap) · Aprendizagem &amp; curadoria · Compliance &amp; privacidade · Resiliência &amp; recuperação · Steering loop humano · Guias feedforward (AGENTS.md, skills, plans)",
+  dim_A1:"Multi-modelo & routing", dim_A1_d:"Providers, fallback, pools, routing.",
+  dim_A2:"Prompts & contexto", dim_A2_d:"System prompt, caching, compressão, context files.",
+  dim_A3:"Agent loop & orquestração", dim_A3_d:"Loop, subagentes, scheduling.",
+  dim_A4:"Ferramentas & extensibilidade", dim_A4_d:"Registry, toolsets, MCP, plugins.",
+  dim_B1:"Especificação de intenção", dim_B1_d:"Plans, briefs, tarefas.",
+  dim_B2:"Skills & playbooks", dim_B2_d:"Conhecimento procedural, curadoria.",
+  dim_B3:"Convenções de projeto", dim_B3_d:"AGENTS.md, CLAUDE.md, .cursorrules.",
+  dim_B4:"Políticas declaradas", dim_B4_d:"Restrições explícitas e testáveis.",
+  dim_C1:"Testes & verificação", dim_C1_d:"Suites, CI, linters.",
+  dim_C2:"Avaliação (evals, LLM-as-judge)", dim_C2_d:"Benchmarks, juízes, drift.",
+  dim_C3:"Observabilidade", dim_C3_d:"Logs, traces, métricas, erros.",
+  dim_C4:"Auto-correção", dim_C4_d:"Retry, circuit breakers, fix loops.",
+  dim_D1:"Guardrails de segurança", dim_D1_d:"Anti-injection, scanning, validação.",
+  dim_D2:"Permissões & sandboxing", dim_D2_d:"Approvals, least privilege, sandbox.",
+  dim_D3:"Julgamento & escalação", dim_D3_d:"Decide sozinho vs humano; thresholds.",
+  dim_D4:"Compliance & legal", dim_D4_d:"Auditoria, retenção, GDPR.",
+  dim_D5:"Ética & alinhamento", dim_D5_d:"Disclosure, fairness, limitações.",
+  dim_E1:"Memória & aprendizagem", dim_E1_d:"Persistência, anti-promptware.",
+  dim_E2:"Steering loop humano", dim_E2_d:"Como o humano itera no harness.",
+  dim_F1:"Execução & ambientes", dim_F1_d:"Onde corre: local, docker, cloud.",
+  dim_F2:"Custo & eficiência", dim_F2_d:"Cap, budgets, rate limiting.",
+  dim_F3:"Resiliência", dim_F3_d:"Failover, timeouts, crash recovery.",
+  pl_title:"Plano de melhoria — o Compass como compass", pl_level:"Nível de maturidade:", pl_crit:"🔴 Crítico (score < 4) — resolver primeiro", pl_imp:"🟠 Importante (4–5) — alavanca de score", pl_nogaps:"Sem gaps críticos — acima de 6 em todas as dimensões. Parabéns: este harness está no nível gerido ou superior.", pl_source:"Conselhos derivados dos padrões provados em auditorias reais (Hermes/Kando/CCR). Cada padrão cita o mecanismo-fonte. Contribui com padrões novos via PR.", pl_none:"Sem padrões catalogados ainda — contribui com um PR.",
+  dt_hci:"HCI · Harness Compass Index", dt_dims:"/10 · 22 dimensões", dt_dims_l:"dimensões", dt_fp:"Fingerprint por domínio", dt_laud:"Auditoria com evidência path:line (relatórios em docs/).", dt_llocal:"Análise local heurística de {n} ficheiros{adj}. Para badge oficial, auditoria com relatório revisto via PR.", dt_ladj:"dimensões ajustadas manualmente (divergência visível)", dt_lclean:"sem ajustes, fiel à análise", dt_lest:"Estimativa informada — candidata a auditoria.",
+  qz_res:"Recomendação para o teu perfil", qz_strong:"Forças:", qz_weak:"Fraquezas:", qz_none:"nenhuma crítica", qz_note:"O HCI (score composto) não é o critério — o ajuste pondera as dimensões que escolheste.",
+  ec_no:"Sem harness potente", ec_no_d:"Tudo no modelo premium, sem cache, sem fallback, sem routing.", ec_yes:"Com harness potente", ec_yes_d:"Cache {c}% · falhas evitadas {r}% · compressão {co}% · routing {rt}%", ec_save:"Poupas <b class=\"green\" style=\"color:var(--emerald)\">${s}/mês ({p}%)</b> — só em tokens.", ec_hint:"Estimativa ilustrativa; usa os teus preços.",
+  ct_or_choose:"— escolhe um modelo —", ct_or_loaded:"{n} modelos com preços reais carregados", ct_or_offline:"Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).", ct_base:"Sem harness: <b style=\"color:var(--rose)\">${b}/mês</b> — o que cada harness poupa:",
+  ct_t_in:"Tokens de entrada / mês (milhões)", ct_t_out:"Tokens de saída / mês (milhões)", ct_eco:"Modelo económico — input $/M · output $/M", ct_prem:"Modelo premium — input $/M · output $/M", ct_or:"Preencher com preços reais (OpenRouter)", ct_eff:"Eficiência derivada dos scores: cache ≤85%, falhas evitadas ≤60%, routing ≤95% (escala proporcional ao score da dimensão).", ct_col_h:"Harness", ct_col_c:"Custo real $/mês", ct_col_vs:"vs sem harness", ct_col_cache:"Cache", ct_col_retry:"Falhas evit.", ct_col_route:"Routing",
+  ec_t_in:"Tokens de entrada / mês (milhões)", ec_t_out:"Tokens de saída / mês (milhões)", ec_p_in:"Preço modelo económico ($ / M input)", ec_p_out:"Preço modelo económico ($ / M output)", ec_p_in_p:"Preço modelo premium ($ / M input)", ec_p_out_p:"Preço modelo premium ($ / M output)", ec_cache:"Eficiência do harness — cache de prompt (hit rate %)", ec_retry:"Falhas evitadas — retry/fallback inteligente (% não desperdiçado)", ec_comp:"Compressão de contexto (redução % do contexto enviado)", ec_route:"Smart routing (fração de trabalho no modelo barato)",
+  au_reading:"A ler <b>{name}</b>… (análise 100% local)", au_fallback:"Seletor moderno indisponível (file:// ou browser sem suporte) — a usar o seletor clássico de ficheiros.", au_nofiles:"Sem ficheiros lidos — em Safari experimenta Chrome/Edge para a experiência completa.", au_nosignals:"sem sinais detetados", au_nosignals_short:"sem sinais", au_id:"Identificação", au_name:"Nome do harness", au_vendor:"Vendor / autor", au_type:"Tipo", au_type_v:"Projeto auditado localmente", au_tags:"Tags (vírgulas)", au_blurb:"Descrição curta (blurb)", au_blurb_v:"Análise local heurística da pasta — rever antes de publicar.", au_integrity:"🔒 <b>Integridade:</b> o badge oficial <b>AUDITADO</b> só existe no ranking do projeto via PR com relatório de evidência (ver README). O que adicionas aqui fica marcado <b>LOCAL</b> — e qualquer ajuste manual aos sliders fica <b>visível para toda a gente</b> (contador de dimensões ajustadas). Quem vê o teu export consegue distinguir o que a análise detetou do que tu mudaste.", au_add:"+ Adicionar ao ranking", au_plan:"🧭 Ver plano de melhoria", au_export:"⬇ Exportar JSON", au_scores_title:"Scores preliminares (22 dimensões)", au_scores_desc:"Baseados em sinais detetados na pasta. Ajusta os sliders — o score composto recalcula em tempo real.", au_notice:"⚠️ Análise <b>heurística local</b> (padrões de ficheiros/conteúdo, máx 300 ficheiros) — primeiro corte útil, não substitui auditoria com leitura real de código. O badge ficará", au_tests:"Detetados {n} ficheiros de teste e {w} workflows CI.", au_adj_n:"{n} dimensões ajustadas (fica marcado)", au_adj_clean:"sem ajustes — fiel à análise", au_cur:"Score composto atual:", au_read_files:"Lidos <b>{n}</b> ficheiros — a analisar sinais…",
+  method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.",
+  footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · Construído por @eluminaime (Major Tom) × Agent Hermes."
 },
 fr:{
   tagline:"Agent = Modèle + Harness · choisissez le bon harness et le modèle économique y arrive.",
@@ -543,66 +800,79 @@ function t(k, vars){
   return s;
 }
 function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); }); }
-function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); }
+function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; document.documentElement.lang = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); }
 function initLang(){
   try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
   const sel = $("#lang");
   if(sel){ sel.innerHTML = Object.entries(LANGUAGES).map(([k,v])=>`<option value="${k}">${v}</option>`).join(""); sel.value = LANG; }
+  document.documentElement.lang = LANG;
   applyI18n();
+}
+function toggleTheme(){
+  const cur = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", cur);
+  try{ localStorage.setItem("hc-theme", cur); }catch(e){}
+  const b = $("#theme-btn"); if(b) b.textContent = cur === "light" ? "🌙" : "☀️";
+}
+function initTheme(){
+  let th = "dark";
+  try{ th = localStorage.getItem("hc-theme") || (window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"); }catch(e){}
+  document.documentElement.setAttribute("data-theme", th);
+  const b = $("#theme-btn"); if(b) b.textContent = th === "light" ? "🌙" : "☀️";
 }
 
 /* ================= UI helpers ================= */
 const LEVELS = [
-  {min:0,  name:"L1 · Inicial", desc:"Funciona por acaso — sem invariantes, sem medição."},
-  {min:3,  name:"L2 · Definido", desc:"Processos básicos existem, degradam previsivelmente."},
-  {min:5,  name:"L3 · Gerido", desc:"Medido e integrado; gaps conhecidos e documentados."},
-  {min:7,  name:"L4 · Otimizado", desc:"Auto-corrige: sensores, evals, custo controlado."},
-  {min:9,  name:"L5 · Referência", desc:"Razão de existir — profundidade além do requisito."},
+  {min:0,  name:"lv_n0", desc:"lv_d0"},
+  {min:3,  name:"lv_n1", desc:"lv_d1"},
+  {min:5,  name:"lv_n2", desc:"lv_d2"},
+  {min:7,  name:"lv_n3", desc:"lv_d3"},
+  {min:9,  name:"lv_n4", desc:"lv_d4"},
 ];
 const levelOf = s => LEVELS.filter(l=>s>=l.min).pop() || LEVELS[0];
 
 /* Base de conhecimento — padrões provados nas auditorias reais (Hermes/Kando/CCR).
    Cada entrada: dimensão → conselhos acionáveis. Cresce com cada auditoria (PR). */
 const IMPROVEMENT_PATTERNS = {
-  A1:["Adiciona fallback chain multi-provider com dedup de config (padrão: Hermes `fallback_config.py:80-101`).","Considera smart routing por qualidade×custo — utilidade = quality − λ·custo − μ·latência (padrão: Kando `scored-selection.ts:107-150`).","Pools de credenciais com cooldown e rotação em 429 (padrão: Hermes `run_agent.py:310-330`)."],
-  A2:["System prompt byte-estável com split estático/volátil — é o que torna o prompt caching previsível (padrão: Hermes `system_prompt.py:549-573`).","Adiciona compressão de contexto por camadas (dedup → 1-linha → summary LLM) em vez de cortar por janela (padrão: Hermes `context_compressor.py:5840+`).","Aplica cache_control com copy-on-write: nunca reescrever o histórico persistido (padrão: Hermes `prompt_caching.py:175-220`)."],
-  A3:["Loop decide→executa→observa com orçamento de iterações hierárquico pai/filho (padrão: Hermes `iteration_budget.py` — 500/50).","Durabilidade de tarefas: persiste o estado ANTES de executar, claim atómico na conclusão (padrão: Hermes `async_delegation.py` SQLite + completion queue).","Timeout por inatividade com heartbeats, não wall-clock (padrão: Hermes gateway — warning 900s, kill 1800s)."],
-  A4:["Registry de ferramentas com footprint controlado — schemas carregadas sob demanda (padrão: Hermes `tools/registry.py` + `model_tools.py:288-364`).","Gating por configuração; extensão por plugins, nunca por edição do core."],
-  B1:["Especificação de intenção persistida: task → run → fases com modelo fixado por fase (padrão: Kando `task_orchestration_service.py:50,323-379`).","Roadmap canónico com estados e datas+SHA de validação (padrão: Kando `docs/MASTER-ROADMAP.md`)."],
-  B2:["Formato SKILL.md + carregamento sob demanda como user message — preserva o prompt cache (padrão: Hermes `skill_commands.py:569-613`).","Curadoria com ciclo active→stale→archived, dry-run e backup antes de mutar (padrão: Hermes `curator.py:305-432`).","Telemetria de uso com lock cross-process e writes atómicos (padrão: Hermes `skill_usage.py`)."],
-  B3:["AGENTS.md como fonte única com invariantes verificáveis, pitfalls com nº de PR e doutrina de testes (padrão: Hermes `AGENTS.md`).","Hierarquia multi-cliente: AGENTS.md fonte + CLAUDE.md/GEMINI.md ponteiros que não redefinem (padrão: Kando).","Regra de resolução de conflitos declarada: código ganha (padrão: Kando `README.md:73`)."],
-  B4:["Políticas com 3 níveis de enforcement: texto + CI + runtime (padrão: Hermes — 22 workflows + `tool_guardrails.py`).","Cada regra testável: uma regra boa é verificável (padrão: Kando chaos tests que testam as invariantes pelo nome)."],
-  C1:["Runner de testes hermético — env isolado + subprocesso por ficheiro (padrão: Hermes `run_tests.sh` + `run_tests_parallel.py`).","Doutrina anti change-detector e anti source-regex escrita e aplicada (padrão: Hermes `AGENTS.md:1333-1435`).","Gestão de flakiness com report dedicado — pass-on-retry é bug a corrigir, não ruído (padrão: Hermes)."],
-  C2:["LLM-as-judge em 3 camadas: determinístico → N especialistas paralelos → validator fresh-eyes, fail-closed (padrão: Kando `ai_review_service.py:1-25`).","Verificação empírica: correr os checks reais do projeto até verde, com escalada de modelo em retry (padrão: Kando `outcome_verification_service.py:504-617`).","Ledger de evidência de verificação com retenção (padrão: Hermes `verification_evidence.py`)."],
-  C3:["Redação de segredos em TODOS os handlers de log (padrão: Hermes `RedactingFormatter` + `redact.py`).","Classificador de erros com taxonomia + recovery hints estruturados consumidos pelo loop (padrão: Hermes `error_classifier.py:24-97`).","Métricas de sistema consultáveis + audit log por request com redação (padrão: Kando `/ops/metrics` + `audit_log.py`)."],
-  C4:["Retry com classificação transient/permanent + backoff com jitter + parse Retry-After (padrão: Hermes `retry_utils.py` + `llm_retry.py` do Kando).","Circuit breaker dedicado closed/open/half_open com clock injectable (padrão: Kando `llm_circuit_breaker.py:23-161`).","Fix loop com escalada de modelo para auto-correção de código (padrão: Kando `iterative_fixer_service.py`)."],
-  D1:["Anti-injection no pipeline de aprovação — strip de comentários shell (o vetor `rm -rf / # approve`) (padrão: Hermes `approval.py:2644-2662`).","Scanner de skills/plugins com trust levels e attestation por hash de conteúdo (padrão: Hermes `skills_guard.py`).","Cria um test set formal de prompt injection — nenhum dos harnesses auditados tem um.","Normalização anti-obfuscação antes do pattern-match: ANSI/NFKC/IFS/backslash (padrão: Hermes `approval.py:916-974`)."],
-  D2:["Denylist de comandos destrutivos com HARDLINE FLOOR abaixo de qualquer modo de bypass (padrão: Hermes `approval.py:337-454` — `rm -rf /` nunca corre mesmo com yolo).","Credential scope fail-closed por contexto — exceção ruidosa em vez de vazar (padrão: Hermes `secret_scope.py:123-177`).","Contrato de consentimento: 'silence is NOT consent' + mensagens BLOCKED que nomeiam a evasão (padrão: Hermes `approval.py:3683-3720`).","Sandbox de execução real — docker com cap-drop ou whole-process wrapping (padrão: Hermes `tools/environments/docker.py`)."],
-  D3:["Árvore de decisão explícita com categorias humano-obrigatório (padrão: Hermes `approval.py:3365-3834` — 6 categorias).","Ledger de decisões append-only (pattern_key, verdict, surface, choice, timestamp) — o Hermes não tem e sofre com isso; adiciona desde o dia 1.","Clarify regulado por contexto: só quando tools não resolvem; proibido em headless (padrão: Hermes `prompt_builder.py:463,297`)."],
-  D4:["Trilha de auditoria por request com redação + stats (padrão: Kando `audit_log.py` + `routes/audit.py`).","Retenção configurável por tipo de dado + export com redação (padrão: Hermes prune 90d + `export --redact`).","Telemetria hash-only — nunca conteúdo cru, só prompt_hash (padrão: Kando `outcomes.ts:3-14`)."],
-  D5:["Disclosure de IA no system prompt e por plataforma (padrão: Hermes `prompt_builder.py:145-146`).","Declaração honesta de limitações: o que é boundary vs heuristic (padrão: SECURITY.md do Hermes — raro e credível).","Política de fairness/bias com evals — ninguém auditado tem; é uma oportunidade de liderança."],
-  E1:["Memória com bulkhead: providers externos em thread com timeout, falha NUNCA bloqueia o turno (padrão: Hermes `memory_manager.py:525-595`).","Anti-promptware na memória: scan na escrita E no load com placeholder (padrão: Hermes `memory_tool.py:233-276`).","Snapshot congelado para o system prompt — escreve em disco, não mexe no prompt (padrão: Hermes `memory_tool.py:170-171`)."],
-  E2:["Steering loop humano: aprovação pré-ação de writes de memória/skills (padrão: Hermes `commands.py:246-254`).","Falha repetida → guia novo: injeta guidance na resposta ao humano (padrão: Hermes `thinking_timeout_guidance.py`).","Dashboard de insights + learning graph visível (padrão: Hermes `insights.py` + `learning_graph.py`)."],
-  F1:["Sandbox de execução com probes de capacidade reais — degrada graciosamente onde o host não suporta, falha alto onde a segurança depende (padrão: Hermes `docker.py:715-764`).","Portabilidade declarada por OS (Windows/Unix/Termux/Nix) (padrão: Hermes)."],
-  F2:["CAP MONETÁRIO duro por run + ledger append-only por chamada — o Hermes mede ao cêntimo e não controla nada; não repitas o erro (padrão: Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`).","Rate limiting com skip ativo de provider rate-limited no fallback (padrão: Kando `agent_llm_client.py:1286-1295`).","Pricing com proveniência: fonte + data + versão por entrada (padrão: Hermes `usage_pricing.py`)."],
-  F3:["At-most-once em agendamento: avançar next_run sob lock ANTES de executar (padrão: Hermes `cron/scheduler.py:4159`).","Crash recovery: repair least-destructive com backup + claim one-shot (padrão: Hermes `hermes_state.py:1248-1330`).","Leases/fencing para multi-instância e anti-duplicação (padrão: Kando `path_leases.py:13-54`)."],
+  A1:["imp_A1_0", "imp_A1_1", "imp_A1_2"],
+  A2:["imp_A2_0", "imp_A2_1", "imp_A2_2"],
+  A3:["imp_A3_0", "imp_A3_1", "imp_A3_2"],
+  A4:["imp_A4_0", "imp_A4_1"],
+  B1:["imp_B1_0", "imp_B1_1"],
+  B2:["imp_B2_0", "imp_B2_1", "imp_B2_2"],
+  B3:["imp_B3_0", "imp_B3_1", "imp_B3_2"],
+  B4:["imp_B4_0", "imp_B4_1"],
+  C1:["imp_C1_0", "imp_C1_1", "imp_C1_2"],
+  C2:["imp_C2_0", "imp_C2_1", "imp_C2_2"],
+  C3:["imp_C3_0", "imp_C3_1", "imp_C3_2"],
+  C4:["imp_C4_0", "imp_C4_1", "imp_C4_2"],
+  D1:["imp_D1_0", "imp_D1_1", "imp_D1_2", "imp_D1_3"],
+  D2:["imp_D2_0", "imp_D2_1", "imp_D2_2", "imp_D2_3"],
+  D3:["imp_D3_0", "imp_D3_1", "imp_D3_2"],
+  D4:["imp_D4_0", "imp_D4_1", "imp_D4_2"],
+  D5:["imp_D5_0", "imp_D5_1", "imp_D5_2"],
+  E1:["imp_E1_0", "imp_E1_1", "imp_E1_2"],
+  E2:["imp_E2_0", "imp_E2_1", "imp_E2_2"],
+  F1:["imp_F1_0", "imp_F1_1"],
+  F2:["imp_F2_0", "imp_F2_1", "imp_F2_2"],
+  F3:["imp_F3_0", "imp_F3_1", "imp_F3_2"],
 };
 function improvementPlan(h){
   const s=score(h), lvl=levelOf(s);
   const weak=DIMENSIONS.filter(([id])=>(h.scores[id]||0)<6);
   const crit=weak.filter(([id])=>(h.scores[id]||0)<4), imp=weak.filter(([id])=>(h.scores[id]||0)>=4);
   const list=arr=>arr.map(([id,name])=>{
-    const tips=(IMPROVEMENT_PATTERNS[id]||[]).slice(0,2).map(t=>`<li>${t}</li>`).join("");
+    const tips=(IMPROVEMENT_PATTERNS[id]||[]).slice(0,2).map(p=>`<li>${esc(t(p))}</li>`).join("");
     return `<div style="margin:10px 0"><b style="font-size:13.5px">${esc(name)} — ${h.scores[id]}/10</b>
-      <ul style="margin:6px 0 0 18px; font-size:12.5px; color:#c7cbd9">${tips||"<li>Sem padrões catalogados ainda — contribui com um PR.</li>"}</ul></div>`;
+      <ul style="margin:6px 0 0 18px; font-size:12.5px; color:#c7cbd9">${tips||`<li>${t("pl_none")}</li>`}</ul></div>`;
   }).join("");
   return `<div class="card" style="border-left:4px solid var(--cyan)">
-    <h3>🧭 Plano de melhoria — o Compass como compass</h3>
-    <p>Nível de maturidade: <b style="color:var(--cyan)">${lvl.name}</b> <span class="muted">(${s.toFixed(1)}/10)</span> — ${lvl.desc}</p>
-    ${crit.length?`<h4 style="color:var(--rose); margin-top:12px">🔴 Crítico (score &lt; 4) — resolver primeiro</h4>${list(crit)}`:""}
-    ${imp.length?`<h4 style="color:var(--amber); margin-top:12px">🟠 Importante (4–5) — alavanca de score</h4>${list(imp)}`:""}
-    ${!crit.length&&!imp.length?`<p class="muted" style="margin-top:10px">Sem gaps críticos — acima de 6 em todas as dimensões. Parabéns: este harness está no nível gerido ou superior.</p>`:""}
-    <p class="legend" style="margin-top:10px">Conselhos derivados dos padrões provados em auditorias reais (Hermes/Kando/CCR). Cada padrão cita o mecanismo-fonte. Contribui com padrões novos via PR.</p>
+    <h3>🧭 ${t("pl_title")}</h3>
+    <p>${t("pl_level")} <b style="color:var(--cyan)">${t(lvl.name)}</b> <span class="muted">(${s.toFixed(1)}/10)</span> — ${t(lvl.desc)}</p>
+    ${crit.length?`<h4 style="color:var(--rose); margin-top:12px">${t("pl_crit")}</h4>${list(crit)}`:""}
+    ${imp.length?`<h4 style="color:var(--amber); margin-top:12px">${t("pl_imp")}</h4>${list(imp)}`:""}
+    ${!crit.length&&!imp.length?`<p class="muted" style="margin-top:10px">${t("pl_nogaps")}</p>`:""}
+    <p class="legend" style="margin-top:10px">${t("pl_source")}</p>
   </div>`;
 }
 const $ = s => document.querySelector(s);
@@ -617,7 +887,6 @@ const badge = h => {
   if(h.adjusted>0) b += ` <span class="badge" style="background:rgba(251,113,133,.13);color:#fda4af;border:1px solid rgba(251,113,133,.3)">⚠ ${h.adjusted} ${t("badge_adj")}</span>`;
   return b;
 };
-const dimName = id => (DIMENSIONS.find(d=>d[0]===id)||[])[1]||id;
 
 function switchView(v){
   $$("#nav button").forEach(b=>b.classList.toggle("active", b.dataset.view===v));
@@ -694,21 +963,21 @@ function showDetail(h){
       <div style="flex:1; min-width:280px">
         <h2>${esc(h.name)} ${badge(h)}</h2>
         <p class="muted">${esc(h.vendor)} · ${esc(h.type)}${h.url?` · <a href="${esc(h.url)}" target="_blank">${esc(h.url)}</a>`:""}</p>
-        <p style="margin:12px 0">${esc(h.blurb)}</p>
+        <p style="margin:12px 0">${esc(t(h.blurb))}</p>
         <p>${h.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join("")}</p>
         <div class="donut-row" style="margin-top:16px"><div>${donut}</div>
-          <div><div class="muted" style="font-size:12px">HCI · Harness Compass Index</div><div class="big">${score(h).toFixed(1)}</div><div class="muted" style="font-size:11px">/10 · 22 dimensões</div></div>
+          <div><div class="muted" style="font-size:12px">${t("dt_hci")}</div><div class="big">${score(h).toFixed(1)}</div><div class="muted" style="font-size:11px">${t("dt_dims")}</div></div>
         </div>
       </div>
       <div style="min-width:300px">
-        <div class="muted" style="font-size:12px; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px">Fingerprint por domínio</div>
+        <div class="muted" style="font-size:12px; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px">${t("dt_fp")}</div>
         <div class="radar-wrap">${radar}</div>
       </div>
     </div>
-    <h3>22 dimensões</h3>
+    <h3>22 ${t("dt_dims_l")}</h3>
     <div style="margin-top:6px">${dims}</div>
     ${improvementPlan(h)}
-    <p class="legend">${h.audited?"Auditoria com evidência path:line (relatórios em docs/).":h.local?`Análise local heurística de ${h.meta&&h.meta.filesRead?h.meta.filesRead+" ficheiros":""}${h.adjusted?` — <b style="color:var(--rose)">${h.adjusted} dimensões ajustadas manualmente (divergência visível)</b>`:" — sem ajustes, fiel à análise"}. Para badge oficial, auditoria com relatório revisto via PR.`:"Estimativa informada — candidata a auditoria."}</p>
+    <p class="legend">${h.audited?t("dt_laud"):h.local?t("dt_llocal",{n:h.meta&&h.meta.filesRead||0,adj:h.adjusted>0?` — <b style="color:var(--rose)">${h.adjusted} ${t("dt_ladj")}</b>`:` — ${t("dt_lclean")}`}):t("dt_lest")}</p>
   </div>`;
   el.scrollIntoView({behavior:"smooth"});
 }
@@ -787,13 +1056,14 @@ function runQuiz(){
     Object.entries(w).forEach(([k,v])=>{tot+=h.scores[k]*v; cnt+=v;});
     return {h, w:cnt?tot/cnt:0};
   }).sort((a,b)=>b.w-a.w);
-  $("#quiz-result").innerHTML=`<h3>Recomendação para o teu perfil</h3>`+ranked.slice(0,3).map((r,i)=>{
+  $("#quiz-result").innerHTML=`<h3>${t("qz_res")}</h3>`+ranked.slice(0,3).map((r,i)=>{
     const strong=Object.entries(r.h.scores).filter(([k,v])=>v>=8).map(([k])=>dimName(k)).slice(0,3);
     const weak=Object.entries(r.h.scores).filter(([k,v])=>v<=4).map(([k])=>dimName(k)).slice(0,2);
+    const prov=r.h.audited?t("badge_audit").toLowerCase():r.h.preliminar?t("badge_prel").toLowerCase():t("badge_est").toLowerCase();
     return `<div class="card result-card">
-      <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· ajuste ${r.w.toFixed(1)}</span></h3>
-      <p class="muted">Forças: ${strong.join(", ")||"—"}. Fraquezas: ${weak.join(", ")||"nenhuma crítica"}. (${r.h.audited?"auditado":r.h.preliminar?"preliminar":"estimativa"})</p></div>`;
-  }).join("")+`<p class="muted">O HCI (score composto) não é o critério — o ajuste pondera as dimensões que escolheste.</p>`;
+      <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· fit ${r.w.toFixed(1)}</span></h3>
+      <p class="muted">${t("qz_strong")} ${strong.join(", ")||"—"}. ${t("qz_weak")} ${weak.join(", ")||t("qz_none")}. (${prov})</p></div>`;
+  }).join("")+`<p class="muted">${t("qz_note")}</p>`;
   $("#quiz-result").scrollIntoView({behavior:"smooth"});
 }
 
@@ -811,10 +1081,10 @@ function calcEconomy(){
   const save=base-withHarness, pct=base>0?(save/base*100):0;
   $("#ec-result").innerHTML=`
     <div class="grid2">
-      <div><h3>Sem harness potente</h3><p class="muted">Tudo no modelo premium, sem cache, sem fallback, sem routing.</p><p class="big red" style="color:var(--rose)">$${base.toFixed(0)}/mês</p></div>
-      <div><h3>Com harness potente</h3><p class="muted">Cache ${$("#ec-cache").value}% · falhas evitadas ${$("#ec-retry").value}% · compressão ${$("#ec-comp").value}% · routing ${$("#ec-route").value}%.</p><p class="big green" style="color:var(--emerald)">$${withHarness.toFixed(0)}/mês</p></div>
+      <div><h3>${t("ec_no")}</h3><p class="muted">${t("ec_no_d")}</p><p class="big red" style="color:var(--rose)">$${base.toFixed(0)}/mo</p></div>
+      <div><h3>${t("ec_yes")}</h3><p class="muted">${t("ec_yes_d",{c:$("#ec-cache").value,r:$("#ec-retry").value,co:$("#ec-comp").value,rt:$("#ec-route").value})}</p><p class="big green" style="color:var(--emerald)">$${withHarness.toFixed(0)}/mo</p></div>
     </div>
-    <p style="margin-top:12px;font-size:15px">Poupas <b class="green" style="color:var(--emerald)">$${save.toFixed(0)}/mês (${pct.toFixed(0)}%)</b> — só em tokens. <span class="muted">Estimativa ilustrativa; usa os teus preços.</span></p>`;
+    <p style="margin-top:12px;font-size:15px">${t("ec_save",{s:save.toFixed(0),p:pct.toFixed(0)})} <span class="muted">${t("ec_hint")}</span></p>`;
 }
 
 /* ================= COST REAL (Same Model, Different Harness) ================= */
@@ -827,9 +1097,9 @@ async function loadOpenRouter(){
     __ormodels=(j.data||[]).map(m=>({id:m.id, in:+m.pricing.prompt, out:+m.pricing.completion}))
       .filter(m=>m.in>0 && m.out>0)
       .sort((a,b)=>a.id.localeCompare(b.id));
-    const opts='<option value="">— escolhe um modelo —</option>'+__ormodels.map(m=>`<option value="${esc(m.id)}">${esc(m.id)}</option>`).join("");
-    const sel=$("#ct-model"); if(sel){ sel.innerHTML=opts; $("#ct-or-status").innerHTML=`<span class="green" style="font-size:12px">✓ ${__ormodels.length} modelos com preços reais carregados</span>`; }
-  }catch(e){ const s=$("#ct-or-status"); if(s) s.innerHTML=`<span class="muted" style="font-size:12px">Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).</span>`; }
+    const opts='<option value="">'+t("ct_or_choose")+'</option>'+__ormodels.map(m=>`<option value="${esc(m.id)}">${esc(m.id)}</option>`).join("");
+    const sel=$("#ct-model"); if(sel){ sel.innerHTML=opts; $("#ct-or-status").innerHTML=`<span class="green" style="font-size:12px">✓ ${t("ct_or_loaded",{n:__ormodels.length})}</span>`; }
+  }catch(e){ const s=$("#ct-or-status"); if(s) s.innerHTML=`<span class="muted" style="font-size:12px">${t("ct_or_offline")}</span>`; }
 }
 function useOpenRouterPriceCT(){
   const id=$("#ct-model").value; if(!id) return;
@@ -867,7 +1137,7 @@ function renderCost(){
   });
   const base=tIn*ppi+tOut*ppo;
   const barMax=Math.max(base, ...rows.map(x=>x.r.withH), 1);
-  $("#ct-chart").innerHTML=`<div class="muted" style="font-size:12px;margin-bottom:6px">Sem harness: <b style="color:var(--rose)">$${base.toFixed(0)}/mês</b> · o que cada harness poupa:</div>`+
+  $("#ct-chart").innerHTML=`<div class="muted" style="font-size:12px;margin-bottom:6px">${t("ct_base",{b:base.toFixed(0)})}</div>`+
     rows.slice(0,10).map(({h,r})=>`<div style="display:flex;align-items:center;gap:8px;margin:3px 0">
       <div style="flex:0 0 132px;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(h.name)}">${esc(h.name)}</div>
       <div class="dim-grad" style="flex:1"><i style="width:${Math.max(3,(barMax-r.withH)/barMax*100)}%"></i></div>
@@ -907,7 +1177,7 @@ async function pickFolder(){
   let entries=null;
   const viaPicker = async ()=>{
     const dir=await window.showDirectoryPicker({mode:"read"});
-    status.innerHTML=`<span class="spin"></span> A ler <b>${esc(dir.name)}</b>… (análise 100% local)`;
+    status.innerHTML=`<span class="spin"></span> ${t("au_reading",{name:esc(dir.name)})}`;
     entries=[];
     let bytes=0;
     const walk=async (handle, prefix)=>{
@@ -954,15 +1224,15 @@ async function pickFolder(){
       try{ await viaPicker(); }
       catch(err){
         if(err && err.name==="AbortError"){ status.innerHTML=`<span class="muted">Cancelado.</span>`; return; }
-        status.innerHTML=`<span class="muted">Seletor moderno indisponível (file:// ou browser sem suporte) — a usar o seletor clássico de ficheiros.</span>`;
+        status.innerHTML=`<span class="muted">${t("au_fallback")}</span>`;
         await viaInput();
       }
     }else{
       await viaInput();
     }
   }catch(e){ status.innerHTML=`<span class="red">Erro: ${esc(e.message||e)}</span>`; return; }
-  if(!entries||!entries.length){ status.innerHTML=`<span class="red">Sem ficheiros lidos — em Safari experimenta Chrome/Edge para a experiência completa.</span>`; return; }
-  status.innerHTML=`<span class="muted">Lidos <b>${entries.length}</b> ficheiros — a analisar sinais…</span>`;
+  if(!entries||!entries.length){ status.innerHTML=`<span class="red">${t("au_nofiles")}</span>`; return; }
+  status.innerHTML=`<span class="muted">${t("au_read_files",{n:entries.length})}</span>`;
   await new Promise(r=>setTimeout(r,30));
   showAuditResult(entries);
 }
@@ -1012,44 +1282,44 @@ function analyzeEntries(entries){
 function showAuditResult(entries){
   const {scores, reasons, testFiles, workflows} = analyzeEntries(entries);
   window.__auditMeta = {filesRead: entries.filter(e=>!e.dir).length, heuristica: Object.assign({}, scores), timestamp: new Date().toISOString()};
-  const rootName = entries.find(e=>e.path.indexOf("/")<0)?.name || "projeto";
+  const rootName = entries.find(e=>e.path.indexOf("/")<0)?.name || "project";
   const defaultName = rootName.replace(/\.[a-z0-9]+$/i,"").replace(/[-_]+/g," ").replace(/\b\w/g,c=>c.toUpperCase());
   const row = (id)=>{ const [n,desc]=DIMENSIONS.find(d=>d[0]===id);
     return `<div class="dim-row">
-      <div class="name" title="${esc(desc)}"><b>${esc(n)}</b></div>
-      <div class="why" title="${esc(reasons[id]||"sem sinais detetados")}">${esc(reasons[id]||"sem sinais")}</div>
+      <div class="name" title="${esc(dimDesc(id))}"><b>${esc(dimName(id))}</b></div>
+      <div class="why" title="${esc(reasons[id]||t("au_nosignals"))}">${esc(reasons[id]||t("au_nosignals_short"))}</div>
       <input type="range" min="0" max="10" value="${scores[id]}" data-dim="${id}" oninput="auditSlide(this)">
       <output data-out="${id}">${scores[id]}</output></div>`; };
   $("#audit-result").innerHTML=`
     <div class="card result-card">
       <div class="grid2" style="margin-top:0">
         <div>
-          <h3>🛠️ Identificação</h3>
+          <h3>🛠️ ${t("au_id")}</h3>
           <div class="calc">
-            <label>Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
-            <label>Vendor / autor</label><input id="au-vendor" placeholder="ex: A tua empresa">
-            <label>Tipo</label><input id="au-type" value="Projeto auditado localmente" placeholder="ex: Control plane, agente pessoal…">
-            <label>Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="coding, gateway, multi-agente…">
-            <label>Descrição curta (blurb)</label><input id="au-blurb" value="Análise local heurística da pasta — rever antes de publicar.">
+            <label data-i18n="au_name">Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
+            <label data-i18n="au_vendor">Vendor / autor</label><input id="au-vendor" placeholder="ex: A tua empresa">
+            <label data-i18n="au_type">Tipo</label><input id="au-type" value="${t("au_type_v")}" placeholder="ex: Control plane, agente pessoal…">
+            <label data-i18n="au_tags">Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="coding, gateway, multi-agente…">
+            <label data-i18n="au_blurb">Descrição curta (blurb)</label><input id="au-blurb" value="${t("au_blurb_v")}">
           </div>
           <div style="margin-top:14px">
-            <div class="notice" style="margin:0; font-size:12px">🔒 <b>Integridade:</b> o badge oficial <b>AUDITADO</b> só existe no ranking do projeto via PR com relatório de evidência (ver README). O que adicionas aqui fica marcado <b>LOCAL</b> — e qualquer ajuste manual aos sliders fica <b>visível para toda a gente</b> (contador de dimensões ajustadas). Quem vê o teu export consegue distinguir o que a análise detetou do que tu mudaste.</div>
+            <div class="notice" style="margin:0; font-size:12px">${t("au_integrity")}</div>
           </div>
           <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-            <button class="primary" onclick="addAuditedHarness()">+ Adicionar ao ranking</button>
-            <button class="ghost" onclick="previewPlan()">🧭 Ver plano de melhoria</button>
-            <button class="ghost" onclick="exportAuditedJSON()">⬇ Exportar JSON</button>
+            <button class="primary" onclick="addAuditedHarness()" data-i18n="au_add">+ Adicionar ao ranking</button>
+            <button class="ghost" onclick="previewPlan()" data-i18n="au_plan">🧭 Ver plano de melhoria</button>
+            <button class="ghost" onclick="exportAuditedJSON()" data-i18n="au_export">⬇ Exportar JSON</button>
           </div>
           <div id="au-plan-preview" style="margin-top:12px"></div>
         </div>
         <div>
-          <h3>📊 Scores preliminares (22 dimensões)</h3>
-          <p class="muted" style="font-size:11.5px">Baseados em sinais detetados na pasta. Ajusta os sliders — o score composto recalcula em tempo real.</p>
+          <h3>📊 ${t("au_scores_title")}</h3>
+          <p class="muted" style="font-size:11.5px">${t("au_scores_desc")}</p>
           <div id="au-score-summary" style="margin:10px 0"></div>
           <div style="max-height:520px; overflow-y:auto; padding-right:6px">${DIMENSIONS.map(d=>row(d[0])).join("")}</div>
         </div>
       </div>
-      <div class="notice" style="margin-top:16px">⚠️ Análise <b>heurística local</b> (padrões de ficheiros/conteúdo, máx 300 ficheiros) — primeiro corte útil, não substitui auditoria com leitura real de código. O badge ficará <span class="badge b-prel">Preliminar</span>. ${testFiles?`Detetados ${testFiles} ficheiros de teste e ${workflows} workflows CI.`:""}</div>
+      <div class="notice" style="margin-top:16px">${t("au_notice")} <span class="badge b-prel">${t("badge_prel")}</span>. ${testFiles?t("au_tests",{n:testFiles,w:workflows}):""}</div>
     </div>`;
   updateAuditSummary();
 }
@@ -1060,10 +1330,10 @@ function updateAuditSummary(){
   let adj="";
   if(meta&&meta.filesRead){
     const n=DIMENSIONS.filter(d=>meta.heuristica[d[0]]!==undefined && Math.abs(meta.heuristica[d[0]]-(+document.querySelector(`[data-out="${d[0]}"]`).textContent||0))>0).length;
-    adj = n>0 ? ` · <span class="red">⚠ ${n} dimensões ajustadas (fica marcado)</span>` : ' · <span class="green">sem ajustes — fiel à análise</span>';
+    adj = n>0 ? ` · <span class="red">⚠ ${t("au_adj_n",{n})}</span>` : ` · <span class="green">${t("au_adj_clean")}</span>`;
   }
   const el=$("#au-score-summary");
-  if(el) el.innerHTML=`Score composto atual: <b class="big" style="font-size:22px">${(sum/total).toFixed(1)}</b><span class="muted">/10</span>${adj}`;
+  if(el) el.innerHTML=`${t("au_cur")} <b class="big" style="font-size:22px">${(sum/total).toFixed(1)}</b><span class="muted">/10</span>${adj}`;
 }
 function collectAudit(){
   const scores={};
@@ -1074,7 +1344,7 @@ function collectAudit(){
     id:"local-"+Date.now().toString(36),
     name: $("#au-name").value.trim()||"Projeto local",
     vendor: $("#au-vendor").value.trim()||"—",
-    type: $("#au-type").value.trim()||"Projeto",
+    type: $("#au-type").value.trim()||"Project",
     url:"",
     audited:false,
     preliminar: meta.filesRead>0,
@@ -1111,7 +1381,7 @@ function exportAuditedJSON(){
 function resetAudit(){ $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
 
 /* ================= BOOT ================= */
-nav(); initLang(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();
+nav(); initLang(); initTheme(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();
 $$(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   filter=b.dataset.f;
   $$(".fbtn").forEach(x=>{x.style.background=x===b?"rgba(139,92,246,.35)":"", x.style.color=x===b?"#fff":"";});

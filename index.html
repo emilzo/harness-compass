@@ -463,7 +463,6 @@ en:{
   eco_title:"Paradigm calculator: how much does a powerful harness save?",
   eco_desc:"Same workload, with and without an efficient harness. Drag the sliders and see the effect in $/month.",
   method_title:"Method & evidence",
-  footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0.",
   badge_audit:"Audited", badge_est:"Estimate", badge_prel:"Preliminary", badge_local:"Local", badge_adj:"adjusted",
   quiz_q1:"Monthly LLM budget", quiz_o1a:"Up to $50 — every token counts", quiz_o1b:"$50–500 — efficiency matters", quiz_o1c:"$500+ — comfort, want quality",
   quiz_q2:"Desired autonomy", quiz_o2a:"Maximum — minimal approvals", quiz_o2b:"Balanced — approve destructive", quiz_o2c:"Conservative — human in the loop",
@@ -624,7 +623,6 @@ pt:{
   eco_title:"Calculadora do paradigma: quanto poupa um harness potente?",
   eco_desc:"O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.",
   method_title:"Método e evidência",
-  footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0.",
   badge_audit:"Auditado", badge_est:"Estimativa", badge_prel:"Preliminar", badge_local:"Local", badge_adj:"ajustadas",
   quiz_q1:"Orçamento mensal de LLM", quiz_o1a:"Até $50 — cada token conta", quiz_o1b:"$50–500 — eficiência importa", quiz_o1c:"$500+ — conforto, quero qualidade",
   quiz_q2:"Autonomia desejada", quiz_o2a:"Máxima — aprovações mínimas", quiz_o2b:"Equilibrada — aprova em destrutivas", quiz_o2c:"Conservadora — humano no loop",
@@ -822,25 +820,31 @@ function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.datase
 function qAnswers(v){ const a=[]; for(let i=0;i<6;i++){ const s=$("#qq-"+i); if(v){ if(s) s.value=v[i]; } else a.push(s?+s.value:0); } return v?null:a; }
 function currentAuditScores(){ const s={}; DIMENSIONS.forEach(([id])=>{ const o=document.querySelector(`[data-out="${id}"]`); if(o) s[id]=+o.textContent||0; }); return s; }
 function persistLang(l){ LANG = LANGUAGES[l] ? l : "en"; try{ localStorage.setItem("hc-lang", LANG); }catch(e){} const sel=$("#lang"); if(sel) sel.value = LANG; document.documentElement.lang = LANG; }
-function replayOpenState(){
+function replayOpenState(oldLang){
   /* Re-renderiza, na língua nova, o que está aberto: detail + auditoria (preservando
-     sliders, campos de texto e preview do plano). O quiz é tratado no setLang (qa). */
+     sliders e campos de texto; o plano de melhoria é re-gerado na língua nova). */
   if(window.__sel) showDetail(window.__sel, true);
   if(!window.__auditEntries) return;
   const ov=currentAuditScores();
   const fields={}; ["au-name","au-vendor","au-type","au-tags","au-blurb"].forEach(id=>{ const el=document.getElementById(id); if(el) fields[id]=el.value; });
-  const planEl=$("#au-plan-preview"); const planHTML=planEl?planEl.innerHTML:"";
+  const planEl=$("#au-plan-preview"); const planOpen = planEl && planEl.innerHTML.trim()!=="";
   showAuditResult(window.__auditEntries, ov);
-  Object.entries(fields).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.value=v; });
-  if(planHTML&&$("#au-plan-preview")) $("#au-plan-preview").innerHTML=planHTML;
+  Object.entries(fields).forEach(([id,v])=>{
+    const el=document.getElementById(id); if(!el) return;
+    const isDefault = (id==="au-type"||id==="au-blurb") && oldLang && T[oldLang] && v===T[oldLang][id==="au-type"?"au_type_v":"au_blurb_v"];
+    el.value = isDefault ? t(id==="au-type"?"au_type_v":"au_blurb_v") : v; /* default atualizado se não editado */
+  });
+  if(planOpen && $("#au-plan-preview")) previewPlan(); /* re-gera o plano na língua nova */
   applyI18n();
 }
 function setLang(l){
+  const oldLang = LANG;
   persistLang(l);
-  const qa = window.__quizDone ? qAnswers() : null; /* respostas ANTES do buildQuiz (que as reseta) */
+  const qa = qAnswers(); /* captura SEMPRE (pré-submissão incluída) — o buildQuiz reseta os selects */
   applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap();
-  replayOpenState();
-  if(qa){ qAnswers(qa); runQuiz(true); }
+  replayOpenState(oldLang);
+  if(qa) qAnswers(qa);
+  if(window.__quizDone) runQuiz(true);
 }
 function initLang(){
   try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
@@ -1264,6 +1268,7 @@ const AUDIT_SIGNALS = {
 const MAX_FILES=300, MAX_TOTAL_BYTES=2*1024*1024, MAX_FILE_BYTES=64*1024;
 
 async function pickFolder(){
+  window.__auditEntries=null; window.__auditMeta=null; window.__auditCache=null; window.__auditRoot=null;
   const status=$("#audit-status");
   $("#audit-result").innerHTML="";
   let entries=null;
@@ -1362,7 +1367,7 @@ function analyzeEntries(entries){
     else if(total<21) s=8;
     else s=9;
     const why=[];
-    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f))) why.push(["f",f]); });
+    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f.toLowerCase()))) why.push(["f",f]); });
     cfg.dirs.forEach(d=>{ if(paths.some(p=>p.split("/").includes(d))) why.push(["d",d]); });
     cfg.kw.forEach(k=>{ const c=(blobL.match(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length; if(c>0) why.push(["k",k,c]); });
     if(dim==="C1" && testFiles>0) why.push(["t",testFiles]);
@@ -1385,7 +1390,10 @@ const fmtWhy = w => (w||[]).map(x=>{
 function showAuditResult(entries, ov){
   window.__auditEntries = entries;
   let res;
-  if(ov && window.__auditCache && window.__auditCache.entries === entries){ res = window.__auditCache.result; }
+  if(ov && window.__auditCache && window.__auditCache.entries === entries){
+    /* cópia do scores: a aplicação de ov não pode mutar a cache (alias) */
+    res = {scores: Object.assign({}, window.__auditCache.result.scores), reasons: window.__auditCache.result.reasons, testFiles: window.__auditCache.result.testFiles, workflows: window.__auditCache.result.workflows};
+  }
   else { res = analyzeEntries(entries); if(!ov) window.__auditCache = {entries, result: res}; }
   const {scores, reasons, testFiles, workflows} = res;
   if(ov) Object.keys(ov).forEach(k=>{ if(scores[k]!==undefined) scores[k]=ov[k]; });

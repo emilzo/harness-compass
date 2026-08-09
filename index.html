@@ -6,6 +6,21 @@
 <meta name="author" content="@emilzo · @eluminaime · Agent Hermes (Tom)">
 <title>Harness Compass — The Harness Benchmark for AI Agents</title>
 <meta name="description" content="Agent = Model + Harness. Ranking, map, calculator and local folder audit of AI agent harnesses. Choose the right harness and use cheaper LLMs.">
+<meta name="theme-color" id="meta-theme" content="#07070f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+<!-- Social / Open Graph — se o URL do GitHub Pages for outro, atualizar og:url e as duas imagens -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Harness Compass">
+<meta property="og:title" content="Harness Compass — The Harness Benchmark for AI Agents">
+<meta property="og:description" content="Agent = Model + Harness. 22-dimension evidence-based ranking, real cost per task, and a 100% local folder audit. Choose the right harness and use cheaper LLMs.">
+<meta property="og:url" content="https://emilzo.github.io/harness-compass/">
+<meta property="og:image" content="https://emilzo.github.io/harness-compass/docs/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Harness Compass — The Harness Benchmark for AI Agents">
+<meta name="twitter:description" content="Agent = Model + Harness. 22-dimension evidence-based ranking, real cost per task, and a 100% local folder audit.">
+<meta name="twitter:image" content="https://emilzo.github.io/harness-compass/docs/social-card.png">
 <style>
   :root{
     --bg:#07070f; --bg2:#0c0c1a; --ink:#e2e8f0; --muted:#8b93a7; --line:rgba(255,255,255,.08);
@@ -1473,17 +1488,20 @@ function initLang(){
   document.documentElement.lang = LANG;
   applyI18n();
 }
+function applyTheme(th){
+  document.documentElement.setAttribute("data-theme", th);
+  const b = $("#theme-btn"); if(b) b.textContent = th === "light" ? "🌙" : "☀️";
+  const m = $("#meta-theme"); if(m) m.content = th === "light" ? "#f5f6fb" : "#07070f"; /* barra do browser segue o tema da app */
+}
 function toggleTheme(){
   const cur = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
-  document.documentElement.setAttribute("data-theme", cur);
+  applyTheme(cur);
   try{ localStorage.setItem("hc-theme", cur); }catch(e){}
-  const b = $("#theme-btn"); if(b) b.textContent = cur === "light" ? "🌙" : "☀️";
 }
 function initTheme(){
   let th = "dark";
   try{ th = localStorage.getItem("hc-theme") || (window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"); }catch(e){}
-  document.documentElement.setAttribute("data-theme", th);
-  const b = $("#theme-btn"); if(b) b.textContent = th === "light" ? "🌙" : "☀️";
+  applyTheme(th);
 }
 
 /* ================= UI helpers ================= */

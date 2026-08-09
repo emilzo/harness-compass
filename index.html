@@ -189,6 +189,7 @@
     <div class="card">
       <h2>📂 Auditar uma pasta e rankeá-la</h2>
       <p class="muted">Abre a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>Tudo corre no teu browser — nada sai da tua máquina.</b></p>
+      <p class="legend">🖥️ Compatibilidade: <b>Chrome/Edge</b> (qualquer OS) = experiência completa via seletor de pastas (requer HTTPS — o GitHub Pages dá). <b>Firefox</b> = usa o seletor clássico automaticamente. <b>Safari</b> = tudo funciona exceto a leitura de pastas (limitada pelo browser). O resto da app funciona em qualquer browser moderno.</p>
       <div style="margin:18px 0; display:flex; gap:10px; flex-wrap:wrap">
         <button class="primary" onclick="pickFolder()">Escolher pasta do projeto</button>
         <button class="ghost" onclick="resetAudit()">Limpar</button>
@@ -590,41 +591,63 @@ async function pickFolder(){
   const status=$("#audit-status");
   $("#audit-result").innerHTML="";
   let entries=null;
+  const viaPicker = async ()=>{
+    const dir=await window.showDirectoryPicker({mode:"read"});
+    status.innerHTML=`<span class="spin"></span> A ler <b>${esc(dir.name)}</b>… (análise 100% local)`;
+    entries=[];
+    let bytes=0;
+    const walk=async (handle, prefix)=>{
+      for await (const [name,child] of handle.entries()){
+        if(entries.length>=MAX_FILES) return;
+        const rel=prefix?prefix+"/"+name:name;
+        if(child.kind==="directory"){
+          if([".git","node_modules","venv",".venv","__pycache__","dist","build","target",".next","coverage"].includes(name)) continue;
+          entries.push({path:rel,name,dir:true});
+          await walk(child, rel);
+        }else{
+          if(entries.length>=MAX_FILES) return;
+          let content="";
+          try{
+            const f=await child.getFile();
+            if(f.size<=MAX_FILE_BYTES && bytes<MAX_TOTAL_BYTES){ content=await f.text(); bytes+=f.size; }
+          }catch(e){}
+          entries.push({path:rel,name,dir:false,content});
+        }
+      }
+    };
+    await walk(dir,"");
+  };
+  const viaInput = ()=>new Promise(res=>{
+    const inp=$("#folder-input");
+    inp.value="";
+    inp.onchange=async ()=>{
+      const files=[...inp.files].slice(0,MAX_FILES);
+      entries=[];
+      let bytes=0;
+      for(const f of files){
+        let content="";
+        try{ if(f.size<=MAX_FILE_BYTES && bytes<MAX_TOTAL_BYTES){ content=await f.text(); bytes+=content.length; } }catch(e){}
+        entries.push({path:f.webkitRelativePath||f.name, name:f.name, dir:false, content});
+        if(entries.length>=MAX_FILES) break;
+      }
+      res();
+    };
+    inp.click();
+    setTimeout(res, 90000); // safety: utilizador cancelou o diálogo
+  });
   try{
     if(window.showDirectoryPicker){
-      const dir=await window.showDirectoryPicker({mode:"read"});
-      status.innerHTML=`<span class="spin"></span> A ler <b>${esc(dir.name)}</b>… (análise 100% local)`;
-      entries=[];
-      let count=0, bytes=0;
-      const walk=async (handle, prefix)=>{
-        for await (const [name,child] of handle.entries()){
-          if(count>=MAX_FILES) return;
-          const rel=prefix?prefix+"/"+name:name;
-          if(child.kind==="directory"){
-            if([".git","node_modules","venv",".venv","__pycache__","dist","build","target",".next","coverage"].includes(name)) continue;
-            entries.push({path:rel,name,dir:true});
-            await walk(child, rel);
-          }else{
-            if(count>=MAX_FILES) return;
-            if(bytes>=MAX_TOTAL_BYTES){ entries.push({path:rel,name,dir:false}); count++; continue; }
-            let content="";
-            try{
-              const f=await child.getFile();
-              if(f.size<=MAX_FILE_BYTES){ content=await f.text(); bytes+=f.size; }
-            }catch(e){}
-            entries.push({path:rel,name,dir:false,content});
-            count++;
-          }
-        }
-      };
-      await walk(dir,"");
+      try{ await viaPicker(); }
+      catch(err){
+        if(err && err.name==="AbortError"){ status.innerHTML=`<span class="muted">Cancelado.</span>`; return; }
+        status.innerHTML=`<span class="muted">Seletor moderno indisponível (file:// ou browser sem suporte) — a usar o seletor clássico de ficheiros.</span>`;
+        await viaInput();
+      }
     }else{
-      const inp=$("#folder-input"); inp.click();
-      await new Promise(res=>{ inp.onchange=()=>{ const files=[...inp.files].slice(0,MAX_FILES); entries=files.map(f=>({path:f.webkitRelativePath||f.name,name:f.name,dir:false})); res(); }; setTimeout(res,60000); });
-      if(!entries) return;
+      await viaInput();
     }
-  }catch(e){ status.innerHTML=`<span class="red">Cancelado ou erro: ${esc(e.message||e)}</span>`; return; }
-  if(!entries||!entries.length){ status.innerHTML=`<span class="red">Sem ficheiros lidos.</span>`; return; }
+  }catch(e){ status.innerHTML=`<span class="red">Erro: ${esc(e.message||e)}</span>`; return; }
+  if(!entries||!entries.length){ status.innerHTML=`<span class="red">Sem ficheiros lidos — em Safari experimenta Chrome/Edge para a experiência completa.</span>`; return; }
   status.innerHTML=`<span class="muted">Lidos <b>${entries.length}</b> ficheiros — a analisar sinais…</span>`;
   await new Promise(r=>setTimeout(r,30));
   showAuditResult(entries);

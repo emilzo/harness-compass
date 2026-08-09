@@ -16,6 +16,17 @@ Uma web app de página única (zero dependências, zero build) com 7 vistas:
 6. **Calculadora de economia** — quanto poupas por mês em tokens com cache, retry inteligente, compressão e routing.
 7. **Método & evidência** — escala de maturidade, como funciona a auditoria local, estudos de caso, como contribuir.
 
+## Compatibilidade
+
+| Recurso | Chrome / Edge | Firefox | Safari | Nota |
+|---|---|---|---|---|
+| Ranking, mapa, quiz, calculadora, gráficos | ✅ | ✅ | ✅ | HTML/CSS/JS padrão, zero dependências |
+| Auditar pasta (seletor moderno) | ✅ | — | — | Requer HTTPS (GitHub Pages) ou localhost |
+| Auditar pasta (fallback clássico) | ✅ | ✅ | ⚠️ parcial | Safari não devolve a hierarquia de pastas de forma fiável |
+| `file://` (duplo clique) | ✅ (fallback) | ✅ | ✅ | O seletor moderno cai no clássico automaticamente |
+
+**Mac, Windows, Linux:** comportamento idêntico — as APIs dependem do browser, não do SO. Para a melhor experiência de auditoria de pastas: **Chrome ou Edge com a app publicada em GitHub Pages** (HTTPS).
+
 ## Como usar
 
 ```bash

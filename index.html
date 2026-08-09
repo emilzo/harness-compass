@@ -183,7 +183,7 @@
   <!-- ============ RANKING ============ -->
   <section id="view-ranking">
     <div class="card">
-      <h2 data-i18n="rank_title">Ranking de harnesses <span id="rank-count"></span></h2>
+      <h2><span data-i18n="rank_title">Ranking de harnesses</span> <span id="rank-count"></span></h2>
       <p class="muted" data-i18n="rank_desc">Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa.
         <span class="badge b-audit">Auditado</span> = evidência file:line · <span class="badge b-prel">Preliminar</span> = análise local de pasta · <span class="badge b-est">Estimativa</span> = informada, a validar.</p>
       <div style="margin:14px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
@@ -446,7 +446,7 @@ en:{
   home_anatomy_title:"From classic anatomy to a cybernetic system",
   home_anatomy_sub:"The anatomy (Interface → AGENT LOOP → LLM ↔ tools; Tools, Permissions, Sandbox, Verification, Observability) is right. The full version adds what real auditing revealed:",
   home_anatomy_legend:"\"Loops coordinate. Harnesses guide, execute, verify and decide. Models generate.\"",
-  rank_title:"Harness ranking <span id=\"rank-count\"></span>",
+  rank_title:"Harness ranking",
   rank_desc:"Composite score 0–10 = average of the 22 dimensions. Sort by column; click a row for the full fingerprint. <span class=\"badge b-audit\">Audited</span> = file:line evidence · <span class=\"badge b-prel\">Preliminary</span> = local folder analysis · <span class=\"badge b-est\">Estimate</span> = informed, to validate.",
   rank_dom:"Filter domain:", dom_all:"All",
   rank_prov:"Provenance (integrity):", prov_all:"All", prov_oficial:"✓ Official (verified by PR)", prov_local:"Local (your session)",
@@ -586,7 +586,7 @@ en:{
   ct_or_choose:"— choose a model —", ct_or_loaded:"{n} models with real prices loaded", ct_or_offline:"Offline or CORS blocked — manual prices in use (real ones return on GitHub Pages).", ct_base:"Without harness: <b style=\"color:var(--rose)\">${b}/month</b> — what each harness saves:",
   ct_t_in:"Input tokens / month (millions)", ct_t_out:"Output tokens / month (millions)", ct_eco:"Economy model — input $/M · output $/M", ct_prem:"Premium model — input $/M · output $/M", ct_or:"Fill with real prices (OpenRouter)", ct_eff:"Efficiency derived from scores: cache ≤85%, avoided failures ≤60%, routing ≤95% (proportional to the dimension score).", ct_col_h:"Harness", ct_col_c:"Real cost $/mo", ct_col_vs:"vs no harness", ct_col_cache:"Cache", ct_col_retry:"Failures avoided", ct_col_route:"Routing",
   ec_t_in:"Input tokens / month (millions)", ec_t_out:"Output tokens / month (millions)", ec_p_in:"Economy model price ($ / M input)", ec_p_out:"Economy model price ($ / M output)", ec_p_in_p:"Premium model price ($ / M input)", ec_p_out_p:"Premium model price ($ / M output)", ec_cache:"Harness efficiency — prompt cache (hit rate %)", ec_retry:"Avoided failures — smart retry/fallback (% not wasted)", ec_comp:"Context compression (reduction % of context sent)", ec_route:"Smart routing (fraction of work on the cheap model)",
-  au_reading:"Reading <b>{name}</b>… (100% local analysis)", au_fallback:"Modern picker unavailable (file:// or unsupported browser) — using the classic file picker.", au_nofiles:"No files read — on Safari try Chrome/Edge for the full experience.", au_nosignals:"no signals detected", au_nosignals_short:"no signals", au_id:"Identification", au_name:"Harness name", au_vendor:"Vendor / author", au_type:"Type", au_type_v:"Locally audited project", au_tags:"Tags (comma separated)", au_blurb:"Short description (blurb)", au_blurb_v:"Local heuristic analysis of the folder — review before publishing.", au_integrity:"🔒 <b>Integrity:</b> the official <b>AUDITED</b> badge only exists in the project ranking via PR with an evidence report (see README). What you add here stays marked <b>LOCAL</b> — and any manual slider adjustment stays <b>visible to everyone</b> (adjusted-dimension counter). Anyone who sees your export can tell what the analysis detected from what you changed.", au_add:"+ Add to ranking", au_plan:"🧭 View improvement plan", au_export:"⬇ Export JSON", au_scores_title:"Preliminary scores (22 dimensions)", au_scores_desc:"Based on signals detected in the folder. Adjust the sliders — the composite score recalculates live.", au_notice:"⚠️ <b>Local heuristic</b> analysis (file/content patterns, max 300 files) — a useful first cut, not a substitute for an audit with real code reading. The badge will be", au_tests:"Detected {n} test files and {w} CI workflows.", au_adj_n:"{n} dimensions manually adjusted (stays marked)", au_adj_clean:"no adjustments — faithful to the analysis", au_cur:"Current composite score:", au_read_files:"Read <b>{n}</b> files — analyzing signals…",
+  au_reading:"Reading <b>{name}</b>… (100% local analysis)", au_fallback:"Modern picker unavailable (file:// or unsupported browser) — using the classic file picker.", au_nofiles:"No files read — on Safari try Chrome/Edge for the full experience.", au_nosignals:"no signals detected", au_nosignals_short:"no signals", au_id:"Identification", au_name:"Harness name", au_vendor:"Vendor / author", au_type:"Type", au_type_v:"Locally audited project", au_vendor_ph:"ex: Your company", au_type_ph:"ex: Control plane, personal agent…", au_tags_ph:"coding, gateway, multi-agent…", au_tags:"Tags (comma separated)", au_blurb:"Short description (blurb)", au_blurb_v:"Local heuristic analysis of the folder — review before publishing.", au_integrity:"🔒 <b>Integrity:</b> the official <b>AUDITED</b> badge only exists in the project ranking via PR with an evidence report (see README). What you add here stays marked <b>LOCAL</b> — and any manual slider adjustment stays <b>visible to everyone</b> (adjusted-dimension counter). Anyone who sees your export can tell what the analysis detected from what you changed.", au_add:"+ Add to ranking", au_plan:"🧭 View improvement plan", au_export:"⬇ Export JSON", au_scores_title:"Preliminary scores (22 dimensions)", au_scores_desc:"Based on signals detected in the folder. Adjust the sliders — the composite score recalculates live.", au_notice:"⚠️ <b>Local heuristic</b> analysis (file/content patterns, max 300 files) — a useful first cut, not a substitute for an audit with real code reading. The badge will be", au_tests:"Detected {n} test files and {w} CI workflows.", au_adj_n:"{n} dimensions manually adjusted (stays marked)", au_adj_clean:"no adjustments — faithful to the analysis", au_cur:"Current composite score:", au_read_files:"Read <b>{n}</b> files — analyzing signals…",
   md_new:"new", md_removed:"removed since", md_stable:"✓ stable since {d} ({n} models)", md_first:"first snapshot saved today ({n} models)", md_hist:"Discontinued models (local history)",
   au_ev_file:"file {f}", au_ev_dir:"folder {d}", au_ev_tests:"{n} test/spec files", au_ev_workflows:"{n} CI workflows", au_name_fallback:"Local project", au_blurb_fallback:"Added via local audit.", au_cancel:"Cancelled.", au_error:"Error",
   home_cta:"🧭 Audit your own harness — the app reads the folder in your browser and scores it (100% local, no upload)",
@@ -606,7 +606,7 @@ pt:{
   home_anatomy_title:"Da anatomia clássica ao sistema cibernético",
   home_anatomy_sub:"A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:",
   home_anatomy_legend:"\"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram.\"",
-  rank_title:"Ranking de harnesses <span id=\"rank-count\"></span>",
+  rank_title:"Ranking de harnesses",
   rank_desc:"Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa. <span class=\"badge b-audit\">Auditado</span> = evidência file:line · <span class=\"badge b-prel\">Preliminar</span> = análise local de pasta · <span class=\"badge b-est\">Estimativa</span> = informada, a validar.",
   rank_dom:"Filtrar domínio:", dom_all:"Todos",
   rank_prov:"Proveniência (integridade):", prov_all:"Todos", prov_oficial:"✓ Oficial (verificado por PR)", prov_local:"Local (a tua sessão)",
@@ -746,7 +746,7 @@ pt:{
   ct_or_choose:"— escolhe um modelo —", ct_or_loaded:"{n} modelos com preços reais carregados", ct_or_offline:"Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).", ct_base:"Sem harness: <b style=\"color:var(--rose)\">${b}/mês</b> — o que cada harness poupa:",
   ct_t_in:"Tokens de entrada / mês (milhões)", ct_t_out:"Tokens de saída / mês (milhões)", ct_eco:"Modelo económico — input $/M · output $/M", ct_prem:"Modelo premium — input $/M · output $/M", ct_or:"Preencher com preços reais (OpenRouter)", ct_eff:"Eficiência derivada dos scores: cache ≤85%, falhas evitadas ≤60%, routing ≤95% (escala proporcional ao score da dimensão).", ct_col_h:"Harness", ct_col_c:"Custo real $/mês", ct_col_vs:"vs sem harness", ct_col_cache:"Cache", ct_col_retry:"Falhas evit.", ct_col_route:"Routing",
   ec_t_in:"Tokens de entrada / mês (milhões)", ec_t_out:"Tokens de saída / mês (milhões)", ec_p_in:"Preço modelo económico ($ / M input)", ec_p_out:"Preço modelo económico ($ / M output)", ec_p_in_p:"Preço modelo premium ($ / M input)", ec_p_out_p:"Preço modelo premium ($ / M output)", ec_cache:"Eficiência do harness — cache de prompt (hit rate %)", ec_retry:"Falhas evitadas — retry/fallback inteligente (% não desperdiçado)", ec_comp:"Compressão de contexto (redução % do contexto enviado)", ec_route:"Smart routing (fração de trabalho no modelo barato)",
-  au_reading:"A ler <b>{name}</b>… (análise 100% local)", au_fallback:"Seletor moderno indisponível (file:// ou browser sem suporte) — a usar o seletor clássico de ficheiros.", au_nofiles:"Sem ficheiros lidos — em Safari experimenta Chrome/Edge para a experiência completa.", au_nosignals:"sem sinais detetados", au_nosignals_short:"sem sinais", au_id:"Identificação", au_name:"Nome do harness", au_vendor:"Vendor / autor", au_type:"Tipo", au_type_v:"Projeto auditado localmente", au_tags:"Tags (vírgulas)", au_blurb:"Descrição curta (blurb)", au_blurb_v:"Análise local heurística da pasta — rever antes de publicar.", au_integrity:"🔒 <b>Integridade:</b> o badge oficial <b>AUDITADO</b> só existe no ranking do projeto via PR com relatório de evidência (ver README). O que adicionas aqui fica marcado <b>LOCAL</b> — e qualquer ajuste manual aos sliders fica <b>visível para toda a gente</b> (contador de dimensões ajustadas). Quem vê o teu export consegue distinguir o que a análise detetou do que tu mudaste.", au_add:"+ Adicionar ao ranking", au_plan:"🧭 Ver plano de melhoria", au_export:"⬇ Exportar JSON", au_scores_title:"Scores preliminares (22 dimensões)", au_scores_desc:"Baseados em sinais detetados na pasta. Ajusta os sliders — o score composto recalcula em tempo real.", au_notice:"⚠️ Análise <b>heurística local</b> (padrões de ficheiros/conteúdo, máx 300 ficheiros) — primeiro corte útil, não substitui auditoria com leitura real de código. O badge ficará", au_tests:"Detetados {n} ficheiros de teste e {w} workflows CI.", au_adj_n:"{n} dimensões ajustadas (fica marcado)", au_adj_clean:"sem ajustes — fiel à análise", au_cur:"Score composto atual:", au_read_files:"Lidos <b>{n}</b> ficheiros — a analisar sinais…",
+  au_reading:"A ler <b>{name}</b>… (análise 100% local)", au_fallback:"Seletor moderno indisponível (file:// ou browser sem suporte) — a usar o seletor clássico de ficheiros.", au_nofiles:"Sem ficheiros lidos — em Safari experimenta Chrome/Edge para a experiência completa.", au_nosignals:"sem sinais detetados", au_nosignals_short:"sem sinais", au_id:"Identificação", au_name:"Nome do harness", au_vendor:"Vendor / autor", au_type:"Tipo", au_type_v:"Projeto auditado localmente", au_vendor_ph:"ex: A tua empresa", au_type_ph:"ex: Control plane, agente pessoal…", au_tags_ph:"coding, gateway, multi-agente…", au_tags:"Tags (vírgulas)", au_blurb:"Descrição curta (blurb)", au_blurb_v:"Análise local heurística da pasta — rever antes de publicar.", au_integrity:"🔒 <b>Integridade:</b> o badge oficial <b>AUDITADO</b> só existe no ranking do projeto via PR com relatório de evidência (ver README). O que adicionas aqui fica marcado <b>LOCAL</b> — e qualquer ajuste manual aos sliders fica <b>visível para toda a gente</b> (contador de dimensões ajustadas). Quem vê o teu export consegue distinguir o que a análise detetou do que tu mudaste.", au_add:"+ Adicionar ao ranking", au_plan:"🧭 Ver plano de melhoria", au_export:"⬇ Exportar JSON", au_scores_title:"Scores preliminares (22 dimensões)", au_scores_desc:"Baseados em sinais detetados na pasta. Ajusta os sliders — o score composto recalcula em tempo real.", au_notice:"⚠️ Análise <b>heurística local</b> (padrões de ficheiros/conteúdo, máx 300 ficheiros) — primeiro corte útil, não substitui auditoria com leitura real de código. O badge ficará", au_tests:"Detetados {n} ficheiros de teste e {w} workflows CI.", au_adj_n:"{n} dimensões ajustadas (fica marcado)", au_adj_clean:"sem ajustes — fiel à análise", au_cur:"Score composto atual:", au_read_files:"Lidos <b>{n}</b> ficheiros — a analisar sinais…",
   md_new:"novos", md_removed:"saíram desde", md_stable:"✓ estável desde {d} ({n} modelos)", md_first:"primeiro snapshot guardado hoje ({n} modelos)", md_hist:"Modelos descontinuados (histórico local)",
   au_ev_file:"ficheiro {f}", au_ev_dir:"pasta {d}", au_ev_tests:"{n} ficheiros test/spec", au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projeto local", au_blurb_fallback:"Adicionado por auditoria local.", au_cancel:"Cancelado.", au_error:"Erro",
   home_cta:"🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)",
@@ -758,7 +758,7 @@ fr:{
   audit_pick_top:"📂 Auditer un dossier",
   nav_home:"Paradigme", nav_ranking:"Classement", nav_cost:"Coût réel", nav_map:"Carte", nav_audit:"Auditer un dossier", nav_quiz:"Quel harness ?", nav_economy:"Calculateur", nav_method:"Méthode",
   home_hero_title:"Le harness décide combien de ton budget tokens est gaspillé.",
-  rank_title:"Classement des harnesses <span id=\"rank-count\"></span>",
+  rank_title:"Classement des harnesses",
   cost_title:"💰 Même modèle, différent harness — coût réel par tâche",
   map_title:"Carte du Harness", audit_title:"📂 Auditer un dossier et le classer",
   quiz_title:"Quel harness pour vous ?", eco_title:"Calculateur : combien un harness puissant fait-il économiser ?", method_title:"Méthode et preuve",
@@ -772,7 +772,7 @@ de:{
   audit_pick_top:"📂 Ordner prüfen",
   nav_home:"Paradigma", nav_ranking:"Rangliste", nav_cost:"Echte Kosten", nav_map:"Karte", nav_audit:"Ordner prüfen", nav_quiz:"Welches Harness?", nav_economy:"Rechner", nav_method:"Methode",
   home_hero_title:"Das Harness entscheidet, wie viel deines Token-Budgets verschwendet wird.",
-  rank_title:"Harness-Rangliste <span id=\"rank-count\"></span>",
+  rank_title:"Harness-Rangliste",
   cost_title:"💰 Gleiches Modell, anderes Harness — echte Kosten pro Aufgabe",
   map_title:"Harness-Karte", audit_title:"📂 Ordner prüfen und einstufen",
   quiz_title:"Welches Harness für dich?", eco_title:"Rechner: Wie viel spart ein starkes Harness?", method_title:"Methode & Beweis",
@@ -786,7 +786,7 @@ zh:{
   audit_pick_top:"📂 审计文件夹",
   nav_home:"范式", nav_ranking:"排名", nav_cost:"实际成本", nav_map:"地图", nav_audit:"审计文件夹", nav_quiz:"选择哪个 Harness？", nav_economy:"计算器", nav_method:"方法",
   home_hero_title:"Harness 决定了你的 token 预算被浪费多少。",
-  rank_title:"Harness 排名 <span id=\"rank-count\"></span>",
+  rank_title:"Harness 排名",
   cost_title:"💰 同一模型，不同 Harness — 每任务真实成本",
   map_title:"Harness 地图", audit_title:"📂 审计文件夹并排名",
   quiz_title:"哪个 Harness 适合你？", eco_title:"计算器：强大的 Harness 能省多少？", method_title:"方法与证据",
@@ -800,7 +800,7 @@ hi:{
   audit_pick_top:"📂 फ़ोल्डर ऑडिट करें",
   nav_home:"प्रतिमान", nav_ranking:"रैंकिंग", nav_cost:"वास्तविक लागत", nav_map:"नक्शा", nav_audit:"फ़ोल्डर ऑडिट", nav_quiz:"कौन सा हार्नेस?", nav_economy:"कैलकुलेटर", nav_method:"विधि",
   home_hero_title:"हार्नेस तय करता है कि आपका टोकन बजट कितना बर्बाद होता है।",
-  rank_title:"हार्नेस रैंकिंग <span id=\"rank-count\"></span>",
+  rank_title:"हार्नेस रैंकिंग",
   cost_title:"💰 एक ही मॉडल, अलग हार्नेस — प्रति कार्य वास्तविक लागत",
   map_title:"हार्नेस नक्शा", audit_title:"📂 फ़ोल्डर ऑडिट और रैंक",
   quiz_title:"आपके लिए कौन सा हार्नेस?", eco_title:"कैलकुलेटर: शक्तिशाली हार्नेस कितना बचाता है?", method_title:"विधि और सबूत",
@@ -831,10 +831,10 @@ function replayOpenState(oldLang){
   showAuditResult(window.__auditEntries, ov);
   Object.entries(fields).forEach(([id,v])=>{
     const el=document.getElementById(id); if(!el) return;
-    const isDefault = (id==="au-type"||id==="au-blurb") && oldLang && T[oldLang] && v===T[oldLang][id==="au-type"?"au_type_v":"au_blurb_v"];
+    const isDefault = (id==="au-type"||id==="au-blurb") && oldLang && v===((T[oldLang]&&T[oldLang][id==="au-type"?"au_type_v":"au_blurb_v"])||T.en[id==="au-type"?"au_type_v":"au_blurb_v"]);
     el.value = isDefault ? t(id==="au-type"?"au_type_v":"au_blurb_v") : v; /* default atualizado se não editado */
   });
-  if(planOpen && $("#au-plan-preview")) previewPlan(); /* re-gera o plano na língua nova */
+  if(planOpen && $("#au-plan-preview")) previewPlan(true); /* re-gera o plano na língua nova, sem scroll */
   applyI18n();
 }
 function setLang(l){
@@ -1342,15 +1342,17 @@ function analyzeEntries(entries){
   const contents=entries.filter(e=>e.content).map(e=>e.content);
   const blob=contents.join("\n").slice(0,800000);
   const blobL=blob.toLowerCase();
-  const testFiles=entries.filter(e=>/test|spec|e2e/i.test(e.name)).length;
-  const workflows=entries.filter(e=>/\.github\/workflows|\.github\/actions/i.test(e.path)).length;
+  const testFiles=entries.filter(e=>!e.dir&&/test|spec|e2e/i.test(e.name)).length;
+  const workflows=entries.filter(e=>!e.dir&&/\.github\/workflows|\.github\/actions/i.test(e.path)).length;
   const scores={}, reasons={};
   for(const [dim,cfg] of Object.entries(AUDIT_SIGNALS)){
+    /* normalização única: versões lowercase para scoring/evidência; originais só para display */
+    const filesL=cfg.files.map(f=>f.toLowerCase()), kwL=cfg.kw.map(k=>k.toLowerCase());
     let hits=0, hitsNames=0;
-    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f))) hitsNames++; });
+    filesL.forEach(fl=>{ if(names.some(n=>n.toLowerCase().includes(fl))) hitsNames++; });
     cfg.dirs.forEach(d=>{ if(paths.some(p=>p.split("/").includes(d))) hitsNames++; });
-    cfg.kw.forEach(k=>{
-      const re=new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g");
+    kwL.forEach(kl=>{
+      const re=new RegExp(kl.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g");
       const occ=(blobL.match(re)||[]).length;
       if(occ>0) hits += Math.min(3, 1+Math.floor(Math.log10(occ)));
     });
@@ -1367,9 +1369,9 @@ function analyzeEntries(entries){
     else if(total<21) s=8;
     else s=9;
     const why=[];
-    cfg.files.forEach(f=>{ if(names.some(n=>n.toLowerCase().includes(f.toLowerCase()))) why.push(["f",f]); });
+    filesL.forEach((fl,i)=>{ if(names.some(n=>n.toLowerCase().includes(fl))) why.push(["f",cfg.files[i]]); });
     cfg.dirs.forEach(d=>{ if(paths.some(p=>p.split("/").includes(d))) why.push(["d",d]); });
-    cfg.kw.forEach(k=>{ const c=(blobL.match(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length; if(c>0) why.push(["k",k,c]); });
+    kwL.forEach((kl,i)=>{ const c=(blobL.match(new RegExp(kl.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length; if(c>0) why.push(["k",cfg.kw[i],c]); });
     if(dim==="C1" && testFiles>0) why.push(["t",testFiles]);
     if(dim==="C1" && workflows>0) why.push(["w",workflows]);
     scores[dim]=s;
@@ -1413,9 +1415,9 @@ function showAuditResult(entries, ov){
           <h3>🛠️ ${t("au_id")}</h3>
           <div class="calc">
             <label data-i18n="au_name">Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
-            <label data-i18n="au_vendor">Vendor / autor</label><input id="au-vendor" placeholder="ex: A tua empresa">
-            <label data-i18n="au_type">Tipo</label><input id="au-type" value="${esc(t("au_type_v"))}" placeholder="ex: Control plane, agente pessoal…">
-            <label data-i18n="au_tags">Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="coding, gateway, multi-agente…">
+            <label data-i18n="au_vendor">Vendor / autor</label><input id="au-vendor" placeholder="${esc(t("au_vendor_ph"))}">
+            <label data-i18n="au_type">Tipo</label><input id="au-type" value="${esc(t("au_type_v"))}" placeholder="${esc(t("au_type_ph"))}">
+            <label data-i18n="au_tags">Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="${esc(t("au_tags_ph"))}">
             <label data-i18n="au_blurb">Descrição curta (blurb)</label><input id="au-blurb" value="${esc(t("au_blurb_v"))}">
           </div>
           <div style="margin-top:14px">
@@ -1437,6 +1439,7 @@ function showAuditResult(entries, ov){
       </div>
       <div class="notice" style="margin-top:16px">${t("au_notice")} <span class="badge b-prel">${t("badge_prel")}</span>. ${testFiles?t("au_tests",{n:testFiles,w:workflows}):""}</div>
     </div>`;
+  applyI18n(); /* primeiro render: traduz os data-i18n do template */
   updateAuditSummary();
 }
 function auditSlide(el){ document.querySelector(`[data-out="${el.dataset.dim}"]`).textContent=el.value; updateAuditSummary(); }
@@ -1471,11 +1474,11 @@ function collectAudit(){
     scores
   };
 }
-function previewPlan(){
+function previewPlan(noScroll){
   const h=collectAudit();
   const el=$("#au-plan-preview");
   el.innerHTML=improvementPlan(h);
-  el.scrollIntoView({behavior:"smooth"});
+  if(!noScroll) el.scrollIntoView({behavior:"smooth"});
 }
 function addAuditedHarness(){
   const h=collectAudit();

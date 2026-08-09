@@ -817,7 +817,7 @@ function t(k, vars){
   return s;
 }
 function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); }); }
-function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; document.documentElement.lang = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); }
+function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; document.documentElement.lang = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); if(window.__sel) showDetail(window.__sel); if(window.__auditEntries){ const ov={}; DIMENSIONS.forEach(([id])=>{ const o=document.querySelector(`[data-out="${id}"]`); if(o) ov[id]=+o.textContent; }); showAuditResult(window.__auditEntries, ov); } if(window.__quizDone) runQuiz(); }
 function initLang(){
   try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
   const sel = $("#lang");
@@ -965,6 +965,7 @@ function renderRanking(){
   updateRankCount();
 }
 function showDetail(h){
+  window.__sel = h;
   const el=$("#rank-detail");
   const radar = radarSVG([0,1,2,3,4,5].map(i=>domainScore(h,DOMAINS[i].id)), DOMAINS.map(d=>d.id), 150, 130);
   const donut = donutSVG(score(h));
@@ -1066,6 +1067,7 @@ function buildQuiz(){
     <select id="qq-${i}">${qq[1].map((o,j)=>`<option value="${j}">${t(o[0])}</option>`).join("")}</select></div>`).join("");
 }
 function runQuiz(){
+  window.__quizDone = true;
   const q=window.__quiz, w={};
   q.forEach((qq,i)=>{Object.entries(qq[1][+$("#qq-"+i).value][1]).forEach(([k,v])=>{w[k]=(w[k]||0)+v;});});
   const ranked=HARNESSES.map(h=>{
@@ -1344,9 +1346,11 @@ function analyzeEntries(entries){
   return {scores, reasons, testFiles, workflows};
 }
 
-function showAuditResult(entries){
+function showAuditResult(entries, ov){
+  window.__auditEntries = entries;
   const {scores, reasons, testFiles, workflows} = analyzeEntries(entries);
-  window.__auditMeta = {filesRead: entries.filter(e=>!e.dir).length, heuristica: Object.assign({}, scores), timestamp: new Date().toISOString()};
+  if(ov) Object.keys(ov).forEach(k=>{ if(scores[k]!==undefined) scores[k]=ov[k]; });
+  if(!ov) window.__auditMeta = {filesRead: entries.filter(e=>!e.dir).length, heuristica: Object.assign({}, scores), timestamp: new Date().toISOString()};
   const rootName = entries.find(e=>e.path.indexOf("/")<0)?.name || "project";
   const defaultName = rootName.replace(/\.[a-z0-9]+$/i,"").replace(/[-_]+/g," ").replace(/\b\w/g,c=>c.toUpperCase());
   const row = (id)=>{ const [n,desc]=DIMENSIONS.find(d=>d[0]===id);

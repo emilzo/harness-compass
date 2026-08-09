@@ -103,6 +103,12 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 - `docs/HARNESS-AUDIT-HERMES-VS-KANDO.md` — comparação completa (22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas).
 - `docs/DEEP-HARNESS-AUDIT-HERMES.md` — deep audit linha-a-linha do Hermes (15 achados, KPIs, 15 padrões portáveis, 10 recomendações).
 
-## Licença
+## Licença e integridade
 
-MIT — ver `LICENSE`.
+**Licença: AGPL-3.0** — o código é aberto, mas quem fornecer uma versão derivada como serviço (SaaS) é obrigado a publicar o código-fonte. Isto protege o projeto contra forks que o revendam fechado.
+
+**O que é público vs retido:** o código, a taxonomia e as auditorias publicadas são a prova e o ímã. O **dataset vivo** (auditorias novas, telemetria agregada, scores em evolução) e o **selo de auditoria certificada** são ativos do projeto que não se forkiam — o que se publica hoje determina o que se pode vender amanhã.
+
+## Internacionalização (i18n)
+
+Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): traduções parciais caem para Inglês (fallback), e qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. Traduções em crescimento: EN e PT completos; FR/DE/ZH/HI cobrem navegação, títulos e badges — conteúdo longo cai em EN até ser traduzido.

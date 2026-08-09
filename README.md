@@ -65,6 +65,21 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 **Regra de ouro do projeto:** dados auditados, preliminares e estimativas **nunca** se misturam sem etiqueta.
 
+## Integridade do ranking (como é que "a sério" funciona)
+
+**Pergunta legítima: não pode alguém mexer nos pesos, guardar e rankear em primeiro?** Resposta: na sessão local de cada pessoa, sim — e é irrelevante, porque o ranking *oficial* não vem dos browsers das pessoas. É assim que funciona:
+
+1. **O ranking oficial vive no repo** — o array `HARNESSES` em `index.html`. Entra por **PR revisto**, não por download.
+2. **O badge AUDITADO exige relatório** — evidência `path:line` real, como os que estão em `docs/`. Sem relatório, sem badge.
+3. **Tudo o que adicionas localmente fica marcado LOCAL** — e qualquer ajuste manual aos sliders fica **visível**: contador de "⚠ N dimensões ajustadas" no badge, e o export JSON carrega a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
+4. **O princípio não é impedir a mentira — é torná-la visível.** Quem abre o ranking vê imediatamente o que é verificado, o que é estimativa e o que foi mexido à mão.
+
+**Fluxo honesto para rankear um harness:**
+1. Audita a pasta → badge Preliminar (só com justificações da análise)
+2. Ajusta o que quiseres → fica marcado (divergência visível)
+3. Auditoria completa com relatório → submete via PR → badge Auditado oficial
+4. O harness entra no ranking do projeto para toda a gente — com a prova junta.
+
 ## Ciclo de melhoria contínua (como o Compass fica mais esperto)
 
 1. **Auditoria local** (badge Preliminar) → primeiro corte em minutos.

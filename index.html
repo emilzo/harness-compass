@@ -165,6 +165,12 @@
         <button class="pill fbtn" data-f="E" style="cursor:pointer">E Aprendizagem</button>
         <button class="pill fbtn" data-f="F" style="cursor:pointer">F Operacional</button>
       </div>
+      <div style="margin:0 0 14px; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase">Proveniência (integridade):</b>
+        <button class="pill pbtn" data-p="all" style="cursor:pointer">Todos</button>
+        <button class="pill pbtn" data-p="oficial" style="cursor:pointer">✓ Oficial (verificado por PR)</button>
+        <button class="pill pbtn" data-p="local" style="cursor:pointer">Local (a tua sessão)</button>
+      </div>
       <div class="tbl-wrap">
         <table id="rank-table">
           <thead><tr id="rank-head"></tr></thead>
@@ -353,7 +359,7 @@ const BUILTIN_HARNESSES = [
 ];
 
 let HARNESSES = BUILTIN_HARNESSES.slice();
-let sortKey="total", sortAsc=false, filter="all";
+let sortKey="total", sortAsc=false, filter="all", provFilter="all";
 
 /* ================= UI helpers ================= */
 const LEVELS = [
@@ -414,7 +420,13 @@ const $$ = s => Array.from(document.querySelectorAll(s));
 const esc = s => String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const score = h => {const v=Object.values(h.scores); return v.reduce((a,b)=>a+b,0)/v.length;};
 const domainScore = (h,d) => DIMENSIONS.filter(x=>x[0][0]===d).reduce((a,dd)=>a+h.scores[dd[0]],0)/DIMENSIONS.filter(x=>x[0][0]===d).length;
-const badge = h => h.audited?'<span class="badge b-audit">Auditado</span>':(h.preliminar?'<span class="badge b-prel">Preliminar</span>':'<span class="badge b-est">Estimativa</span>');
+const badge = h => {
+  let b = h.audited ? '<span class="badge b-audit">Auditado</span>'
+        : (h.preliminar ? '<span class="badge b-prel">Preliminar</span>' : '<span class="badge b-est">Estimativa</span>');
+  if(h.local) b += ' <span class="badge" style="background:rgba(139,92,246,.14);color:#c4b5fd;border:1px solid rgba(139,92,246,.3)">Local</span>';
+  if(h.adjusted>0) b += ` <span class="badge" style="background:rgba(251,113,133,.13);color:#fda4af;border:1px solid rgba(251,113,133,.3)">⚠ ${h.adjusted} ajustadas</span>`;
+  return b;
+};
 const dimName = id => (DIMENSIONS.find(d=>d[0]===id)||[])[1]||id;
 
 function switchView(v){
@@ -441,13 +453,19 @@ function updateRankCount(){
   const el=$("#rank-count"); if(el) el.innerHTML = `<span class="muted" style="font-size:13px; font-weight:400">· ${HARNESSES.length} harnesses</span>`;
 }
 function renderRanking(){
-  const rows=HARNESSES.slice();
-  rows.sort((a,b)=>{
-    const va=sortKey==="total"?score(a):(sortKey==="name"?a.name:domainScore(a,sortKey));
-    const vb=sortKey==="total"?score(b):(sortKey==="name"?b.name:domainScore(b,sortKey));
-    if(typeof va==="string")return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
-    return sortAsc?va-vb:vb-va;
-  });
+  let rows=HARNESSES.slice();
+  if(provFilter==="oficial") rows=rows.filter(h=>!h.local);
+  if(provFilter==="local") rows=rows.filter(h=>h.local);
+  if(filter!=="all"){
+    rows.sort((a,b)=>domainScore(b,filter)-domainScore(a,filter));
+  }else{
+    rows.sort((a,b)=>{
+      const va=sortKey==="total"?score(a):(sortKey==="name"?a.name:domainScore(a,sortKey));
+      const vb=sortKey==="total"?score(b):(sortKey==="name"?b.name:domainScore(b,sortKey));
+      if(typeof va==="string")return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
+      return sortAsc?va-vb:vb-va;
+    });
+  }
   const body=$("#rank-body"); body.innerHTML="";
   rows.forEach(h=>{
     const tr=document.createElement("tr");
@@ -461,7 +479,7 @@ function renderRanking(){
     tr.appendChild(t);
     ["A","B","C","D","E","F"].forEach(d=>{
       const td=document.createElement("td"); td.className="num";
-      td.innerHTML=domainScore(h,d).toFixed(1);
+      td.innerHTML= d===filter?`<b style="color:var(--cyan)">${domainScore(h,d).toFixed(1)}</b>`:domainScore(h,d).toFixed(1);
       tr.appendChild(td);
     });
     tr.addEventListener("click",()=>showDetail(h));
@@ -499,7 +517,7 @@ function showDetail(h){
     <h3>22 dimensões</h3>
     <div style="margin-top:6px">${dims}</div>
     ${improvementPlan(h)}
-    <p class="legend">${h.audited?"Auditoria com evidência path:line (relatórios em docs/).":h.preliminar?"Análise local heurística da pasta — para badge definitivo, auditoria com leitura real.":"Estimativa informada — candidata a auditoria."}</p>
+    <p class="legend">${h.audited?"Auditoria com evidência path:line (relatórios em docs/).":h.local?`Análise local heurística de ${h.meta&&h.meta.filesRead?h.meta.filesRead+" ficheiros":""}${h.adjusted?` — <b style="color:var(--rose)">${h.adjusted} dimensões ajustadas manualmente (divergência visível)</b>`:" — sem ajustes, fiel à análise"}. Para badge oficial, auditoria com relatório revisto via PR.`:"Estimativa informada — candidata a auditoria."}</p>
   </div>`;
   el.scrollIntoView({behavior:"smooth"});
 }
@@ -751,6 +769,7 @@ function analyzeEntries(entries){
 
 function showAuditResult(entries){
   const {scores, reasons, testFiles, workflows} = analyzeEntries(entries);
+  window.__auditMeta = {filesRead: entries.filter(e=>!e.dir).length, heuristica: Object.assign({}, scores), timestamp: new Date().toISOString()};
   const rootName = entries.find(e=>e.path.indexOf("/")<0)?.name || "projeto";
   const defaultName = rootName.replace(/\.[a-z0-9]+$/i,"").replace(/[-_]+/g," ").replace(/\b\w/g,c=>c.toUpperCase());
   const row = (id)=>{ const [n,desc]=DIMENSIONS.find(d=>d[0]===id);
@@ -772,7 +791,7 @@ function showAuditResult(entries){
             <label>Descrição curta (blurb)</label><input id="au-blurb" value="Análise local heurística da pasta — rever antes de publicar.">
           </div>
           <div style="margin-top:14px">
-            <label class="muted" style="font-size:12.5px"><input type="checkbox" id="au-mark"> Marcar como auditado manualmente (só se fizeste auditoria real com leitura de código)</label>
+            <div class="notice" style="margin:0; font-size:12px">🔒 <b>Integridade:</b> o badge oficial <b>AUDITADO</b> só existe no ranking do projeto via PR com relatório de evidência (ver README). O que adicionas aqui fica marcado <b>LOCAL</b> — e qualquer ajuste manual aos sliders fica <b>visível para toda a gente</b> (contador de dimensões ajustadas). Quem vê o teu export consegue distinguir o que a análise detetou do que tu mudaste.</div>
           </div>
           <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
             <button class="primary" onclick="addAuditedHarness()">+ Adicionar ao ranking</button>
@@ -795,20 +814,31 @@ function showAuditResult(entries){
 function auditSlide(el){ document.querySelector(`[data-out="${el.dataset.dim}"]`).textContent=el.value; updateAuditSummary(); }
 function updateAuditSummary(){
   const total=22, sum=DIMENSIONS.reduce((a,d)=>a+(+document.querySelector(`[data-out="${d[0]}"]`).textContent||0),0);
+  const meta=window.__auditMeta;
+  let adj="";
+  if(meta&&meta.filesRead){
+    const n=DIMENSIONS.filter(d=>meta.heuristica[d[0]]!==undefined && Math.abs(meta.heuristica[d[0]]-(+document.querySelector(`[data-out="${d[0]}"]`).textContent||0))>0).length;
+    adj = n>0 ? ` · <span class="red">⚠ ${n} dimensões ajustadas (fica marcado)</span>` : ' · <span class="green">sem ajustes — fiel à análise</span>';
+  }
   const el=$("#au-score-summary");
-  if(el) el.innerHTML=`Score composto atual: <b class="big" style="font-size:22px">${(sum/total).toFixed(1)}</b><span class="muted">/10</span>`;
+  if(el) el.innerHTML=`Score composto atual: <b class="big" style="font-size:22px">${(sum/total).toFixed(1)}</b><span class="muted">/10</span>${adj}`;
 }
 function collectAudit(){
   const scores={};
   DIMENSIONS.forEach(d=>{scores[d[0]]=+document.querySelector(`[data-out="${d[0]}"]`).textContent||0;});
+  const meta=window.__auditMeta||{filesRead:0, heuristica:{}, timestamp:new Date().toISOString()};
+  const adjusted=meta.filesRead?DIMENSIONS.filter(d=>meta.heuristica[d[0]]!==undefined && Math.abs(meta.heuristica[d[0]]-scores[d[0]])>0).length:0;
   return {
     id:"local-"+Date.now().toString(36),
     name: $("#au-name").value.trim()||"Projeto local",
     vendor: $("#au-vendor").value.trim()||"—",
     type: $("#au-type").value.trim()||"Projeto",
     url:"",
-    audited: $("#au-mark").checked,
-    preliminar: !$("#au-mark").checked,
+    audited:false,
+    preliminar: meta.filesRead>0,
+    local:true,
+    adjusted,
+    meta,
     tags: $("#au-tags").value.split(",").map(t=>t.trim()).filter(Boolean),
     blurb: $("#au-blurb").value.trim()||"Adicionado por auditoria local.",
     scores
@@ -843,19 +873,12 @@ nav(); buildRanking(); buildMap(); buildQuiz(); calcEconomy();
 $$(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   filter=b.dataset.f;
   $$(".fbtn").forEach(x=>{x.style.background=x===b?"rgba(139,92,246,.35)":"", x.style.color=x===b?"#fff":"";});
-  const body=$("#rank-body");
-  if(filter==="all"){ renderRanking(); return; }
-  const rows=HARNESSES.slice().sort((a,b)=>domainScore(b,filter)-domainScore(a,filter));
-  body.innerHTML="";
-  rows.forEach(h=>{
-    const tr=document.createElement("tr");
-    const nc=document.createElement("td"); nc.innerHTML=esc(h.name)+badge(h); tr.appendChild(nc);
-    const v=document.createElement("td"); v.textContent=h.vendor; tr.appendChild(v);
-    const t=document.createElement("td"); t.className="num score-cell"; t.innerHTML=domainScore(h,filter).toFixed(1); tr.appendChild(t);
-    ["A","B","C","D","E","F"].forEach(d=>{const td=document.createElement("td"); td.className="num"; td.innerHTML= d===filter?`<b style="color:var(--cyan)">${domainScore(h,d).toFixed(1)}</b>`:domainScore(h,d).toFixed(1); tr.appendChild(td);});
-    tr.addEventListener("click",()=>showDetail(h));
-    body.appendChild(tr);
-  });
+  renderRanking();
+}));
+$$(".pbtn").forEach(b=>b.addEventListener("click",()=>{
+  provFilter=b.dataset.p;
+  $$(".pbtn").forEach(x=>{x.style.background=x===b?"rgba(34,211,238,.3)":"", x.style.color=x===b?"#fff":"";});
+  renderRanking();
 }));
 </script>
 </body>

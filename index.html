@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harness Compass — Escolhe o teu harness de IA</title>
+<meta name="description" content="Agent = Model + Harness. Ranking, mapa e calculadora para escolheres o harness certo e usares LLMs mais económicos.">
+<style>
+  :root{
+    --bg:#faf9f7; --ink:#2b2a33; --muted:#6b6a76; --card:#ffffff; --line:#e4e1da;
+    --lav:#e8e4f5; --lav2:#d8d1ef; --blue:#dbe7f5; --green:#dcead8; --yellow:#f7ecd4;
+    --pink:#f5dfe4; --cyan:#d9efee; --orange:#f7e2cf;
+    --accent:#5b4b9e; --accent2:#8a7bc8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI", system-ui, -apple-system, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 20px 60px;}
+  header{padding:34px 0 10px;}
+  .logo{font-size:26px; font-weight:800; letter-spacing:-.5px;}
+  .logo span{color:var(--accent);}
+  .tagline{color:var(--muted); font-size:14px; margin-top:2px;}
+  nav{display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 26px;}
+  nav button{background:var(--card); border:1px solid var(--line); border-radius:999px; padding:8px 16px;
+    font-size:14px; cursor:pointer; color:var(--ink); transition:all .15s;}
+  nav button:hover{border-color:var(--accent2);}
+  nav button.active{background:var(--lav2); border-color:var(--accent); color:var(--accent); font-weight:700;}
+  section{display:none;}
+  section.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:18px;}
+  h2{font-size:20px; margin-bottom:8px;}
+  h3{font-size:16px; margin:16px 0 6px;}
+  .muted{color:var(--muted); font-size:13px;}
+  .badge{display:inline-block; font-size:11px; font-weight:700; border-radius:999px; padding:2px 9px; margin-left:6px; vertical-align:middle;}
+  .b-audit{background:#dcead8; color:#2d6a2d;}
+  .b-est{background:#f7ecd4; color:#8a6d1a;}
+  .b-dom{background:var(--blue); color:#2b4a7a;}
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th,td{padding:8px 10px; text-align:left; border-bottom:1px solid var(--line);}
+  th{cursor:pointer; user-select:none; white-space:nowrap; font-size:12.5px; color:var(--muted);}
+  th:hover{color:var(--accent);}
+  th.sorted::after{content:" ▾";}
+  th.sorted.asc::after{content:" ▴";}
+  td.num, th.num{text-align:right;}
+  tr.harness-row{cursor:pointer;}
+  tr.harness-row:hover{background:#f4f2fb;}
+  .score-cell{font-weight:800; font-size:15px;}
+  .bar{height:6px; background:var(--line); border-radius:3px; overflow:hidden; min-width:70px;}
+  .bar i{display:block; height:100%; background:var(--accent2); border-radius:3px;}
+  .pill{display:inline-block; background:var(--lav); border-radius:6px; padding:1px 8px; font-size:11.5px; margin:1px 2px 1px 0;}
+  details{border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin-bottom:10px; background:var(--card);}
+  summary{cursor:pointer; font-weight:600; font-size:14.5px;}
+  .domain{margin-bottom:18px;}
+  .domain h4{display:flex; align-items:center; gap:10px; font-size:15px; margin-bottom:8px;}
+  .chip{font-size:11px; font-weight:800; border-radius:6px; padding:2px 8px;}
+  .c-A{background:var(--blue); color:#2b4a7a;} .c-B{background:var(--green); color:#2d6a2d;}
+  .c-C{background:var(--yellow); color:#8a6d1a;} .c-D{background:var(--pink); color:#8a2b3a;}
+  .c-E{background:var(--lav); color:#5b4b9e;} .c-F{background:var(--cyan); color:#1e6a6a;}
+  .quiz-q{margin-bottom:18px;}
+  .quiz-q label{display:block; font-weight:600; margin-bottom:6px;}
+  .quiz-q select{width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:9px; font-size:14px; background:#fff;}
+  button.primary{background:var(--accent); color:#fff; border:none; border-radius:999px; padding:11px 26px; font-size:15px; font-weight:700; cursor:pointer;}
+  button.primary:hover{background:var(--accent2);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .result-card{border-left:5px solid var(--accent2);}
+  .calc input{width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:9px; font-size:14px;}
+  .calc label{display:block; font-size:13px; color:var(--muted); margin:10px 0 4px; font-weight:600;}
+  .range-row{display:flex; align-items:center; gap:12px;}
+  .range-row input[type=range]{flex:1;}
+  .range-row output{font-weight:700; min-width:52px; text-align:right;}
+  .big{font-size:30px; font-weight:800; color:var(--accent);}
+  .green{color:#2d6a2d;} .red{color:#a02b3a;}
+  .hero{background:linear-gradient(135deg,var(--lav) 0%,var(--blue) 100%); border:1px solid var(--line); border-radius:16px; padding:30px; margin-bottom:20px;}
+  .hero h2{font-size:26px;}
+  .hero .sub{color:#4a4468; font-size:15px; margin-top:6px;}
+  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:18px;}
+  .step{background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px;}
+  .step b{display:block; color:var(--accent); font-size:13px; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px;}
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12.5px;}
+  a{color:var(--accent);}
+  .legend{font-size:12.5px; color:var(--muted); margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">Harness <span>Compass</span></div>
+    <div class="tagline">Agent = Model + Harness · Escolhe o harness certo e o modelo barato chega lá.</div>
+  </header>
+
+  <nav id="nav">
+    <button data-view="home" class="active">Paradigma</button>
+    <button data-view="ranking">Ranking</button>
+    <button data-view="map">Mapa do Harness</button>
+    <button data-view="quiz">Que harness para ti?</button>
+    <button data-view="economy">Calculadora de economia</button>
+    <button data-view="method">Método &amp; evidência</button>
+  </nav>
+
+  <!-- ============ HOME ============ -->
+  <section id="view-home" class="active">
+    <div class="hero">
+      <h2>O harness decide quanto do teu dinheiro em tokens é desperdiçado.</h2>
+      <p class="sub">Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão de contexto, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se sozinho na primeira semana de produção.</p>
+    </div>
+    <div class="card">
+      <h2>O paradigma em 3 passos</h2>
+      <div class="steps">
+        <div class="step"><b>1 · Mede</b>O harness é a camada entre o modelo e o teu produto: guia (prompts, AGENTS.md, skills), executa (loop, tools, sandbox), verifica (testes, evals) e decide (permissões, julgamento, custo).</div>
+        <div class="step"><b>2 · Compara</b>Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — não por marketing. Harnesses auditados e estimativas marcadas separadamente.</div>
+        <div class="step"><b>3 · Decide</b>Com um harness potente, um modelo barato (DeepSeek, Gemini Flash, Qwen) chega ao nível de um caro. O quiz diz-te qual harness encaixa no teu caso — e a calculadora mostra quanto poupas.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>O que o gráfico da anatomia mostra — e o que lhe falta</h2>
+      <p class="muted">A anatomia clássica (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade, Codebase) está certa. A versão completa acrescenta o que a auditação real de harnesses revelou:</p>
+      <p style="margin-top:10px"><span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span></p>
+      <p class="legend">"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."</p>
+    </div>
+  </section>
+
+  <!-- ============ RANKING ============ -->
+  <section id="view-ranking">
+    <div class="card">
+      <h2>Ranking de harnesses</h2>
+      <p class="muted">Score composto 0–10 = média das 22 dimensões. Clica numa coluna para ordenar; clica numa linha para o detalhe. <span class="badge b-audit">AUDITADO</span> = dados de auditoria real com evidência file:line · <span class="badge b-est">ESTIMATIVA</span> = avaliação informada, a validar.</p>
+      <div style="margin:12px 0"><b class="muted">Filtrar por domínio:</b>
+        <button class="pill" data-f="all" style="cursor:pointer;border:none">Todos</button>
+        <button class="pill" data-f="A" style="cursor:pointer;border:none">A · Núcleo</button>
+        <button class="pill" data-f="B" style="cursor:pointer;border:none">B · Guias</button>
+        <button class="pill" data-f="C" style="cursor:pointer;border:none">C · Sensores</button>
+        <button class="pill" data-f="D" style="cursor:pointer;border:none">D · Governação ★</button>
+        <button class="pill" data-f="E" style="cursor:pointer;border:none">E · Aprendizagem</button>
+        <button class="pill" data-f="F" style="cursor:pointer;border:none">F · Operacional</button>
+      </div>
+      <div style="overflow-x:auto">
+        <table id="rank-table">
+          <thead><tr id="rank-head"></tr></thead>
+          <tbody id="rank-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="rank-detail"></div>
+  </section>
+
+  <!-- ============ MAP ============ -->
+  <section id="view-map">
+    <div class="card">
+      <h2>Mapa do Harness — 6 domínios × 22 dimensões</h2>
+      <p class="muted">A taxonomia usada para auditar qualquer harness. Cada dimensão tem KPIs próprios e escala de maturidade 0–10.</p>
+      <div id="map-container"></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section id="view-quiz">
+    <div class="card">
+      <h2>Que harness para ti?</h2>
+      <p class="muted">Responde a 6 perguntas. O Compass pondera as 22 dimensões conforme o teu perfil e recomenda os 3 harnesses com justificação.</p>
+      <div id="quiz-questions"></div>
+      <button class="primary" onclick="runQuiz()">Calcular recomendação</button>
+      <div id="quiz-result" style="margin-top:18px"></div>
+    </div>
+  </section>
+
+  <!-- ============ ECONOMY ============ -->
+  <section id="view-economy">
+    <div class="card">
+      <h2>Calculadora do paradigma: quanto poupa um harness potente?</h2>
+      <p class="muted">O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.</p>
+      <div class="grid2">
+        <div class="calc">
+          <label>Tokens de entrada / mês (milhões)</label>
+          <input type="number" id="ec-tokens" value="200" min="1">
+          <label>Tokens de saída / mês (milhões)</label>
+          <input type="number" id="ec-out" value="20" min="1">
+          <label>Preço modelo económico ($ / M input)</label>
+          <input type="number" id="ec-price-in" value="0.14" step="0.01">
+          <label>Preço modelo económico ($ / M output)</label>
+          <input type="number" id="ec-price-out" value="0.42" step="0.01">
+          <label>Preço modelo premium ($ / M input)</label>
+          <input type="number" id="ec-price-in-p" value="3.00" step="0.1">
+          <label>Preço modelo premium ($ / M output)</label>
+          <input type="number" id="ec-price-out-p" value="15.00" step="0.5">
+        </div>
+        <div class="calc">
+          <label>Eficiência do harness — cache de prompt (hit rate %)</label>
+          <div class="range-row"><input type="range" id="ec-cache" min="0" max="90" value="55" oninput="calcEconomy()"><output id="ec-cache-o">55%</output></div>
+          <label>Falhas evitadas — retry/fallback inteligente (% de chamadas não desperdiçadas)</label>
+          <div class="range-row"><input type="range" id="ec-retry" min="0" max="60" value="25" oninput="calcEconomy()"><output id="ec-retry-o">25%</output></div>
+          <label>Compressão de contexto (redução % do contexto médio enviado)</label>
+          <div class="range-row"><input type="range" id="ec-comp" min="0" max="70" value="30" oninput="calcEconomy()"><output id="ec-comp-o">30%</output></div>
+          <label>Smart routing (fração de trabalho enviada para o modelo barato)</label>
+          <div class="range-row"><input type="range" id="ec-route" min="0" max="100" value="70" oninput="calcEconomy()"><output id="ec-route-o">70%</output></div>
+        </div>
+      </div>
+      <div id="ec-result" class="card" style="margin-top:16px; border-left:5px solid var(--green)"></div>
+    </div>
+  </section>
+
+  <!-- ============ METHOD ============ -->
+  <section id="view-method">
+    <div class="card">
+      <h2>Método e evidência</h2>
+      <p>O Harness Compass nasce de auditorias reais a harnesses, não de opinião. Cada harness <span class="badge b-audit">AUDITADO</span> foi analisado linha-a-linha com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada.</p>
+      <h3>Escala de maturidade (0–10)</h3>
+      <table>
+        <tr><td><b>0</b></td><td>Não existe (provado por busca)</td></tr>
+        <tr><td><b>2</b></td><td>Vestígio / stub não ligado ao caminho de execução</td></tr>
+        <tr><td><b>4</b></td><td>Funciona no caso simples, degrada previsivelmente</td></tr>
+        <tr><td><b>6</b></td><td>Funcional e integrado, gaps conhecidos</td></tr>
+        <tr><td><b>8</b></td><td>Sólido, erros tratados, testes</td></tr>
+        <tr><td><b>10</b></td><td>Razão de existir, profundidade além do requisito</td></tr>
+      </table>
+      <h3>Estudo de caso — Hermes Agent vs Kando (auditados)</h3>
+      <p>A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. A lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — Hermes lidera em contexto/caching/ferramentas/contenção; Kando lidera em avaliação/custo/julgamento. O port cruzado é o caminho.</p>
+      <h3>O que significa "descobrir o melhor harness"</h3>
+      <p>Não existe "o melhor" em absoluto — existe o melhor <b>para o teu caso</b>. O quiz pondera as dimensões pelo teu perfil. Mas há uma lei universal: <b>quanto mais potente o harness, menos depende do modelo ser caro</b>. Caching byte-estável, retry inteligente, compressão e routing recuperam, em $, o preço de qualquer harness.</p>
+      <p class="muted" style="margin-top:10px">Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md · contribuições bem-vindas: adiciona um harness ao array no fim deste ficheiro e faz um PR.</p>
+    </div>
+  </section>
+
+  <footer>Harness Compass · Agent = Model + Harness · dados auditados vs estimativas sempre distinguidos · MIT · feito com 22 dimensões de discernimento.</footer>
+</div>
+
+<script>
+/* ================= DADOS ================= */
+const DOMAINS = [
+  {id:"A", name:"Núcleo & Interface", color:"c-A", desc:"Como o harness liga, alimenta e faz correr o modelo."},
+  {id:"B", name:"Guias feedforward", color:"c-B", desc:"O que orienta o agente ANTES de agir."},
+  {id:"C", name:"Sensores feedback", color:"c-C", desc:"O que verifica e corrige DEPOIS de agir."},
+  {id:"D", name:"Governação, Julgamento & Guardrails ★", color:"c-D", desc:"Permissões, decisão, compliance, ética — o foco obrigatório."},
+  {id:"E", name:"Ciclo de vida & aprendizagem", color:"c-E", desc:"Como o harness evolui com o uso."},
+  {id:"F", name:"Operacional", color:"c-F", desc:"Execução, custo e resiliência."},
+];
+
+const DIMENSIONS = [
+  ["A1","Multi-modelo","Providers, fallback chain, pools de credenciais, smart routing."],
+  ["A2","Prompts & contexto","System prompt estável, caching, compressão, context files."],
+  ["A3","Agent loop & orquestração","Loop decide→executa→observa; subagentes; scheduling."],
+  ["A4","Ferramentas & extensibilidade","Registry, toolsets, MCP, plugins, footprint."],
+  ["B1","Especificação de intenção","Plans, briefs, tarefas estruturadas."],
+  ["B2","Skills & playbooks","Conhecimento procedural, curadoria."],
+  ["B3","Convenções de projeto","AGENTS.md, CLAUDE.md, .cursorrules — coerência."],
+  ["B4","Políticas declaradas","Restrições explícitas e testáveis."],
+  ["C1","Testes & verificação","Suites, CI, linters, anti change-detectors."],
+  ["C2","Avaliação (evals, LLM-as-judge)","Benchmarks, juízes, drift."],
+  ["C3","Observabilidade","Logs, traces, métricas, classificação de erros."],
+  ["C4","Auto-correção","Retry, circuit breakers, fix loops."],
+  ["D1","Guardrails de segurança","Anti-injection, validação de output, scanning."],
+  ["D2","Permissões & sandboxing","Approvals, least privilege, sandbox."],
+  ["D3","Julgamento & escalação","Onde decide sozinho vs humano; thresholds."],
+  ["D4","Compliance & legal","Trilhas de auditoria, retenção, GDPR."],
+  ["D5","Ética & alinhamento","Disclosure de IA, fairness, limitações."],
+  ["E1","Memória & aprendizagem","Persistência, anti-promptware, isolamento."],
+  ["E2","Steering loop humano","Como o humano itera no harness."],
+  ["F1","Execução & ambientes","Onde corre: local, docker, cloud, edge."],
+  ["F2","Custo & eficiência","Cap monetário, budgets, rate limiting."],
+  ["F3","Resiliência","Failover, timeouts, crash recovery, leases."],
+];
+
+const HARNESSES = [
+  {id:"hermes", name:"Hermes Agent", vendor:"Nous Research", type:"Agente pessoal open-source", url:"https://github.com/NousResearch/hermes-agent", audited:true,
+   tags:["conversacional","multi-provider","CLI/gateway/TUI"],
+   blurb:"O harness mais completo em contexto/caching/ferramentas/contenção. Obsessão estrutural pelo prompt-cache byte-estável. Pontos fracos: sem evals, sem cap de custo, sem ledger de aprovações.",
+   scores:{A1:8,A2:9,A3:9,A4:9,B1:5,B2:8,B3:8,B4:8,C1:9,C2:3,C3:8,C4:9,D1:8,D2:8,D3:7,D4:6,D5:3,E1:9,E2:8,F1:8,F2:7,F3:9}},
+  {id:"kando", name:"Kando", vendor:"DevFactoryAI", type:"Control plane multi-agente", url:"", audited:true,
+   tags:["multi-agente","verificação empírica","cost cap","leases"],
+   blurb:"Plataforma supervisora de agentes externos (Codex/Claude/OpenClaw). Lidera em avaliação (LLM-as-judge 3 camadas), cap duro de custo e julgamento como protocolo. Falta-lhe contenção de comandos destrutivos e ferramentas nativas.",
+   scores:{A1:7,A2:5,A3:6,A4:2,B1:8,B2:2,B3:8,B4:7,C1:7,C2:7,C3:7,C4:7,D1:5,D2:6,D3:7,D4:6,D5:4,E1:6,E2:6,F1:6,F2:8,F3:8}},
+  {id:"claude-code", name:"Claude Code", vendor:"Anthropic", type:"Coding agent no terminal", url:"https://www.anthropic.com/claude-code", audited:false,
+   tags:["coding","CLI","IDE"],
+   blurb:"Agente de coding com boa integração no ecossistema Anthropic, approvals e sandboxing razoáveis. Estimativa — a validar com auditoria.",
+   scores:{A1:6,A2:8,A3:8,A4:7,B1:7,B2:7,B3:7,B4:6,C1:7,C2:5,C3:7,C4:7,D1:6,D2:7,D3:6,D4:5,D5:6,E1:4,E2:7,F1:7,F2:6,F3:7}},
+  {id:"codex", name:"Codex CLI", vendor:"OpenAI", type:"Coding agent no terminal", url:"https://developers.openai.com/codex", audited:false,
+   tags:["coding","CLI"],
+   blurb:"Agente da OpenAI com sandbox por defeito e approvals. Estimativa — a validar.",
+   scores:{A1:7,A2:7,A3:7,A4:6,B1:7,B2:6,B3:6,B4:6,C1:7,C2:4,C3:6,C4:7,D1:6,D2:7,D3:6,D4:4,D5:5,E1:4,E2:6,F1:7,F2:6,F3:7}},
+  {id:"cursor", name:"Cursor", vendor:"Anysphere", type:"IDE com IA", url:"https://cursor.com", audited:false,
+   tags:["IDE","editor"],
+   blurb:"IDE-first, ótimo para edição assistida; menos focado em autonomia multi-step e governação. Estimativa.",
+   scores:{A1:5,A2:7,A3:6,A4:6,B1:6,B2:6,B3:5,B4:5,C1:5,C2:4,C3:6,C4:5,D1:5,D2:6,D3:5,D4:4,D5:5,E1:5,E2:6,F1:6,F2:5,F3:6}},
+  {id:"cline", name:"Cline", vendor:"Cline", type:"Coding agent open-source (VS Code)", url:"https://github.com/cline/cline", audited:false,
+   tags:["coding","VS Code","open-source"],
+   blurb:"Agente open-source popular com aprovação manual de cada ação e BYOK (traz a tua chave). Estimativa.",
+   scores:{A1:6,A2:6,A3:7,A4:7,B1:6,B2:6,B3:5,B4:6,C1:6,C2:4,C3:6,C4:6,D1:6,D2:7,D3:6,D4:4,D5:5,E1:4,E2:6,F1:7,F2:6,F3:6}},
+  {id:"openclaw", name:"OpenClaw", vendor:"OpenClaw", type:"Agente pessoal multi-plataforma", url:"", audited:false,
+   tags:["agente pessoal","gateway","open-source"],
+   blurb:"Harness pessoal multi-plataforma (clone espiritual de Clawdbot/Moltbot). Estimativa — candidato a auditoria dada a base instalada.",
+   scores:{A1:6,A2:6,A3:7,A4:7,B1:5,B2:6,B3:5,B4:5,C1:5,C2:4,C3:6,C4:6,D1:5,D2:6,D3:5,D4:4,D5:4,E1:6,E2:6,F1:7,F2:6,F3:6}},
+  {id:"ccr", name:"claude-code-router", vendor:"musistudio", type:"Router de modelos para Claude Code", url:"https://github.com/musistudio/claude-code-router", audited:false,
+   tags:["router","custo"],
+   blurb:"Router que permite usar modelos baratos com Claude Code. Foco único em A1/F2; sem harness completo. Estimativa.",
+   scores:{A1:7,A2:5,A3:5,A4:3,B1:5,B2:4,B3:4,B4:4,C1:4,C2:3,C3:5,C4:4,D1:4,D2:5,D3:4,D4:3,D5:3,E1:3,E2:5,F1:5,F2:7,F3:6}},
+  {id:"langgraph", name:"LangGraph", vendor:"LangChain", type:"Framework de orquestração de agentes", url:"https://www.langchain.com/langgraph", audited:false,
+   tags:["framework","orquestração","Python"],
+   blurb:"Framework para construir loops de agente com controlo fino (persistência, humano-no-loop). O harness és tu. Estimativa.",
+   scores:{A1:6,A2:5,A3:8,A4:8,B1:6,B2:5,B3:4,B4:5,C1:6,C2:5,C3:6,C4:6,D1:4,D2:5,D3:5,D4:4,D5:4,E1:5,E2:6,F1:6,F2:5,F3:6}},
+  {id:"crewai", name:"CrewAI", vendor:"CrewAI Inc", type:"Framework multi-agente", url:"https://www.crewai.com", audited:false,
+   tags:["framework","multi-agente","Python"],
+   blurb:"Framework de equipas de agentes; conveniente para pipelines, com governação mais leve. Estimativa.",
+   scores:{A1:6,A2:5,A3:7,A4:7,B1:6,B2:5,B3:4,B4:4,C1:5,C2:4,C3:5,C4:4,D1:3,D2:4,D3:4,D4:3,D5:3,E1:4,E2:5,F1:5,F2:4,F3:5}},
+];
+
+/* ================= UI ================= */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+function nav(){
+  $$("#nav button").forEach(b=>b.addEventListener("click",()=>{
+    $$("#nav button").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    $$("section").forEach(s=>s.classList.remove("active"));
+    $("#view-"+b.dataset.view).classList.add("active");
+  }));
+}
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+function score(h){const v=Object.values(h.scores); return v.reduce((a,b)=>a+b,0)/v.length;}
+function domainScore(h,d){const dims=DIMENSIONS.filter(x=>x[0][0]===d); return dims.reduce((a,dd)=>a+h.scores[dd[0]],0)/dims.length;}
+
+let sortKey="total", sortAsc=false, filter="all";
+
+function buildRanking(){
+  const head=$("#rank-head"); head.innerHTML="";
+  const cols=[["name","Harness"],["vendor","Vendor"],["total","Score"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]];
+  cols.forEach(([k,label])=>{
+    const th=document.createElement("th");
+    th.textContent=label;
+    th.dataset.k=k;
+    if(k==="total")th.classList.add("num");
+    th.addEventListener("click",()=>{ if(sortKey===k)sortAsc=!sortAsc; else{sortKey=k; sortAsc=false;} renderRanking(); });
+    head.appendChild(th);
+  });
+  renderRanking();
+}
+
+function renderRanking(){
+  const rows=HARNESSES.slice();
+  rows.sort((a,b)=>{
+    let va=sortKey==="total"?score(a):(sortKey==="name"?a.name:domainScore(a,sortKey));
+    let vb=sortKey==="total"?score(b):(sortKey==="name"?b.name:domainScore(b,sortKey));
+    if(typeof va==="string")return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
+    return sortAsc?va-vb:vb-va;
+  });
+  const body=$("#rank-body"); body.innerHTML="";
+  rows.forEach(h=>{
+    const tr=document.createElement("tr"); tr.className="harness-row";
+    const nameCell=document.createElement("td");
+    nameCell.innerHTML=esc(h.name)+(h.audited?' <span class="badge b-audit">AUDITADO</span>':' <span class="badge b-est">ESTIMATIVA</span>');
+    tr.appendChild(nameCell);
+    const v=document.createElement("td"); v.textContent=h.vendor; tr.appendChild(v);
+    const t=document.createElement("td"); t.className="num score-cell";
+    const s=score(h);
+    t.innerHTML=`${s.toFixed(1)}<div class="bar"><i style="width:${s*10}%"></i></div>`;
+    tr.appendChild(t);
+    ["A","B","C","D","E","F"].forEach(d=>{
+      const td=document.createElement("td"); td.className="num";
+      const ds=domainScore(h,d);
+      td.innerHTML=ds.toFixed(1);
+      tr.appendChild(td);
+    });
+    tr.addEventListener("click",()=>showDetail(h));
+    body.appendChild(tr);
+  });
+}
+
+function showDetail(h){
+  const el=$("#rank-detail");
+  const dims=DIMENSIONS.map(([id,name,desc])=>{
+    const s=h.scores[id];
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--line)">
+      <div style="flex:1"><b style="font-size:13px">${esc(name)}</b> <span class="muted" style="font-size:12px">${esc(desc)}</span></div>
+      <div style="min-width:120px;display:flex;align-items:center;gap:8px"><div class="bar" style="flex:1"><i style="width:${s*10}%"></i></div><b>${s}</b></div></div>`;
+  }).join("");
+  el.innerHTML=`<div class="card result-card">
+    <h2>${esc(h.name)} <span class="badge ${h.audited?'b-audit':'b-est'}">${h.audited?'AUDITADO':'ESTIMATIVA'}</span></h2>
+    <p class="muted">${esc(h.vendor)} · ${esc(h.type)}${h.url?` · <a href="${esc(h.url)}" target="_blank">${esc(h.url)}</a>`:""}</p>
+    <p style="margin:10px 0">${esc(h.blurb)}</p>
+    <p>${h.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join("")}</p>
+    <h3>Score composto: <span class="big">${score(h).toFixed(1)}</span>/10</h3>
+    <div style="margin-top:8px">${dims}</div>
+    <p class="legend">${h.audited?"Dados de auditoria com evidência path:line (relatórios em docs/).":"Estimativa informada — candidato a auditoria via harness-audit."}</p>
+  </div>`;
+  el.scrollIntoView({behavior:"smooth"});
+}
+
+function buildMap(){
+  const el=$("#map-container");
+  el.innerHTML=DOMAINS.map(d=>{
+    const dims=DIMENSIONS.filter(x=>x[0][0]===d.id).map(([id,name,desc])=>
+      `<div style="padding:4px 0"><b style="font-size:13px">${id} · ${esc(name)}</b><br><span class="muted" style="font-size:12.5px">${esc(desc)}</span></div>`).join("");
+    return `<details><summary><span class="chip ${d.color}">${d.id}</span> ${esc(d.name)} — ${d.desc}</summary><div style="padding:10px 4px 2px">${dims}</div></details>`;
+  }).join("");
+}
+
+function buildQuiz(){
+  const q=[
+    ["Orçamento mensal de LLM","Quanto gastas (ou toleras gastar) em tokens por mês?",
+      [["Até $50 — cada token conta",{F2:3,C4:2,A2:2}],["$50–500 — eficiência importa",{F2:2,C4:1,A2:1}],["$500+ — conforto, quero qualidade",{C2:2,D3:1,B2:1}]]],
+    ["Autonomia desejada","Quanta autonomia queres dar ao agente?",
+      [["Máxima — aprovações mínimas",{D2:2,D3:1,D1:1}],["Equilibrada — aprova em destrutivas",{D2:3,D3:2}],["Conservadora — humano no loop em tudo",{D3:3,D2:2,D4:1}]]],
+    ["Onde trabalhas","Onde o harness vai viver?",
+      [["Terminal / CLI",{A4:2,F1:1}],["IDE (VS Code, JetBrains)",{A4:2,B3:1}],["Gateway de mensagens (Telegram/Discord)",{A3:2,E2:2,D2:2}],["CI / automação / servidor",{F3:2,C1:2,F1:1}]]],
+    ["Modelos","Que relação com modelos?",
+      [["Uso um só provider",{A1:0}],["Quero trocar/fallback entre providers",{A1:3,F2:2}],["Quero routing inteligente (barato para o simples, caro para o difícil)",{A1:4,C2:1,F2:2}]]],
+    ["Qualidade de output","Como queres garantir que o resultado é bom?",
+      [["Confio no modelo",{C2:0}],["Testes e CI chegam",{C1:3}],["Quero evals/LLM-as-judge a rever o trabalho",{C2:4,C1:2}]]],
+    ["Extensibilidade","Vais precisar de ferramentas próprias?",
+      [["Só o que vem de fábrica",{A4:0}],["Plugins/skills do ecossistema",{B2:2,A4:2}],["Vou construir tools e skills próprias",{A4:3,B2:2,E1:1}]]],
+  ];
+  $("#quiz-questions").innerHTML=q.map((qq,i)=>`
+    <div class="quiz-q"><label>${i+1}. ${esc(qq[1])}</label>
+    <select id="qq-${i}">${qq[2].map((o,j)=>`<option value="${j}">${esc(o[0])}</option>`).join("")}</select></div>`).join("");
+  window.__quiz=q;
+}
+
+function runQuiz(){
+  const q=window.__quiz; const w={};
+  q.forEach((qq,i)=>{const sel=qq[2][+$("#qq-"+i).value][1]; Object.entries(sel).forEach(([k,v])=>{w[k]=(w[k]||0)+v;});});
+  const ranked=HARNESSES.map(h=>{
+    let tot=0,cnt=0;
+    Object.entries(w).forEach(([k,v])=>{tot+=h.scores[k]*v; cnt+=v;});
+    return {h, w:tot/cnt};
+  }).sort((a,b)=>b.w-a.w);
+  const top=ranked.slice(0,3);
+  const reason=h=>{
+    const strong=Object.entries(h.scores).filter(([k,v])=>v>=8).map(([k])=>DIMENSIONS.find(d=>d[0]===k)[1]).slice(0,3);
+    const weak=Object.entries(h.scores).filter(([k,v])=>v<=4).map(([k])=>DIMENSIONS.find(d=>d[0]===k)[1]).slice(0,2);
+    return `Forças: ${strong.join(", ")||"—"}. Fraquezas: ${weak.join(", ")||"nenhuma crítica"} (${h.audited?"auditado":"estimativa"}).`;
+  };
+  $("#quiz-result").innerHTML=`<h3>Recomendação para o teu perfil</h3>`+top.map((r,i)=>`
+    <div class="card result-card" style="${i===0?"border-left-width:7px":""}">
+      <h3>${i+1}. ${esc(r.h.name)} <span class="badge ${r.h.audited?'b-audit':'b-est'}">${r.h.audited?'AUDITADO':'ESTIMATIVA'}</span> <span class="muted">· ajuste ${r.w.toFixed(1)}</span></h3>
+      <p>${reason(r.h)}</p>
+    </div>`).join("")+`<p class="muted">O score composto ${esc("não")} é o critério — o ajuste pondera as dimensões que escolheste. Um harness com ${esc("score")} médio pode ser o certo para ti se for forte exatamente no que te importa.</p>`;
+  $("#quiz-result").scrollIntoView({behavior:"smooth"});
+}
+
+function calcEconomy(){
+  const tIn=+$("#ec-tokens").value||0, tOut=+$("#ec-out").value||0;
+  const pi=+$("#ec-price-in").value||0, po=+$("#ec-price-out").value||0;
+  const ppi=+$("#ec-price-in-p").value||0, ppo=+$("#ec-price-out-p").value||0;
+  const cache=+$("#ec-cache").value/100, retry=+$("#ec-retry").value/100, comp=+$("#ec-comp").value/100, route=+$("#ec-route").value/100;
+  $("#ec-cache-o").textContent=$("#ec-cache").value+"%";
+  $("#ec-retry-o").textContent=$("#ec-retry").value+"%";
+  $("#ec-comp-o").textContent=$("#ec-comp").value+"%";
+  $("#ec-route-o").textContent=$("#ec-route").value+"%";
+  // Sem harness: tudo no modelo premium
+  const base= (tIn*ppi + tOut*ppo);
+  // Com harness: routing manda X% para o barato; cache reduz input efetivo; retry evita desperdício; compressão reduz input
+  const inputEff=tIn*(1-cache)*(1-comp);
+  const outputEff=tOut*(1-retry);
+  const routedIn=route*inputEff*pi + (1-route)*inputEff*ppi;
+  const routedOut=route*outputEff*po + (1-route)*outputEff*ppo;
+  const withHarness=routedIn+routedOut;
+  const save=base-withHarness;
+  const pct=base>0?(save/base*100):0;
+  $("#ec-result").innerHTML=`
+    <div class="grid2">
+      <div><h3>Sem harness potente</h3><p>Tudo no modelo premium, sem cache, sem fallback, sem routing.</p><p class="big red">$${base.toFixed(0)}/mês</p></div>
+      <div><h3>Com harness potente</h3><p>Cache ${$("#ec-cache").value}% · falhas evitadas ${$("#ec-retry").value}% · compressão ${$("#ec-comp").value}% · routing ${$("#ec-route").value}% para o barato.</p><p class="big green">$${withHarness.toFixed(0)}/mês</p></div>
+    </div>
+    <p style="margin-top:12px;font-size:15px">Poupas <b class="green">$${save.toFixed(0)}/mês (${pct.toFixed(0)}%)</b> — só em tokens. A isto soma-se: menos retries pagos, menos interrupções manuais, menos debugging de contexto perdido. <span class="muted">Estimativa ilustrativa; usa os teus preços reais.</span></p>`;
+}
+
+/* ================= BOOT ================= */
+nav(); buildRanking(); buildMap(); buildQuiz(); calcEconomy();
+$$("[data-f]").forEach(b=>b.addEventListener("click",()=>{
+  filter=b.dataset.f;
+  $$("[data-f]").forEach(x=>x.style.fontWeight="400");
+  b.style.fontWeight="700";
+  renderRanking();
+}));
+</script>
+</body>
+</html>

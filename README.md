@@ -127,3 +127,18 @@ Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, 
 ## Garantia i18n (norma obrigatória)
 
 `node check-i18n.js` valida que **qualquer funcionalidade nova tem chaves em EN** (falha se faltarem) e reporta quantas chaves de cada língua estão em fallback EN. Norma: funcionalidade nova → chaves `t()`/`data-i18n` em EN e PT; FR/DE/ZH/HI caem em EN até traduzidas (aviso, não bloqueio).
+
+O check também falha em: `t("chave")` literal sem chave em EN, e **interpolação em atributos HTML (`value`/`title`/`placeholder`/…) sem `esc()`** (injeção latente).
+
+## Testes manuais obrigatórios (antes de cada PR)
+
+O check estático não apanha regressões de estado — estes cenários já falharam uma vez e não podem voltar a falhar. Corre-os em **Chrome** (`python -m http.server 8123` → `http://127.0.0.1:8123`):
+
+1. **Mudar língua com estado aberto:** responde ao quiz (opções ≠ default) → muda EN↔PT → as tuas respostas mantêm-se e o resultado é o mesmo, só traduzido. Abre o detail de um harness → muda de língua → o detail traduz **sem fazer scroll**.
+2. **Auditoria completa + mudar língua:** audita uma pasta → ajusta sliders, preenche nome/vendor/tags/blurb, abre o plano de melhoria → muda de língua → **tudo** preservado (sliders, campos, plano) e traduzido, incluindo a coluna de evidências (ex: "pasta tools" → "folder tools").
+3. **Limpar não ressuscita:** audita uma pasta → clica Limpar → muda de língua → a auditoria **não** volta a aparecer.
+4. **Temas:** em claro e escuro, todas as cores de acento (âmbar, ciano, verde, róseo) são legíveis — badges, chips A–F, avisos, pills; o seletor de língua tem fundo/texto corretos nos dois temas.
+5. **Offline/CORS:** com a rede cortada, a vista de Custo mostra o aviso de preços manuais e continua a funcionar.
+6. **Fallback do picker:** em Firefox (sem `showDirectoryPicker`) a auditoria funciona pelo seletor clássico e o nome do harness sai do nome da pasta.
+
+Depois de passar: `node check-i18n.js` verde → commit.

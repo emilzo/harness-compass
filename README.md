@@ -115,4 +115,15 @@ Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, 
 
 **Tema claro/escuro:** botão ☀️/🌙 no topo — respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
 
-**Assinatura:** construído por **@eluminaime (Major Tom) × Agent Hermes** — visível no rodapé de todas as páginas e nos metadados (`<meta name="author">`).
+**Assinatura:** público → **@emilzo** (nome do repo) no rodapé; internamente → @eluminaime · @emilzo · Agent Hermes (Tom).
+
+## Constância de modelos (preços sempre atuais)
+
+- **Fonte viva:** a lista de modelos vem do OpenRouter a cada carregamento da app — quando um provider fecha um modelo, ele desaparece automaticamente do seletor; os novos aparecem no mesmo dia.
+- **Diff local:** a app guarda um snapshot no teu browser e mostra o que mudou desde a última visita ("🆕 N novos · 📦 M saíram desde …").
+- **Histórico local de descontinuados:** os modelos que saem ficam registados (nome, data, último preço) numa lista colapsável — útil para proveniência de pricing e continuidade de auditorias.
+- **Histórico global (público):** o GitHub Actions corre `scripts/snapshot-models.mjs` diariamente e commita `docs/models/latest.json` + `docs/models/history.json` — o dataset aberto e versionado de modelos (o que a app sozinha não pode guardar). Dados abertos = ativo e prova.
+
+## Garantia i18n (norma obrigatória)
+
+`node check-i18n.js` valida que **qualquer funcionalidade nova tem chaves em EN** (falha se faltarem) e reporta quantas chaves de cada língua estão em fallback EN. Norma: funcionalidade nova → chaves `t()`/`data-i18n` em EN e PT; FR/DE/ZH/HI caem em EN até traduzidas (aviso, não bloqueio).

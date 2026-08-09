@@ -1,0 +1,30 @@
+name: models-snapshot
+on:
+  schedule:
+    - cron: "0 3 * * *"   # diário às 03:00 UTC
+  workflow_dispatch: {}    # permite correr à mão
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch OpenRouter models
+        run: node scripts/snapshot-models.mjs
+      - name: Commit if changed
+        run: |
+          git config user.name "harness-compass-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/models
+          if ! git diff --cached --quiet; then
+            git commit -m "models: snapshot diário (docs/models)"
+            git push
+          else
+            echo "sem mudanças — nada a commitar"
+          fi

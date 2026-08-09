@@ -1,0 +1,12 @@
+{
+  "name": "harness-compass",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Harness Compass — medir a maturidade de harnesses de IA. Testes de regressão (jsdom) em test/.",
+  "scripts": {
+    "test": "node check-i18n.js && node --test"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  }
+}

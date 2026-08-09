@@ -841,7 +841,8 @@ function setLang(l){
   const oldLang = LANG;
   persistLang(l);
   const qa = qAnswers(); /* captura SEMPRE (pré-submissão incluída) — o buildQuiz reseta os selects */
-  applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap();
+  applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); renderORWidgets();
+  const as=$("#audit-status"); if(as) as.innerHTML=""; /* status transitório — não re-traduzível */
   replayOpenState(oldLang);
   if(qa) qAnswers(qa);
   if(window.__quizDone) runQuiz(true);
@@ -1145,10 +1146,43 @@ async function loadOpenRouter(){
     __ormodels=(j.data||[]).map(m=>({id:m.id, in:+m.pricing.prompt, out:+m.pricing.completion}))
       .filter(m=>m.in>0 && m.out>0)
       .sort((a,b)=>a.id.localeCompare(b.id));
-    const opts='<option value="">'+t("ct_or_choose")+'</option>'+__ormodels.map(m=>`<option value="${esc(m.id)}">${esc(m.id)}</option>`).join("");
-    const sel=$("#ct-model"); if(sel){ sel.innerHTML=opts; $("#ct-or-status").innerHTML=`<span class="green" style="font-size:12px">✓ ${t("ct_or_loaded",{n:__ormodels.length})}</span>`; }
+    window.__orStatus="loaded";
     trackModels(__ormodels);
-  }catch(e){ const s=$("#ct-or-status"); if(s) s.innerHTML=`<span class="muted" style="font-size:12px">${t("ct_or_offline")}</span>`; }
+  }catch(e){ window.__orStatus="offline"; }
+  renderORWidgets();
+}
+function renderORWidgets(){
+  /* Render dos widgets OpenRouter a partir do estado (__ormodels/__orStatus/__orDiff +
+     localStorage) — chamado no load e no setLang, para traduzirem com a língua. */
+  const sel=$("#ct-model");
+  if(window.__orStatus==="loaded" && sel){
+    const cur=sel.value;
+    sel.innerHTML='<option value="">'+t("ct_or_choose")+'</option>'+__ormodels.map(m=>`<option value="${esc(m.id)}">${esc(m.id)}</option>`).join("");
+    sel.value=cur; /* preserva o modelo escolhido */
+    $("#ct-or-status").innerHTML=`<span class="green" style="font-size:12px">✓ ${t("ct_or_loaded",{n:__ormodels.length})}</span>`;
+  }else if(window.__orStatus==="offline"){
+    const s=$("#ct-or-status"); if(s) s.innerHTML=`<span class="muted" style="font-size:12px">${t("ct_or_offline")}</span>`;
+  }
+  const d=$("#ct-models-diff"), st=window.__orDiff;
+  if(d && st){
+    if(st.hadSnap && (st.added||st.gone)){
+      d.innerHTML=`<span class="green">🆕 ${st.added} ${t("md_new")}</span> · <span class="red">📦 ${st.gone} ${t("md_removed")} ${esc(st.prevDate)}</span>`;
+    }else if(st.hadSnap){
+      d.innerHTML=`<span class="muted">${t("md_stable",{d:st.prevDate,n:st.count})}</span>`;
+    }else{
+      d.innerHTML=`<span class="muted">${t("md_first",{n:st.count})}</span>`;
+    }
+  }
+  const hl=$("#ct-history");
+  if(hl && window.__orStatus){
+    let hist=[]; try{ hist=JSON.parse(localStorage.getItem("hc-models-gone")||"[]"); }catch(e){}
+    if(Array.isArray(hist) && hist.length){
+      hl.innerHTML=`<details style="margin-top:8px"><summary style="cursor:pointer;font-size:12.5px;color:var(--muted)">📦 ${t("md_hist")} (${hist.length})</summary>
+        <div style="font-size:12px;margin-top:6px;max-height:200px;overflow-y:auto">${hist.slice().reverse().slice(0,60).map(h=>`<div style="padding:3px 0;border-bottom:1px solid var(--line)"><code>${esc(h.id)}</code> <span class="muted">— last seen ${esc(h.lastSeen)}${h.in?` · $${(+h.in*1e6).toFixed(2)}/M in`:""}${h.out?` · $${(+h.out*1e6).toFixed(2)}/M out`:""}</span></div>`).join("")}</div></details>`;
+    }else{
+      hl.innerHTML="";
+    }
+  }
 }
 function useOpenRouterPriceCT(){
   const id=$("#ct-model").value; if(!id) return;
@@ -1182,25 +1216,7 @@ function trackModels(current){
     try{ localStorage.setItem("hc-models-gone", JSON.stringify(hist)); }catch(e){}
     const prices={}; current.forEach(m=>{ prices[m.id]={in:m.in, out:m.out}; });
     try{ localStorage.setItem("hc-models-snap", JSON.stringify({date:now, ids:[...curIds], prices})); }catch(e){}
-    const d = $("#ct-models-diff");
-    if(d){
-      if(snap && (added.length||gone.length)){
-        d.innerHTML=`<span class="green">🆕 ${added.length} ${t("md_new")}</span> · <span class="red">📦 ${gone.length} ${t("md_removed")} ${snap.date}</span>`;
-      }else if(snap){
-        d.innerHTML=`<span class="muted">${t("md_stable",{d:snap.date,n:curIds.size})}</span>`;
-      }else{
-        d.innerHTML=`<span class="muted">${t("md_first",{n:curIds.size})}</span>`;
-      }
-    }
-    const hl = $("#ct-history");
-    if(hl){
-      if(hist.length){
-        hl.innerHTML=`<details style="margin-top:8px"><summary style="cursor:pointer;font-size:12.5px;color:var(--muted)">📦 ${t("md_hist")} (${hist.length})</summary>
-          <div style="font-size:12px;margin-top:6px;max-height:200px;overflow-y:auto">${hist.slice().reverse().slice(0,60).map(h=>`<div style="padding:3px 0;border-bottom:1px solid var(--line)"><code>${esc(h.id)}</code> <span class="muted">— last seen ${esc(h.lastSeen)}${h.in?` · $${(+h.in*1e6).toFixed(2)}/M in`:""}${h.out?` · $${(+h.out*1e6).toFixed(2)}/M out`:""}</span></div>`).join("")}</div></details>`;
-      }else{
-        hl.innerHTML="";
-      }
-    }
+    window.__orDiff={hadSnap:!!snap, added:added.length, gone:gone.length, prevDate:snap?snap.date:null, count:curIds.size};
   }catch(e){ /* localStorage indisponível — segue sem histórico */ }
 }
 function harnessEff(h){
@@ -1299,10 +1315,14 @@ async function pickFolder(){
     };
     await walk(dir,"");
   };
+  let cancelled=false;
   const viaInput = ()=>new Promise(res=>{
     const inp=$("#folder-input");
     inp.value="";
+    let done=false; /* uma resolução única — onchange tardio (pós-timeout/cancel) não mexe no estado */
     inp.onchange=async ()=>{
+      if(done) return;
+      done=true;
       const files=[...inp.files].slice(0,MAX_FILES);
       window.__auditRoot = (files[0]&&files[0].webkitRelativePath||"").split("/")[0]||null;
       entries=[];
@@ -1315,8 +1335,9 @@ async function pickFolder(){
       }
       res();
     };
+    inp.oncancel=()=>{ if(done) return; done=true; cancelled=true; res(); };
     inp.click();
-    setTimeout(res, 90000); // safety: utilizador cancelou o diálogo
+    setTimeout(()=>{ if(!done){ done=true; res(); } }, 90000); // último recurso: browsers sem evento cancel
   });
   try{
     if(window.showDirectoryPicker){
@@ -1330,6 +1351,7 @@ async function pickFolder(){
       await viaInput();
     }
   }catch(e){ status.innerHTML=`<span class="red">${t("au_error")}: ${esc(e.message||e)}</span>`; return; }
+  if(cancelled){ status.innerHTML=`<span class="muted">${t("au_cancel")}</span>`; return; }
   if(!entries||!entries.length){ status.innerHTML=`<span class="red">${t("au_nofiles")}</span>`; return; }
   status.innerHTML=`<span class="muted">${t("au_read_files",{n:entries.length})}</span>`;
   await new Promise(r=>setTimeout(r,30));
@@ -1496,7 +1518,7 @@ function exportAuditedJSON(){
   a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
-function resetAudit(){ window.__auditEntries=null; window.__auditRoot=null; $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
+function resetAudit(){ window.__auditEntries=null; window.__auditRoot=null; window.__auditCache=null; window.__auditMeta=null; $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
 
 /* ================= BOOT ================= */
 nav(); initLang(); initTheme(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();

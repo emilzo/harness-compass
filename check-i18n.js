@@ -11,6 +11,8 @@ const html = fs.readFileSync("index.html", "utf8");
 const m = html.match(/<script>([\s\S]*?)<\/script>/);
 if (!m) { console.error("script block not found"); process.exit(1); }
 const js = m[1];
+// converte um índice dentro de js na linha real do index.html (o script começa a meio do ficheiro)
+const jsLine = idx => html.slice(0, m.index).split("\n").length - 1 + js.slice(0, idx).split("\n").length;
 
 // ---- 0) parsear o dicionário T: {língua: {chave: valor, seen: contagem}} ----
 const tm = js.match(/const T = \{([\s\S]*?)\n\};/);
@@ -55,7 +57,7 @@ for (const lang of Object.keys(langs)) {
 // ---- 0d) chaves órfãs: existem numa língua mas não em EN ----
 for (const lang of Object.keys(langs)) {
   if (lang === "en") continue;
-  const orphans = Object.keys(langs[lang].values).filter(k => !langs.en.values[k]);
+  const orphans = Object.keys(langs[lang].values).filter(k => !(k in langs.en.values));
   if (orphans.length) { fail = 1; console.error(`❌ ${lang}: chaves órfãs (não existem em EN): ${orphans.join(", ")}`); }
 }
 
@@ -73,7 +75,7 @@ const used = new Set();
 const attrRe = /data-i18n="([^"]+)"/g;
 let a;
 while ((a = attrRe.exec(html))) used.add(a[1]);
-const missingAttr = [...used].filter(k => !langs.en.values[k]);
+const missingAttr = [...used].filter(k => !(k in langs.en.values));
 if (missingAttr.length) {
   fail = 1;
   console.error(`❌ data-i18n sem chave EN: ${missingAttr.join(", ")}`);
@@ -84,19 +86,32 @@ const tKeys = new Set();
 const tRe = /\bt\s*\(\s*["'`]([A-Za-z0-9_]+)["'`]/g;
 let tk;
 while ((tk = tRe.exec(js))) tKeys.add(tk[1]);
-const missingT = [...tKeys].filter(k => !langs.en.values[k]);
+const missingT = [...tKeys].filter(k => !(k in langs.en.values));
 if (missingT.length) {
   fail = 1;
   console.error(`❌ t("...") sem chave EN: ${missingT.join(", ")}`);
 }
 
+// ---- 2b) chaves table-driven: literais nas tabelas (DIMENSIONS, IMPROVEMENT_PATTERNS,
+// quiz, LEVELS, DOMAINS, blurbs) chegam ao t() por variável e são invisíveis à regra 2 ----
+const tableKeys = new Set();
+const tabRe = /"((?:dim|dom|imp|quiz|lv|blurb)_[A-Za-z0-9_]+)"/g;
+let tb;
+while ((tb = tabRe.exec(js))) tableKeys.add(tb[1]);
+const missingTable = [...tableKeys].filter(k => !(k in langs.en.values));
+if (missingTable.length) {
+  fail = 1;
+  console.error(`❌ chave table-driven sem chave EN: ${missingTable.join(", ")}`);
+}
+
 // ---- 3) interpolação em atributos HTML perigosos SEM esc() → injeção (regressão conhecida) ----
+// apanha ${ em QUALQUER posição do valor (value="x${a}", 2.º slot de "${esc(a)} ${b}");
+// o lookbehind evita falsos positivos tipo data-value="..."
 const attrUnescaped = [];
-const attrInterpRe = /(?:value|title|placeholder|alt|download|href)="\$\{(?!esc\()/g;
+const attrInterpRe = /(?<![-\w])(?:value|title|placeholder|alt|download|href)="[^"]*?\$\{(?!esc\(|t\()/g;
 let ai;
 while ((ai = attrInterpRe.exec(js))) {
-  const lineNo = js.slice(0, ai.index).split("\n").length;
-  attrUnescaped.push(`linha ${lineNo}: ${js.slice(ai.index, ai.index + 50).split("\n")[0].trim()}`);
+  attrUnescaped.push(`linha ${jsLine(ai.index)}: ${js.slice(ai.index, ai.index + 50).split("\n")[0].trim()}`);
 }
 if (attrUnescaped.length) {
   fail = 1;
@@ -104,25 +119,32 @@ if (attrUnescaped.length) {
 }
 
 // ---- 3b) conteúdo: interpolações de identificadores puros sem esc()/t() → warn ----
+// CONTENT_ALLOW: expressões revistas manualmente como seguras (internas, nunca texto de
+// utilizador). Conteúdo dinâmico novo fora desta lista deve usar esc()/t() — ou ser
+// acrescentado aqui APÓS revisão. Em árvore limpa este bloco não emite nenhum aviso.
+const CONTENT_ALLOW = new Set(["h.adjusted", "labelsSvg", "d.color", "d.id", "snap.date", "el.dataset.dim", "st.added", "st.gone"]);
 const NUMERIC = new Set(["i", "j", "k", "n", "x", "y", "r", "R", "C", "w", "h", "s", "v", "c", "t", "cx", "cy", "p", "b", "sum", "total", "nth", "len", "idx", "id", "donut", "radar", "data", "grid", "spokes", "dots", "opts", "ranked", "prov", "adj", "adjTxt", "tips", "dims", "crit", "imp", "list", "row"]);
 const contentWarn = [];
 const contentRe = /\$\{([A-Za-z_$][\w$.]{0,40})\}/g;
 let ci;
 while ((ci = contentRe.exec(js))) {
   const expr = ci[1].trim();
-  if (NUMERIC.has(expr) || /^[0-9]/.test(expr) || /\.toFixed|\.length|\.value|\.innerHTML|\.textContent/.test(expr)) continue;
-  const lineNo = js.slice(0, ci.index).split("\n").length;
-  contentWarn.push(`linha ${lineNo}: \${${expr.slice(0, 40)}}`);
+  if (CONTENT_ALLOW.has(expr) || NUMERIC.has(expr) || /^[0-9]/.test(expr) || /\.toFixed|\.length|\.value|\.innerHTML|\.textContent/.test(expr)) continue;
+  contentWarn.push(`linha ${jsLine(ci.index)}: \${${expr.slice(0, 40)}}`);
 }
 if (contentWarn.length) {
   console.log(`⚠️  ${contentWarn.length} interpolação(ões) de variável em conteúdo sem esc() (rever — potencial injeção):\n  ` + contentWarn.slice(0, 8).join("\n  ") + (contentWarn.length > 8 ? "\n  …" : ""));
 }
 
-// ---- 4) todas as chaves EN existem nas outras línguas (reporta, não falha — fallback EN é válido) ----
+// ---- 4) todas as chaves EN existem nas outras línguas. PT é norma obrigatória (falha);
+// nas restantes reporta apenas — fallback EN é válido ----
 for (const lang of Object.keys(langs)) {
   if (lang === "en") continue;
-  const missing = Object.keys(langs.en.values).filter(k => !langs[lang].values[k]);
-  if (missing.length) {
+  const missing = Object.keys(langs.en.values).filter(k => !(k in langs[lang].values));
+  if (missing.length && lang === "pt") {
+    fail = 1;
+    console.error(`❌ pt: ${missing.length} chaves em falta (norma EN+PT obrigatória): ${missing.slice(0, 8).join(", ")}${missing.length > 8 ? "…" : ""}`);
+  } else if (missing.length) {
     console.log(`⚠️  ${lang}: ${missing.length} chaves em fallback EN (${missing.slice(0, 8).join(", ")}${missing.length > 8 ? "…" : ""})`);
   } else {
     console.log(`✅ ${lang}: completo (${Object.keys(langs.en.values).length} chaves)`);

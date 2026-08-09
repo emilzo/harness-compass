@@ -18,7 +18,14 @@
   html[data-theme="light"]{
     --bg:#f5f6fb; --bg2:#eceef6; --ink:#191c2b; --muted:#59617a; --line:rgba(20,24,50,.13);
     --card:rgba(255,255,255,.8); --card2:rgba(20,24,50,.05);
+    --violet:#7c3aed; --cyan:#0891b2; --emerald:#047857; --amber:#b45309; --rose:#be123c;
   }
+  html[data-theme="light"] .pill{color:#6d28d9; background:rgba(139,92,246,.10); border-color:rgba(139,92,246,.28);}
+  html[data-theme="light"] .c-A{color:#1d4ed8; background:rgba(59,130,246,.13);} html[data-theme="light"] .c-B{color:#047857; background:rgba(52,211,153,.14);}
+  html[data-theme="light"] .c-C{color:#b45309; background:rgba(251,191,36,.16);} html[data-theme="light"] .c-D{color:#be123c; background:rgba(251,113,133,.13);}
+  html[data-theme="light"] .c-E{color:#6d28d9; background:rgba(139,92,246,.13);} html[data-theme="light"] .c-F{color:#0e7490; background:rgba(34,211,238,.15);}
+  html[data-theme="light"] .badge.b-est{color:#92400e;} html[data-theme="light"] .b-prel{color:#0e7490;} html[data-theme="light"] .b-audit{color:#047857;}
+  html[data-theme="light"] .legend{color:#59617a;}
   html[data-theme="light"] body{background-image:radial-gradient(1200px 500px at 80% -10%, rgba(139,92,246,.12), transparent 60%),
     radial-gradient(900px 400px at 10% 110%, rgba(34,211,238,.10), transparent 60%);}
   html[data-theme="light"] nav{background:rgba(255,255,255,.88);}
@@ -130,8 +137,8 @@
       <div style="color:var(--muted); font-size:11px; margin-top:1px; opacity:.75">by @eluminaime · @emilzo · Agent Hermes (Tom)</div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <button id="theme-btn" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" style="background:#12122a;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">☀️</button>
-      <select id="lang" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" style="background:#12122a;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer"></select>
+      <button id="theme-btn" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">☀️</button>
+      <select id="lang" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer"></select>
       <button class="ghost" onclick="switchView('audit')" data-i18n="audit_pick_top">📂 Auditar uma pasta</button>
     </div>
   </header>
@@ -808,7 +815,7 @@ function t(k, vars){
   return s;
 }
 function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); }); }
-function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; document.documentElement.lang = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); }
+function setLang(l){ LANG = l; try{ localStorage.setItem("hc-lang", l); }catch(e){} const sel=$("#lang"); if(sel) sel.value = l; document.documentElement.lang = l; applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); }
 function initLang(){
   try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
   const sel = $("#lang");
@@ -872,7 +879,7 @@ function improvementPlan(h){
   const list=arr=>arr.map(([id,name])=>{
     const tips=(IMPROVEMENT_PATTERNS[id]||[]).slice(0,2).map(p=>`<li>${esc(t(p))}</li>`).join("");
     return `<div style="margin:10px 0"><b style="font-size:13.5px">${id} · ${esc(t(name))} — ${h.scores[id]}/10</b>
-      <ul style="margin:6px 0 0 18px; font-size:12.5px; color:#c7cbd9">${tips||`<li>${t("pl_none")}</li>`}</ul></div>`;
+      <ul style="margin:6px 0 0 18px; font-size:12.5px; color:var(--muted)">${tips||`<li>${t("pl_none")}</li>`}</ul></div>`;
   }).join("");
   return `<div class="card" style="border-left:4px solid var(--cyan)">
     <h3>🧭 ${t("pl_title")}</h3>
@@ -891,8 +898,8 @@ const domainScore = (h,d) => DIMENSIONS.filter(x=>x[0][0]===d).reduce((a,dd)=>a+
 const badge = h => {
   let b = h.audited ? `<span class="badge b-audit">${t("badge_audit")}</span>`
         : (h.preliminar ? `<span class="badge b-prel">${t("badge_prel")}</span>` : `<span class="badge b-est">${t("badge_est")}</span>`);
-  if(h.local) b += ` <span class="badge" style="background:rgba(139,92,246,.14);color:#c4b5fd;border:1px solid rgba(139,92,246,.3)">${t("badge_local")}</span>`;
-  if(h.adjusted>0) b += ` <span class="badge" style="background:rgba(251,113,133,.13);color:#fda4af;border:1px solid rgba(251,113,133,.3)">⚠ ${h.adjusted} ${t("badge_adj")}</span>`;
+  if(h.local) b += ` <span class="badge" style="background:rgba(139,92,246,.14);color:var(--violet);border:1px solid rgba(139,92,246,.3)">${t("badge_local")}</span>`;
+  if(h.adjusted>0) b += ` <span class="badge" style="background:rgba(251,113,133,.13);color:var(--rose);border:1px solid rgba(251,113,133,.3)">⚠ ${h.adjusted} ${t("badge_adj")}</span>`;
   return b;
 };
 
@@ -1037,7 +1044,7 @@ function buildMap(){
   $("#map-container").innerHTML = DOMAINS.map(d=>{
     const dims = DIMENSIONS.filter(x=>x[0][0]===d.id).map(([id,name,desc])=>
       `<div style="padding:5px 0"><b style="font-size:13px">${id} · ${esc(t(name))}</b> <span class="muted" style="font-size:12px">— ${esc(t(desc))}</span></div>`).join("");
-    return `<details><summary><span class="chip ${d.color}">${d.id}</span> ${esc(d.name)}</summary><div style="padding:10px 4px 4px">${dims}</div></details>`;
+    return `<details><summary><span class="chip ${d.color}">${d.id}</span> ${esc(t(d.name))}</summary><div style="padding:10px 4px 4px">${dims}</div></details>`;
   }).join("");
 }
 

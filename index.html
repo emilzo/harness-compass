@@ -187,12 +187,12 @@
         <div class="step"><b data-i18n="step2_t">2 · Compara</b><span data-i18n="step2_d">Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.</span></div>
         <div class="step"><b data-i18n="step3_t">3 · Decide</b><span data-i18n="step3_d">Com um harness potente, um modelo barato chega ao nível de um caro. O quiz diz-te qual encaixa no teu caso — e a calculadora mostra quanto poupas.</span></div>
       </div>
-      <div style="margin-top:16px"><button class="pill" style="cursor:pointer;background:var(--cyan);color:#04121f;font-weight:700;padding:10px 16px;border:none;border-radius:999px" onclick="nav('audit')" data-i18n="home_cta">🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)</button></div>
+      <div style="margin-top:16px"><button class="pill" style="cursor:pointer;background:var(--cyan);color:#04121f;font-weight:700;padding:10px 16px;border:none;border-radius:999px" onclick="switchView('audit')" data-i18n="home_cta">🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)</button></div>
     </div>
     <div class="card">
       <h2 data-i18n="home_anatomy_title">Da anatomia clássica ao sistema cibernético</h2>
       <p class="muted" data-i18n="home_anatomy_sub">A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:</p>
-      <p style="margin-top:10px" data-i18n="home_pills">
+      <p style="margin-top:10px" id="home-pills"><!-- pills re-renderizados por renderHomePills() a partir de t("home_pills"); os estáticos são o fallback sem JS -->
         <span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span></p>
       <p class="legend" data-i18n="home_anatomy_legend">"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."</p>
     </div>
@@ -1448,15 +1448,18 @@ hi:{
 }
 };
 let LANG = "en";
+const hasKey = (o,k) => Object.prototype.hasOwnProperty.call(o,k); /* sem Object.hasOwn (browsers antigos) e sem apanhar o protótipo (k="constructor") */
 function t(k, vars){
-  let s = ((T[LANG]||{})[k]) || T.en[k] || k;
+  const L = T[LANG]||T.en;
+  let s = hasKey(L,k) ? L[k] : (hasKey(T.en,k) ? T.en[k] : k);
   if(vars) Object.entries(vars).forEach(([a,b])=>{ s = s.replace("{"+a+"}", () => b); }); /* função: substituição literal — um nome de pasta com $& não expande */
   return s;
 }
 function applyI18n(){ $$("[data-i18n]").forEach(el=>{ el.innerHTML = t(el.dataset.i18n); }); }
+function renderHomePills(){ const el=$("#home-pills"); if(el) el.innerHTML = t("home_pills").split("·").map(s=>`<span class="pill">${s.trim()}</span>`).join(""); }
 function qAnswers(v){ const a=[]; const n=(window.__quiz||[]).length||6; for(let i=0;i<n;i++){ const s=$("#qq-"+i); if(v){ if(s) s.value=v[i]; } else a.push(s?+s.value:0); } return v?null:a; }
 function currentAuditScores(){ const s={}; DIMENSIONS.forEach(([id])=>{ const o=document.querySelector(`[data-out="${id}"]`); if(o) s[id]=+o.textContent||0; }); return s; }
-function persistLang(l){ LANG = Object.hasOwn(LANGUAGES, l) ? l : "en"; try{ localStorage.setItem("hc-lang", LANG); }catch(e){} const sel=$("#lang"); if(sel) sel.value = LANG; document.documentElement.lang = LANG; }
+function persistLang(l){ LANG = hasKey(LANGUAGES, l) ? l : "en"; try{ localStorage.setItem("hc-lang", LANG); }catch(e){} const sel=$("#lang"); if(sel) sel.value = LANG; document.documentElement.lang = LANG; }
 function replayOpenState(oldLang){
   /* Re-renderiza, na língua nova, o que está aberto: detail + auditoria (preservando
      sliders e campos de texto; o plano de melhoria é re-gerado na língua nova). */
@@ -1478,7 +1481,7 @@ function setLang(l){
   const oldLang = LANG;
   persistLang(l);
   const qa = qAnswers(); /* captura SEMPRE (pré-submissão incluída) — o buildQuiz reseta os selects */
-  applyI18n(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); renderORWidgets();
+  applyI18n(); renderHomePills(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); renderORWidgets();
   const as=$("#audit-status"); if(as) as.innerHTML=""; /* status transitório — não re-traduzível */
   replayOpenState(oldLang);
   if(qa) qAnswers(qa);
@@ -1486,11 +1489,12 @@ function setLang(l){
 }
 function initLang(){
   try{ LANG = localStorage.getItem("hc-lang") || "en"; }catch(e){ LANG = "en"; }
-  if(!Object.hasOwn(LANGUAGES, LANG)) LANG = "en";
+  if(!hasKey(LANGUAGES, LANG)) LANG = "en";
   const sel = $("#lang");
   if(sel){ sel.innerHTML = Object.entries(LANGUAGES).map(([k,v])=>`<option value="${esc(k)}">${esc(v)}</option>`).join(""); sel.value = LANG; }
   document.documentElement.lang = LANG;
   applyI18n();
+  renderHomePills();
 }
 function applyTheme(th){
   document.documentElement.setAttribute("data-theme", th);
@@ -1680,17 +1684,17 @@ function radarSVG(values, labels, w, h){
   for(let g=2;g<=10;g+=2){
     let p="";
     for(let i=0;i<n;i++){const [x,y]=pt(i,R*g/10); p+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}
-    grid+=`<path d="${p}Z" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;
+    grid+=`<path d="${p}Z" fill="none" style="stroke:var(--line)" stroke-width="1"/>`;
   }
   let spokes="";
-  for(let i=0;i<n;i++){const [x,y]=pt(i,R); spokes+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,.06)"/>`;}
+  for(let i=0;i<n;i++){const [x,y]=pt(i,R); spokes+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" style="stroke:var(--line)"/>`;}
   let data="";
   for(let i=0;i<n;i++){const [x,y]=pt(i,Math.max(2,R*values[i]/10)); data+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}
   data+="Z";
   let dots="";
   for(let i=0;i<n;i++){const [x,y]=pt(i,Math.max(2,R*values[i]/10)); dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#22d3ee"/>`;}
   let labelsSvg="";
-  for(let i=0;i<n;i++){const [x,y]=pt(i,R+16); labelsSvg+=`<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" fill="#8b93a7">${esc(labels[i])}</text>`;}
+  for(let i=0;i<n;i++){const [x,y]=pt(i,R+16); labelsSvg+=`<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" style="fill:var(--muted)">${esc(labels[i])}</text>`;}
   return `<svg width="${w+36}" height="${h+30}" viewBox="0 0 ${w+36} ${h+30}" style="max-width:100%">
     <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#8b5cf6" stop-opacity=".55"/><stop offset="100%" stop-color="#22d3ee" stop-opacity=".35"/>
@@ -1703,13 +1707,13 @@ function radarSVG(values, labels, w, h){
 function donutSVG(v){
   const R=34, C=2*Math.PI*R;
   return `<svg width="92" height="92" viewBox="0 0 92 92">
-    <circle cx="46" cy="46" r="${R}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="9"/>
+    <circle cx="46" cy="46" r="${R}" fill="none" style="stroke:var(--line)" stroke-width="9"/>
     <circle cx="46" cy="46" r="${R}" fill="none" stroke="url(#dg)" stroke-width="9" stroke-linecap="round"
       stroke-dasharray="${(v/10*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 46 46)"/>
     <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#22d3ee"/>
     </linearGradient></defs>
-    <text x="46" y="50" text-anchor="middle" font-size="19" font-weight="800" fill="#e2e8f0">${v.toFixed(1)}</text>
+    <text x="46" y="50" text-anchor="middle" font-size="19" font-weight="800" style="fill:var(--ink)">${v.toFixed(1)}</text>
   </svg>`;
 }
 

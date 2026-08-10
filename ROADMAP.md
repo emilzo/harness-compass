@@ -51,11 +51,14 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 
 ## Fase 3.5 — Estrutura (depois do lançamento, nunca na véspera)
 - [ ] Partir o monólito sem build: `index.html` + `assets/data.js` + `assets/i18n.js` + `assets/app.js` (`file://` continua a funcionar; suite adapta com `JSDOM.fromFile`)
-- [ ] Pipeline de auditoria operacionalizado (convergência de 2 reviews independentes):
-  - [ ] `docs/audits/` + `AUDIT-TEMPLATE.md` (22 dims, evidência `path:line`, cobertura declarada, o que não foi lido, escolha pública/privada conforme a política de confidencialidade)
-  - [ ] PR template "Add audited harness" + JSON schema do harness + CONTRIBUTING.md
-  - [ ] Teste na suite: todo o `audited:true` do dataset TEM `evidence` e o ficheiro existe (a regra vira gate de CI, não convenção)
-  - [ ] (opcional, UI) botão "Preparar submissão" na auditoria local: descarrega JSON preliminar + template pré-preenchido, sempre `audited:false`
+- [x] **Funil de submissão pré-lançamento** (antecipado da 3.5 — o visitante que audita o próprio repo tem caminho a seguir ao Export):
+  - [x] `CONTRIBUTING.md` com as 3 vias (auditoria pública → AUDITADO · privada confidencial · estimativa via PR)
+  - [x] `docs/audits/AUDIT-TEMPLATE.md` (22 dims, evidência `path:line`, cobertura declarada, escolha pública/privada)
+  - [x] Issue form "Submit your harness" (`.github/ISSUE_TEMPLATE/submit-harness.yml`) + PR template com checklist de integridade
+  - [x] Dica de submissão no cartão de auditoria (au_submit, 6 línguas) a apontar para o issue form
+  - [x] Teste 23 na suite: todo o `audited:true` TEM `evidence` e o ficheiro existe (regra vira gate de CI)
+- [ ] (opcional, UI) botão "Preparar submissão" na auditoria local: descarrega JSON preliminar + template pré-preenchido, sempre `audited:false`
+- [ ] JSON schema formal do harness
 
 ## Fase 4 — Credibilidade & Benchmark 🚧
 - [ ] Runner dos cenários B1–B8 (Python standalone — ver `BENCHMARK-SPEC.md`; ainda não existe)

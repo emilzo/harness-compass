@@ -61,6 +61,8 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 ## Como contribuir
 
+Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário de submissão do teu harness** (via pública com badge AUDITADO, privada confidencial, ou entrada como estimativa) e o template de auditoria (`docs/audits/AUDIT-TEMPLATE.md`).
+
 1. **Adicionar/afinar um harness**: edita o array `BUILTIN_HARNESSES` na secção DADOS (início do `<script>` de `index.html`) — cada entrada tem 22 scores (0–10), `audited: true/false`, tags e um blurb. Faz um PR.
 2. **Auditar um harness a sério**: segue o método em `docs/` (taxonomia + escala + regras de evidência) e muda `audited` para `true` com os relatórios.
 3. **Melhorar a base de conhecimento**: o mapa `IMPROVEMENT_PATTERNS` (recomendações por dimensão, com o mecanismo-fonte citado) cresce a cada auditoria. Cada padrão novo = um PR — é assim que os rankings e os conselhos ficam mais precisos e robustos.

@@ -446,6 +446,7 @@ const BUILTIN_HARNESSES = [
    scores:{A1:6,A2:5,A3:7,A4:7,B1:6,B2:5,B3:4,B4:4,C1:5,C2:4,C3:5,C4:4,D1:3,D2:4,D3:4,D4:3,D5:3,E1:4,E2:5,F1:5,F2:4,F3:5}},
 ];
 
+const REPO_URL = "https://github.com/emilzo/harness-compass"; /* ajustar com o og:url se o repo tiver outro nome */
 let HARNESSES = BUILTIN_HARNESSES.slice();
 let sortKey="total", sortAsc=false, filter="all", provFilter="all";
 
@@ -610,6 +611,7 @@ en:{
   md_new:"new", md_removed:"removed since", md_stable:"✓ stable since {d} ({n} models)", md_first:"first snapshot saved today ({n} models)", md_hist:"Discontinued models (local history)",
   au_ev_file:"file {f}", au_ev_dir:"folder {d}", au_ev_tests:"{n} test/spec files", au_ev_workflows:"{n} CI workflows", au_name_fallback:"Local project", au_blurb_fallback:"Added via local audit.", au_cancel:"Cancelled.", au_error:"Error",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"last seen", au_type_fallback:"Project",
+  au_submit:"Want your harness in the official ranking? <a href=\"{u}\" target=\"_blank\">Submit it</a> — free public audit (AUDITED badge) or a private, confidential one. Your choice.",
   home_cta:"🧭 Audit your own harness — the app reads the folder in your browser and scores it (100% local, no upload)",
   method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"The first complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: the references/harness-map.md taxonomy · docs/DEEP-HARNESS-AUDIT-HERMES.md (full audit, published) · docs/EVIDENCE-SUMMARY-KANDO.md (evidence summary; full report internal — commercial product in final development).",
   footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
@@ -771,6 +773,7 @@ pt:{
   md_new:"novos", md_removed:"saíram desde", md_stable:"✓ estável desde {d} ({n} modelos)", md_first:"primeiro snapshot guardado hoje ({n} modelos)", md_hist:"Modelos descontinuados (histórico local)",
   au_ev_file:"ficheiro {f}", au_ev_dir:"pasta {d}", au_ev_tests:"{n} ficheiros test/spec", au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projeto local", au_blurb_fallback:"Adicionado por auditoria local.", au_cancel:"Cancelado.", au_error:"Erro",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"visto pela última vez", au_type_fallback:"Projeto",
+  au_submit:"Queres o teu harness no ranking oficial? <a href=\"{u}\" target=\"_blank\">Submete-o</a> — auditoria pública gratuita (badge AUDITADO) ou privada, confidencial. A escolha é tua.",
   home_cta:"🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)",
   method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário de evidência; relatório completo interno — produto comercial em desenvolvimento final).",
   footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
@@ -949,6 +952,7 @@ fr:{
   md_hist:"Modèles retirés (historique local)", au_ev_file:"fichier {f}", au_ev_dir:"dossier {d}", au_ev_tests:"{n} fichiers test/spec",
   au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projet local", au_blurb_fallback:"Ajouté via audit local.", au_cancel:"Annulé.",
   rank_col_v:"Fournisseur", rank_n:"{n} harnesses", md_seen:"vu la dernière fois", au_type_fallback:"Projet",
+  au_submit:"Tu veux ton harness dans le classement officiel ? <a href=\"{u}\" target=\"_blank\">Soumets-le</a> — audit public gratuit (badge AUDITÉ) ou privé et confidentiel. À toi de choisir.",
   au_error:"Erreur", home_cta:"🧭 Audite ton propre harness — l'app lit le dossier dans ton navigateur et le note (100 % local, aucun upload)",
   method_p1:"Le Harness Compass naît d'audits réels, pas d'opinions. Un harness avec le badge <span class=\"badge b-audit\">Audité</span> a été analysé selon des règles de preuve : chaque affirmation cite un <code>path:line</code> vérifié, les absences sont prouvées par recherche, la couverture est déclarée. Un harness <span class=\"badge b-prel\">Préliminaire</span> est entré via l'analyse heuristique locale de dossier — utile comme premier tri, mais le badge définitif exige un audit avec lecture réelle.",
   method_mt:"Échelle de maturité (0–10)", m_m0:"N'existe pas (prouvé par recherche)", m_m2:"Trace / stub non relié au chemin d'exécution",
@@ -1133,6 +1137,7 @@ de:{
   md_hist:"Eingestellte Modelle (lokale Historie)", au_ev_file:"Datei {f}", au_ev_dir:"Ordner {d}", au_ev_tests:"{n} test/spec-Dateien",
   au_ev_workflows:"{n} CI-Workflows", au_name_fallback:"Lokales Projekt", au_blurb_fallback:"Per lokalem Audit hinzugefügt.", au_cancel:"Abgebrochen.",
   rank_col_v:"Anbieter", rank_n:"{n} Harnesses", md_seen:"zuletzt gesehen", au_type_fallback:"Projekt",
+  au_submit:"Willst du dein Harness im offiziellen Ranking? <a href=\"{u}\" target=\"_blank\">Reiche es ein</a> — kostenloses öffentliches Audit (AUDITIERT-Badge) oder privat und vertraulich. Deine Wahl.",
   au_error:"Fehler",
   home_cta:"🧭 Auditiere dein eigenes Harness — die App liest den Ordner in deinem Browser und bewertet ihn (100 % lokal, kein Upload)",
   method_p1:"Der Harness Compass entsteht aus echten Audits, nicht aus Meinung. Ein Harness mit dem Badge <span class=\"badge b-audit\">Auditiert</span> wurde nach Belegregeln analysiert: jede Aussage zitiert ein verifiziertes <code>path:line</code>, Abwesenheiten sind per Suche bewiesen, die Abdeckung ist deklariert. Ein <span class=\"badge b-prel\">Vorläufig</span>-Harness kam über die lokale heuristische Ordneranalyse hinein — nützlich als erster Schnitt, aber das endgültige Badge erfordert ein Audit mit echtem Lesen.",
@@ -1265,6 +1270,7 @@ zh:{
   md_stable:"✓ 自 {d} 起稳定（{n} 个模型）", md_first:"今天保存了首个快照（{n} 个模型）", md_hist:"已下线的模型（本地历史）", au_ev_file:"文件 {f}", au_ev_dir:"文件夹 {d}",
   au_ev_tests:"{n} 个 test/spec 文件", au_ev_workflows:"{n} 个 CI workflow", au_name_fallback:"本地项目", au_blurb_fallback:"通过本地审计添加。", au_cancel:"已取消。",
   rank_col_v:"厂商", rank_n:"{n} 个 harness", md_seen:"最后出现", au_type_fallback:"项目",
+  au_submit:"想让你的 harness 进入官方排名？<a href=\"{u}\" target=\"_blank\">提交它</a>——免费公开审计（已审计徽章）或私密保密审计。由你选择。",
   au_error:"错误", home_cta:"🧭 审计你自己的 harness——应用在你的浏览器里读取文件夹并打分（100% 本地，不上传）",
   method_p1:"Harness Compass 源于真实审计，而非观点。带 <span class=\"badge b-audit\">已审计</span> 徽章的 harness 按证据规则分析：每条论断都引用经验证的 <code>path:line</code>，缺失以搜索证明，覆盖范围明确声明。<span class=\"badge b-prel\">初步</span> harness 通过本地启发式文件夹分析进入——作为初筛有用，但正式徽章需要真实读码的审计。",
   method_mt:"成熟度等级（0–10）", m_m0:"不存在（搜索证明）", m_m2:"痕迹 / 未接入执行路径的 stub", m_m4:"简单场景可用，退化可预测", m_m6:"功能完整并已集成，缺口已知", m_m8:"扎实，错误已处理，有测试",
@@ -1442,6 +1448,7 @@ hi:{
   md_first:"पहला snapshot आज सहेजा गया ({n} मॉडल)", md_hist:"बंद हुए मॉडल (स्थानीय इतिहास)", au_ev_file:"फ़ाइल {f}", au_ev_dir:"फ़ोल्डर {d}",
   au_ev_tests:"{n} test/spec फ़ाइलें", au_ev_workflows:"{n} CI workflows", au_name_fallback:"स्थानीय प्रोजेक्ट",
   rank_col_v:"विक्रेता", rank_n:"{n} harnesses", md_seen:"अंतिम बार देखा", au_type_fallback:"प्रोजेक्ट",
+  au_submit:"अपना हार्नेस आधिकारिक रैंकिंग में चाहते हैं? <a href=\"{u}\" target=\"_blank\">सबमिट करें</a> — मुफ़्त सार्वजनिक ऑडिट (ऑडिटेड बैज) या निजी, गोपनीय। चुनाव आपका है।",
   au_blurb_fallback:"स्थानीय ऑडिट से जोड़ा गया।", au_cancel:"रद्द किया गया।", au_error:"त्रुटि",
   home_cta:"🧭 अपने हार्नेस का ऑडिट करें — ऐप आपके ब्राउज़र में फ़ोल्डर पढ़कर स्कोर देता है (100% स्थानीय, कोई अपलोड नहीं)",
   method_p1:"Harness Compass वास्तविक ऑडिट से जन्मा है, राय से नहीं। <span class=\"badge b-audit\">ऑडिटेड</span> बैज वाले हार्नेस का विश्लेषण प्रमाण-नियमों से हुआ: हर दावा सत्यापित <code>path:line</code> उद्धृत करता है, अनुपस्थिति खोज से सिद्ध होती है, कवरेज घोषित है। <span class=\"badge b-prel\">प्रारंभिक</span> हार्नेस स्थानीय अनुमानी फ़ोल्डर-विश्लेषण से आया — पहले अनुमान के लिए उपयोगी, पर निर्णायक बैज के लिए असली पठन वाला ऑडिट अनिवार्य है।",
@@ -2123,6 +2130,7 @@ function showAuditResult(entries, ov){
             <button class="ghost" onclick="previewPlan()" data-i18n="au_plan">🧭 Ver plano de melhoria</button>
             <button class="ghost" onclick="exportAuditedJSON()" data-i18n="au_export">⬇ Exportar JSON</button>
           </div>
+          <p class="legend" style="margin-top:10px">${t("au_submit",{u:REPO_URL+"/issues/new?template=submit-harness.yml"})}</p>
           <div id="au-plan-preview" style="margin-top:12px"></div>
         </div>
         <div>

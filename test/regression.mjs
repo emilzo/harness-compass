@@ -370,3 +370,15 @@ test('22. status da auditoria re-traduz na troca de língua (antes era apagado)'
     assert.ok($('#audit-status').innerHTML.includes('Cancelado.'), 'status re-traduzido para PT, não apagado');
   });
 });
+
+test('23. integridade do dataset: todo o audited:true tem evidence e o ficheiro existe', () => {
+  const entries = html.match(/\{id:"[^"]+", name:"[^"]+", vendor:"[\s\S]*?scores:\{[^}]*\}\}/g) || [];
+  assert.ok(entries.length >= 10, `dataset parseado (${entries.length} entradas)`);
+  const audited = entries.filter(e => /audited:true/.test(e));
+  assert.ok(audited.length >= 2, 'há entradas auditadas');
+  for (const e of audited) {
+    const m = e.match(/evidence:"([^"]+)"/);
+    assert.ok(m, 'audited:true sem campo evidence: ' + e.slice(0, 60));
+    assert.ok(fs.existsSync(new URL('../' + m[1], import.meta.url)), 'ficheiro de evidência inexistente: ' + m[1]);
+  }
+});

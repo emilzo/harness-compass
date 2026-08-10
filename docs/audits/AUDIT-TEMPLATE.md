@@ -39,7 +39,10 @@ For each of the 22 dimensions: **score /10** + the mechanisms that earn it, each
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
 |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
 
-**HCI (composite):** plain average of the 22.
+**HCI (composite):** plain average of the 22, **displayed ×10 on the 0–100 scale**
+(rubric v1 — state the rubric version in every report; see
+[`references/harness-map.md`](../../references/harness-map.md) for the frontier
+anchors that reserve the 9–10 band).
 
 ## 4. Portable patterns (the idea, not the code)
 

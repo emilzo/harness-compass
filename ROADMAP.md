@@ -1,7 +1,7 @@
 # Harness Compass — Roadmap
 
 Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
-Última atualização: 2026-08-10 · Estado do código: suite de regressão 22/22 verde · `check-i18n` exit 0 · Lighthouse 98/100/100/100
+Última atualização: 2026-08-10 · Estado do código: suite de regressão 23/23 verde · `check-i18n` exit 0 · Lighthouse 98/100/100/100 · HCI 0–100 (rubrica v1)
 
 ## Fase 0 — Fundação ✅
 - [x] App single-file, funciona offline (`index.html`; jsdom só como devDependency de testes)

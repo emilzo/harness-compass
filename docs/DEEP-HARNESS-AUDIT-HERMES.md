@@ -9,6 +9,10 @@
 > fail-open defaults), not exploitable vulnerabilities; Hermes's own SECURITY.md
 > discloses its boundaries honestly, and this report repeatedly credits that honesty.
 > Corrections welcome via PR or issue.
+> *Scale note:* this report predates the 0–100 HCI display (rubric v1) — its
+> composite figures are on the 0–10 scale (e.g. "média ~7.7" ≈ HCI 75–77/100 by
+> domain averaging; the ranking entry, averaged over the 22 dimensions, is 75).
+> Dimension scores are identical in both presentations.
 
 # DEEP HARNESS AUDIT — hermes-agent (linha-a-linha)
 

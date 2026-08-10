@@ -76,6 +76,7 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 2. **O badge AUDITADO exige relatório** — evidência `path:line` real, como os que estão em `docs/`. Sem relatório, sem badge.
 3. **Tudo o que adicionas localmente fica marcado LOCAL** — e qualquer ajuste manual aos sliders fica **visível**: contador de "⚠ N dimensões ajustadas" no badge, e o export JSON carrega a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
 4. **O princípio não é impedir a mentira — é torná-la visível.** Quem abre o ranking vê imediatamente o que é verificado, o que é estimativa e o que foi mexido à mão.
+5. **Confidencialidade a pedido de quem submete.** Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente** — a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta — seria exatamente a claim sem prova que este projeto denuncia). A via privada existe como serviço de consultoria; a via pública dá o badge e o lugar no ranking.
 
 **Fluxo honesto para rankear um harness:**
 1. Audita a pasta → badge Preliminar (só com justificações da análise)
@@ -100,10 +101,8 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 ## Estudos de caso
 
-- **Hermes vs Kando** — comparação completa (22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas).
-- **Deep audit do Hermes** — linha-a-linha (15 achados, KPIs, 15 padrões portáveis, 10 recomendações).
-
-Os relatórios completos vivem no arquivo interno do projeto; a publicação em `docs/` (integral ou como sumários de evidência `path:line`) está **pendente de decisão** — ver ROADMAP. Entretanto, os mecanismos-fonte citados com `path:line` no `IMPROVEMENT_PATTERNS` da app provêm destas auditorias e são verificáveis nos repositórios respetivos.
+- `docs/DEEP-HARNESS-AUDIT-HERMES.md` — deep audit linha-a-linha do Hermes, **publicado integralmente** (15 achados, KPIs, 15 padrões portáveis, 10 recomendações) — revisão de arquitetura de um projeto open-source, publicada como cortesia e como prova do método.
+- `docs/EVIDENCE-SUMMARY-KANDO.md` — **sumário de evidência** do Kando: scores das 22 dimensões + os mecanismos `path:line` que a app já cita. O relatório completo (comparação de ~190K caracteres, 9 auditorias paralelas) fica no arquivo interno — o Kando é um produto comercial **em desenvolvimento final**; o sumário publica a evidência exatamente ao nível de detalhe que a app já expõe.
 
 ## Licença e integridade
 

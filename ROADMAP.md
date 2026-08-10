@@ -37,8 +37,9 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [ ] Snapshot global a correr diariamente — o workflow está pronto, só corre depois do push
 
 ## Fase 3 — Publicação 🚧 (bloqueada apenas pelo push do @emilzo)
-- [ ] **Decisão de evidência (P0 do review externo):** publicar os relatórios Hermes/Kando em `docs/` (integrais ou como sumários de evidência `path:line` redigidos) OU manter as claims baixadas — o badge AUDITADO só é *prova verificável* com evidência versionada no repo; até lá o README/método marcam "publicação pendente"
-- [ ] (opcional, com a decisão acima) campo `evidence` nos harnesses `audited:true` a apontar para os relatórios/sumários
+- [x] **Decisão de evidência (P0 do review externo) — resolvida:** relatório do Hermes **publicado integralmente** (`docs/DEEP-HARNESS-AUDIT-HERMES.md`, edição pública com paths locais normalizados + nota de cortesia OSS) · Kando com **sumário de evidência** (`docs/EVIDENCE-SUMMARY-KANDO.md`; relatório completo interno — produto comercial em desenvolvimento final)
+- [x] Campo `evidence` nos harnesses `audited:true` — o texto "Auditoria com evidência path:line" no detail é agora um link para o relatório
+- [x] **Política de confidencialidade de submissões** (README §Integridade 5 + BENCHMARK-SPEC §5): quem submete pode pedir auditoria privada — relatório só para o submissor e fora do ranking/leaderboard público; badge público exige evidência publicada
 - [ ] Decidir se `launch-assets/` (16 screenshots, ~2 MB) entra no git — hoje é deliberadamente local; se o marketing partir do repo público, versionar
 - [ ] Repo no GitHub + push (gh autenticado como `@emilzo`) — **17+ commits prontos em `main`**
 - [ ] GitHub Pages ativo (a app fica pública; OpenRouter volta a carregar preços reais em HTTPS)

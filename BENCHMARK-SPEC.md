@@ -23,6 +23,7 @@
 2. Submeter: métricas + logs (redigidos de segredos) + o commit auditado + ambiente (OS, versões).
 3. Revisão: um auditor independente confirma que as métricas batem com os logs.
 4. O harness entra no leaderboard com badge **BENCHMARKED** — acima do Preliminar, abaixo do Auditado completo (o benchmark mede comportamento; a auditoria mede engenharia).
+5. **Confidencialidade a pedido do submissor:** um harness pode ser auditado/benchmarkado em privado — os resultados são entregues apenas ao submissor e ficam **fora do leaderboard público**. Entrar no leaderboard exige métricas + logs publicados; não há badge público com evidência retida.
 
 ## Como isto se liga ao ranking
 

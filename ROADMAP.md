@@ -57,6 +57,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
   - [x] Issue form "Submit your harness" (`.github/ISSUE_TEMPLATE/submit-harness.yml`) + PR template com checklist de integridade
   - [x] Dica de submissão no cartão de auditoria (au_submit, 6 línguas) a apontar para o issue form
   - [x] Teste 23 na suite: todo o `audited:true` TEM `evidence` e o ficheiro existe (regra vira gate de CI)
+- [x] **Pipeline de auditoria semi-automático** (`.claude/skills/audit-harness` + `.claude/workflows/audit-harness.js`): submissão → clone/pin SHA → 6 domínios em paralelo → consolidação no template → verificação adversarial das citações → draft; o humano só faz o **sign-off de 15–30 min** (spot-check de ≥3 citações + aprovação, agrupável em lote) — o gate humano nunca é removido
 - [ ] (opcional, UI) botão "Preparar submissão" na auditoria local: descarrega JSON preliminar + template pré-preenchido, sempre `audited:false`
 - [ ] JSON schema formal do harness
 

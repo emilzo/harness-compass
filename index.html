@@ -1482,7 +1482,7 @@ function setLang(l){
   persistLang(l);
   const qa = qAnswers(); /* captura SEMPRE (pré-submissão incluída) — o buildQuiz reseta os selects */
   applyI18n(); renderHomePills(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); renderORWidgets();
-  const as=$("#audit-status"); if(as) as.innerHTML=""; /* status transitório — não re-traduzível */
+  if(window.__auditStatusState){ const s=window.__auditStatusState; auditStatus(s.cls,s.key,s.vars,s.spin,s.extra); } /* re-traduz o status em vez de o apagar */
   replayOpenState(oldLang);
   if(qa) qAnswers(qa);
   if(window.__quizDone) runQuiz(true);
@@ -1928,15 +1928,23 @@ const AUDIT_SIGNALS = {
 };
 const MAX_FILES=300, MAX_TOTAL_BYTES=2*1024*1024, MAX_FILE_BYTES=64*1024;
 
+function auditStatus(cls, key, vars, spin, extra){
+  /* estado {key,vars} guardado — o setLang re-traduz o status em vez de o apagar */
+  window.__auditStatusState = key ? {cls, key, vars, spin, extra} : null;
+  const el=$("#audit-status"); if(!el) return;
+  el.innerHTML = key ? `${spin?'<span class="spin"></span> ':""}<span${cls?` class="${cls}"`:""}>${t(key,vars)}${extra||""}</span>` : "";
+}
 async function pickFolder(){
+  if(window.__auditBusy) return; /* re-entrância: um 2.º clique durante o walk corrompia o estado partilhado */
+  window.__auditBusy = true;
+  try{
   window.__auditEntries=null; window.__auditMeta=null; window.__auditCache=null; window.__auditRoot=null;
-  const status=$("#audit-status");
   $("#audit-result").innerHTML="";
   let entries=null;
   const viaPicker = async ()=>{
     const dir=await window.showDirectoryPicker({mode:"read"});
     window.__auditRoot = dir.name;
-    status.innerHTML=`<span class="spin"></span> ${t("au_reading",{name:esc(dir.name)})}`;
+    auditStatus("", "au_reading", {name:esc(dir.name)}, true);
     entries=[];
     let bytes=0;
     const walk=async (handle, prefix)=>{
@@ -1964,7 +1972,9 @@ async function pickFolder(){
   const viaInput = ()=>new Promise(res=>{
     const inp=$("#folder-input");
     inp.value="";
+    entries=null; /* não herdar entries parciais de um viaPicker que falhou a meio do walk */
     let done=false; /* uma resolução única — onchange tardio (pós-timeout/cancel) não mexe no estado */
+    const settle=()=>{ inp.onchange=null; inp.oncancel=null; res(); }; /* solta o closure — retinha ~2MB de conteúdo após Limpar */
     inp.onchange=async ()=>{
       if(done) return;
       done=true;
@@ -1978,29 +1988,30 @@ async function pickFolder(){
         entries.push({path:f.webkitRelativePath||f.name, name:f.name, dir:false, content});
         if(entries.length>=MAX_FILES) break;
       }
-      res();
+      settle();
     };
-    inp.oncancel=()=>{ if(done) return; done=true; cancelled=true; res(); };
+    inp.oncancel=()=>{ if(done) return; done=true; cancelled=true; settle(); };
     inp.click();
-    setTimeout(()=>{ if(!done){ done=true; res(); } }, 90000); // último recurso: browsers sem evento cancel
+    setTimeout(()=>{ if(!done){ done=true; settle(); } }, 90000); // último recurso: browsers sem evento cancel
   });
   try{
     if(window.showDirectoryPicker){
       try{ await viaPicker(); }
       catch(err){
-        if(err && err.name==="AbortError"){ status.innerHTML=`<span class="muted">${t("au_cancel")}</span>`; return; }
-        status.innerHTML=`<span class="muted">${t("au_fallback")}</span>`;
+        if(err && err.name==="AbortError"){ auditStatus("muted","au_cancel"); return; }
+        auditStatus("muted","au_fallback");
         await viaInput();
       }
     }else{
       await viaInput();
     }
-  }catch(e){ status.innerHTML=`<span class="red">${t("au_error")}: ${esc(e.message||e)}</span>`; return; }
-  if(cancelled){ status.innerHTML=`<span class="muted">${t("au_cancel")}</span>`; return; }
-  if(!entries||!entries.length){ status.innerHTML=`<span class="red">${t("au_nofiles")}</span>`; return; }
-  status.innerHTML=`<span class="muted">${t("au_read_files",{n:entries.length})}</span>`;
+  }catch(e){ auditStatus("red","au_error",null,false,`: ${esc(e.message||e)}`); return; }
+  if(cancelled){ auditStatus("muted","au_cancel"); return; }
+  if(!entries||!entries.length){ auditStatus("red","au_nofiles"); return; }
+  auditStatus("muted","au_read_files",{n:entries.length});
   await new Promise(r=>setTimeout(r,30));
   showAuditResult(entries);
+  }finally{ window.__auditBusy=false; }
 }
 
 function analyzeEntries(entries){
@@ -2159,7 +2170,11 @@ function exportAuditedJSON(){
   a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),2000);
 }
-function resetAudit(){ window.__auditEntries=null; window.__auditRoot=null; window.__auditCache=null; window.__auditMeta=null; $("#audit-result").innerHTML=""; $("#audit-status").innerHTML=""; }
+function resetAudit(){
+  window.__auditEntries=null; window.__auditRoot=null; window.__auditCache=null; window.__auditMeta=null; window.__auditStatusState=null;
+  const fi=$("#folder-input"); if(fi){ fi.onchange=null; fi.oncancel=null; fi.value=""; } /* solta qualquer closure remanescente */
+  $("#audit-result").innerHTML=""; $("#audit-status").innerHTML="";
+}
 
 /* ================= BOOT ================= */
 nav(); initLang(); initTheme(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();

@@ -190,10 +190,11 @@ test('8. viaInput: cancel responde de imediato; onchange tardio não altera esta
     assert.ok(resolved, 'pickFolder resolve com o cancel');
     assert.ok($('#audit-status').innerHTML.includes('Cancelled.'), 'status au_cancel imediato');
     assert.ok(w.__auditRoot == null, '__auditRoot não setado pelo cancel');
-    // onchange disparado DEPOIS do cancel (ficheiros a chegar tarde) — done=true bloqueia
-    inp.onchange();
-    await new Promise(r => setTimeout(r, 0));
-    assert.ok(w.__auditRoot == null, 'onchange tardio não altera __auditRoot');
+    // após o cancel, settle() REMOVE os handlers — um onchange tardio é impossível
+    // e o closure (com até ~2MB de conteúdo lido) é libertado (privacidade pós-Limpar)
+    assert.equal(inp.onchange, null, 'onchange removido após settle');
+    assert.equal(inp.oncancel, null, 'oncancel removido após settle');
+    assert.ok(w.__auditRoot == null, '__auditRoot não setado pelo cancel');
     assert.ok(w.__auditEntries == null, 'entries não populadas');
   });
 });

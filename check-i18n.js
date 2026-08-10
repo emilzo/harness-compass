@@ -122,7 +122,7 @@ if (attrUnescaped.length) {
 // CONTENT_ALLOW: expressões revistas manualmente como seguras (internas, nunca texto de
 // utilizador). Conteúdo dinâmico novo fora desta lista deve usar esc()/t() — ou ser
 // acrescentado aqui APÓS revisão. Em árvore limpa este bloco não emite nenhum aviso.
-const CONTENT_ALLOW = new Set(["h.adjusted", "labelsSvg", "d.color", "d.id", "snap.date", "el.dataset.dim", "st.added", "st.gone"]);
+const CONTENT_ALLOW = new Set(["h.adjusted", "labelsSvg", "d.color", "d.id", "snap.date", "el.dataset.dim", "st.added", "st.gone", "cls"]); /* cls: enum interno do auditStatus ("muted"/"red"/"") */
 const NUMERIC = new Set(["i", "j", "k", "n", "x", "y", "r", "R", "C", "w", "h", "s", "v", "c", "t", "cx", "cy", "p", "b", "sum", "total", "nth", "len", "idx", "id", "donut", "radar", "data", "grid", "spokes", "dots", "opts", "ranked", "prov", "adj", "adjTxt", "tips", "dims", "crit", "imp", "list", "row"]);
 const contentWarn = [];
 const contentRe = /\$\{([A-Za-z_$][\w$.]{0,40})\}/g;

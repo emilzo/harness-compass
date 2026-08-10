@@ -357,7 +357,7 @@
       <p data-i18n="method_ld">A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.</p>
       <h3 data-i18n="method_ct">Estudo de caso — Hermes Agent vs Kando</h3>
       <p data-i18n="method_cd">A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.</p>
-      <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.</p>
+      <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: taxonomia references/harness-map.md · relatórios de auditoria Hermes/Kando (publicação pendente; os padrões path:line citados na app vêm deles).</p>
     </div>
   </section>
   </main>
@@ -611,7 +611,7 @@ en:{
   au_ev_file:"file {f}", au_ev_dir:"folder {d}", au_ev_tests:"{n} test/spec files", au_ev_workflows:"{n} CI workflows", au_name_fallback:"Local project", au_blurb_fallback:"Added via local audit.", au_cancel:"Cancelled.", au_error:"Error",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"last seen", au_type_fallback:"Project",
   home_cta:"🧭 Audit your own harness — the app reads the folder in your browser and scores it (100% local, no upload)",
-  method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"The first complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: harness-map.md taxonomy · HARNESS-AUDIT-HERMES-VS-KANDO.md and DEEP-HARNESS-AUDIT-HERMES.md reports.",
+  method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"The first complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: the references/harness-map.md taxonomy · Hermes/Kando audit reports (publication pending; the path:line patterns cited in the app come from them).",
   footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
 },
 pt:{
@@ -772,7 +772,7 @@ pt:{
   au_ev_file:"ficheiro {f}", au_ev_dir:"pasta {d}", au_ev_tests:"{n} ficheiros test/spec", au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projeto local", au_blurb_fallback:"Adicionado por auditoria local.", au_cancel:"Cancelado.", au_error:"Erro",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"visto pela última vez", au_type_fallback:"Projeto",
   home_cta:"🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)",
-  method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.",
+  method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia references/harness-map.md · relatórios de auditoria Hermes/Kando (publicação pendente; os padrões path:line citados na app vêm deles).",
   footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
 },
 fr:{
@@ -957,7 +957,7 @@ fr:{
   method_ld:"L'app lit jusqu'à 300 fichiers du dossier (max ~2 Mo de contenu) et cherche des signaux objectifs par dimension : présence d'<code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + workflows CI (vérification), <code>skills/</code> (playbooks), patterns d'approbation/sécurité (gouvernance), <code>docker</code>/<code>sandbox</code> (exécution), <code>cost</code>/<code>budget</code> (coût)… Chaque signal ajoute des points à sa dimension avec justification visible. Un premier tri honnête — pas un substitut à l'audit complet.",
   method_ct:"Étude de cas — Hermes Agent vs Kando",
   method_cd:"La première comparaison complète : 22 dimensions, ~190K caractères de preuves, 9 audits parallèles. Leçon centrale : <b>les forces de l'un sont les faiblesses de l'autre</b> — le port croisé est la voie.",
-  method_src:"Sources : taxonomie harness-map.md · rapports HARNESS-AUDIT-HERMES-VS-KANDO.md et DEEP-HARNESS-AUDIT-HERMES.md."
+  method_src:"Sources : taxonomie references/harness-map.md · rapports d'audit Hermes/Kando (publication en attente ; les patterns path:line cités dans l'app en proviennent)."
 },
 de:{
   tagline:"Agent = Modell + Harness · wähle das richtige Harness und das günstige Modell schafft es.",
@@ -1143,7 +1143,7 @@ de:{
   method_ld:"Die App liest bis zu 300 Dateien aus dem Ordner (max. ~2 MB Inhalt) und sucht objektive Signale pro Dimension: Präsenz von <code>AGENTS.md</code>/<code>CLAUDE.md</code> (Guides), <code>tests/</code> + CI-Workflows (Verifikation), <code>skills/</code> (Playbooks), Approval-/Security-Patterns (Governance), <code>docker</code>/<code>sandbox</code> (Ausführung), <code>cost</code>/<code>budget</code> (Kosten)… Jedes Signal addiert Punkte zu seiner Dimension mit sichtbarer Begründung. Ein ehrlicher erster Schnitt — kein Ersatz für das vollständige Audit.",
   method_ct:"Fallstudie — Hermes Agent vs. Kando",
   method_cd:"Der erste vollständige Vergleich: 22 Dimensionen, ~190K Zeichen Belege, 9 parallele Audits. Zentrale Lektion: <b>die Stärken des einen sind die Schwächen des anderen</b> — der Cross-Port ist der Weg.",
-  method_src:"Quellen: harness-map.md-Taxonomie · Berichte HARNESS-AUDIT-HERMES-VS-KANDO.md und DEEP-HARNESS-AUDIT-HERMES.md."
+  method_src:"Quellen: Taxonomie references/harness-map.md · Hermes/Kando-Auditberichte (Veröffentlichung ausstehend; die in der App zitierten path:line-Patterns stammen daraus)."
 },
 zh:{
   tagline:"Agent = 模型 + Harness · 选对 Harness，廉价模型也能胜任。",
@@ -1271,7 +1271,7 @@ zh:{
   m_m10:"存在的理由，深度超越需求", method_lt:"本地审计如何工作（初步徽章）",
   method_ld:"应用最多读取文件夹中的 300 个文件（内容最多约 2 MB），按维度寻找客观信号：<code>AGENTS.md</code>/<code>CLAUDE.md</code>（指南）、<code>tests/</code> + CI workflow（验证）、<code>skills/</code>（playbooks）、审批/安全模式（治理）、<code>docker</code>/<code>sandbox</code>（执行）、<code>cost</code>/<code>budget</code>（成本）……每个信号为对应维度加分，理由可见。诚实的初筛——不能替代完整审计。",
   method_ct:"案例研究 — Hermes Agent vs Kando", method_cd:"首个完整对比：22 个维度、约 19 万字符证据、9 场并行审计。核心教训：<b>一方的强项是另一方的弱项</b>——交叉移植才是出路。",
-  method_src:"来源：harness-map.md 分类法 · HARNESS-AUDIT-HERMES-VS-KANDO.md 与 DEEP-HARNESS-AUDIT-HERMES.md 报告。"
+  method_src:"来源：references/harness-map.md 分类法 · Hermes/Kando 审计报告（发布待定；应用中引用的 path:line 模式源自于此）。"
 },
 hi:{
   tagline:"एजेंट = मॉडल + हार्नेस · सही हार्नेस चुनें और सस्ता मॉडल काम करेगा।",
@@ -1451,7 +1451,7 @@ hi:{
   method_ld:"ऐप फ़ोल्डर की 300 तक फ़ाइलें पढ़ता है (~2 MB सामग्री तक) और आयाम अनुसार वस्तुनिष्ठ संकेत खोजता है: <code>AGENTS.md</code>/<code>CLAUDE.md</code> (मार्गदर्शक), <code>tests/</code> + CI workflows (सत्यापन), <code>skills/</code> (playbooks), अनुमोदन/सुरक्षा पैटर्न (शासन), <code>docker</code>/<code>sandbox</code> (निष्पादन), <code>cost</code>/<code>budget</code> (लागत)… हर संकेत दृश्य कारण सहित अपने आयाम में अंक जोड़ता है। एक ईमानदार पहला अनुमान — पूर्ण ऑडिट का विकल्प नहीं।",
   method_ct:"केस स्टडी — Hermes Agent बनाम Kando",
   method_cd:"पहली संपूर्ण तुलना: 22 आयाम, ~190K अक्षरों के प्रमाण, 9 समानांतर ऑडिट। केंद्रीय सीख: <b>एक की ताक़तें दूसरे की कमज़ोरियाँ हैं</b> — क्रॉस-पोर्ट ही रास्ता है।",
-  method_src:"स्रोत: harness-map.md वर्गीकरण · HARNESS-AUDIT-HERMES-VS-KANDO.md और DEEP-HARNESS-AUDIT-HERMES.md रिपोर्टें।"
+  method_src:"स्रोत: references/harness-map.md वर्गीकरण · Hermes/Kando ऑडिट रिपोर्टें (प्रकाशन लंबित; ऐप में उद्धृत path:line पैटर्न इन्हीं से हैं)।"
 }
 };
 let LANG = "en";
@@ -1643,10 +1643,10 @@ function renderRanking(){
     nameCell.innerHTML=esc(h.name)+badge(h);
     tr.appendChild(nameCell);
     const v=document.createElement("td"); v.textContent=h.vendor; tr.appendChild(v);
-    const t=document.createElement("td"); t.className="num score-cell";
+    const td=document.createElement("td"); td.className="num score-cell";
     const s=score(h);
-    t.innerHTML=`${s.toFixed(1)}<div class="bar"><i style="width:${s*10}%"></i></div>`;
-    tr.appendChild(t);
+    td.innerHTML=`${s.toFixed(1)}<div class="bar"><i style="width:${s*10}%"></i></div>`;
+    tr.appendChild(td);
     ["A","B","C","D","E","F"].forEach(d=>{
       const td=document.createElement("td"); td.className="num";
       td.innerHTML= d===filter?`<b style="color:var(--cyan)">${domainScore(h,d).toFixed(1)}</b>`:domainScore(h,d).toFixed(1);

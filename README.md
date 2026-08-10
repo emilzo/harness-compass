@@ -61,7 +61,7 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 ## Como contribuir
 
-1. **Adicionar/afinar um harness**: edita o array `HARNESSES` no fim de `index.html` — cada entrada tem 22 scores (0–10), `audited: true/false`, tags e um blurb. Faz um PR.
+1. **Adicionar/afinar um harness**: edita o array `BUILTIN_HARNESSES` na secção DADOS (início do `<script>` de `index.html`) — cada entrada tem 22 scores (0–10), `audited: true/false`, tags e um blurb. Faz um PR.
 2. **Auditar um harness a sério**: segue o método em `docs/` (taxonomia + escala + regras de evidência) e muda `audited` para `true` com os relatórios.
 3. **Melhorar a base de conhecimento**: o mapa `IMPROVEMENT_PATTERNS` (recomendações por dimensão, com o mecanismo-fonte citado) cresce a cada auditoria. Cada padrão novo = um PR — é assim que os rankings e os conselhos ficam mais precisos e robustos.
 4. **Melhorar o mapa ou o quiz**: PR bem-vindo.
@@ -100,8 +100,10 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 ## Estudos de caso
 
-- `docs/HARNESS-AUDIT-HERMES-VS-KANDO.md` — comparação completa (22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas).
-- `docs/DEEP-HARNESS-AUDIT-HERMES.md` — deep audit linha-a-linha do Hermes (15 achados, KPIs, 15 padrões portáveis, 10 recomendações).
+- **Hermes vs Kando** — comparação completa (22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas).
+- **Deep audit do Hermes** — linha-a-linha (15 achados, KPIs, 15 padrões portáveis, 10 recomendações).
+
+Os relatórios completos vivem no arquivo interno do projeto; a publicação em `docs/` (integral ou como sumários de evidência `path:line`) está **pendente de decisão** — ver ROADMAP. Entretanto, os mecanismos-fonte citados com `path:line` no `IMPROVEMENT_PATTERNS` da app provêm destas auditorias e são verificáveis nos repositórios respetivos.
 
 ## Licença e integridade
 

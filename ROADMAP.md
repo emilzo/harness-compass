@@ -37,7 +37,10 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [ ] Snapshot global a correr diariamente — o workflow está pronto, só corre depois do push
 
 ## Fase 3 — Publicação 🚧 (bloqueada apenas pelo push do @emilzo)
-- [ ] Repo no GitHub + push (gh autenticado como `@emilzo`) — **15+ commits prontos em `main`**
+- [ ] **Decisão de evidência (P0 do review externo):** publicar os relatórios Hermes/Kando em `docs/` (integrais ou como sumários de evidência `path:line` redigidos) OU manter as claims baixadas — o badge AUDITADO só é *prova verificável* com evidência versionada no repo; até lá o README/método marcam "publicação pendente"
+- [ ] (opcional, com a decisão acima) campo `evidence` nos harnesses `audited:true` a apontar para os relatórios/sumários
+- [ ] Decidir se `launch-assets/` (16 screenshots, ~2 MB) entra no git — hoje é deliberadamente local; se o marketing partir do repo público, versionar
+- [ ] Repo no GitHub + push (gh autenticado como `@emilzo`) — **17+ commits prontos em `main`**
 - [ ] GitHub Pages ativo (a app fica pública; OpenRouter volta a carregar preços reais em HTTPS)
 - [ ] Confirmar/ajustar `og:url`/`og:image` se o URL do Pages não for `emilzo.github.io/harness-compass`
 - [ ] Gate 2: checklist do README corrida na URL pública + workflows verdes

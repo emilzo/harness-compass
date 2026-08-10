@@ -253,7 +253,7 @@
           <div id="ct-history"></div>
         </div>
         <div>
-          <p class="muted" style="font-size:12.5px" data-i18n="ct_eff">Eficiência derivada dos scores: cache ≤85%, falhas evitadas ≤60%, routing ≤95% (escala proporcional ao score da dimensão).</p>
+          <p class="muted" style="font-size:12.5px" data-i18n="ct_eff">Eficiência derivada dos scores: cache ≤70%, falhas evitadas ≤50%, compressão ≤45%, routing 30–95% (escala proporcional ao score da dimensão).</p>
           <div id="ct-chart"></div>
         </div>
       </div>
@@ -469,7 +469,7 @@ en:{
   rank_title:"Harness ranking",
   rank_desc:"Composite score 0–10 = average of the 22 dimensions. Sort by column; click a row for the full fingerprint. <span class=\"badge b-audit\">Audited</span> = file:line evidence · <span class=\"badge b-prel\">Preliminary</span> = local folder analysis · <span class=\"badge b-est\">Estimate</span> = informed, to validate.",
   rank_dom:"Filter domain:", dom_all:"All",
-  rank_prov:"Provenance (integrity):", prov_all:"All", prov_oficial:"✓ Official (verified by PR)", prov_local:"Local (your session)",
+  rank_prov:"Provenance (integrity):", prov_all:"All", prov_oficial:"✓ Project dataset", prov_local:"Local (your session)",
   cost_title:"💰 Same Model, Different Harness — real cost per task",
   cost_desc:"Same workload, same model, through each harness. Real (harness-adjusted) cost depends on layer efficiency: <b>cache &amp; compression</b> (A2), <b>avoided failures</b> (C4), <b>routing to the cheap model</b> (A1). It's the Artificial Analysis \"Cost per Task\" — applied to the harness, not the model.",
   map_title:"Harness Map — 6 domains × 22 dimensions",
@@ -604,11 +604,12 @@ en:{
   qz_res:"Recommendation for your profile", qz_strong:"Strengths:", qz_weak:"Weaknesses:", qz_none:"none critical", qz_note:"The HCI (composite score) is not the criterion — the weighting reflects the dimensions you chose.",
   ec_no:"Without a powerful harness", ec_no_d:"Everything on the premium model, no cache, no fallback, no routing.", ec_yes:"With a powerful harness", ec_yes_d:"Cache {c}% · avoided failures {r}% · compression {co}% · routing {rt}%", ec_save:"You save <b class=\"green\" style=\"color:var(--emerald)\">${s}/month ({p}%)</b> — in tokens alone.", ec_hint:"Illustrative estimate; use your own prices.",
   ct_or_choose:"— choose a model —", ct_or_loaded:"{n} models with real prices loaded", ct_or_offline:"Offline or CORS blocked — manual prices in use (real ones return on GitHub Pages).", ct_base:"Without harness: <b style=\"color:var(--rose)\">${b}/month</b> — what each harness saves:",
-  ct_t_in:"Input tokens / month (millions)", ct_t_out:"Output tokens / month (millions)", ct_eco:"Economy model — input $/M · output $/M", ct_prem:"Premium model — input $/M · output $/M", ct_or:"Fill with real prices (OpenRouter)", ct_eff:"Efficiency derived from scores: cache ≤85%, avoided failures ≤60%, routing ≤95% (proportional to the dimension score).", ct_col_h:"Harness", ct_col_c:"Real cost $/mo", ct_col_vs:"vs no harness", ct_col_cache:"Cache", ct_col_retry:"Failures avoided", ct_col_route:"Routing",
+  ct_t_in:"Input tokens / month (millions)", ct_t_out:"Output tokens / month (millions)", ct_eco:"Economy model — input $/M · output $/M", ct_prem:"Premium model — input $/M · output $/M", ct_or:"Fill with real prices (OpenRouter)", ct_eff:"Efficiency derived from scores: cache ≤70%, avoided failures ≤50%, compression ≤45%, routing 30–95% (proportional to the dimension score).", ct_col_h:"Harness", ct_col_c:"Real cost $/mo", ct_col_vs:"vs no harness", ct_col_cache:"Cache", ct_col_retry:"Failures avoided", ct_col_route:"Routing",
   ec_t_in:"Input tokens / month (millions)", ec_t_out:"Output tokens / month (millions)", ec_p_in:"Economy model price ($ / M input)", ec_p_out:"Economy model price ($ / M output)", ec_p_in_p:"Premium model price ($ / M input)", ec_p_out_p:"Premium model price ($ / M output)", ec_cache:"Harness efficiency — prompt cache (hit rate %)", ec_retry:"Avoided failures — smart retry/fallback (% not wasted)", ec_comp:"Context compression (reduction % of context sent)", ec_route:"Smart routing (fraction of work on the cheap model)",
   au_reading:"Reading <b>{name}</b>… (100% local analysis)", au_fallback:"Modern picker unavailable (file:// or unsupported browser) — using the classic file picker.", au_nofiles:"No files read — on Safari try Chrome/Edge for the full experience.", au_nosignals:"no signals detected", au_nosignals_short:"no signals", au_id:"Identification", au_name:"Harness name", au_vendor:"Vendor / author", au_type:"Type", au_type_v:"Locally audited project", au_vendor_ph:"ex: Your company", au_type_ph:"ex: Control plane, personal agent…", au_tags_ph:"coding, gateway, multi-agent…", au_tags:"Tags (comma separated)", au_blurb:"Short description (blurb)", au_blurb_v:"Local heuristic analysis of the folder — review before publishing.", au_integrity:"🔒 <b>Integrity:</b> the official <b>AUDITED</b> badge only exists in the project ranking via PR with an evidence report (see README). What you add here stays marked <b>LOCAL</b> — and any manual slider adjustment stays <b>visible to everyone</b> (adjusted-dimension counter). Anyone who sees your export can tell what the analysis detected from what you changed.", au_add:"+ Add to ranking", au_plan:"🧭 View improvement plan", au_export:"⬇ Export JSON", au_scores_title:"Preliminary scores (22 dimensions)", au_scores_desc:"Based on signals detected in the folder. Adjust the sliders — the composite score recalculates live.", au_notice:"⚠️ <b>Local heuristic</b> analysis (file/content patterns, max 300 files) — a useful first cut, not a substitute for an audit with real code reading. The badge will be", au_tests:"Detected {n} test files and {w} CI workflows.", au_adj_n:"{n} dimensions manually adjusted (stays marked)", au_adj_clean:"no adjustments — faithful to the analysis", au_cur:"Current composite score:", au_read_files:"Read <b>{n}</b> files — analyzing signals…",
   md_new:"new", md_removed:"removed since", md_stable:"✓ stable since {d} ({n} models)", md_first:"first snapshot saved today ({n} models)", md_hist:"Discontinued models (local history)",
   au_ev_file:"file {f}", au_ev_dir:"folder {d}", au_ev_tests:"{n} test/spec files", au_ev_workflows:"{n} CI workflows", au_name_fallback:"Local project", au_blurb_fallback:"Added via local audit.", au_cancel:"Cancelled.", au_error:"Error",
+  rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"last seen", au_type_fallback:"Project",
   home_cta:"🧭 Audit your own harness — the app reads the folder in your browser and scores it (100% local, no upload)",
   method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"The first complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: harness-map.md taxonomy · HARNESS-AUDIT-HERMES-VS-KANDO.md and DEEP-HARNESS-AUDIT-HERMES.md reports.",
   footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
@@ -629,7 +630,7 @@ pt:{
   rank_title:"Ranking de harnesses",
   rank_desc:"Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa. <span class=\"badge b-audit\">Auditado</span> = evidência file:line · <span class=\"badge b-prel\">Preliminar</span> = análise local de pasta · <span class=\"badge b-est\">Estimativa</span> = informada, a validar.",
   rank_dom:"Filtrar domínio:", dom_all:"Todos",
-  rank_prov:"Proveniência (integridade):", prov_all:"Todos", prov_oficial:"✓ Oficial (verificado por PR)", prov_local:"Local (a tua sessão)",
+  rank_prov:"Proveniência (integridade):", prov_all:"Todos", prov_oficial:"✓ Dataset do projeto", prov_local:"Local (a tua sessão)",
   cost_title:"💰 Same Model, Different Harness — custo real por tarefa",
   cost_desc:"O mesmo volume de trabalho, o mesmo modelo, através de cada harness. O custo real (harness-adjusted) depende da eficiência da camada: <b>cache &amp; compressão</b> (A2), <b>falhas evitadas</b> (C4), <b>routing para o modelo barato</b> (A1). É o \"Cost per Task\" do Artificial Analysis — aplicado ao harness, não ao modelo.",
   map_title:"Mapa do Harness — 6 domínios × 22 dimensões",
@@ -764,11 +765,12 @@ pt:{
   qz_res:"Recomendação para o teu perfil", qz_strong:"Forças:", qz_weak:"Fraquezas:", qz_none:"nenhuma crítica", qz_note:"O HCI (score composto) não é o critério — o ajuste pondera as dimensões que escolheste.",
   ec_no:"Sem harness potente", ec_no_d:"Tudo no modelo premium, sem cache, sem fallback, sem routing.", ec_yes:"Com harness potente", ec_yes_d:"Cache {c}% · falhas evitadas {r}% · compressão {co}% · routing {rt}%", ec_save:"Poupas <b class=\"green\" style=\"color:var(--emerald)\">${s}/mês ({p}%)</b> — só em tokens.", ec_hint:"Estimativa ilustrativa; usa os teus preços.",
   ct_or_choose:"— escolhe um modelo —", ct_or_loaded:"{n} modelos com preços reais carregados", ct_or_offline:"Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).", ct_base:"Sem harness: <b style=\"color:var(--rose)\">${b}/mês</b> — o que cada harness poupa:",
-  ct_t_in:"Tokens de entrada / mês (milhões)", ct_t_out:"Tokens de saída / mês (milhões)", ct_eco:"Modelo económico — input $/M · output $/M", ct_prem:"Modelo premium — input $/M · output $/M", ct_or:"Preencher com preços reais (OpenRouter)", ct_eff:"Eficiência derivada dos scores: cache ≤85%, falhas evitadas ≤60%, routing ≤95% (escala proporcional ao score da dimensão).", ct_col_h:"Harness", ct_col_c:"Custo real $/mês", ct_col_vs:"vs sem harness", ct_col_cache:"Cache", ct_col_retry:"Falhas evit.", ct_col_route:"Routing",
+  ct_t_in:"Tokens de entrada / mês (milhões)", ct_t_out:"Tokens de saída / mês (milhões)", ct_eco:"Modelo económico — input $/M · output $/M", ct_prem:"Modelo premium — input $/M · output $/M", ct_or:"Preencher com preços reais (OpenRouter)", ct_eff:"Eficiência derivada dos scores: cache ≤70%, falhas evitadas ≤50%, compressão ≤45%, routing 30–95% (escala proporcional ao score da dimensão).", ct_col_h:"Harness", ct_col_c:"Custo real $/mês", ct_col_vs:"vs sem harness", ct_col_cache:"Cache", ct_col_retry:"Falhas evit.", ct_col_route:"Routing",
   ec_t_in:"Tokens de entrada / mês (milhões)", ec_t_out:"Tokens de saída / mês (milhões)", ec_p_in:"Preço modelo económico ($ / M input)", ec_p_out:"Preço modelo económico ($ / M output)", ec_p_in_p:"Preço modelo premium ($ / M input)", ec_p_out_p:"Preço modelo premium ($ / M output)", ec_cache:"Eficiência do harness — cache de prompt (hit rate %)", ec_retry:"Falhas evitadas — retry/fallback inteligente (% não desperdiçado)", ec_comp:"Compressão de contexto (redução % do contexto enviado)", ec_route:"Smart routing (fração de trabalho no modelo barato)",
   au_reading:"A ler <b>{name}</b>… (análise 100% local)", au_fallback:"Seletor moderno indisponível (file:// ou browser sem suporte) — a usar o seletor clássico de ficheiros.", au_nofiles:"Sem ficheiros lidos — em Safari experimenta Chrome/Edge para a experiência completa.", au_nosignals:"sem sinais detetados", au_nosignals_short:"sem sinais", au_id:"Identificação", au_name:"Nome do harness", au_vendor:"Vendor / autor", au_type:"Tipo", au_type_v:"Projeto auditado localmente", au_vendor_ph:"ex: A tua empresa", au_type_ph:"ex: Control plane, agente pessoal…", au_tags_ph:"coding, gateway, multi-agente…", au_tags:"Tags (vírgulas)", au_blurb:"Descrição curta (blurb)", au_blurb_v:"Análise local heurística da pasta — rever antes de publicar.", au_integrity:"🔒 <b>Integridade:</b> o badge oficial <b>AUDITADO</b> só existe no ranking do projeto via PR com relatório de evidência (ver README). O que adicionas aqui fica marcado <b>LOCAL</b> — e qualquer ajuste manual aos sliders fica <b>visível para toda a gente</b> (contador de dimensões ajustadas). Quem vê o teu export consegue distinguir o que a análise detetou do que tu mudaste.", au_add:"+ Adicionar ao ranking", au_plan:"🧭 Ver plano de melhoria", au_export:"⬇ Exportar JSON", au_scores_title:"Scores preliminares (22 dimensões)", au_scores_desc:"Baseados em sinais detetados na pasta. Ajusta os sliders — o score composto recalcula em tempo real.", au_notice:"⚠️ Análise <b>heurística local</b> (padrões de ficheiros/conteúdo, máx 300 ficheiros) — primeiro corte útil, não substitui auditoria com leitura real de código. O badge ficará", au_tests:"Detetados {n} ficheiros de teste e {w} workflows CI.", au_adj_n:"{n} dimensões ajustadas (fica marcado)", au_adj_clean:"sem ajustes — fiel à análise", au_cur:"Score composto atual:", au_read_files:"Lidos <b>{n}</b> ficheiros — a analisar sinais…",
   md_new:"novos", md_removed:"saíram desde", md_stable:"✓ estável desde {d} ({n} modelos)", md_first:"primeiro snapshot guardado hoje ({n} modelos)", md_hist:"Modelos descontinuados (histórico local)",
   au_ev_file:"ficheiro {f}", au_ev_dir:"pasta {d}", au_ev_tests:"{n} ficheiros test/spec", au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projeto local", au_blurb_fallback:"Adicionado por auditoria local.", au_cancel:"Cancelado.", au_error:"Erro",
+  rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"visto pela última vez", au_type_fallback:"Projeto",
   home_cta:"🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)",
   method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia harness-map.md · relatórios HARNESS-AUDIT-HERMES-VS-KANDO.md e DEEP-HARNESS-AUDIT-HERMES.md.",
   footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
@@ -783,7 +785,7 @@ fr:{
   map_title:"Carte du Harness", audit_title:"📂 Auditer un dossier et le classer",
   quiz_title:"Quel harness pour vous ?", eco_title:"Calculateur : combien un harness puissant fait-il économiser ?", method_title:"Méthode et preuve",
   audit_pick:"Choisir le dossier du projet", audit_clear:"Effacer", quiz_run:"Calculer la recommandation",
-  rank_dom:"Filtrer par domaine :", dom_all:"Tous", rank_prov:"Provenance (intégrité) :", prov_all:"Tous", prov_oficial:"✓ Officiel (vérifié par PR)", prov_local:"Local (votre session)",
+  rank_dom:"Filtrer par domaine :", dom_all:"Tous", rank_prov:"Provenance (intégrité) :", prov_all:"Tous", prov_oficial:"✓ Dataset du projet", prov_local:"Local (votre session)",
   footer:"Harness Compass · Agent = Modèle + Harness · audité / préliminaire / estimation ne se mélangent jamais sans étiquette · AGPL-3.0 · by @emilzo.",
   badge_audit:"Audité", badge_est:"Estimation", badge_prel:"Préliminaire", badge_local:"Local", badge_adj:"ajustées",
   home_hero_sub:"Un harness puissant — caching byte-stable, retry intelligent, fallback multi-provider, compression, vérification — rend <b>viables les LLM économiques</b>. Le harness se rembourse dès la première semaine de production. Et maintenant tu peux <b>auditer ton propre projet</b> et le voir entrer dans le classement.",
@@ -922,7 +924,7 @@ fr:{
   ct_base:"Sans harness : <b style=\"color:var(--rose)\">${b}/mois</b> — ce que chaque harness économise :", ct_t_in:"Tokens d'entrée / mois (millions)",
   ct_t_out:"Tokens de sortie / mois (millions)", ct_eco:"Modèle économique — input $/M · output $/M", ct_prem:"Modèle premium — input $/M · output $/M",
   ct_or:"Remplir avec les prix réels (OpenRouter)",
-  ct_eff:"Efficacité dérivée des scores : cache ≤85 %, échecs évités ≤60 %, routing ≤95 % (proportionnel au score de la dimension).", ct_col_h:"Harness",
+  ct_eff:"Efficacité dérivée des scores : cache ≤70 %, échecs évités ≤50 %, compression ≤45 %, routing 30–95 % (proportionnel au score de la dimension).", ct_col_h:"Harness",
   ct_col_c:"Coût réel $/mois", ct_col_vs:"vs sans harness", ct_col_cache:"Cache", ct_col_retry:"Échecs évités", ct_col_route:"Routing",
   ec_t_in:"Tokens d'entrée / mois (millions)", ec_t_out:"Tokens de sortie / mois (millions)", ec_p_in:"Prix modèle économique ($ / M input)",
   ec_p_out:"Prix modèle économique ($ / M output)", ec_p_in_p:"Prix modèle premium ($ / M input)", ec_p_out_p:"Prix modèle premium ($ / M output)",
@@ -946,6 +948,7 @@ fr:{
   md_stable:"✓ stable depuis {d} ({n} modèles)", md_first:"premier snapshot sauvegardé aujourd'hui ({n} modèles)",
   md_hist:"Modèles retirés (historique local)", au_ev_file:"fichier {f}", au_ev_dir:"dossier {d}", au_ev_tests:"{n} fichiers test/spec",
   au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projet local", au_blurb_fallback:"Ajouté via audit local.", au_cancel:"Annulé.",
+  rank_col_v:"Fournisseur", rank_n:"{n} harnesses", md_seen:"vu la dernière fois", au_type_fallback:"Projet",
   au_error:"Erreur", home_cta:"🧭 Audite ton propre harness — l'app lit le dossier dans ton navigateur et le note (100 % local, aucun upload)",
   method_p1:"Le Harness Compass naît d'audits réels, pas d'opinions. Un harness avec le badge <span class=\"badge b-audit\">Audité</span> a été analysé selon des règles de preuve : chaque affirmation cite un <code>path:line</code> vérifié, les absences sont prouvées par recherche, la couverture est déclarée. Un harness <span class=\"badge b-prel\">Préliminaire</span> est entré via l'analyse heuristique locale de dossier — utile comme premier tri, mais le badge définitif exige un audit avec lecture réelle.",
   method_mt:"Échelle de maturité (0–10)", m_m0:"N'existe pas (prouvé par recherche)", m_m2:"Trace / stub non relié au chemin d'exécution",
@@ -966,7 +969,7 @@ de:{
   map_title:"Harness-Karte", audit_title:"📂 Ordner prüfen und einstufen",
   quiz_title:"Welches Harness für dich?", eco_title:"Rechner: Wie viel spart ein starkes Harness?", method_title:"Methode & Beweis",
   audit_pick:"Projektordner wählen", audit_clear:"Leeren", quiz_run:"Empfehlung berechnen",
-  rank_dom:"Domäne filtern:", dom_all:"Alle", rank_prov:"Herkunft (Integrität):", prov_all:"Alle", prov_oficial:"✓ Offiziell (per PR verifiziert)", prov_local:"Lokal (deine Sitzung)",
+  rank_dom:"Domäne filtern:", dom_all:"Alle", rank_prov:"Herkunft (Integrität):", prov_all:"Alle", prov_oficial:"✓ Projekt-Dataset", prov_local:"Lokal (deine Sitzung)",
   footer:"Harness Compass · Agent = Modell + Harness · auditiert / vorläufig / Schätzung nie unetikettiert · AGPL-3.0 · by @emilzo.",
   badge_audit:"Auditiert", badge_est:"Schätzung", badge_prel:"Vorläufig", badge_local:"Lokal", badge_adj:"angepasst",
   home_hero_sub:"Ein starkes Harness — byte-stabiles Caching, intelligentes Retry, Multi-Provider-Fallback, Kompression, Verifikation — macht <b>günstige LLMs praxistauglich</b>. Das Harness bezahlt sich in der ersten Produktionswoche. Und jetzt kannst du <b>dein eigenes Projekt auditieren</b> und es ins Ranking aufnehmen.",
@@ -1105,7 +1108,7 @@ de:{
   ct_base:"Ohne Harness: <b style=\"color:var(--rose)\">${b}/Monat</b> — was jedes Harness spart:", ct_t_in:"Input-Tokens / Monat (Millionen)",
   ct_t_out:"Output-Tokens / Monat (Millionen)", ct_eco:"Economy-Modell — Input $/M · Output $/M", ct_prem:"Premium-Modell — Input $/M · Output $/M",
   ct_or:"Mit echten Preisen füllen (OpenRouter)",
-  ct_eff:"Effizienz aus den Scores abgeleitet: Cache ≤85 %, vermiedene Fehlschläge ≤60 %, Routing ≤95 % (proportional zum Dimensions-Score).",
+  ct_eff:"Effizienz aus den Scores abgeleitet: Cache ≤70 %, vermiedene Fehlschläge ≤50 %, Kompression ≤45 %, Routing 30–95 % (proportional zum Dimensions-Score).",
   ct_col_h:"Harness", ct_col_c:"Echte Kosten $/Mo", ct_col_vs:"vs. ohne Harness", ct_col_cache:"Cache", ct_col_retry:"Vermiedene Fehlschläge",
   ct_col_route:"Routing", ec_t_in:"Input-Tokens / Monat (Millionen)", ec_t_out:"Output-Tokens / Monat (Millionen)",
   ec_p_in:"Preis Economy-Modell ($ / M Input)", ec_p_out:"Preis Economy-Modell ($ / M Output)", ec_p_in_p:"Preis Premium-Modell ($ / M Input)",
@@ -1129,6 +1132,7 @@ de:{
   md_stable:"✓ stabil seit {d} ({n} Modelle)", md_first:"erster Snapshot heute gespeichert ({n} Modelle)",
   md_hist:"Eingestellte Modelle (lokale Historie)", au_ev_file:"Datei {f}", au_ev_dir:"Ordner {d}", au_ev_tests:"{n} test/spec-Dateien",
   au_ev_workflows:"{n} CI-Workflows", au_name_fallback:"Lokales Projekt", au_blurb_fallback:"Per lokalem Audit hinzugefügt.", au_cancel:"Abgebrochen.",
+  rank_col_v:"Anbieter", rank_n:"{n} Harnesses", md_seen:"zuletzt gesehen", au_type_fallback:"Projekt",
   au_error:"Fehler",
   home_cta:"🧭 Auditiere dein eigenes Harness — die App liest den Ordner in deinem Browser und bewertet ihn (100 % lokal, kein Upload)",
   method_p1:"Der Harness Compass entsteht aus echten Audits, nicht aus Meinung. Ein Harness mit dem Badge <span class=\"badge b-audit\">Auditiert</span> wurde nach Belegregeln analysiert: jede Aussage zitiert ein verifiziertes <code>path:line</code>, Abwesenheiten sind per Suche bewiesen, die Abdeckung ist deklariert. Ein <span class=\"badge b-prel\">Vorläufig</span>-Harness kam über die lokale heuristische Ordneranalyse hinein — nützlich als erster Schnitt, aber das endgültige Badge erfordert ein Audit mit echtem Lesen.",
@@ -1151,7 +1155,7 @@ zh:{
   map_title:"Harness 地图", audit_title:"📂 审计文件夹并排名",
   quiz_title:"哪个 Harness 适合你？", eco_title:"计算器：强大的 Harness 能省多少？", method_title:"方法与证据",
   audit_pick:"选择项目文件夹", audit_clear:"清除", quiz_run:"计算推荐",
-  rank_dom:"按领域筛选：", dom_all:"全部", rank_prov:"来源（完整性）：", prov_all:"全部", prov_oficial:"✓ 官方（经 PR 验证）", prov_local:"本地（你的会话）",
+  rank_dom:"按领域筛选：", dom_all:"全部", rank_prov:"来源（完整性）：", prov_all:"全部", prov_oficial:"✓ 项目数据集", prov_local:"本地（你的会话）",
   footer:"Harness Compass · Agent = 模型 + Harness · 审计/初步/估算绝不混标签 · AGPL-3.0 · by @emilzo.",
   badge_audit:"已审计", badge_est:"估算", badge_prel:"初步", badge_local:"本地", badge_adj:"已调整",
   home_hero_sub:"强大的 harness——字节稳定的缓存、智能重试、多 provider 回退、压缩、验证——让<b>经济型 LLM 变得可行</b>。harness 在投产第一周就能收回成本。现在你还可以<b>审计自己的项目</b>，让它进入排名。",
@@ -1246,7 +1250,7 @@ zh:{
   ec_save:"你节省 <b class=\"green\" style=\"color:var(--emerald)\">${s}/月（{p}%）</b>——仅 token 一项。", ec_hint:"示意性估算；请用你自己的价格。", ct_or_choose:"— 选择一个模型 —",
   ct_or_loaded:"已加载 {n} 个带真实价格的模型", ct_or_offline:"离线或 CORS 被拦——使用手动价格（在 GitHub Pages 上会恢复真实价格）。",
   ct_base:"没有 harness：<b style=\"color:var(--rose)\">${b}/月</b>——每个 harness 能省下的：", ct_t_in:"每月输入 tokens（百万）", ct_t_out:"每月输出 tokens（百万）",
-  ct_eco:"经济模型 — 输入 $/M · 输出 $/M", ct_prem:"高级模型 — 输入 $/M · 输出 $/M", ct_or:"填入真实价格（OpenRouter）", ct_eff:"效率由分数推导：缓存 ≤85%、避免的失败 ≤60%、路由 ≤95%（与维度分数成比例）。",
+  ct_eco:"经济模型 — 输入 $/M · 输出 $/M", ct_prem:"高级模型 — 输入 $/M · 输出 $/M", ct_or:"填入真实价格（OpenRouter）", ct_eff:"效率由分数推导：缓存 ≤70%、避免的失败 ≤50%、压缩 ≤45%、路由 30–95%（与维度分数成比例）。",
   ct_col_h:"Harness", ct_col_c:"真实成本 $/月", ct_col_vs:"对比无 harness", ct_col_cache:"缓存", ct_col_retry:"避免的失败", ct_col_route:"路由",
   ec_t_in:"每月输入 tokens（百万）", ec_t_out:"每月输出 tokens（百万）", ec_p_in:"经济模型价格（$ / M 输入）", ec_p_out:"经济模型价格（$ / M 输出）", ec_p_in_p:"高级模型价格（$ / M 输入）",
   ec_p_out_p:"高级模型价格（$ / M 输出）", ec_cache:"harness 效率 — prompt 缓存（命中率 %）", ec_retry:"避免的失败 — 智能重试/回退（未浪费 %）", ec_comp:"上下文压缩（发送上下文的削减 %）",
@@ -1260,6 +1264,7 @@ zh:{
   au_adj_clean:"未调整——忠于分析", au_cur:"当前综合分：", au_read_files:"已读取 <b>{n}</b> 个文件——正在分析信号…", md_new:"个新增", md_removed:"个已移除，自",
   md_stable:"✓ 自 {d} 起稳定（{n} 个模型）", md_first:"今天保存了首个快照（{n} 个模型）", md_hist:"已下线的模型（本地历史）", au_ev_file:"文件 {f}", au_ev_dir:"文件夹 {d}",
   au_ev_tests:"{n} 个 test/spec 文件", au_ev_workflows:"{n} 个 CI workflow", au_name_fallback:"本地项目", au_blurb_fallback:"通过本地审计添加。", au_cancel:"已取消。",
+  rank_col_v:"厂商", rank_n:"{n} 个 harness", md_seen:"最后出现", au_type_fallback:"项目",
   au_error:"错误", home_cta:"🧭 审计你自己的 harness——应用在你的浏览器里读取文件夹并打分（100% 本地，不上传）",
   method_p1:"Harness Compass 源于真实审计，而非观点。带 <span class=\"badge b-audit\">已审计</span> 徽章的 harness 按证据规则分析：每条论断都引用经验证的 <code>path:line</code>，缺失以搜索证明，覆盖范围明确声明。<span class=\"badge b-prel\">初步</span> harness 通过本地启发式文件夹分析进入——作为初筛有用，但正式徽章需要真实读码的审计。",
   method_mt:"成熟度等级（0–10）", m_m0:"不存在（搜索证明）", m_m2:"痕迹 / 未接入执行路径的 stub", m_m4:"简单场景可用，退化可预测", m_m6:"功能完整并已集成，缺口已知", m_m8:"扎实，错误已处理，有测试",
@@ -1278,7 +1283,7 @@ hi:{
   map_title:"हार्नेस नक्शा", audit_title:"📂 फ़ोल्डर ऑडिट और रैंक",
   quiz_title:"आपके लिए कौन सा हार्नेस?", eco_title:"कैलकुलेटर: शक्तिशाली हार्नेस कितना बचाता है?", method_title:"विधि और सबूत",
   audit_pick:"प्रोजेक्ट फ़ोल्डर चुनें", audit_clear:"साफ़ करें", quiz_run:"सिफारिश गणना करें",
-  rank_dom:"डोमेन फ़िल्टर करें:", dom_all:"सभी", rank_prov:"उत्पत्ति (अखंडता):", prov_all:"सभी", prov_oficial:"✓ आधिकारिक (PR द्वारा सत्यापित)", prov_local:"स्थानीय (आपका सत्र)",
+  rank_dom:"डोमेन फ़िल्टर करें:", dom_all:"सभी", rank_prov:"उत्पत्ति (अखंडता):", prov_all:"सभी", prov_oficial:"✓ प्रोजेक्ट डेटासेट", prov_local:"स्थानीय (आपका सत्र)",
   footer:"Harness Compass · Agent = मॉडल + हार्नेस · ऑडिट/प्रारंभिक/अनुमान कभी बिना लेबल नहीं · AGPL-3.0 · by @emilzo.",
   badge_audit:"ऑडिटेड", badge_est:"अनुमान", badge_prel:"प्रारंभिक", badge_local:"स्थानीय", badge_adj:"समायोजित",
   home_hero_sub:"एक शक्तिशाली हार्नेस — बाइट-स्थिर कैशिंग, स्मार्ट retry, मल्टी-प्रोवाइडर fallback, कम्प्रेशन, सत्यापन — <b>किफ़ायती LLM को व्यवहार्य बनाता है</b>। हार्नेस की लागत प्रोडक्शन के पहले हफ़्ते में ही वसूल हो जाती है। और अब आप <b>अपने प्रोजेक्ट का ऑडिट</b> करके उसे रैंकिंग में आते देख सकते हैं।",
@@ -1414,7 +1419,7 @@ hi:{
   ct_base:"हार्नेस के बिना: <b style=\"color:var(--rose)\">${b}/माह</b> — हर हार्नेस जितना बचाता है:", ct_t_in:"इनपुट tokens / माह (मिलियन)",
   ct_t_out:"आउटपुट tokens / माह (मिलियन)", ct_eco:"किफ़ायती मॉडल — इनपुट $/M · आउटपुट $/M", ct_prem:"Premium मॉडल — इनपुट $/M · आउटपुट $/M",
   ct_or:"असली दामों से भरें (OpenRouter)",
-  ct_eff:"स्कोर से व्युत्पन्न दक्षता: कैश ≤85%, टाली गई विफलताएँ ≤60%, routing ≤95% (आयाम स्कोर के अनुपात में)।", ct_col_h:"हार्नेस",
+  ct_eff:"स्कोर से व्युत्पन्न दक्षता: कैश ≤70%, टाली गई विफलताएँ ≤50%, कम्प्रेशन ≤45%, routing 30–95% (आयाम स्कोर के अनुपात में)।", ct_col_h:"हार्नेस",
   ct_col_c:"वास्तविक लागत $/माह", ct_col_vs:"बनाम बिना हार्नेस", ct_col_cache:"कैश", ct_col_retry:"टाली गई विफलताएँ", ct_col_route:"Routing",
   ec_t_in:"इनपुट tokens / माह (मिलियन)", ec_t_out:"आउटपुट tokens / माह (मिलियन)", ec_p_in:"किफ़ायती मॉडल दाम ($ / M इनपुट)",
   ec_p_out:"किफ़ायती मॉडल दाम ($ / M आउटपुट)", ec_p_in_p:"Premium मॉडल दाम ($ / M इनपुट)", ec_p_out_p:"Premium मॉडल दाम ($ / M आउटपुट)",
@@ -1436,6 +1441,7 @@ hi:{
   au_read_files:"<b>{n}</b> फ़ाइलें पढ़ीं — संकेतों का विश्लेषण…", md_new:"नए", md_removed:"हटे, तबसे:", md_stable:"✓ {d} से स्थिर ({n} मॉडल)",
   md_first:"पहला snapshot आज सहेजा गया ({n} मॉडल)", md_hist:"बंद हुए मॉडल (स्थानीय इतिहास)", au_ev_file:"फ़ाइल {f}", au_ev_dir:"फ़ोल्डर {d}",
   au_ev_tests:"{n} test/spec फ़ाइलें", au_ev_workflows:"{n} CI workflows", au_name_fallback:"स्थानीय प्रोजेक्ट",
+  rank_col_v:"विक्रेता", rank_n:"{n} harnesses", md_seen:"अंतिम बार देखा", au_type_fallback:"प्रोजेक्ट",
   au_blurb_fallback:"स्थानीय ऑडिट से जोड़ा गया।", au_cancel:"रद्द किया गया।", au_error:"त्रुटि",
   home_cta:"🧭 अपने हार्नेस का ऑडिट करें — ऐप आपके ब्राउज़र में फ़ोल्डर पढ़कर स्कोर देता है (100% स्थानीय, कोई अपलोड नहीं)",
   method_p1:"Harness Compass वास्तविक ऑडिट से जन्मा है, राय से नहीं। <span class=\"badge b-audit\">ऑडिटेड</span> बैज वाले हार्नेस का विश्लेषण प्रमाण-नियमों से हुआ: हर दावा सत्यापित <code>path:line</code> उद्धृत करता है, अनुपस्थिति खोज से सिद्ध होती है, कवरेज घोषित है। <span class=\"badge b-prel\">प्रारंभिक</span> हार्नेस स्थानीय अनुमानी फ़ोल्डर-विश्लेषण से आया — पहले अनुमान के लिए उपयोगी, पर निर्णायक बैज के लिए असली पठन वाला ऑडिट अनिवार्य है।",
@@ -1585,7 +1591,6 @@ function switchView(v){
   $$("section").forEach(s=>s.classList.toggle("active", s.id==="view-"+v));
   if(v==="ranking") renderRanking();
   if(v==="cost") renderCost();
-  if(v==="audit") updateRankCount();
   window.scrollTo({top:0});
 }
 function nav(){$$("#nav button").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));}
@@ -1594,8 +1599,9 @@ function nav(){$$("#nav button").forEach(b=>b.addEventListener("click",()=>switc
 function syncFbtnStyles(){ $$(".fbtn").forEach(x=>{ const on=x.dataset.f===filter; x.style.background=on?"rgba(139,92,246,.35)":""; x.style.color=on?"#fff":""; }); }
 function buildRanking(){
   const head=$("#rank-head"); head.innerHTML="";
-  [["name","Harness"],["vendor","Vendor"],["total","HCI"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]].forEach(([k,label])=>{
-    const th=document.createElement("th"); th.textContent=label; th.dataset.k=k;
+  [["name","ct_col_h",1],["vendor","rank_col_v",1],["total","HCI"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]].forEach(([k,label,i18n])=>{
+    const th=document.createElement("th"); th.dataset.k=k;
+    if(i18n){ th.dataset.i18n=label; th.textContent=t(label); } else th.textContent=label; /* data-i18n: o applyI18n re-traduz na troca de língua */
     if(k==="total")th.classList.add("num");
     th.addEventListener("click",()=>{
       if(filter!=="all"){ filter="all"; syncFbtnStyles(); } /* ordenar por coluna sai do modo de domínio — antes o clique era mudo */
@@ -1607,7 +1613,7 @@ function buildRanking(){
   renderRanking();
 }
 function updateRankCount(){
-  const el=$("#rank-count"); if(el) el.innerHTML = `<span class="muted" style="font-size:13px; font-weight:400">· ${HARNESSES.length} harnesses</span>`;
+  const el=$("#rank-count"); if(el) el.innerHTML = `<span class="muted" style="font-size:13px; font-weight:400">· ${t("rank_n",{n:HARNESSES.length})}</span>`;
 }
 function renderRanking(){
   let rows=HARNESSES.slice();
@@ -1833,9 +1839,10 @@ function renderORWidgets(){
   const hl=$("#ct-history");
   if(hl && window.__orStatus){
     let hist=[]; try{ hist=JSON.parse(localStorage.getItem("hc-models-gone")||"[]"); }catch(e){}
+    const wasOpen=!!(hl.querySelector("details")&&hl.querySelector("details").open); /* preserva o painel aberto na troca de língua */
     if(Array.isArray(hist) && hist.length){
-      hl.innerHTML=`<details style="margin-top:8px"><summary style="cursor:pointer;font-size:12.5px;color:var(--muted)">📦 ${t("md_hist")} (${hist.length})</summary>
-        <div style="font-size:12px;margin-top:6px;max-height:200px;overflow-y:auto">${hist.slice().reverse().slice(0,60).map(h=>`<div style="padding:3px 0;border-bottom:1px solid var(--line)"><code>${esc(h.id)}</code> <span class="muted">— last seen ${esc(h.lastSeen)}${h.in?` · $${(+h.in*1e6).toFixed(2)}/M in`:""}${h.out?` · $${(+h.out*1e6).toFixed(2)}/M out`:""}</span></div>`).join("")}</div></details>`;
+      hl.innerHTML=`<details${wasOpen?" open":""} style="margin-top:8px"><summary style="cursor:pointer;font-size:12.5px;color:var(--muted)">📦 ${t("md_hist")} (${hist.length})</summary>
+        <div style="font-size:12px;margin-top:6px;max-height:200px;overflow-y:auto">${hist.slice().reverse().slice(0,60).map(h=>`<div style="padding:3px 0;border-bottom:1px solid var(--line)"><code>${esc(h.id)}</code> <span class="muted">— ${t("md_seen")} ${esc(h.lastSeen)}${h.in?` · $${(+h.in*1e6).toFixed(2)}/M in`:""}${h.out?` · $${(+h.out*1e6).toFixed(2)}/M out`:""}</span></div>`).join("")}</div></details>`;
     }else{
       hl.innerHTML="";
     }
@@ -2102,11 +2109,11 @@ function showAuditResult(entries, ov){
         <div>
           <h3>🛠️ ${t("au_id")}</h3>
           <div class="calc">
-            <label data-i18n="au_name">Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
-            <label data-i18n="au_vendor">Vendor / autor</label><input id="au-vendor" placeholder="${esc(t("au_vendor_ph"))}">
-            <label data-i18n="au_type">Tipo</label><input id="au-type" value="${esc(t("au_type_v"))}" placeholder="${esc(t("au_type_ph"))}">
-            <label data-i18n="au_tags">Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="${esc(t("au_tags_ph"))}">
-            <label data-i18n="au_blurb">Descrição curta (blurb)</label><input id="au-blurb" value="${esc(t("au_blurb_v"))}">
+            <label for="au-name" data-i18n="au_name">Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
+            <label for="au-vendor" data-i18n="au_vendor">Vendor / autor</label><input id="au-vendor" placeholder="${esc(t("au_vendor_ph"))}">
+            <label for="au-type" data-i18n="au_type">Tipo</label><input id="au-type" value="${esc(t("au_type_v"))}" placeholder="${esc(t("au_type_ph"))}">
+            <label for="au-tags" data-i18n="au_tags">Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="${esc(t("au_tags_ph"))}">
+            <label for="au-blurb" data-i18n="au_blurb">Descrição curta (blurb)</label><input id="au-blurb" value="${esc(t("au_blurb_v"))}">
           </div>
           <div style="margin-top:14px">
             <div class="notice" style="margin:0; font-size:12px">${t("au_integrity")}</div>
@@ -2125,18 +2132,23 @@ function showAuditResult(entries, ov){
           <div style="max-height:520px; overflow-y:auto; padding-right:6px">${DIMENSIONS.map(d=>row(d[0])).join("")}</div>
         </div>
       </div>
-      <div class="notice" style="margin-top:16px">${t("au_notice")} <span class="badge b-prel">${t("badge_prel")}</span>. ${testFiles?t("au_tests",{n:testFiles,w:workflows}):""}</div>
+      <div class="notice" style="margin-top:16px">${t("au_notice")} <span class="badge b-prel">${t("badge_prel")}</span>. ${(testFiles||workflows)?t("au_tests",{n:testFiles,w:workflows}):""}</div>
     </div>`;
   applyI18n(); /* primeiro render: traduz os data-i18n do template */
   updateAuditSummary();
 }
 function auditSlide(el){ document.querySelector(`[data-out="${el.dataset.dim}"]`).textContent=el.value; updateAuditSummary(); }
-function updateAuditSummary(){
-  const total=22, sum=DIMENSIONS.reduce((a,d)=>a+(+document.querySelector(`[data-out="${d[0]}"]`).textContent||0),0);
+function adjustedCount(scores){
   const meta=window.__auditMeta;
+  if(!meta||!meta.filesRead) return 0;
+  return DIMENSIONS.filter(d=>meta.heuristica[d[0]]!==undefined && Math.abs(meta.heuristica[d[0]]-(scores[d[0]]||0))>0).length;
+}
+function updateAuditSummary(){
+  const scores=currentAuditScores();
+  const total=DIMENSIONS.length, sum=DIMENSIONS.reduce((a,d)=>a+(scores[d[0]]||0),0);
   let adj="";
-  if(meta&&meta.filesRead){
-    const n=DIMENSIONS.filter(d=>meta.heuristica[d[0]]!==undefined && Math.abs(meta.heuristica[d[0]]-(+document.querySelector(`[data-out="${d[0]}"]`).textContent||0))>0).length;
+  if(window.__auditMeta&&window.__auditMeta.filesRead){
+    const n=adjustedCount(scores);
     adj = n>0 ? ` · <span class="red">⚠ ${t("au_adj_n",{n})}</span>` : ` · <span class="green">${t("au_adj_clean")}</span>`;
   }
   const el=$("#au-score-summary");
@@ -2145,12 +2157,12 @@ function updateAuditSummary(){
 function collectAudit(){
   const scores=currentAuditScores();
   const meta=window.__auditMeta||{filesRead:0, heuristica:{}, timestamp:new Date().toISOString()};
-  const adjusted=meta.filesRead?DIMENSIONS.filter(d=>meta.heuristica[d[0]]!==undefined && Math.abs(meta.heuristica[d[0]]-scores[d[0]])>0).length:0;
+  const adjusted=adjustedCount(scores);
   return {
     id:"local-"+Date.now().toString(36),
     name: $("#au-name").value.trim()||t("au_name_fallback"),
     vendor: $("#au-vendor").value.trim()||"—",
-    type: $("#au-type").value.trim()||"Project",
+    type: $("#au-type").value.trim()||t("au_type_fallback"),
     url:"",
     audited:false,
     preliminar: meta.filesRead>0,

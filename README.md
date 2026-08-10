@@ -9,7 +9,7 @@
 Uma web app de página única (zero dependências em runtime, zero build — jsdom existe apenas como devDependency da suite de testes) com 8 vistas:
 
 1. **Paradigma** — por que o harness decide quanto do teu dinheiro em tokens é desperdiçado.
-2. **Ranking** — harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index)** 0–10, fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL sempre distinguidos.
+2. **Ranking** — harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index) 0–100** (dimensões 0–10 na rubrica de maturidade **v1**, com âncoras de fronteira: o 9–10 exige critérios que nenhum harness atual cumpre — o melhor de hoje está a 75), fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL sempre distinguidos.
 3. **💰 Custo real** — *Same Model, Different Harness*: o mesmo volume de trabalho, o mesmo modelo, através de cada harness → **custo real por tarefa (harness-adjusted)** com cache/retry/routing derivados dos scores, preços reais do OpenRouter e ranking por custo. É o "Cost per Task" do Artificial Analysis aplicado à camada.
 4. **Mapa do Harness** — a taxonomia completa (6 domínios × 22 dimensões).
 5. **📂 Auditar uma pasta** — abre a pasta de um repo local; análise heurística das 22 dimensões com justificações, sliders ajustáveis (ajustes ficam marcados — integridade), plano de melhoria, adição ao ranking e export JSON. 100% local.
@@ -97,7 +97,7 @@ Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário
 ## Método
 
 - **Taxonomia:** 6 domínios × 22 dimensões (A Núcleo · B Guias · C Sensores · D Governação ★ · E Aprendizagem · F Operacional).
-- **Escala 0–10:** 0 = não existe (provado) · 2 = vestígio · 4 = caso simples · 6 = integrado com gaps · 8 = sólido com testes · 10 = razão de existir.
+- **Escala 0–10 por dimensão (rubrica v1):** 0 = não existe (provado) · 2 = vestígio · 4 = caso simples · 6 = integrado com gaps · 8 = sólido com testes · 9–10 = **fronteira** (invariantes verificados formalmente, aprendizagem com outcomes medidos, prova comportamental B1–B8 — nenhum harness atual lá chega). O HCI exibe a média ×10 (0–100); re-norming futuro é versionado (v2), nunca silencioso — ver `references/harness-map.md`.
 - **Evidência:** auditorias read-only; cada afirmação cita `path:line` verificado; ausências provadas por busca; cobertura declarada.
 - **Foco obrigatório:** domínio D — governação, julgamento, compliance, guardrails.
 

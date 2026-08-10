@@ -68,7 +68,30 @@
 | 8 | Solid, errors handled, tests |
 | 10 | Reason for existing, depth beyond the requirement |
 
-**HCI (Harness Compass Index)** = plain average of the 22 dimension scores.
+**HCI (Harness Compass Index)** = plain average of the 22 dimension scores,
+**displayed 0–100** (average × 10). Dimensions are scored 0–10 on the maturity
+rubric above. This is **rubric v1**.
+
+## Frontier anchors (why nobody is at 100 — by design)
+
+The 9–10 band of every dimension is reserved for **frontier criteria that no
+harness meets today** (2026 baseline: the best audited dimension scores are 9;
+the best HCI is 75/100). A 10 requires evidence such as:
+
+- invariants and guardrails **formally verified**, not just tested;
+- cross-session learning with **measured** outcome improvement (not just memory);
+- behavioral proof: passing the B1–B8 benchmark scenarios at published thresholds;
+- cost optimality demonstrated against a baseline, not just capped.
+
+The ceiling is mathematically reachable and empirically unreached — that is the
+headroom for where the field is going. Scores are expected to compress upward as
+practices mature; when today's differentiators become table stakes, the rubric is
+**re-normed as v2** with raised anchors and re-audited entries. Rankings always
+display the rubric version — a 75 on v1 is not comparable to a 75 on v2, and the
+version tag is what keeps historical honesty. The long-term difficulty curve
+lives in the behavioral benchmark (B1–B8), whose scenarios are versioned and
+hardened over time.
+
 **Evidence rule:** audits are read-only; every claim cites a verified `path:line`;
 absences are proven by search; coverage is declared. Audited / preliminary /
 estimate are never mixed without a label.

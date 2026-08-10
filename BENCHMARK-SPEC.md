@@ -27,7 +27,8 @@
 
 ## Como isto se liga ao ranking
 
-- **HCI (Harness Compass Index)** = score estático das 22 dimensões (engenharia, lida no código).
+- **HCI (Harness Compass Index)** = score estático das 22 dimensões (engenharia, lida no código) — exibido 0–100, dimensões 0–10 na **rubrica v1** com âncoras de fronteira (9–10 exigem critérios que nenhum harness atual cumpre; ver `references/harness-map.md`). Re-norming futuro por versão (v2 com fasquia subida), nunca silencioso.
+- **Escalada de dificuldade:** os cenários B1–B8 são versionados e endurecem com o campo (payloads novos no B5, thresholds mais exigentes, B9+) — é aqui que vive a curva de dificuldade de longo prazo; resultados citam sempre a versão da suite.
 - **HAC (Harness-Adjusted Cost)** = custo real por tarefa (comportamento, medido pelo B8 + preços reais).
 - **Benchmark** = os dois cruzados: um harness com HCI alto deve ter HAC baixo. Se não tiver, o HCI está errado — e o benchmark corrige o ranking.
 

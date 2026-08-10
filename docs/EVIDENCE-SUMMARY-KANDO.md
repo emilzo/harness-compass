@@ -18,7 +18,7 @@
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
 | 7 | 5 | 6 | 2 | 8 | 2 | 8 | 7 | 7 | 7 | 7 | 7 | 5 | 6 | 7 | 6 | 4 | 6 | 6 | 6 | 8 | 8 |
 
-**HCI (composite): 6.1/10.** Domain profile: strong in feedforward specification
+**HCI (composite): 61/100** (rubric v1; dimensions scored 0–10). Domain profile: strong in feedforward specification
 (B1/B3), evaluation (C2), cost control (F2) and resilience (F3); weak in native
 tooling (A4) and skills (B2) — by design, Kando supervises *external* agents
 (Codex/Claude/OpenClaw) rather than shipping its own toolset.

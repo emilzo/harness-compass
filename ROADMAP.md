@@ -34,6 +34,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] Privacidade verificada: Limpar liberta cache/meta/closures (~2 MB); re-entrância do picker segura
 - [x] Acessibilidade: landmark `main`, aria-labels, teclado nas tabelas, `prefers-reduced-motion` (CSS + JS), labels `for=` — Lighthouse A11y 100
 - [x] SEO/social: meta description, Open Graph + Twitter Card, social card 1200×630, favicon, theme-color dinâmico
+- [x] **Escala à prova de saturação (decisão pré-lançamento):** HCI exibido **0–100** (dimensões mantêm a rubrica 0–10, agora **v1**); âncoras de fronteira documentadas (9–10 = critérios que ninguém cumpre hoje — melhor HCI atual: 75); re-norming futuro versionado (v2, nunca silencioso); curva de dificuldade de longo prazo nos cenários B1–B8 versionados
 - [ ] Snapshot global a correr diariamente — o workflow está pronto, só corre depois do push
 
 ## Fase 3 — Publicação 🚧 (bloqueada apenas pelo push do @emilzo)

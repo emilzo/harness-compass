@@ -203,7 +203,7 @@
   <section id="view-ranking">
     <div class="card">
       <h2><span data-i18n="rank_title">Ranking de harnesses</span> <span id="rank-count"></span></h2>
-      <p class="muted" data-i18n="rank_desc">Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa.
+      <p class="muted" data-i18n="rank_desc">HCI 0–100 = média das 22 dimensões (cada uma 0–10 na rubrica de maturidade, v1). Ordena pelas colunas; clica numa linha para a fingerprint completa.
         <span class="badge b-audit">Auditado</span> = evidência file:line · <span class="badge b-prel">Preliminar</span> = análise local de pasta · <span class="badge b-est">Estimativa</span> = informada, a validar.</p>
       <div style="margin:14px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
         <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_dom">Filtrar domínio:</b>
@@ -468,7 +468,7 @@ en:{
   home_anatomy_sub:"The anatomy (Interface → AGENT LOOP → LLM ↔ tools; Tools, Permissions, Sandbox, Verification, Observability) is right. The full version adds what real auditing revealed:",
   home_anatomy_legend:"\"Loops coordinate. Harnesses guide, execute, verify and decide. Models generate.\"",
   rank_title:"Harness ranking",
-  rank_desc:"Composite score 0–10 = average of the 22 dimensions. Sort by column; click a row for the full fingerprint. <span class=\"badge b-audit\">Audited</span> = file:line evidence · <span class=\"badge b-prel\">Preliminary</span> = local folder analysis · <span class=\"badge b-est\">Estimate</span> = informed, to validate.",
+  rank_desc:"HCI 0–100 = average of the 22 dimensions (each scored 0–10 on the maturity rubric, v1). Sort by column; click a row for the full fingerprint. <span class=\"badge b-audit\">Audited</span> = file:line evidence · <span class=\"badge b-prel\">Preliminary</span> = local folder analysis · <span class=\"badge b-est\">Estimate</span> = informed, to validate.",
   rank_dom:"Filter domain:", dom_all:"All",
   rank_prov:"Provenance (integrity):", prov_all:"All", prov_oficial:"✓ Project dataset", prov_local:"Local (your session)",
   cost_title:"💰 Same Model, Different Harness — real cost per task",
@@ -601,7 +601,7 @@ en:{
   dim_F2:"Cost & efficiency", dim_F2_d:"Cap, budgets, rate limiting.",
   dim_F3:"Resilience", dim_F3_d:"Failover, timeouts, crash recovery.",
   pl_title:"Improvement plan — the Compass as compass", pl_level:"Maturity level:", pl_crit:"🔴 Critical (score < 4) — fix first", pl_imp:"🟠 Important (4–5) — score lever", pl_nogaps:"No critical gaps — above 6 in every dimension. Congratulations: this harness is at managed level or higher.", pl_source:"Advice derived from patterns proven in real audits (Hermes/Kando/CCR). Each pattern cites its source mechanism. Contribute new patterns via PR.", pl_none:"No catalogued patterns yet — contribute one with a PR.",
-  dt_hci:"HCI · Harness Compass Index", dt_dims:"/10 · 22 dimensions", dt_dims_l:"dimensions", dt_fp:"Fingerprint by domain", dt_laud:"Audit with path:line evidence (reports in docs/).", dt_llocal:"Local heuristic analysis of {n} files{adj}. For an official badge, an audit with a reviewed report via PR is required.", dt_ladj:"dimensions manually adjusted (visible divergence)", dt_lclean:"no adjustments, faithful to the analysis", dt_lest:"Informed estimate — audit candidate.",
+  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensions", dt_dims_l:"dimensions", dt_fp:"Fingerprint by domain", dt_laud:"Audit with path:line evidence (reports in docs/).", dt_llocal:"Local heuristic analysis of {n} files{adj}. For an official badge, an audit with a reviewed report via PR is required.", dt_ladj:"dimensions manually adjusted (visible divergence)", dt_lclean:"no adjustments, faithful to the analysis", dt_lest:"Informed estimate — audit candidate.",
   qz_res:"Recommendation for your profile", qz_strong:"Strengths:", qz_weak:"Weaknesses:", qz_none:"none critical", qz_note:"The HCI (composite score) is not the criterion — the weighting reflects the dimensions you chose.",
   ec_no:"Without a powerful harness", ec_no_d:"Everything on the premium model, no cache, no fallback, no routing.", ec_yes:"With a powerful harness", ec_yes_d:"Cache {c}% · avoided failures {r}% · compression {co}% · routing {rt}%", ec_save:"You save <b class=\"green\" style=\"color:var(--emerald)\">${s}/month ({p}%)</b> — in tokens alone.", ec_hint:"Illustrative estimate; use your own prices.",
   ct_or_choose:"— choose a model —", ct_or_loaded:"{n} models with real prices loaded", ct_or_offline:"Offline or CORS blocked — manual prices in use (real ones return on GitHub Pages).", ct_base:"Without harness: <b style=\"color:var(--rose)\">${b}/month</b> — what each harness saves:",
@@ -630,7 +630,7 @@ pt:{
   home_anatomy_sub:"A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:",
   home_anatomy_legend:"\"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram.\"",
   rank_title:"Ranking de harnesses",
-  rank_desc:"Score composto 0–10 = média das 22 dimensões. Ordena pelas colunas; clica numa linha para a fingerprint completa. <span class=\"badge b-audit\">Auditado</span> = evidência file:line · <span class=\"badge b-prel\">Preliminar</span> = análise local de pasta · <span class=\"badge b-est\">Estimativa</span> = informada, a validar.",
+  rank_desc:"HCI 0–100 = média das 22 dimensões (cada uma 0–10 na rubrica de maturidade, v1). Ordena pelas colunas; clica numa linha para a fingerprint completa. <span class=\"badge b-audit\">Auditado</span> = evidência file:line · <span class=\"badge b-prel\">Preliminar</span> = análise local de pasta · <span class=\"badge b-est\">Estimativa</span> = informada, a validar.",
   rank_dom:"Filtrar domínio:", dom_all:"Todos",
   rank_prov:"Proveniência (integridade):", prov_all:"Todos", prov_oficial:"✓ Dataset do projeto", prov_local:"Local (a tua sessão)",
   cost_title:"💰 Same Model, Different Harness — custo real por tarefa",
@@ -763,7 +763,7 @@ pt:{
   dim_F2:"Custo & eficiência", dim_F2_d:"Cap, budgets, rate limiting.",
   dim_F3:"Resiliência", dim_F3_d:"Failover, timeouts, crash recovery.",
   pl_title:"Plano de melhoria — o Compass como compass", pl_level:"Nível de maturidade:", pl_crit:"🔴 Crítico (score < 4) — resolver primeiro", pl_imp:"🟠 Importante (4–5) — alavanca de score", pl_nogaps:"Sem gaps críticos — acima de 6 em todas as dimensões. Parabéns: este harness está no nível gerido ou superior.", pl_source:"Conselhos derivados dos padrões provados em auditorias reais (Hermes/Kando/CCR). Cada padrão cita o mecanismo-fonte. Contribui com padrões novos via PR.", pl_none:"Sem padrões catalogados ainda — contribui com um PR.",
-  dt_hci:"HCI · Harness Compass Index", dt_dims:"/10 · 22 dimensões", dt_dims_l:"dimensões", dt_fp:"Fingerprint por domínio", dt_laud:"Auditoria com evidência path:line (relatórios em docs/).", dt_llocal:"Análise local heurística de {n} ficheiros{adj}. Para badge oficial, auditoria com relatório revisto via PR.", dt_ladj:"dimensões ajustadas manualmente (divergência visível)", dt_lclean:"sem ajustes, fiel à análise", dt_lest:"Estimativa informada — candidata a auditoria.",
+  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensões", dt_dims_l:"dimensões", dt_fp:"Fingerprint por domínio", dt_laud:"Auditoria com evidência path:line (relatórios em docs/).", dt_llocal:"Análise local heurística de {n} ficheiros{adj}. Para badge oficial, auditoria com relatório revisto via PR.", dt_ladj:"dimensões ajustadas manualmente (divergência visível)", dt_lclean:"sem ajustes, fiel à análise", dt_lest:"Estimativa informada — candidata a auditoria.",
   qz_res:"Recomendação para o teu perfil", qz_strong:"Forças:", qz_weak:"Fraquezas:", qz_none:"nenhuma crítica", qz_note:"O HCI (score composto) não é o critério — o ajuste pondera as dimensões que escolheste.",
   ec_no:"Sem harness potente", ec_no_d:"Tudo no modelo premium, sem cache, sem fallback, sem routing.", ec_yes:"Com harness potente", ec_yes_d:"Cache {c}% · falhas evitadas {r}% · compressão {co}% · routing {rt}%", ec_save:"Poupas <b class=\"green\" style=\"color:var(--emerald)\">${s}/mês ({p}%)</b> — só em tokens.", ec_hint:"Estimativa ilustrativa; usa os teus preços.",
   ct_or_choose:"— escolhe um modelo —", ct_or_loaded:"{n} modelos com preços reais carregados", ct_or_offline:"Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).", ct_base:"Sem harness: <b style=\"color:var(--rose)\">${b}/mês</b> — o que cada harness poupa:",
@@ -801,7 +801,7 @@ fr:{
   home_anatomy_title:"De l'anatomie classique au système cybernétique",
   home_anatomy_sub:"L'anatomie (Interface → AGENT LOOP → LLM ↔ tools ; Outils, Permissions, Sandbox, Vérification, Observabilité) est juste. La version complète ajoute ce que l'audit réel a révélé :",
   home_anatomy_legend:"\"Les loops coordonnent. Les harnesses guident, exécutent, vérifient et décident. Les modèles génèrent.\"",
-  rank_desc:"Score composite 0–10 = moyenne des 22 dimensions. Trie par colonne ; clique sur une ligne pour la fingerprint complète. <span class=\"badge b-audit\">Audité</span> = preuve file:line · <span class=\"badge b-prel\">Préliminaire</span> = analyse locale de dossier · <span class=\"badge b-est\">Estimation</span> = informée, à valider.",
+  rank_desc:"HCI 0–100 = moyenne des 22 dimensions (chacune notée 0–10 sur la rubrique de maturité, v1). Trie par colonne ; clique sur une ligne pour la fingerprint complète. <span class=\"badge b-audit\">Audité</span> = preuve file:line · <span class=\"badge b-prel\">Préliminaire</span> = analyse locale de dossier · <span class=\"badge b-est\">Estimation</span> = informée, à valider.",
   cost_desc:"Même charge de travail, même modèle, à travers chaque harness. Le coût réel (harness-adjusted) dépend de l'efficacité de la couche : <b>cache &amp; compression</b> (A2), <b>échecs évités</b> (C4), <b>routing vers le modèle bon marché</b> (A1). C'est le \"Cost per Task\" d'Artificial Analysis — appliqué au harness, pas au modèle.",
   map_desc:"La taxonomie utilisée pour auditer n'importe quel harness. Chaque dimension a ses propres KPI et une échelle de maturité 0–10.",
   audit_desc:"Ouvre le dossier d'un projet/repo. Le Compass lit des signaux structurels (AGENTS.md, tests, CI, skills, patterns de sécurité…) et produit des scores préliminaires pour les 22 dimensions. Ajuste ce que tu veux, ajoute au classement et exporte le JSON pour contribuer. <b>Tout tourne dans ton navigateur — rien ne quitte ta machine.</b>",
@@ -912,7 +912,7 @@ fr:{
   pl_crit:"🔴 Critique (score < 4) — corriger d'abord", pl_imp:"🟠 Important (4–5) — levier de score",
   pl_nogaps:"Aucune lacune critique — au-dessus de 6 dans toutes les dimensions. Félicitations : ce harness est au niveau géré ou supérieur.",
   pl_source:"Conseils dérivés de patterns prouvés en audits réels (Hermes/Kando/CCR). Chaque pattern cite son mécanisme source. Contribue de nouveaux patterns via PR.",
-  pl_none:"Pas encore de patterns catalogués — contribues-en un via PR.", dt_hci:"HCI · Harness Compass Index", dt_dims:"/10 · 22 dimensions",
+  pl_none:"Pas encore de patterns catalogués — contribues-en un via PR.", dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensions",
   dt_dims_l:"dimensions", dt_fp:"Fingerprint par domaine", dt_laud:"Audit avec preuves path:line (rapports dans docs/).",
   dt_llocal:"Analyse heuristique locale de {n} fichiers{adj}. Pour un badge officiel, un audit avec rapport relu via PR est requis.",
   dt_ladj:"dimensions ajustées manuellement (divergence visible)", dt_lclean:"sans ajustements, fidèle à l'analyse",
@@ -986,7 +986,7 @@ de:{
   home_anatomy_title:"Von der klassischen Anatomie zum kybernetischen System",
   home_anatomy_sub:"Die Anatomie (Interface → AGENT LOOP → LLM ↔ Tools; Tools, Berechtigungen, Sandbox, Verifikation, Observability) stimmt. Die Vollversion ergänzt, was echtes Auditieren gezeigt hat:",
   home_anatomy_legend:"\"Loops koordinieren. Harnesses führen, führen aus, verifizieren und entscheiden. Modelle generieren.\"",
-  rank_desc:"Composite-Score 0–10 = Durchschnitt der 22 Dimensionen. Nach Spalten sortieren; Zeile anklicken für den vollen Fingerprint. <span class=\"badge b-audit\">Auditiert</span> = file:line-Beleg · <span class=\"badge b-prel\">Vorläufig</span> = lokale Ordneranalyse · <span class=\"badge b-est\">Schätzung</span> = fundiert, zu validieren.",
+  rank_desc:"HCI 0–100 = Durchschnitt der 22 Dimensionen (je 0–10 auf der Reife-Rubrik, v1). Nach Spalten sortieren; Zeile anklicken für den vollen Fingerprint. <span class=\"badge b-audit\">Auditiert</span> = file:line-Beleg · <span class=\"badge b-prel\">Vorläufig</span> = lokale Ordneranalyse · <span class=\"badge b-est\">Schätzung</span> = fundiert, zu validieren.",
   cost_desc:"Gleiche Arbeitslast, gleiches Modell, durch jedes Harness. Die echten (harness-adjusted) Kosten hängen von der Effizienz der Schicht ab: <b>Cache &amp; Kompression</b> (A2), <b>vermiedene Fehlschläge</b> (C4), <b>Routing zum günstigen Modell</b> (A1). Das ist der \"Cost per Task\" von Artificial Analysis — angewendet auf das Harness, nicht auf das Modell.",
   map_desc:"Die Taxonomie, mit der jedes Harness auditiert wird. Jede Dimension hat eigene KPIs und eine Reifeskala von 0–10.",
   audit_desc:"Öffne den Ordner eines Projekts/Repos. Der Compass liest strukturelle Signale (AGENTS.md, Tests, CI, Skills, Security-Patterns…) und erzeugt vorläufige Scores für die 22 Dimensionen. Passe an, was du willst, füge es dem Ranking hinzu und exportiere das JSON, um beizutragen. <b>Alles läuft in deinem Browser — nichts verlässt deine Maschine.</b>",
@@ -1096,7 +1096,7 @@ de:{
   pl_crit:"🔴 Kritisch (Score < 4) — zuerst beheben", pl_imp:"🟠 Wichtig (4–5) — Score-Hebel",
   pl_nogaps:"Keine kritischen Lücken — über 6 in jeder Dimension. Glückwunsch: dieses Harness ist auf gemanagtem Niveau oder höher.",
   pl_source:"Ratschläge aus Patterns, die in echten Audits bewiesen wurden (Hermes/Kando/CCR). Jedes Pattern zitiert seinen Quellmechanismus. Trage neue Patterns per PR bei.",
-  pl_none:"Noch keine katalogisierten Patterns — trage eins per PR bei.", dt_hci:"HCI · Harness Compass Index", dt_dims:"/10 · 22 Dimensionen",
+  pl_none:"Noch keine katalogisierten Patterns — trage eins per PR bei.", dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 Dimensionen",
   dt_dims_l:"Dimensionen", dt_fp:"Fingerprint nach Domäne", dt_laud:"Audit mit path:line-Belegen (Berichte in docs/).",
   dt_llocal:"Lokale heuristische Analyse von {n} Dateien{adj}. Für ein offizielles Badge ist ein Audit mit begutachtetem Bericht per PR nötig.",
   dt_ladj:"manuell angepasste Dimensionen (sichtbare Abweichung)", dt_lclean:"keine Anpassungen, der Analyse treu",
@@ -1169,7 +1169,7 @@ zh:{
   step2_d:"harness 并非生而平等。本排名以 22 个维度加证据为它们打分——已审计、估算与本地分析始终明确区分。", step3_t:"3 · 决定", step3_d:"有了强大的 harness，便宜的模型也能达到昂贵模型的水平。测验告诉你哪个适合你——计算器告诉你能省多少。",
   home_anatomy_title:"从经典解剖到控制论系统", home_anatomy_sub:"经典解剖（Interface → AGENT LOOP → LLM ↔ tools；工具、权限、Sandbox、验证、可观测性）是对的。完整版补上了真实审计揭示的部分：",
   home_anatomy_legend:"\"Loop 负责协调。Harness 负责引导、执行、验证与决策。模型负责生成。\"",
-  rank_desc:"综合分 0–10 = 22 个维度的平均值。按列排序；点击一行查看完整指纹。<span class=\"badge b-audit\">已审计</span> = file:line 证据 · <span class=\"badge b-prel\">初步</span> = 本地文件夹分析 · <span class=\"badge b-est\">估算</span> = 有依据、待验证。",
+  rank_desc:"HCI 0–100 = 22 个维度的平均值（每个维度按成熟度量表 v1 打 0–10 分）。按列排序；点击一行查看完整指纹。<span class=\"badge b-audit\">已审计</span> = file:line 证据 · <span class=\"badge b-prel\">初步</span> = 本地文件夹分析 · <span class=\"badge b-est\">估算</span> = 有依据、待验证。",
   cost_desc:"同样的工作量、同一个模型，经过每个 harness。真实（harness-adjusted）成本取决于这一层的效率：<b>缓存与压缩</b>（A2）、<b>避免的失败</b>（C4）、<b>路由到便宜模型</b>（A1）。这就是 Artificial Analysis 的 \"Cost per Task\"——应用在 harness 层，而不是模型层。",
   map_desc:"用于审计任何 harness 的分类法。每个维度都有自己的 KPI 和 0–10 成熟度等级。",
   audit_desc:"打开一个项目/仓库文件夹。Compass 读取结构信号（AGENTS.md、测试、CI、skills、安全模式……），为 22 个维度生成初步分数。随意调整、加入排名、导出 JSON 参与贡献。<b>一切都在你的浏览器里运行——任何数据都不会离开你的机器。</b>",
@@ -1247,8 +1247,8 @@ zh:{
   dim_D5:"伦理与对齐", dim_D5_d:"披露、公平、局限。", dim_E1:"记忆与学习", dim_E1_d:"持久化、反 promptware。", dim_E2:"人类引导环", dim_E2_d:"人类如何在 harness 上迭代。", dim_F1:"执行与环境",
   dim_F1_d:"在哪运行：本地、docker、云。", dim_F2:"成本与效率", dim_F2_d:"上限、预算、限速。", dim_F3:"韧性", dim_F3_d:"故障转移、超时、崩溃恢复。", pl_title:"改进计划——Compass 作为罗盘",
   pl_level:"成熟度等级：", pl_crit:"🔴 关键（分数 < 4）——优先修复", pl_imp:"🟠 重要（4–5）——提分杠杆", pl_nogaps:"没有关键缺口——所有维度都在 6 分以上。恭喜：这个 harness 已达到受管理级别或更高。",
-  pl_source:"建议来自真实审计（Hermes/Kando/CCR）中验证过的模式。每个模式都注明来源机制。欢迎通过 PR 贡献新模式。", pl_none:"尚无收录的模式——通过 PR 贡献一个吧。", dt_hci:"HCI · Harness Compass Index",
-  dt_dims:"/10 · 22 个维度", dt_dims_l:"个维度", dt_fp:"按领域的指纹", dt_laud:"带 path:line 证据的审计（报告在 docs/）。",
+  pl_source:"建议来自真实审计（Hermes/Kando/CCR）中验证过的模式。每个模式都注明来源机制。欢迎通过 PR 贡献新模式。", pl_none:"尚无收录的模式——通过 PR 贡献一个吧。", dt_hci:"HCI v1 · Harness Compass Index",
+  dt_dims:"/100 · 22 个维度", dt_dims_l:"个维度", dt_fp:"按领域的指纹", dt_laud:"带 path:line 证据的审计（报告在 docs/）。",
   dt_llocal:"对 {n} 个文件的本地启发式分析{adj}。要获得官方徽章，需要通过 PR 提交经审阅的审计报告。", dt_ladj:"个维度被手动调整（差异可见）", dt_lclean:"未调整，忠于分析", dt_lest:"有依据的估算——审计候选。",
   qz_res:"为你的画像推荐", qz_strong:"优势：", qz_weak:"弱点：", qz_none:"没有关键弱点", qz_note:"HCI（综合分）不是评判标准——加权反映的是你选择的维度。", ec_no:"没有强大 harness",
   ec_no_d:"全部用高级模型，没有缓存、没有回退、没有路由。", ec_yes:"有强大 harness", ec_yes_d:"缓存 {c}% · 避免的失败 {r}% · 压缩 {co}% · 路由 {rt}%",
@@ -1302,7 +1302,7 @@ hi:{
   home_anatomy_title:"क्लासिक शारीरिकी से साइबरनेटिक प्रणाली तक",
   home_anatomy_sub:"शारीरिकी (Interface → AGENT LOOP → LLM ↔ tools; टूल्स, अनुमतियाँ, Sandbox, सत्यापन, Observability) सही है। पूर्ण संस्करण वह जोड़ता है जो वास्तविक ऑडिट ने उजागर किया:",
   home_anatomy_legend:"\"Loop समन्वय करते हैं। हार्नेस मार्गदर्शन, निष्पादन, सत्यापन और निर्णय करते हैं। मॉडल सृजन करते हैं।\"",
-  rank_desc:"समग्र स्कोर 0–10 = 22 आयामों का औसत। कॉलम से क्रमबद्ध करें; पूरी फ़िंगरप्रिंट के लिए पंक्ति पर क्लिक करें। <span class=\"badge b-audit\">ऑडिटेड</span> = file:line प्रमाण · <span class=\"badge b-prel\">प्रारंभिक</span> = स्थानीय फ़ोल्डर विश्लेषण · <span class=\"badge b-est\">अनुमान</span> = सूचित, सत्यापन बाकी।",
+  rank_desc:"HCI 0–100 = 22 आयामों का औसत (प्रत्येक परिपक्वता रूब्रिक v1 पर 0–10)। कॉलम से क्रमबद्ध करें; पूरी फ़िंगरप्रिंट के लिए पंक्ति पर क्लिक करें। <span class=\"badge b-audit\">ऑडिटेड</span> = file:line प्रमाण · <span class=\"badge b-prel\">प्रारंभिक</span> = स्थानीय फ़ोल्डर विश्लेषण · <span class=\"badge b-est\">अनुमान</span> = सूचित, सत्यापन बाकी।",
   cost_desc:"वही कार्यभार, वही मॉडल, हर हार्नेस से होकर। वास्तविक (harness-adjusted) लागत परत की दक्षता पर निर्भर है: <b>कैश और कम्प्रेशन</b> (A2), <b>टाली गई विफलताएँ</b> (C4), <b>सस्ते मॉडल की ओर routing</b> (A1)। यह Artificial Analysis का \"Cost per Task\" है — मॉडल पर नहीं, हार्नेस पर लागू।",
   map_desc:"किसी भी हार्नेस के ऑडिट में प्रयुक्त वर्गीकरण। हर आयाम के अपने KPI और 0–10 परिपक्वता पैमाना है।",
   audit_desc:"किसी प्रोजेक्ट/रेपो का फ़ोल्डर खोलें। Compass संरचनात्मक संकेत पढ़ता है (AGENTS.md, परीक्षण, CI, skills, सुरक्षा पैटर्न…) और 22 आयामों के प्रारंभिक स्कोर बनाता है। जो चाहें समायोजित करें, रैंकिंग में जोड़ें और योगदान के लिए JSON निर्यात करें। <b>सब कुछ आपके ब्राउज़र में चलता है — कुछ भी आपकी मशीन से बाहर नहीं जाता।</b>",
@@ -1411,7 +1411,7 @@ hi:{
   pl_crit:"🔴 गंभीर (स्कोर < 4) — पहले ठीक करें", pl_imp:"🟠 महत्वपूर्ण (4–5) — स्कोर उठाने का लीवर",
   pl_nogaps:"कोई गंभीर कमी नहीं — हर आयाम में 6 से ऊपर। बधाई: यह हार्नेस प्रबंधित स्तर या उससे ऊपर है।",
   pl_source:"सलाह वास्तविक ऑडिट (Hermes/Kando/CCR) में सिद्ध पैटर्नों से ली गई है। हर पैटर्न अपना स्रोत तंत्र उद्धृत करता है। PR से नए पैटर्न योगदान करें।",
-  pl_none:"अभी कोई सूचीबद्ध पैटर्न नहीं — PR से एक योगदान करें।", dt_hci:"HCI · Harness Compass Index", dt_dims:"/10 · 22 आयाम", dt_dims_l:"आयाम",
+  pl_none:"अभी कोई सूचीबद्ध पैटर्न नहीं — PR से एक योगदान करें।", dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 आयाम", dt_dims_l:"आयाम",
   dt_fp:"क्षेत्र अनुसार फ़िंगरप्रिंट", dt_laud:"path:line प्रमाण सहित ऑडिट (रिपोर्टें docs/ में)।",
   dt_llocal:"{n} फ़ाइलों का स्थानीय अनुमानी विश्लेषण{adj}। आधिकारिक बैज के लिए PR से समीक्षित रिपोर्ट वाला ऑडिट आवश्यक है।",
   dt_ladj:"आयाम हाथ से समायोजित (दृश्य विचलन)", dt_lclean:"बिना समायोजन, विश्लेषण के प्रति निष्ठावान", dt_lest:"सूचित अनुमान — ऑडिट उम्मीदवार।",
@@ -1573,7 +1573,7 @@ function improvementPlan(h){
   }).join("");
   return `<div class="card" style="border-left:4px solid var(--cyan)">
     <h3>🧭 ${t("pl_title")}</h3>
-    <p>${t("pl_level")} <b style="color:var(--cyan)">${t(lvl.name)}</b> <span class="muted">(${s.toFixed(1)}/10)</span> — ${t(lvl.desc)}</p>
+    <p>${t("pl_level")} <b style="color:var(--cyan)">${t(lvl.name)}</b> <span class="muted">(${(s*10).toFixed(0)}/100)</span> — ${t(lvl.desc)}</p>
     ${crit.length?`<h4 style="color:var(--rose); margin-top:12px">${t("pl_crit")}</h4>${list(crit)}`:""}
     ${imp.length?`<h4 style="color:var(--amber); margin-top:12px">${t("pl_imp")}</h4>${list(imp)}`:""}
     ${!crit.length&&!imp.length?`<p class="muted" style="margin-top:10px">${t("pl_nogaps")}</p>`:""}
@@ -1652,11 +1652,11 @@ function renderRanking(){
     const v=document.createElement("td"); v.textContent=h.vendor; tr.appendChild(v);
     const td=document.createElement("td"); td.className="num score-cell";
     const s=score(h);
-    td.innerHTML=`${s.toFixed(1)}<div class="bar"><i style="width:${s*10}%"></i></div>`;
+    td.innerHTML=`${(s*10).toFixed(0)}<div class="bar"><i style="width:${s*10}%"></i></div>`; /* HCI exibido 0–100 (rubrica das dimensões continua 0–10) */
     tr.appendChild(td);
     ["A","B","C","D","E","F"].forEach(d=>{
       const td=document.createElement("td"); td.className="num";
-      td.innerHTML= d===filter?`<b style="color:var(--cyan)">${domainScore(h,d).toFixed(1)}</b>`:domainScore(h,d).toFixed(1);
+      td.innerHTML= d===filter?`<b style="color:var(--cyan)">${(domainScore(h,d)*10).toFixed(0)}</b>`:(domainScore(h,d)*10).toFixed(0);
       tr.appendChild(td);
     });
     tr.addEventListener("click",()=>showDetail(h));
@@ -1684,7 +1684,7 @@ function showDetail(h, noScroll){
         <p style="margin:12px 0">${esc(t(h.blurb))}</p>
         <p>${h.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join("")}</p>
         <div class="donut-row" style="margin-top:16px"><div>${donut}</div>
-          <div><div class="muted" style="font-size:12px">${t("dt_hci")}</div><div class="big">${score(h).toFixed(1)}</div><div class="muted" style="font-size:11px">${t("dt_dims")}</div></div>
+          <div><div class="muted" style="font-size:12px">${t("dt_hci")}</div><div class="big">${(score(h)*10).toFixed(0)}</div><div class="muted" style="font-size:11px">${t("dt_dims")}</div></div>
         </div>
       </div>
       <div style="min-width:300px">
@@ -1738,7 +1738,7 @@ function donutSVG(v){
     <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#22d3ee"/>
     </linearGradient></defs>
-    <text x="46" y="50" text-anchor="middle" font-size="19" font-weight="800" style="fill:var(--ink)">${v.toFixed(1)}</text>
+    <text x="46" y="50" text-anchor="middle" font-size="19" font-weight="800" style="fill:var(--ink)">${(v*10).toFixed(0)}</text>
   </svg>`;
 }
 
@@ -1780,7 +1780,7 @@ function runQuiz(noScroll){
     const weak=Object.entries(r.h.scores).filter(([k,v])=>v<=4).map(([k])=>dimName(k)).slice(0,2);
     const prov=r.h.audited?t("badge_audit").toLowerCase():r.h.preliminar?t("badge_prel").toLowerCase():t("badge_est").toLowerCase();
     return `<div class="card result-card">
-      <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· fit ${r.w.toFixed(1)}</span></h3>
+      <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· fit ${(r.w*10).toFixed(0)}</span></h3>
       <p class="muted">${t("qz_strong")} ${strong.join(", ")||"—"}. ${t("qz_weak")} ${weak.join(", ")||t("qz_none")}. (${prov})</p></div>`;
   }).join("")+`<p class="muted">${t("qz_note")}</p>`;
   if(!noScroll) $("#quiz-result").scrollIntoView();
@@ -1916,7 +1916,7 @@ function renderCost(){
       <td class="num">${(r.e.cache*100).toFixed(0)}%</td>
       <td class="num">${(r.e.retry*100).toFixed(0)}%</td>
       <td class="num">${(r.e.route*100).toFixed(0)}%</td>
-      <td class="num">${score(h).toFixed(1)}</td>`;
+      <td class="num">${(score(h)*10).toFixed(0)}</td>`;
     tr.addEventListener("click",()=>{ switchView("ranking"); showDetail(h); }); /* o detail vive na vista Ranking — antes o clique renderizava escondido */
     body.appendChild(tr);
   });
@@ -2160,7 +2160,7 @@ function updateAuditSummary(){
     adj = n>0 ? ` · <span class="red">⚠ ${t("au_adj_n",{n})}</span>` : ` · <span class="green">${t("au_adj_clean")}</span>`;
   }
   const el=$("#au-score-summary");
-  if(el) el.innerHTML=`${t("au_cur")} <b class="big" style="font-size:22px">${(sum/total).toFixed(1)}</b><span class="muted">/10</span>${adj}`;
+  if(el) el.innerHTML=`${t("au_cur")} <b class="big" style="font-size:22px">${(sum/total*10).toFixed(0)}</b><span class="muted">/100</span>${adj}`;
 }
 function collectAudit(){
   const scores=currentAuditScores();

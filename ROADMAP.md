@@ -51,7 +51,11 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 
 ## Fase 3.5 — Estrutura (depois do lançamento, nunca na véspera)
 - [ ] Partir o monólito sem build: `index.html` + `assets/data.js` + `assets/i18n.js` + `assets/app.js` (`file://` continua a funcionar; suite adapta com `JSDOM.fromFile`)
-- [ ] Templates de comunidade: PR template de auditoria (relatório + evidência `file:line` → badge AUDITADO), JSON schema do harness, CONTRIBUTING.md
+- [ ] Pipeline de auditoria operacionalizado (convergência de 2 reviews independentes):
+  - [ ] `docs/audits/` + `AUDIT-TEMPLATE.md` (22 dims, evidência `path:line`, cobertura declarada, o que não foi lido, escolha pública/privada conforme a política de confidencialidade)
+  - [ ] PR template "Add audited harness" + JSON schema do harness + CONTRIBUTING.md
+  - [ ] Teste na suite: todo o `audited:true` do dataset TEM `evidence` e o ficheiro existe (a regra vira gate de CI, não convenção)
+  - [ ] (opcional, UI) botão "Preparar submissão" na auditoria local: descarrega JSON preliminar + template pré-preenchido, sempre `audited:false`
 
 ## Fase 4 — Credibilidade & Benchmark 🚧
 - [ ] Runner dos cenários B1–B8 (Python standalone — ver `BENCHMARK-SPEC.md`; ainda não existe)

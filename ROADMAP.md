@@ -17,7 +17,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 
 ## Fase 1 — Globalização ✅
 - [x] i18n EN + PT completos
-- [x] i18n FR/DE/ZH/HI **completos** — 329 chaves por língua, 6 línguas a 329/329 (fim do fallback EN visível)
+- [x] i18n FR/DE/ZH/HI **completos** — 6 línguas a 330/330 chaves (fim do fallback EN visível)
 - [x] Selector de 6 línguas + persistência (localStorage) + fallback EN automático
 - [x] `check-i18n.js` como norma obrigatória — chaves EN **e PT** (exit 1 se faltarem), chaves table-driven (dim/imp/quiz/lv/blurb/dom), placeholders consistentes entre línguas, órfãs, duplicados, `LANGUAGES` vs blocos do dicionário, `esc()` em atributos, allowlist de conteúdo com zero avisos
 - [x] Tema claro/escuro com persistência e contraste corrigido (incl. donut/radar com variáveis de tema)
@@ -29,7 +29,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] `scripts/snapshot-models.mjs` + workflow GitHub Actions (cron diário)
 - [x] Dataset `docs/models/` (378 modelos reais com preços — primeiro snapshot)
 - [x] Revisões externas fechadas: 15 findings + 6 novos (N1–N6) + triple check final de 21 findings — todos corrigidos com verificação
-- [x] Suite de regressão jsdom — **22 cenários** (quiz, replay de língua, auditoria, cache, picker, re-entrância, widgets OpenRouter, CTA, pills, tema dos SVG, teclado, status re-traduzível)
+- [x] Suite de regressão jsdom — **23 cenários** (quiz, replay de língua, auditoria, cache, picker, re-entrância, widgets OpenRouter, CTA, pills, tema dos SVG, teclado, status re-traduzível, enforcement do dataset audited→evidence)
 - [x] CI (`.github/workflows/ci.yml`): `npm test` (check-i18n + suite) em cada push/PR
 - [x] Privacidade verificada: Limpar liberta cache/meta/closures (~2 MB); re-entrância do picker segura
 - [x] Acessibilidade: landmark `main`, aria-labels, teclado nas tabelas, `prefers-reduced-motion` (CSS + JS), labels `for=` — Lighthouse A11y 100
@@ -61,6 +61,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] **Pipeline de auditoria semi-automático** (`.claude/skills/audit-harness` + `.claude/workflows/audit-harness.js`): submissão → clone/pin SHA → 6 domínios em paralelo → consolidação no template → verificação adversarial das citações → draft; o humano só faz o **sign-off de 15–30 min** (spot-check de ≥3 citações + aprovação, agrupável em lote) — o gate humano nunca é removido
 - [ ] (opcional, UI) botão "Preparar submissão" na auditoria local: descarrega JSON preliminar + template pré-preenchido, sempre `audited:false`
 - [ ] JSON schema formal do harness
+- [ ] **i18n de dados** (sprint i18n pós-launch): `type` e `tags` dos harnesses builtin como chaves traduzíveis — hoje ficam EN no detail em todas as línguas (a lacuna multi-língua mais visível que resta; blurbs já são chaves)
 
 ## Fase 4 — Credibilidade & Benchmark 🚧
 - [ ] Runner dos cenários B1–B8 (Python standalone — ver `BENCHMARK-SPEC.md`; ainda não existe)

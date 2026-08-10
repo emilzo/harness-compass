@@ -56,7 +56,7 @@
   html[data-theme="light"] .dim-row{border-bottom-color:rgba(20,24,50,.08);}
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *,*::before,*::after{animation-duration:.01ms!important; transition-duration:.01ms!important;} }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important;} }
   body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; min-height:100vh;
     background-image:radial-gradient(1200px 500px at 80% -10%, rgba(139,92,246,.14), transparent 60%),
                      radial-gradient(900px 400px at 10% 110%, rgba(34,211,238,.10), transparent 60%);}
@@ -87,6 +87,7 @@
   thead th:hover{color:var(--cyan);}
   thead th.sorted{color:var(--violet);} thead th.sorted::after{content:" ▾";} thead th.sorted.asc::after{content:" ▴";}
   tbody tr{cursor:pointer; transition:background .12s;}
+  tbody tr:focus-visible{outline:2px solid var(--violet); outline-offset:-2px;}
   tbody tr:hover{background:rgba(139,92,246,.08);}
   td.num, th.num{text-align:right;}
   .score-cell{font-weight:800; font-size:15.5px;}
@@ -1568,7 +1569,6 @@ function improvementPlan(h){
 }
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
-const SMOOTH = (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth";
 const esc = s => String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const score = h => {const v=Object.values(h.scores); return v.reduce((a,b)=>a+b,0)/v.length;};
 const domainScore = (h,d) => DIMENSIONS.filter(x=>x[0][0]===d).reduce((a,dd)=>a+h.scores[dd[0]],0)/DIMENSIONS.filter(x=>x[0][0]===d).length;
@@ -1591,12 +1591,17 @@ function switchView(v){
 function nav(){$$("#nav button").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));}
 
 /* ================= RANKING ================= */
+function syncFbtnStyles(){ $$(".fbtn").forEach(x=>{ const on=x.dataset.f===filter; x.style.background=on?"rgba(139,92,246,.35)":""; x.style.color=on?"#fff":""; }); }
 function buildRanking(){
   const head=$("#rank-head"); head.innerHTML="";
   [["name","Harness"],["vendor","Vendor"],["total","HCI"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]].forEach(([k,label])=>{
     const th=document.createElement("th"); th.textContent=label; th.dataset.k=k;
     if(k==="total")th.classList.add("num");
-    th.addEventListener("click",()=>{ if(sortKey===k)sortAsc=!sortAsc; else{sortKey=k; sortAsc=false;} renderRanking(); });
+    th.addEventListener("click",()=>{
+      if(filter!=="all"){ filter="all"; syncFbtnStyles(); } /* ordenar por coluna sai do modo de domínio — antes o clique era mudo */
+      if(sortKey===k)sortAsc=!sortAsc; else{sortKey=k; sortAsc=false;}
+      renderRanking();
+    });
     head.appendChild(th);
   });
   renderRanking();
@@ -1618,9 +1623,16 @@ function renderRanking(){
       return sortAsc?va-vb:vb-va;
     });
   }
+  $$("#rank-head th").forEach(th=>{ /* indicador ▾/▴ — o CSS th.sorted existia mas nunca era aplicado */
+    const on = filter==="all" ? th.dataset.k===sortKey : th.dataset.k===filter;
+    th.classList.toggle("sorted", on);
+    th.classList.toggle("asc", on && filter==="all" && sortAsc);
+  });
   const body=$("#rank-body"); body.innerHTML="";
   rows.forEach(h=>{
     const tr=document.createElement("tr");
+    tr.tabIndex=0; /* linhas alcançáveis por teclado — o detail era só-rato */
+    tr.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); showDetail(h); } });
     const nameCell=document.createElement("td");
     nameCell.innerHTML=esc(h.name)+badge(h);
     tr.appendChild(nameCell);
@@ -1672,7 +1684,7 @@ function showDetail(h, noScroll){
     ${improvementPlan(h)}
     <p class="legend">${h.audited?t("dt_laud"):h.local?t("dt_llocal",{n:h.meta&&h.meta.filesRead||0,adj:h.adjusted>0?` — <b style="color:var(--rose)">${h.adjusted} ${t("dt_ladj")}</b>`:` — ${t("dt_lclean")}`}):t("dt_lest")}</p>
   </div>`;
-  if(!noScroll) el.scrollIntoView({behavior:SMOOTH});
+  if(!noScroll) el.scrollIntoView(); /* sem behavior explícito: o scroll-behavior do CSS decide e respeita prefers-reduced-motion ao vivo */
 }
 
 /* ================= SVG CHARTS ================= */
@@ -1758,7 +1770,7 @@ function runQuiz(noScroll){
       <h3>${i+1}. ${esc(r.h.name)} ${badge(r.h)} <span class="muted">· fit ${r.w.toFixed(1)}</span></h3>
       <p class="muted">${t("qz_strong")} ${strong.join(", ")||"—"}. ${t("qz_weak")} ${weak.join(", ")||t("qz_none")}. (${prov})</p></div>`;
   }).join("")+`<p class="muted">${t("qz_note")}</p>`;
-  if(!noScroll) $("#quiz-result").scrollIntoView({behavior:SMOOTH});
+  if(!noScroll) $("#quiz-result").scrollIntoView();
 }
 
 /* ================= ECONOMY ================= */
@@ -1882,6 +1894,8 @@ function renderCost(){
   const body=$("#cost-body"); body.innerHTML="";
   rows.forEach(({h,r})=>{
     const tr=document.createElement("tr");
+    tr.tabIndex=0;
+    tr.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); switchView("ranking"); showDetail(h); } });
     tr.innerHTML=`<td>${esc(h.name)} ${badge(h)}</td>
       <td class="num score-cell">$${r.withH.toFixed(0)}</td>
       <td class="num" style="color:var(--emerald)">-${r.pct.toFixed(0)}%</td>
@@ -1889,7 +1903,7 @@ function renderCost(){
       <td class="num">${(r.e.retry*100).toFixed(0)}%</td>
       <td class="num">${(r.e.route*100).toFixed(0)}%</td>
       <td class="num">${score(h).toFixed(1)}</td>`;
-    tr.addEventListener("click",()=>showDetail(h));
+    tr.addEventListener("click",()=>{ switchView("ranking"); showDetail(h); }); /* o detail vive na vista Ranking — antes o clique renderizava escondido */
     body.appendChild(tr);
   });
   const base=tIn*ppi+tOut*ppo;
@@ -2152,7 +2166,7 @@ function previewPlan(noScroll){
   const h=collectAudit();
   const el=$("#au-plan-preview");
   el.innerHTML=improvementPlan(h);
-  if(!noScroll) el.scrollIntoView({behavior:SMOOTH});
+  if(!noScroll) el.scrollIntoView();
 }
 function addAuditedHarness(){
   const h=collectAudit();
@@ -2180,7 +2194,7 @@ function resetAudit(){
 nav(); initLang(); initTheme(); buildRanking(); buildMap(); buildQuiz(); calcEconomy(); renderCost(); loadOpenRouter();
 $$(".fbtn").forEach(b=>b.addEventListener("click",()=>{
   filter=b.dataset.f;
-  $$(".fbtn").forEach(x=>{x.style.background=x===b?"rgba(139,92,246,.35)":"", x.style.color=x===b?"#fff":"";});
+  syncFbtnStyles();
   renderRanking();
 }));
 $$(".pbtn").forEach(b=>b.addEventListener("click",()=>{

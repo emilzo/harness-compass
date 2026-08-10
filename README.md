@@ -118,7 +118,7 @@ Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, 
 
 **Tema claro/escuro:** botão ☀️/🌙 no topo — respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
 
-**Assinatura:** público → **@emilzo** (nome do repo) no rodapé; internamente → @eluminaime · @emilzo · Agent Hermes (Tom).
+**Assinatura:** **@emilzo alias @eluminaime** — rodapé com @emilzo (nome do repo).
 
 ## Constância de modelos (preços sempre atuais)
 

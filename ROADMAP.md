@@ -21,7 +21,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] Selector de 6 línguas + persistência (localStorage) + fallback EN automático
 - [x] `check-i18n.js` como norma obrigatória — chaves EN **e PT** (exit 1 se faltarem), chaves table-driven (dim/imp/quiz/lv/blurb/dom), placeholders consistentes entre línguas, órfãs, duplicados, `LANGUAGES` vs blocos do dicionário, `esc()` em atributos, allowlist de conteúdo com zero avisos
 - [x] Tema claro/escuro com persistência e contraste corrigido (incl. donut/radar com variáveis de tema)
-- [x] Branding: `@emilzo` público (rodapé) · `@eluminaime · @emilzo · Agent Hermes (Tom)` interno
+- [x] Branding: `@emilzo alias @eluminaime` (créditos do cabeçalho e meta author) · rodapé com `@emilzo`
 
 ## Fase 2 — Constância, Integridade & Endurecimento ✅
 - [x] Snapshot local + diff de modelos (🆕 novos / 📦 saíram desde a última visita)

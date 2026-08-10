@@ -1,10 +1,10 @@
 # Harness Compass — Roadmap
 
-Legenda: `[x]` = feito · `[ ]` = por fazer · **Nota:** = parcial (caixa em branco)
-Última atualização: 2026-08-09
+Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
+Última atualização: 2026-08-10 · Estado do código: suite de regressão 22/22 verde · `check-i18n` exit 0 · Lighthouse 98/100/100/100
 
 ## Fase 0 — Fundação ✅
-- [x] App single-file, zero dependências, funciona offline (`index.html`)
+- [x] App single-file, funciona offline (`index.html`; jsdom só como devDependency de testes)
 - [x] Taxonomia 6 domínios × 22 dimensões (`references/harness-map.md`)
 - [x] Ranking com scores, HCI (Harness Compass Index) e badges de proveniência
 - [x] Mapa da taxonomia (vista interativa A–F)
@@ -15,35 +15,44 @@ Legenda: `[x]` = feito · `[ ]` = por fazer · **Nota:** = parcial (caixa em bra
 - [x] Export JSON com heurística original + contador de dimensões ajustadas
 - [x] Licença AGPL-3.0 + README completo
 
-## Fase 1 — Globalização ✅ (uma parcial)
-- [x] i18n EN + PT completos (322 chaves: blurbs, dimensões, padrões, método, quiz, auditoria)
-- [ ] i18n FR/DE/ZH/HI completos — **Nota:** 289 chaves por língua em fallback EN (navegação, títulos e badges traduzidos; conteúdo longo ainda cai em EN)
+## Fase 1 — Globalização ✅
+- [x] i18n EN + PT completos
+- [x] i18n FR/DE/ZH/HI **completos** — 329 chaves por língua, 6 línguas a 329/329 (fim do fallback EN visível)
 - [x] Selector de 6 línguas + persistência (localStorage) + fallback EN automático
-- [x] `check-i18n.js` como norma obrigatória: chaves EN, `esc()` em atributos, `data-i18n` órfãos
-- [x] Tema claro/escuro com persistência e contraste corrigido (ámbar, pills, chips, notices)
+- [x] `check-i18n.js` como norma obrigatória — chaves EN **e PT** (exit 1 se faltarem), chaves table-driven (dim/imp/quiz/lv/blurb/dom), placeholders consistentes entre línguas, órfãs, duplicados, `LANGUAGES` vs blocos do dicionário, `esc()` em atributos, allowlist de conteúdo com zero avisos
+- [x] Tema claro/escuro com persistência e contraste corrigido (incl. donut/radar com variáveis de tema)
 - [x] Branding: `@emilzo` público (rodapé) · `@eluminaime · @emilzo · Agent Hermes (Tom)` interno
 
-## Fase 2 — Constância & Integridade ✅ (uma parcial)
+## Fase 2 — Constância, Integridade & Endurecimento ✅
 - [x] Snapshot local + diff de modelos (🆕 novos / 📦 saíram desde a última visita)
 - [x] Histórico local de modelos descontinuados (nome, data, último preço)
 - [x] `scripts/snapshot-models.mjs` + workflow GitHub Actions (cron diário)
 - [x] Dataset `docs/models/` (378 modelos reais com preços — primeiro snapshot)
-- [ ] Snapshot global a correr diariamente — **Nota:** o workflow está pronto, mas só corre depois do push para GitHub
-- [x] Review externo: 12 findings corrigidos + 2 refutados com evidência
-- [x] Prevenção de regressões: `setLang` refatorado, estado com teardown, cache da análise
-- [x] Checklist de testes manuais obrigatórios no README
+- [x] Revisões externas fechadas: 15 findings + 6 novos (N1–N6) + triple check final de 21 findings — todos corrigidos com verificação
+- [x] Suite de regressão jsdom — **22 cenários** (quiz, replay de língua, auditoria, cache, picker, re-entrância, widgets OpenRouter, CTA, pills, tema dos SVG, teclado, status re-traduzível)
+- [x] CI (`.github/workflows/ci.yml`): `npm test` (check-i18n + suite) em cada push/PR
+- [x] Privacidade verificada: Limpar liberta cache/meta/closures (~2 MB); re-entrância do picker segura
+- [x] Acessibilidade: landmark `main`, aria-labels, teclado nas tabelas, `prefers-reduced-motion` (CSS + JS), labels `for=` — Lighthouse A11y 100
+- [x] SEO/social: meta description, Open Graph + Twitter Card, social card 1200×630, favicon, theme-color dinâmico
+- [ ] Snapshot global a correr diariamente — o workflow está pronto, só corre depois do push
 
-## Fase 3 — Publicação 🚧 (pronta, por executar)
-- [ ] Repo no GitHub + push (gh autenticado como `@emilzo`)
-- [ ] GitHub Pages ativo (a app fica pública e o OpenRouter volta a carregar preços reais)
-- [ ] Snapshot global de modelos a correr (depende do push)
+## Fase 3 — Publicação 🚧 (bloqueada apenas pelo push do @emilzo)
+- [ ] Repo no GitHub + push (gh autenticado como `@emilzo`) — **15+ commits prontos em `main`**
+- [ ] GitHub Pages ativo (a app fica pública; OpenRouter volta a carregar preços reais em HTTPS)
+- [ ] Confirmar/ajustar `og:url`/`og:image` se o URL do Pages não for `emilzo.github.io/harness-compass`
+- [ ] Gate 2: checklist do README corrida na URL pública + workflows verdes
+- [x] Assets de lançamento: 16 screenshots (8 vistas × 2 temas, atualizados pós-correções) em `launch-assets/` + social card em `docs/social-card.png`
 - [ ] Artigo-âncora EN (Show HN + blog)
-- [ ] Landing curta como funil — **Nota:** o Compass serve de produto-âncora; landing formal separada ainda não existe
-- [ ] Assets de lançamento (screenshots, demo gravada, social cards)
+- [ ] Landing curta como funil — o Compass serve de produto-âncora; landing formal separada ainda não existe
+
+## Fase 3.5 — Estrutura (depois do lançamento, nunca na véspera)
+- [ ] Partir o monólito sem build: `index.html` + `assets/data.js` + `assets/i18n.js` + `assets/app.js` (`file://` continua a funcionar; suite adapta com `JSDOM.fromFile`)
+- [ ] Templates de comunidade: PR template de auditoria (relatório + evidência `file:line` → badge AUDITADO), JSON schema do harness, CONTRIBUTING.md
 
 ## Fase 4 — Credibilidade & Benchmark 🚧
-- [ ] Leaderboard B1–B8 com submissões reais — **Nota:** a especificação `BENCHMARK-SPEC.md` está completa; nenhuma submissão protocolada ainda
-- [ ] Primeira auditoria externa via PR (o pipeline existe: relatório + evidência → badge AUDITADO; Hermes/Kando/CCR já têm badges builtin, mas o fluxo externo ainda não foi exercitado)
+- [ ] Runner dos cenários B1–B8 (Python standalone — ver `BENCHMARK-SPEC.md`; ainda não existe)
+- [ ] Leaderboard B1–B8 com submissões reais
+- [ ] Primeira auditoria externa via PR (o pipeline existe; o fluxo externo ainda não foi exercitado)
 - [ ] Selo AUDITED + termos de submissão formais
 - [ ] Termos legais: proteção da marca, retenção de dados, consentimento de telemetria
 
@@ -52,4 +61,15 @@ Legenda: `[x]` = feito · `[ ]` = por fazer · **Nota:** = parcial (caixa em bra
 - [ ] Canais empresariais: LinkedIn, Substack
 - [ ] Primeira consulta gratuita (30–45 min) como funil de diagnóstico
 - [ ] Plano pago: otimização de custo / implementação / auditoria / monitorização
-- [ ] Continuidade temporal completa: resultados publicados ligados à versão exacta do modelo (benchmarks antigos preservados quando um modelo é retirado)
+- [ ] Continuidade temporal completa: resultados publicados ligados à versão exacta do modelo
+
+## Gatilhos futuros (decidir quando acontecerem, não antes)
+- [ ] Dados como dados (`data/harnesses/*.json`, `locales/*.json`) — gatilho: primeira contribuição externa real
+- [ ] Migração Vite + TypeScript + render-a-partir-de-estado — gatilho: leaderboard/crescimento da equipa
+- [ ] Decisão de produto: `harnessEff` com caps atingíveis na fórmula (hoje o texto declara os tetos reais: cache ≤70%, falhas ≤50%, compressão ≤45%, routing 30–95%)
+
+## Registado sem correção (menores, documentados nas revisões)
+- `md_stable` mostra a data da última visita, não o início real da estabilidade
+- Poupança negativa na calculadora sem aviso (inputs invertidos; é ilustrativa)
+- "+ Adicionar ao ranking" repetido cria entradas locais duplicadas (por design)
+- `applyI18n` corre até 3× por troca de língua (perf micro; sem impacto visível)

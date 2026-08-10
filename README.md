@@ -6,7 +6,7 @@
 
 ## O que é
 
-Uma web app de página única (zero dependências, zero build) com 8 vistas:
+Uma web app de página única (zero dependências em runtime, zero build — jsdom existe apenas como devDependency da suite de testes) com 8 vistas:
 
 1. **Paradigma** — por que o harness decide quanto do teu dinheiro em tokens é desperdiçado.
 2. **Ranking** — harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index)** 0–10, fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL sempre distinguidos.
@@ -111,7 +111,7 @@ Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço
 
 ## Internacionalização (i18n)
 
-Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): traduções parciais caem para Inglês (fallback), e qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. EN e PT completos (incluindo blurbs, 22 dimensões, padrões de melhoria e o método); FR/DE/ZH/HI cobrem navegação, títulos e badges. **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` — ou abre um PR.
+Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): traduções parciais caem para Inglês (fallback), e qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. **As 6 línguas estão completas — 329/329 chaves cada** (blurbs, 22 dimensões, 64 padrões de melhoria, quiz, auditoria, método). **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` — o `check-i18n.js` valida automaticamente chaves e placeholders — ou abre um PR.
 
 **Tema claro/escuro:** botão ☀️/🌙 no topo — respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
 
@@ -126,19 +126,24 @@ Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, 
 
 ## Garantia i18n (norma obrigatória)
 
-`node check-i18n.js` valida que **qualquer funcionalidade nova tem chaves em EN** (falha se faltarem) e reporta quantas chaves de cada língua estão em fallback EN. Norma: funcionalidade nova → chaves `t()`/`data-i18n` em EN e PT; FR/DE/ZH/HI caem em EN até traduzidas (aviso, não bloqueio).
+`node check-i18n.js` valida (exit 1 se falhar):
+- [x] Chaves em **EN e PT** para qualquer funcionalidade nova (as outras línguas reportam fallback)
+- [x] Chaves **table-driven** (`dim_*`, `imp_*`, `quiz_*`, `lv_*`, `blurb_*`, `dom_*`) — as ~160 chaves que chegam ao `t()` por variável
+- [x] `t("chave")` literal (aspas duplas, simples ou template) sem chave em EN
+- [x] **Placeholders `{x}` consistentes** entre EN e cada língua (um typo `{N}` vs `{n}` falha)
+- [x] Chaves órfãs (existem numa língua mas não em EN) e duplicadas no mesmo bloco
+- [x] Línguas declaradas em `LANGUAGES` vs blocos do dicionário (nenhuma língua fica invisível ao check)
+- [x] Interpolação em atributos HTML (`value`/`title`/`placeholder`/…) **sem `esc()`** — em qualquer posição do valor (injeção latente)
+- [x] Interpolações de conteúdo fora da allowlist auditada (aviso; zero avisos em árvore limpa)
 
-O check também falha em: `t("chave")` literal sem chave em EN, e **interpolação em atributos HTML (`value`/`title`/`placeholder`/…) sem `esc()`** (injeção latente).
+## Testes (automatizados + smoke manual)
 
-## Testes manuais obrigatórios (antes de cada PR)
+**`npm test`** corre o `check-i18n.js` + a **suite de regressão jsdom com 22 cenários** (`test/regression.mjs`) — quiz e auditoria preservados na troca de língua, reset/cancel sem ressurreição de estado, matcher case-insensitive, cache sem envenenamento, re-entrância do picker, widgets OpenRouter, CTA da home, pills, variáveis de tema nos SVG, navegação por teclado, status re-traduzível. O CI (`.github/workflows/ci.yml`) corre isto em **cada push/PR** — nenhuma destas classes de regressão pode voltar sem o CI ficar vermelho.
 
-O check estático não apanha regressões de estado — estes cenários já falharam uma vez e não podem voltar a falhar. Corre-os em **Chrome** (`python -m http.server 8123` → `http://127.0.0.1:8123`):
+Smoke manual recomendado antes de um release (Chrome, `python -m http.server 8123`):
 
-1. **Mudar língua com estado aberto:** responde ao quiz (opções ≠ default) → muda EN↔PT → as tuas respostas mantêm-se e o resultado é o mesmo, só traduzido. Abre o detail de um harness → muda de língua → o detail traduz **sem fazer scroll**.
-2. **Auditoria completa + mudar língua:** audita uma pasta → ajusta sliders, preenche nome/vendor/tags/blurb, abre o plano de melhoria → muda de língua → **tudo** preservado (sliders, campos, plano) e traduzido, incluindo a coluna de evidências (ex: "pasta tools" → "folder tools").
-3. **Limpar não ressuscita:** audita uma pasta → clica Limpar → muda de língua → a auditoria **não** volta a aparecer.
-4. **Temas:** em claro e escuro, todas as cores de acento (âmbar, ciano, verde, róseo) são legíveis — badges, chips A–F, avisos, pills; o seletor de língua tem fundo/texto corretos nos dois temas.
-5. **Offline/CORS:** com a rede cortada, a vista de Custo mostra o aviso de preços manuais e continua a funcionar.
-6. **Fallback do picker:** em Firefox (sem `showDirectoryPicker`) a auditoria funciona pelo seletor clássico e o nome do harness sai do nome da pasta.
+1. **Temas:** em claro e escuro, badges, chips A–F, avisos, pills, donut e radar legíveis.
+2. **Offline/CORS:** com a rede cortada, a vista de Custo mostra o aviso de preços manuais e continua a funcionar.
+3. **Fallback do picker:** em Firefox (sem `showDirectoryPicker`) a auditoria funciona pelo seletor clássico; cancelar mostra "Cancelado." de imediato.
 
-Depois de passar: `node check-i18n.js` verde → commit.
+Depois de passar: `npm test` verde → commit.

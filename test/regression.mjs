@@ -299,3 +299,74 @@ test('15. hc-lang inválida: initLang cai para en', async () => {
     assert.equal(w.document.documentElement.lang, 'en');
   });
 });
+
+/* =====================================================================
+ * 16–22. Triple check: home, tema dos SVG, custo→ranking, teclado,
+ * re-entrância do pickFolder e status re-traduzível
+ * ===================================================================== */
+
+test('16. CTA da home abre a vista de auditoria (era nav("audit"), inexistente)', async () => {
+  await withBoot(({ $ }) => {
+    $('[data-i18n="home_cta"]').click();
+    assert.ok($('#view-audit').classList.contains('active'), 'vista audit ativa');
+    assert.ok(!$('#view-home').classList.contains('active'), 'home desativada');
+  });
+});
+
+test('17. pills da home renderizam como chips em todas as línguas (o applyI18n destruía-os)', async () => {
+  await withBoot(({ w, $$ }) => {
+    assert.equal($$('#home-pills .pill').length, 9, '9 chips no boot (EN)');
+    w.setLang('zh');
+    assert.equal($$('#home-pills .pill').length, 9, '9 chips após setLang');
+  });
+});
+
+test('18. donut/radar usam variáveis de tema (o número do HCI era invisível no tema claro)', async () => {
+  await withBoot(({ $ }) => {
+    $('#rank-body tr').click(); // abre o detail do 1.º harness
+    const html = $('#rank-detail').innerHTML;
+    assert.ok(html.includes('fill:var(--ink)'), 'texto do donut com var(--ink)');
+    assert.ok(html.includes('stroke:var(--line)'), 'tracks/grelha com var(--line)');
+    assert.ok(!/fill="#e2e8f0"/.test(html), 'sem cor dark hardcoded no texto');
+  });
+});
+
+test('19. clique numa linha do Custo muda para o Ranking e mostra o detail (antes renderizava escondido)', async () => {
+  await withBoot(({ $ }) => {
+    $('[data-view="cost"]').click();
+    assert.ok($('#view-cost').classList.contains('active'));
+    $('#cost-body tr').click();
+    assert.ok($('#view-ranking').classList.contains('active'), 'mudou para o ranking');
+    assert.ok($('#rank-detail').innerHTML.length > 0, 'detail renderizado e visível');
+  });
+});
+
+test('20. linhas do ranking alcançáveis por teclado (tabindex + Enter)', async () => {
+  await withBoot(({ w, $ }) => {
+    const row = $('#rank-body tr');
+    assert.equal(row.tabIndex, 0, 'linha focável');
+    row.dispatchEvent(new w.KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    assert.ok($('#rank-detail').innerHTML.length > 0, 'Enter abre o detail');
+  });
+});
+
+test('21. pickFolder é re-entrante-seguro: 2.º clique durante o walk é ignorado', async () => {
+  await withBoot(async ({ w }) => {
+    w.showDirectoryPicker = () => new Promise(() => {}); // walk que nunca termina
+    const p1 = w.pickFolder();
+    await new Promise(r => setTimeout(r, 0));
+    assert.equal(w.__auditBusy, true, 'primeira invocação em curso');
+    await w.pickFolder(); // guard: resolve já, sem tocar no estado
+    assert.equal(w.__auditBusy, true, 'guard não limpou o busy da 1.ª invocação');
+  });
+});
+
+test('22. status da auditoria re-traduz na troca de língua (antes era apagado)', async () => {
+  await withBoot(async ({ w, $ }) => {
+    w.showDirectoryPicker = () => Promise.reject(Object.assign(new Error('x'), { name: 'AbortError' }));
+    await w.pickFolder();
+    assert.ok($('#audit-status').innerHTML.includes('Cancelled.'), 'status EN');
+    w.setLang('pt');
+    assert.ok($('#audit-status').innerHTML.includes('Cancelado.'), 'status re-traduzido para PT, não apagado');
+  });
+});

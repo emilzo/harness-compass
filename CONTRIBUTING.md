@@ -46,3 +46,8 @@ when you fix a behavior.
   without a label, and manual adjustments stay visible. Don't submit PRs that
   blur those lines — they will be declined regardless of code quality.
 - One PR, one concern. `npm test` green before review.
+- **Contributor License Agreement:** by submitting a contribution you accept the
+  [CLA](CLA.md) — you keep your copyright and grant the project steward a broad
+  license (including relicensing) so the free, AGPL public benchmark can be
+  funded by commercial tooling built on the same codebase. The PR template asks
+  you to confirm it.

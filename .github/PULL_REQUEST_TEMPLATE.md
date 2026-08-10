@@ -9,3 +9,4 @@
 - [ ] If adding/changing a harness entry: 22 scores justified in this description; `audited:false` unless…
 - [ ] …the entry ships `audited:true`: evidence report added under `docs/audits/` (per `AUDIT-TEMPLATE.md`) **and** the `evidence` field points to it
 - [ ] No unrelated changes bundled
+- [ ] I have read and agree to the [Contributor License Agreement](../blob/main/CLA.md)

@@ -19,6 +19,12 @@ Pick your track in the form:
 Public audits are free and queued in submission order; private audits are a consulting
 service. The confidentiality choice is **yours** and can be made at submission time.
 
+**Curation note:** the official ranking is a curated benchmark, not a directory.
+Priority (and inclusion) favors harnesses with real-world usage, an identifiable
+vendor/maintainer and an active project. Duplicates of an already-listed harness
+are closed; experiments and personal forks are exactly what the **local audit**
+in the app is for — private, instant, and yours.
+
 ## 2 · Add or fix an estimate entry (PR)
 
 Edit `BUILTIN_HARNESSES` in the DATA section at the top of the `<script>` in

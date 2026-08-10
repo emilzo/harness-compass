@@ -76,6 +76,8 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [ ] Continuidade temporal completa: resultados publicados ligados à versão exacta do modelo
 
 ## Gatilhos futuros (decidir quando acontecerem, não antes)
+- [ ] **Escala do ranking** — gatilho ~30-50 entradas: pesquisa + paginação na tabela e tiers em vistas próprias (Auditados/Benchmarked/Estimativas). Nota de arquitetura: a auditoria local é privada e efémera (memória da sessão, sem upload) — o ranking partilhado SÓ cresce pelo pipeline editorial, por isso "milhares de linhas" não acontecem por acidente
+- [ ] **Política de notabilidade escrita** — gatilho: fila de submissões > capacidade de sign-off. O ranking é um benchmark curado, não um diretório: entra quem tem uso real/vendor identificável/projeto vivo; o resto fica em auditoria local ou estimativa não listada. A banalização de scores empatados desempata-se com o B1–B8 (comportamento), não com mais linhas
 - [ ] Dados como dados (`data/harnesses/*.json`, `locales/*.json`) — gatilho: primeira contribuição externa real
 - [ ] Migração Vite + TypeScript + render-a-partir-de-estado — gatilho: leaderboard/crescimento da equipa
 - [ ] Decisão de produto: `harnessEff` com caps atingíveis na fórmula (hoje o texto declara os tetos reais: cache ≤70%, falhas ≤50%, compressão ≤45%, routing 30–95%)

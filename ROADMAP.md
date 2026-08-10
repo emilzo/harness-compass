@@ -1,91 +1,95 @@
 # Harness Compass — Roadmap
 
-Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
-Última atualização: 2026-08-10 · Estado do código: suite de regressão 23/23 verde · `check-i18n` exit 0 · Lighthouse 98/100/100/100 · HCI 0–100 (rubrica v1)
+**English** · [Português](ROADMAP.pt.md)
 
-## Fase 0 — Fundação ✅
-- [x] App single-file, funciona offline (`index.html`; jsdom só como devDependency de testes)
-- [x] Taxonomia 6 domínios × 22 dimensões (`references/harness-map.md`)
-- [x] Ranking com scores, HCI (Harness Compass Index) e badges de proveniência
-- [x] Mapa da taxonomia (vista interativa A–F)
-- [x] Quiz de recomendação ponderada
-- [x] Calculadora de custo + vista "Same Model, Different Harness" (custo harness-adjusted)
-- [x] Preços reais do OpenRouter em runtime (sem credenciais, CORS-friendly)
-- [x] Auditoria local no browser: lê até 300 ficheiros da pasta, 100% local, sem upload
-- [x] Export JSON com heurística original + contador de dimensões ajustadas
-- [x] Licença AGPL-3.0 + README completo
+Legend: `[x]` = done and verified · `[ ]` = to do
+Last update: 2026-08-11 · Code status: regression suite 23/23 green · `check-i18n` exit 0 · Lighthouse 98/100/100/100 · HCI 0–100 (rubric v1) · **Live: https://emilzo.github.io/harness-compass/**
 
-## Fase 1 — Globalização ✅
-- [x] i18n EN + PT completos
-- [x] i18n FR/DE/ZH/HI **completos** — 6 línguas a 330/330 chaves (fim do fallback EN visível)
-- [x] Selector de 6 línguas + persistência (localStorage) + fallback EN automático
-- [x] `check-i18n.js` como norma obrigatória — chaves EN **e PT** (exit 1 se faltarem), chaves table-driven (dim/imp/quiz/lv/blurb/dom), placeholders consistentes entre línguas, órfãs, duplicados, `LANGUAGES` vs blocos do dicionário, `esc()` em atributos, allowlist de conteúdo com zero avisos
-- [x] Tema claro/escuro com persistência e contraste corrigido (incl. donut/radar com variáveis de tema)
-- [x] Branding: `@emilzo alias @eluminaime` (créditos do cabeçalho e meta author) · rodapé com `@emilzo`
+## Phase 0 — Foundation ✅
+- [x] Single-file app, works offline (`index.html`; jsdom only as a test devDependency)
+- [x] Taxonomy: 6 domains × 22 dimensions (`references/harness-map.md`)
+- [x] Ranking with scores, HCI (Harness Compass Index) and provenance badges
+- [x] Taxonomy map (interactive A–F view)
+- [x] Weighted recommendation quiz
+- [x] Cost calculator + "Same Model, Different Harness" view (harness-adjusted cost)
+- [x] Live OpenRouter prices at runtime (no credentials, CORS-friendly)
+- [x] Local in-browser audit: reads up to 300 files from a folder, 100% local, no upload
+- [x] JSON export with original heuristic + adjusted-dimensions counter
+- [x] AGPL-3.0 license + full README
 
-## Fase 2 — Constância, Integridade & Endurecimento ✅
-- [x] Snapshot local + diff de modelos (🆕 novos / 📦 saíram desde a última visita)
-- [x] Histórico local de modelos descontinuados (nome, data, último preço)
-- [x] `scripts/snapshot-models.mjs` + workflow GitHub Actions (cron diário)
-- [x] Dataset `docs/models/` (378 modelos reais com preços — primeiro snapshot)
-- [x] Revisões externas fechadas: 15 findings + 6 novos (N1–N6) + triple check final de 21 findings — todos corrigidos com verificação
-- [x] Suite de regressão jsdom — **23 cenários** (quiz, replay de língua, auditoria, cache, picker, re-entrância, widgets OpenRouter, CTA, pills, tema dos SVG, teclado, status re-traduzível, enforcement do dataset audited→evidence)
-- [x] CI (`.github/workflows/ci.yml`): `npm test` (check-i18n + suite) em cada push/PR
-- [x] Privacidade verificada: Limpar liberta cache/meta/closures (~2 MB); re-entrância do picker segura
-- [x] Acessibilidade: landmark `main`, aria-labels, teclado nas tabelas, `prefers-reduced-motion` (CSS + JS), labels `for=` — Lighthouse A11y 100
-- [x] SEO/social: meta description, Open Graph + Twitter Card, social card 1200×630, favicon, theme-color dinâmico
-- [x] **Escala à prova de saturação (decisão pré-lançamento):** HCI exibido **0–100** (dimensões mantêm a rubrica 0–10, agora **v1**); âncoras de fronteira documentadas (9–10 = critérios que ninguém cumpre hoje — melhor HCI atual: 75); re-norming futuro versionado (v2, nunca silencioso); curva de dificuldade de longo prazo nos cenários B1–B8 versionados
-- [ ] Snapshot global a correr diariamente — o workflow está pronto, só corre depois do push
+## Phase 1 — Globalization ✅
+- [x] Complete EN + PT i18n
+- [x] FR/DE/ZH/HI i18n **complete** — 6 languages at 330/330 keys (no visible EN fallback left)
+- [x] 6-language selector + persistence (localStorage) + automatic EN fallback
+- [x] `check-i18n.js` as a mandatory norm — EN **and PT** keys (exit 1 if missing), table-driven keys (dim/imp/quiz/lv/blurb/dom), placeholders consistent across languages, orphans, duplicates, `LANGUAGES` vs dictionary blocks, `esc()` in attributes, content allowlist with zero warnings
+- [x] Light/dark theme with persistence and fixed contrast (incl. donut/radar on theme variables)
+- [x] Branding: `@emilzo alias @eluminaime` (header credits and meta author) · footer with `@emilzo`
 
-## Fase 3 — Publicação 🚧 (bloqueada apenas pelo push do @emilzo)
-- [x] **Decisão de evidência (P0 do review externo) — resolvida:** relatório do Hermes **publicado integralmente** (`docs/DEEP-HARNESS-AUDIT-HERMES.md`, edição pública com paths locais normalizados + nota de cortesia OSS) · Kando com **sumário de evidência** (`docs/EVIDENCE-SUMMARY-KANDO.md`; relatório completo interno — produto comercial em desenvolvimento final)
-- [x] Campo `evidence` nos harnesses `audited:true` — o texto "Auditoria com evidência path:line" no detail é agora um link para o relatório
-- [x] **Política de confidencialidade de submissões** (README §Integridade 5 + BENCHMARK-SPEC §5): quem submete pode pedir auditoria privada — relatório só para o submissor e fora do ranking/leaderboard público; badge público exige evidência publicada
-- [ ] Decidir se `launch-assets/` (16 screenshots, ~2 MB) entra no git — hoje é deliberadamente local; se o marketing partir do repo público, versionar
-- [ ] Repo no GitHub + push (gh autenticado como `@emilzo`) — **17+ commits prontos em `main`**
-- [ ] GitHub Pages ativo (a app fica pública; OpenRouter volta a carregar preços reais em HTTPS)
-- [ ] Confirmar/ajustar `og:url`/`og:image` se o URL do Pages não for `emilzo.github.io/harness-compass`
-- [ ] Gate 2: checklist do README corrida na URL pública + workflows verdes
-- [x] Assets de lançamento: 16 screenshots (8 vistas × 2 temas, atualizados pós-correções) em `launch-assets/` + social card em `docs/social-card.png`
-- [ ] Artigo-âncora EN (Show HN + blog)
-- [ ] Landing curta como funil — o Compass serve de produto-âncora; landing formal separada ainda não existe
+## Phase 2 — Constancy, Integrity & Hardening ✅
+- [x] Local snapshot + model diff (🆕 new / 📦 removed since last visit)
+- [x] Local history of discontinued models (name, date, last price)
+- [x] `scripts/snapshot-models.mjs` + GitHub Actions workflow (daily cron)
+- [x] `docs/models/` dataset (378 real models with prices — first snapshot)
+- [x] External reviews closed: 15 findings + 6 new (N1–N6) + a final 21-finding triple check — all fixed with verification
+- [x] jsdom regression suite — **23 scenarios** (quiz, language replay, audit, cache, picker, re-entrancy, OpenRouter widgets, CTA, pills, SVG theme, keyboard, retranslatable status, dataset enforcement audited→evidence)
+- [x] CI (`.github/workflows/ci.yml`): `npm test` (check-i18n + suite) on every push/PR
+- [x] Privacy verified: Clear releases cache/meta/closures (~2 MB); picker re-entrancy safe
+- [x] Accessibility: `main` landmark, aria-labels, keyboard on tables, `prefers-reduced-motion` (CSS + JS), `for=` labels — Lighthouse A11y 100
+- [x] SEO/social: meta description, Open Graph + Twitter Card, 1200×630 social card, favicon, dynamic theme-color
+- [x] **Saturation-proof scale (pre-launch decision):** HCI displayed **0–100** (dimensions keep the 0–10 rubric, now **v1**); frontier anchors documented (9–10 = criteria nobody meets today — best current HCI: 75); future re-norming versioned (v2, never silent); long-term difficulty curve lives in the versioned B1–B8 scenarios
 
-## Fase 3.5 — Estrutura (depois do lançamento, nunca na véspera)
-- [ ] Partir o monólito sem build: `index.html` + `assets/data.js` + `assets/i18n.js` + `assets/app.js` (`file://` continua a funcionar; suite adapta com `JSDOM.fromFile`)
-- [x] **Funil de submissão pré-lançamento** (antecipado da 3.5 — o visitante que audita o próprio repo tem caminho a seguir ao Export):
-  - [x] `CONTRIBUTING.md` com as 3 vias (auditoria pública → AUDITADO · privada confidencial · estimativa via PR)
-  - [x] `docs/audits/AUDIT-TEMPLATE.md` (22 dims, evidência `path:line`, cobertura declarada, escolha pública/privada)
-  - [x] Issue form "Submit your harness" (`.github/ISSUE_TEMPLATE/submit-harness.yml`) + PR template com checklist de integridade
-  - [x] Dica de submissão no cartão de auditoria (au_submit, 6 línguas) a apontar para o issue form
-  - [x] Teste 23 na suite: todo o `audited:true` TEM `evidence` e o ficheiro existe (regra vira gate de CI)
-- [x] **Pipeline de auditoria semi-automático** (`.claude/skills/audit-harness` + `.claude/workflows/audit-harness.js`): submissão → clone/pin SHA → 6 domínios em paralelo → consolidação no template → verificação adversarial das citações → draft; o humano só faz o **sign-off de 15–30 min** (spot-check de ≥3 citações + aprovação, agrupável em lote) — o gate humano nunca é removido
-- [ ] (opcional, UI) botão "Preparar submissão" na auditoria local: descarrega JSON preliminar + template pré-preenchido, sempre `audited:false`
-- [ ] JSON schema formal do harness
-- [ ] **i18n de dados** (sprint i18n pós-launch): `type` e `tags` dos harnesses builtin como chaves traduzíveis — hoje ficam EN no detail em todas as línguas (a lacuna multi-língua mais visível que resta; blurbs já são chaves)
+## Phase 3 — Publication ✅ (site live 2026-08-10; anchor article pending)
+- [x] **Evidence decision (external review P0) — resolved:** Hermes report **published in full** (`docs/DEEP-HARNESS-AUDIT-HERMES.md`, public edition with normalized local paths + OSS courtesy note) · Kando as an **evidence summary** (`docs/EVIDENCE-SUMMARY-KANDO.md`; full report internal — commercial product in final development)
+- [x] `evidence` field on `audited:true` harnesses — the audit line in the detail card links to the report
+- [x] **Submission confidentiality policy** (README §Integrity 5 + BENCHMARK-SPEC §5): submitters may request a private audit — report goes only to the submitter, outside the public ranking/leaderboard; the public badge requires published evidence
+- [x] GitHub repo + push (`emilzo/harness-compass`) with history cleaned of internal docs
+- [x] GitHub Pages live via Actions, **gated by the 23-test suite** (no green, no deploy)
+- [x] `og:url`/`og:image`/`REPO_URL` confirmed against the real URL
+- [x] Gate 2 on the public URL: OpenRouter loading 377 real models over HTTPS, modern folder picker active, badge evidence reachable, Actions green
+- [x] Launch assets: 16 screenshots (8 views × 2 themes, regenerated post-fixes) in `launch-assets/` + social card in `docs/social-card.png`
+- [x] EN-first README (`README.md`) + preserved Portuguese (`README.pt.md`)
+- [x] Internal docs out of the public repo (`internal/`, gitignored) — history rewritten before any forks existed
+- [ ] Daily model-snapshot cron: workflow armed since the push; first scheduled run pending
+- [ ] Decide whether `launch-assets/` (16 screenshots, ~2 MB) enters git — deliberately local today; version it if marketing runs from the public repo
+- [ ] EN anchor article (Show HN + blog) — launch copy drafted in `launch-assets/launch-copy.md`
+- [ ] Short landing page as a funnel — the Compass itself is the anchor product; a separate formal landing does not exist yet
 
-## Fase 4 — Credibilidade & Benchmark 🚧
-- [ ] Runner dos cenários B1–B8 (Python standalone — ver `BENCHMARK-SPEC.md`; ainda não existe)
-- [ ] Leaderboard B1–B8 com submissões reais
-- [ ] Primeira auditoria externa via PR (o pipeline existe; o fluxo externo ainda não foi exercitado)
-- [ ] Selo AUDITED + termos de submissão formais
-- [ ] Termos legais: proteção da marca, retenção de dados, consentimento de telemetria
+## Phase 3.5 — Structure (after launch, never on launch eve)
+- [ ] Split the monolith without a build step: `index.html` + `assets/data.js` + `assets/i18n.js` + `assets/app.js` (`file://` keeps working; suite adapts via `JSDOM.fromFile`)
+- [x] **Pre-launch submission funnel** (pulled forward from 3.5 — a visitor who audits their own repo has a path after Export):
+  - [x] `CONTRIBUTING.md` with the 3 tracks (public audit → AUDITED · private confidential · estimate via PR)
+  - [x] `docs/audits/AUDIT-TEMPLATE.md` (22 dims, `path:line` evidence, declared coverage, public/private choice)
+  - [x] "Submit your harness" issue form (`.github/ISSUE_TEMPLATE/submit-harness.yml`) + PR template with integrity checklist
+  - [x] Submission hint on the audit card (au_submit, 6 languages) pointing to the issue form
+  - [x] Suite test 23: every `audited:true` HAS `evidence` and the file exists (the rule becomes a CI gate)
+- [x] **Semi-automated audit pipeline** (`.claude/skills/audit-harness` + `.claude/workflows/audit-harness.js`): submission → clone/pin SHA → 6 domains in parallel → template consolidation → adversarial citation verification → draft; the human only does the **15–30 min sign-off** (spot-check ≥3 citations + approval, batchable) — the human gate is never removed
+- [ ] (optional, UI) "Prepare submission" button on the local audit: downloads preliminary JSON + prefilled template, always `audited:false`
+- [ ] Formal harness JSON schema
+- [ ] **Data i18n** (post-launch i18n sprint): builtin harness `type` and `tags` as translatable keys — today they stay EN in the detail card in every language (the most visible remaining multi-language gap; blurbs are already keys)
 
-## Fase 5 — Tração & Receita 🚧
-- [ ] Canais técnicos: Hacker News, Reddit, dev.to
-- [ ] Canais empresariais: LinkedIn, Substack
-- [ ] Primeira consulta gratuita (30–45 min) como funil de diagnóstico
-- [ ] Plano pago: otimização de custo / implementação / auditoria / monitorização
-- [ ] Continuidade temporal completa: resultados publicados ligados à versão exacta do modelo
+## Phase 4 — Credibility & Benchmark 🚧
+- [ ] B1–B8 scenario runner (standalone Python — see `BENCHMARK-SPEC.md`; does not exist yet)
+- [ ] B1–B8 leaderboard with real submissions
+- [ ] First external audit via PR (the pipeline exists; the external flow has not been exercised)
+- [ ] AUDITED seal + formal submission terms
+- [ ] Legal terms: brand protection, data retention, telemetry consent
 
-## Gatilhos futuros (decidir quando acontecerem, não antes)
-- [ ] **Escala do ranking** — gatilho ~30-50 entradas: pesquisa + paginação na tabela e tiers em vistas próprias (Auditados/Benchmarked/Estimativas). Nota de arquitetura: a auditoria local é privada e efémera (memória da sessão, sem upload) — o ranking partilhado SÓ cresce pelo pipeline editorial, por isso "milhares de linhas" não acontecem por acidente
-- [ ] **Política de notabilidade escrita** — gatilho: fila de submissões > capacidade de sign-off. O ranking é um benchmark curado, não um diretório: entra quem tem uso real/vendor identificável/projeto vivo; o resto fica em auditoria local ou estimativa não listada. A banalização de scores empatados desempata-se com o B1–B8 (comportamento), não com mais linhas
-- [ ] Dados como dados (`data/harnesses/*.json`, `locales/*.json`) — gatilho: primeira contribuição externa real
-- [ ] Migração Vite + TypeScript + render-a-partir-de-estado — gatilho: leaderboard/crescimento da equipa
-- [ ] Decisão de produto: `harnessEff` com caps atingíveis na fórmula (hoje o texto declara os tetos reais: cache ≤70%, falhas ≤50%, compressão ≤45%, routing 30–95%)
+## Phase 5 — Traction & Revenue 🚧
+- [ ] Technical channels: Hacker News, Reddit, dev.to
+- [ ] Business channels: LinkedIn, Substack
+- [ ] First free consultation (30–45 min) as a diagnostic funnel
+- [ ] Paid plan: cost optimization / implementation / audit / monitoring
+- [ ] Full temporal continuity: published results pinned to the exact model version
 
-## Registado sem correção (menores, documentados nas revisões)
-- `md_stable` mostra a data da última visita, não o início real da estabilidade
-- Poupança negativa na calculadora sem aviso (inputs invertidos; é ilustrativa)
-- "+ Adicionar ao ranking" repetido cria entradas locais duplicadas (por design)
-- `applyI18n` corre até 3× por troca de língua (perf micro; sem impacto visível)
+## Future triggers (decide when they happen, not before)
+- [ ] **Ranking scale** — trigger ~30–50 entries: search + pagination in the table and tiers as separate views (Audited/Benchmarked/Estimates). Architecture note: the local audit is private and ephemeral (session memory, no upload) — the shared ranking ONLY grows through the editorial pipeline, so "thousands of rows" cannot happen by accident
+- [ ] **Written notability policy** — trigger: submission queue > sign-off capacity. The ranking is a curated benchmark, not a directory: entries need real-world usage / identifiable vendor / living project; the rest lives in the local audit or as unlisted estimates. Tied-score banalization is broken by B1–B8 (behavior), not by more rows
+- [ ] Data as data (`data/harnesses/*.json`, `locales/*.json`) — trigger: first real external contribution
+- [ ] Vite + TypeScript + render-from-state migration — trigger: leaderboard / team growth
+- [ ] Product decision: `harnessEff` with reachable caps in the formula (today the text declares the real ceilings: cache ≤70%, failures ≤50%, compression ≤45%, routing 30–95%)
+
+## Recorded without fixing (minor, documented in the reviews)
+- `md_stable` shows the last-visit date, not the true start of stability
+- Negative savings in the calculator without a warning (inverted inputs; it's illustrative)
+- Repeated "+ Add to ranking" creates duplicate local entries (by design)
+- `applyI18n` runs up to 3× per language switch (micro perf; no visible impact)

@@ -4,7 +4,7 @@
 
 **Live: https://emilzo.github.io/harness-compass/**
 
-**Agent = Model + Harness.** The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. This project helps you **choose the right harness** — and realize that with a powerful harness, **cheap LLMs get there**.
+**The evidence-based audit and decision layer for AI agent harnesses**. The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. This project goal is Audit architecture. Compare maturity. measure cost. Benchmark behaviour. you **choose the right harness** — and realize that with a powerful harness, **cheap LLMs get there**.
 
 > "Loops coordinate. Harnesses guide, execute, verify and decide. Models generate."
 
@@ -55,7 +55,7 @@ The price of an LLM is not the model's price — it's the model's price **times 
 - No compression → long conversations blow the window and lose context.
 - No routing → you pay the expensive model for tasks the cheap one solves.
 
-A powerful harness (Hermes, Kando, the mature coding agents) **pays for itself in the first week**. The calculator quantifies it with your numbers.
+A strong harness (Hermes, Kando, Claude, Codex and the mature coding agents) **can materially change the perfomance and real cost of the same model - sometimes enough to change the optimal model choice**.
 
 ## Data status
 

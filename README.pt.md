@@ -4,7 +4,7 @@
 
 **Live: https://emilzo.github.io/harness-compass/**
 
-**Agent = Model + Harness.** O harness é tudo o que não é o modelo: guias, loop, ferramentas, permissões, sandbox, verificação, observabilidade, custo. Este projeto ajuda-te a **escolher o harness certo** — e a perceber que, com um harness potente, **os LLMs económicos chegam lá**.
+A camada de auditoria e tomada de decisão baseada em evidências para estruturas de suporte (*harnesses*) de agentes de IA. Esta estrutura engloba tudo o que não é o modelo em si: diretrizes, loops, ferramentas, permissões, *sandbox*, verificação, observabilidade e custos. O objetivo deste projeto é auditar arquitetura. Comparar níveis de maturidade. Mensurar custos. Realizar *benchmarking* de comportamento. Você **escolhe a estrutura adequada** — e percebe que, com uma estrutura robusta, **LLMs de baixo custo entregam resultados de alto nível**.
 
 > "Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."
 

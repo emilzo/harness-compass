@@ -4,7 +4,9 @@
 
 **Live: https://emilzo.github.io/harness-compass/**
 
-A camada de auditoria e tomada de decisão baseada em evidências para estruturas de suporte (*harnesses*) de agentes de IA. Esta estrutura engloba tudo o que não é o modelo em si: diretrizes, loops, ferramentas, permissões, *sandbox*, verificação, observabilidade e custos. O objetivo deste projeto é auditar arquitetura. Comparar níveis de maturidade. Mensurar custos. Realizar *benchmarking* de comportamento. Você **escolhe a estrutura adequada** — e percebe que, com uma estrutura robusta, **LLMs de baixo custo entregam resultados de alto nível**.
+**Pré-visualização de investigação v0.1**
+
+A camada de auditoria e decisão baseada em evidências para *harnesses* de agentes de IA. O harness é tudo o que não é o modelo: guias, loop, ferramentas, permissões, *sandbox*, verificação, observabilidade e custos. O objetivo é simples: auditar a arquitetura, comparar maturidade, medir custos e manter separados os benchmarks de comportamento. Assim consegues **escolher o harness certo** — e perceber quando um harness robusto permite que **LLMs económicos cheguem lá**.
 
 > "Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."
 
@@ -13,15 +15,15 @@ A camada de auditoria e tomada de decisão baseada em evidências para estrutura
 Uma web app de página única (zero dependências em runtime, zero build — jsdom existe apenas como devDependency da suite de testes) com 8 vistas:
 
 1. **Paradigma** — por que o harness decide quanto do teu dinheiro em tokens é desperdiçado.
-2. **Ranking** — harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index) 0–100** (dimensões 0–10 na rubrica de maturidade **v1**, com âncoras de fronteira: o 9–10 exige critérios que nenhum harness atual cumpre — o melhor de hoje está a 75), fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL sempre distinguidos.
+2. **Ranking** — harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index) 0–100** (dimensões 0–10 na rubrica de maturidade **v1**, com âncoras de fronteira: o 9–10 exige critérios que nenhum harness atual cumpre — o melhor de hoje está a 75), fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). O HCI mede maturidade arquitetural a partir de código e evidência. Não é um benchmark de desempenho em tarefas. AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL ficam sempre separados.
 3. **💰 Custo real** — *Same Model, Different Harness*: o mesmo volume de trabalho, o mesmo modelo, através de cada harness → **custo real por tarefa (harness-adjusted)** com cache/retry/routing derivados dos scores, preços reais do OpenRouter e ranking por custo. É o "Cost per Task" do Artificial Analysis aplicado à camada.
 4. **Mapa do Harness** — a taxonomia completa (6 domínios × 22 dimensões).
-5. **📂 Auditar uma pasta** — abre a pasta de um repo local; análise heurística das 22 dimensões com justificações, sliders ajustáveis (ajustes ficam marcados — integridade), plano de melhoria, adição ao ranking e export JSON. 100% local.
+5. **📂 Auditar um repositório local** — abre a pasta do repo; análise heurística das 22 dimensões com justificações, sliders ajustáveis (ajustes ficam marcados — integridade), plano de melhoria, adição ao ranking e export JSON. O código fica no browser e não é enviado.
 6. **Quiz de decisão** — 6 perguntas ponderam as dimensões pelo teu perfil e recomendam os 3 harnesses com justificação.
 7. **Calculadora de economia** — quanto poupas por mês em tokens com cache, retry, compressão e routing.
 8. **Método & evidência** — escala de maturidade, integridade, como funciona a auditoria local, estudos de caso.
 
-O **benchmark padronizado** (o "ARC dos harnesses" — cenários B1–B8, protocolo de submissão, leaderboard) está especificado em `BENCHMARK-SPEC.md` — o roadmap do golpe de autoridade.
+A spec aberta do benchmark comportamental (cenários B1–B8, protocolo de submissão e um futuro leaderboard revisto) está em `BENCHMARK-SPEC.md`. É separada do score arquitetural HCI.
 
 ## Compatibilidade
 
@@ -64,6 +66,15 @@ Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **po
 | Hermes Agent (Nous Research) | ✅ Auditado | 22 dimensões, evidência file:line — ver `docs/` |
 | Kando (DevFactoryAI) | ✅ Auditado | idem |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimativa | avaliação informada, a validar por auditoria |
+
+## Como ler os resultados
+
+- **HCI** — maturidade arquitetural a partir de código e evidência, em 22 dimensões. Não é um benchmark de desempenho em tarefas.
+- **Auditado** — auditoria humana do código com evidência `path:line` publicada.
+- **Preliminar** — análise heurística feita no browser; é um primeiro corte, não uma auditoria completa.
+- **Estimativa** — avaliação informada que ainda não foi verificada por auditoria.
+- **Local** — adicionado na tua sessão do browser. Não passa a fazer parte do dataset do projeto.
+- **Benchmarked** — reservado a uma execução comportamental B1–B8 publicada e revista. É separado dos estados de proveniência do HCI acima.
 
 ## Como contribuir
 
@@ -120,7 +131,7 @@ Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário
 
 ## Internacionalização (i18n)
 
-Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): traduções parciais caem para Inglês (fallback), e qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. **As 6 línguas estão completas — 330/330 chaves cada** (blurbs, 22 dimensões, 64 padrões de melhoria, quiz, auditoria, método). **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` — o `check-i18n.js` valida automaticamente chaves e placeholders — ou abre um PR.
+Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): o texto de lançamento é mantido em Inglês e Português; etiquetas em falta nas outras línguas caem para Inglês. Qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` — o `check-i18n.js` valida automaticamente chaves e placeholders — ou abre um PR.
 
 **Tema claro/escuro:** botão ☀️/🌙 no topo — respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
 

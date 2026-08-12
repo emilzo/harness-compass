@@ -4,22 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="@emilzo alias @eluminaime">
-<title>Harness Compass — The Harness Benchmark for AI Agents</title>
-<meta name="description" content="Agent = Model + Harness. Ranking, map, calculator and local folder audit of AI agent harnesses. Choose the right harness and use cheaper LLMs.">
+<title>Harness Compass — Audit and Compare AI Agent Harnesses</title>
+<meta name="description" content="Research Preview v0.1. Compare architecture maturity across 22 dimensions, inspect evidence, and audit a local repo without uploading its code.">
 <meta name="theme-color" id="meta-theme" content="#07070f">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
 <!-- Social / Open Graph — se o URL do GitHub Pages for outro, atualizar og:url e as duas imagens -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Harness Compass">
-<meta property="og:title" content="Harness Compass — The Harness Benchmark for AI Agents">
-<meta property="og:description" content="Agent = Model + Harness. 22-dimension evidence-based ranking, real cost per task, and a 100% local folder audit. Choose the right harness and use cheaper LLMs.">
+<meta property="og:title" content="Harness Compass — Audit and Compare AI Agent Harnesses">
+<meta property="og:description" content="Research Preview v0.1. Architecture maturity, evidence and a local repo audit that keeps code in the browser.">
 <meta property="og:url" content="https://emilzo.github.io/harness-compass/">
 <meta property="og:image" content="https://emilzo.github.io/harness-compass/docs/social-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Harness Compass — The Harness Benchmark for AI Agents">
-<meta name="twitter:description" content="Agent = Model + Harness. 22-dimension evidence-based ranking, real cost per task, and a 100% local folder audit.">
+<meta name="twitter:title" content="Harness Compass — Audit and Compare AI Agent Harnesses">
+<meta name="twitter:description" content="Research Preview v0.1. Architecture maturity, evidence and a local repo audit that keeps code in the browser.">
 <meta name="twitter:image" content="https://emilzo.github.io/harness-compass/docs/social-card.png">
 <style>
   :root{
@@ -155,6 +155,7 @@
       <div class="logo">🧭 Harness Compass</div>
       <div class="tagline" data-i18n="tagline">Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.</div>
       <div style="color:var(--muted); font-size:11px; margin-top:1px; opacity:.75">by @emilzo alias @eluminaime</div>
+      <div style="margin-top:7px"><span class="pill" data-i18n="preview_label">Research Preview v0.1</span></div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
       <button id="theme-btn" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" aria-label="Theme / Tema / 主题 / थीम" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">☀️</button>
@@ -179,7 +180,7 @@
   <section id="view-home" class="active">
     <div class="hero">
       <h2 data-i18n="home_hero_title">O harness decide quanto do teu dinheiro em tokens é desperdiçado.</h2>
-      <p class="sub" data-i18n="home_hero_sub">Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se na primeira semana de produção. E agora podes <b>auditar o teu próprio projeto</b> e vê-lo entrar no ranking.</p>
+      <p class="sub" data-i18n="home_hero_sub">Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — pode tornar <b>viáveis os LLMs económicos</b>. Em produção, esta camada pode mudar bastante o custo real. E agora podes <b>auditar um repositório local</b> sem enviar o código.</p>
     </div>
     <div class="card">
       <h2 data-i18n="home_steps_title">O paradigma em 3 passos</h2>
@@ -188,7 +189,7 @@
         <div class="step"><b data-i18n="step2_t">2 · Compara</b><span data-i18n="step2_d">Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.</span></div>
         <div class="step"><b data-i18n="step3_t">3 · Decide</b><span data-i18n="step3_d">Com um harness potente, um modelo barato chega ao nível de um caro. O quiz diz-te qual encaixa no teu caso — e a calculadora mostra quanto poupas.</span></div>
       </div>
-      <div style="margin-top:16px"><button class="pill" style="cursor:pointer;background:var(--cyan);color:#04121f;font-weight:700;padding:10px 16px;border:none;border-radius:999px" onclick="switchView('audit')" data-i18n="home_cta">🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)</button></div>
+      <div style="margin-top:16px"><button class="pill" style="cursor:pointer;background:var(--cyan);color:#04121f;font-weight:700;padding:10px 16px;border:none;border-radius:999px" onclick="switchView('audit')" data-i18n="home_cta">📂 Auditar um repositório local — o código fica neste browser e não é enviado</button></div>
     </div>
     <div class="card">
       <h2 data-i18n="home_anatomy_title">Da anatomia clássica ao sistema cibernético</h2>
@@ -203,8 +204,7 @@
   <section id="view-ranking">
     <div class="card">
       <h2><span data-i18n="rank_title">Ranking de harnesses</span> <span id="rank-count"></span></h2>
-      <p class="muted" data-i18n="rank_desc">HCI 0–100 = média das 22 dimensões (cada uma 0–10 na rubrica de maturidade, v1). Ordena pelas colunas; clica numa linha para a fingerprint completa.
-        <span class="badge b-audit">Auditado</span> = evidência file:line · <span class="badge b-prel">Preliminar</span> = análise local de pasta · <span class="badge b-est">Estimativa</span> = informada, a validar.</p>
+      <p class="muted" data-i18n="rank_desc"><b>Como ler os resultados.</b> O HCI mede maturidade arquitetural a partir de código e evidência em 22 dimensões. Não é um benchmark de desempenho em tarefas; a validação comportamental B1–B8 fica separada. <span class="badge b-audit">Auditado</span> = evidência de código publicada · <span class="badge b-prel">Preliminar</span> = análise heurística no browser · <span class="badge b-est">Estimativa</span> = avaliação informada, não verificada · <b>Local</b> = só existe na tua sessão. <b>Benchmarked</b> fica reservado a uma execução B1–B8 publicada e revista.</p>
       <div style="margin:14px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
         <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_dom">Filtrar domínio:</b>
         <button class="pill fbtn" data-f="all" style="cursor:pointer" data-i18n="dom_all">Todos</button>
@@ -278,8 +278,8 @@
   <!-- ============ AUDIT ============ -->
   <section id="view-audit">
     <div class="card">
-      <h2 data-i18n="audit_title">📂 Auditar uma pasta e rankeá-la</h2>
-      <p class="muted" data-i18n="audit_desc">Abre a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>Tudo corre no teu browser — nada sai da tua máquina.</b></p>
+      <h2 data-i18n="audit_title">📂 Auditar um repositório local</h2>
+      <p class="muted" data-i18n="audit_desc">Escolhe a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>O código fica neste browser — não é enviado.</b></p>
       <p class="legend" data-i18n="audit_compat">🖥️ Compatibilidade: <b>Chrome/Edge</b> (qualquer OS) = experiência completa via seletor de pastas (requer HTTPS — o GitHub Pages dá). <b>Firefox</b> = usa o seletor clássico automaticamente. <b>Safari</b> = tudo funciona exceto a leitura de pastas (limitada pelo browser). O resto da app funciona em qualquer browser moderno.</p>
       <div style="margin:18px 0; display:flex; gap:10px; flex-wrap:wrap">
         <button class="primary" onclick="pickFolder()" data-i18n="audit_pick">Escolher pasta do projeto</button>
@@ -356,7 +356,7 @@
       <h3 data-i18n="method_lt">Como funciona a auditoria local (badge Preliminar)</h3>
       <p data-i18n="method_ld">A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.</p>
       <h3 data-i18n="method_ct">Estudo de caso — Hermes Agent vs Kando</h3>
-      <p data-i18n="method_cd">A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.</p>
+      <p data-i18n="method_cd">Uma comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.</p>
       <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário de evidência; relatório completo interno — produto comercial em desenvolvimento final).</p>
     </div>
   </section>
@@ -456,10 +456,11 @@ const LANGUAGES = {en:"English", pt:"Português", fr:"Français", de:"Deutsch", 
 const T = {
 en:{
   tagline:"Agent = Model + Harness · choose the right harness and the cheap model gets there.",
-  audit_pick_top:"📂 Audit a folder",
-  nav_home:"Paradigm", nav_ranking:"Ranking", nav_cost:"Real cost", nav_map:"Map", nav_audit:"Audit folder", nav_quiz:"Which harness?", nav_economy:"Calculator", nav_method:"Method",
+  preview_label:"Research Preview v0.1",
+  audit_pick_top:"📂 Audit a local repo",
+  nav_home:"Paradigm", nav_ranking:"Ranking", nav_cost:"Real cost", nav_map:"Map", nav_audit:"Audit repo", nav_quiz:"Which harness?", nav_economy:"Calculator", nav_method:"Method",
   home_hero_title:"The harness decides how much of your token budget is wasted.",
-  home_hero_sub:"A powerful harness — byte-stable caching, smart retry, multi-provider fallback, compression, verification — makes cheap LLMs viable. The harness pays for itself in the first week of production. And now you can audit your own project and see it enter the ranking.",
+  home_hero_sub:"A powerful harness — byte-stable caching, smart retry, multi-provider fallback, compression, verification — can make cheap LLMs viable. In production, this layer can change the real cost a lot. And now you can audit a local repo without uploading the code.",
   home_steps_title:"The paradigm in 3 steps",
   step1_t:"1 · Measure", step1_d:"The harness is the layer between the model and your product: it guides (prompts, AGENTS.md, skills), executes (loop, tools, sandbox), verifies (tests, evals) and decides (permissions, judgment, cost).",
   step2_t:"2 · Compare", step2_d:"Not all harnesses are equal. This ranking scores them across 22 dimensions with evidence — audited, estimated and local analyses always distinguished.",
@@ -468,15 +469,15 @@ en:{
   home_anatomy_sub:"The anatomy (Interface → AGENT LOOP → LLM ↔ tools; Tools, Permissions, Sandbox, Verification, Observability) is right. The full version adds what real auditing revealed:",
   home_anatomy_legend:"\"Loops coordinate. Harnesses guide, execute, verify and decide. Models generate.\"",
   rank_title:"Harness ranking",
-  rank_desc:"HCI 0–100 = average of the 22 dimensions (each scored 0–10 on the maturity rubric, v1). Sort by column; click a row for the full fingerprint. <span class=\"badge b-audit\">Audited</span> = file:line evidence · <span class=\"badge b-prel\">Preliminary</span> = local folder analysis · <span class=\"badge b-est\">Estimate</span> = informed, to validate.",
+  rank_desc:"<b>How to read the results.</b> HCI measures architectural maturity from code and evidence across 22 dimensions. It is not a task-performance benchmark; B1–B8 behavioural validation stays separate. <span class=\"badge b-audit\">Audited</span> = published code evidence · <span class=\"badge b-prel\">Preliminary</span> = heuristic browser scan · <span class=\"badge b-est\">Estimate</span> = informed assessment, not verified · <b>Local</b> = exists only in your session. <b>Benchmarked</b> is reserved for a published, reviewed B1–B8 run.",
   rank_dom:"Filter domain:", dom_all:"All",
   rank_prov:"Provenance (integrity):", prov_all:"All", prov_oficial:"✓ Project dataset", prov_local:"Local (your session)",
   cost_title:"💰 Same Model, Different Harness — real cost per task",
   cost_desc:"Same workload, same model, through each harness. Real (harness-adjusted) cost depends on layer efficiency: <b>cache &amp; compression</b> (A2), <b>avoided failures</b> (C4), <b>routing to the cheap model</b> (A1). It's the Artificial Analysis \"Cost per Task\" — applied to the harness, not the model.",
   map_title:"Harness Map — 6 domains × 22 dimensions",
   map_desc:"The taxonomy used to audit any harness. Each dimension has its own KPIs and a 0–10 maturity scale.",
-  audit_title:"📂 Audit a folder and rank it",
-  audit_desc:"Open a project/repo folder. The Compass reads structural signals (AGENTS.md, tests, CI, skills, security patterns…) and produces preliminary scores for the 22 dimensions. Adjust as you wish, add to the ranking and export the JSON to contribute. <b>Everything runs in your browser — nothing leaves your machine.</b>",
+  audit_title:"📂 Audit a local repo",
+  audit_desc:"Choose a project/repo folder. The Compass reads structural signals (AGENTS.md, tests, CI, skills, security patterns…) and produces preliminary scores for the 22 dimensions. Adjust as you wish, add to the ranking and export the JSON to contribute. <b>Your code stays in this browser — it is not uploaded.</b>",
   audit_compat:"🖥️ Compatibility: <b>Chrome/Edge</b> (any OS) = full experience via folder picker (needs HTTPS — GitHub Pages provides it). <b>Firefox</b> = classic picker automatically. <b>Safari</b> = everything works except folder reading (browser limitation). The rest of the app works on any modern browser.",
   audit_pick:"Choose project folder", audit_clear:"Clear",
   quiz_title:"Which harness for you?", quiz_desc:"Answer 6 questions. The Compass weights the 22 dimensions by your profile and recommends the top 3 with justification.",
@@ -612,16 +613,17 @@ en:{
   au_ev_file:"file {f}", au_ev_dir:"folder {d}", au_ev_tests:"{n} test/spec files", au_ev_workflows:"{n} CI workflows", au_name_fallback:"Local project", au_blurb_fallback:"Added via local audit.", au_cancel:"Cancelled.", au_error:"Error",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"last seen", au_type_fallback:"Project",
   au_submit:"Want your harness in the official ranking? <a href=\"{u}\" target=\"_blank\">Submit it</a> — free public audit (AUDITED badge) or a private, confidential one. Your choice.",
-  home_cta:"🧭 Audit your own harness — the app reads the folder in your browser and scores it (100% local, no upload)",
-  method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"The first complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: the references/harness-map.md taxonomy · docs/DEEP-HARNESS-AUDIT-HERMES.md (full audit, published) · docs/EVIDENCE-SUMMARY-KANDO.md (evidence summary; full report internal — commercial product in final development).",
+  home_cta:"📂 Audit a local repo — your code stays in this browser and is not uploaded",
+  method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"A complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: the references/harness-map.md taxonomy · docs/DEEP-HARNESS-AUDIT-HERMES.md (full audit, published) · docs/EVIDENCE-SUMMARY-KANDO.md (evidence summary; full report internal — commercial product in final development).",
   footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
 },
 pt:{
   tagline:"Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.",
-  audit_pick_top:"📂 Auditar uma pasta",
-  nav_home:"Paradigma", nav_ranking:"Ranking", nav_cost:"Custo real", nav_map:"Mapa", nav_audit:"Auditar pasta", nav_quiz:"Que harness para ti?", nav_economy:"Calculadora", nav_method:"Método",
+  preview_label:"Pré-visualização de investigação v0.1",
+  audit_pick_top:"📂 Auditar um repositório local",
+  nav_home:"Paradigma", nav_ranking:"Ranking", nav_cost:"Custo real", nav_map:"Mapa", nav_audit:"Auditar repo", nav_quiz:"Que harness para ti?", nav_economy:"Calculadora", nav_method:"Método",
   home_hero_title:"O harness decide quanto do teu dinheiro em tokens é desperdiçado.",
-  home_hero_sub:"Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — torna <b>viáveis os LLMs económicos</b>. O preço do harness paga-se na primeira semana de produção. E agora podes <b>auditar o teu próprio projeto</b> e vê-lo entrar no ranking.",
+  home_hero_sub:"Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — pode tornar <b>viáveis os LLMs económicos</b>. Em produção, esta camada pode mudar bastante o custo real. E agora podes <b>auditar um repositório local</b> sem enviar o código.",
   home_steps_title:"O paradigma em 3 passos",
   step1_t:"1 · Mede", step1_d:"O harness é a camada entre o modelo e o teu produto: guia (prompts, AGENTS.md, skills), executa (loop, tools, sandbox), verifica (testes, evals) e decide (permissões, julgamento, custo).",
   step2_t:"2 · Compara", step2_d:"Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.",
@@ -630,15 +632,15 @@ pt:{
   home_anatomy_sub:"A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:",
   home_anatomy_legend:"\"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram.\"",
   rank_title:"Ranking de harnesses",
-  rank_desc:"HCI 0–100 = média das 22 dimensões (cada uma 0–10 na rubrica de maturidade, v1). Ordena pelas colunas; clica numa linha para a fingerprint completa. <span class=\"badge b-audit\">Auditado</span> = evidência file:line · <span class=\"badge b-prel\">Preliminar</span> = análise local de pasta · <span class=\"badge b-est\">Estimativa</span> = informada, a validar.",
+  rank_desc:"<b>Como ler os resultados.</b> O HCI mede maturidade arquitetural a partir de código e evidência em 22 dimensões. Não é um benchmark de desempenho em tarefas; a validação comportamental B1–B8 fica separada. <span class=\"badge b-audit\">Auditado</span> = evidência de código publicada · <span class=\"badge b-prel\">Preliminar</span> = análise heurística no browser · <span class=\"badge b-est\">Estimativa</span> = avaliação informada, não verificada · <b>Local</b> = só existe na tua sessão. <b>Benchmarked</b> fica reservado a uma execução B1–B8 publicada e revista.",
   rank_dom:"Filtrar domínio:", dom_all:"Todos",
   rank_prov:"Proveniência (integridade):", prov_all:"Todos", prov_oficial:"✓ Dataset do projeto", prov_local:"Local (a tua sessão)",
   cost_title:"💰 Same Model, Different Harness — custo real por tarefa",
   cost_desc:"O mesmo volume de trabalho, o mesmo modelo, através de cada harness. O custo real (harness-adjusted) depende da eficiência da camada: <b>cache &amp; compressão</b> (A2), <b>falhas evitadas</b> (C4), <b>routing para o modelo barato</b> (A1). É o \"Cost per Task\" do Artificial Analysis — aplicado ao harness, não ao modelo.",
   map_title:"Mapa do Harness — 6 domínios × 22 dimensões",
   map_desc:"A taxonomia usada para auditar qualquer harness. Cada dimensão tem KPIs próprios e escala de maturidade 0–10.",
-  audit_title:"📂 Auditar uma pasta e rankeá-la",
-  audit_desc:"Abre a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>Tudo corre no teu browser — nada sai da tua máquina.</b>",
+  audit_title:"📂 Auditar um repositório local",
+  audit_desc:"Escolhe a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>O código fica neste browser — não é enviado.</b>",
   audit_compat:"🖥️ Compatibilidade: <b>Chrome/Edge</b> (qualquer OS) = experiência completa via seletor de pastas (requer HTTPS — o GitHub Pages dá). <b>Firefox</b> = usa o seletor clássico automaticamente. <b>Safari</b> = tudo funciona exceto a leitura de pastas (limitada pelo browser). O resto da app funciona em qualquer browser moderno.",
   audit_pick:"Escolher pasta do projeto", audit_clear:"Limpar",
   quiz_title:"Que harness para ti?", quiz_desc:"Responde a 6 perguntas. O Compass pondera as 22 dimensões conforme o teu perfil e recomenda os 3 harnesses com justificação.",
@@ -774,8 +776,8 @@ pt:{
   au_ev_file:"ficheiro {f}", au_ev_dir:"pasta {d}", au_ev_tests:"{n} ficheiros test/spec", au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projeto local", au_blurb_fallback:"Adicionado por auditoria local.", au_cancel:"Cancelado.", au_error:"Erro",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"visto pela última vez", au_type_fallback:"Projeto",
   au_submit:"Queres o teu harness no ranking oficial? <a href=\"{u}\" target=\"_blank\">Submete-o</a> — auditoria pública gratuita (badge AUDITADO) ou privada, confidencial. A escolha é tua.",
-  home_cta:"🧭 Audita o teu harness — a app lê a pasta no teu browser e dá-te os scores (100% local, sem upload)",
-  method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"A primeira comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário de evidência; relatório completo interno — produto comercial em desenvolvimento final).",
+  home_cta:"📂 Auditar um repositório local — o código fica neste browser e não é enviado",
+  method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"Uma comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário de evidência; relatório completo interno — produto comercial em desenvolvimento final).",
   footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
 },
 fr:{

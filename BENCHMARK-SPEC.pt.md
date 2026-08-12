@@ -2,7 +2,7 @@
 
 [English](BENCHMARK-SPEC.md) · **Português**
 
-> **Roadmap público do Harness Compass.** O Artificial Analysis mede modelos (HLE, MMLU, AAII). Ninguém mede harnesses. Esta spec define a primeira suíte padronizada para medir a camada — o "ARC/MMLU dos harnesses". Qualquer harness pode correr os cenários e submeter métricas + logs; o leaderboard é revisto antes de entrar.
+> **Roadmap público do Harness Compass.** O Artificial Analysis mede modelos (HLE, MMLU, AAII). Alguns Benchmarks medem comportamento do harness. Harness Compass, adiciona evidencias sobre arquitetura, governança, maturidade e adudita a camada económica. Esta spec define a primeira suíte padronizada para medir a camada — o "ARC/MMLU dos harnesses". Qualquer harness pode correr os cenários e submeter métricas + logs; o leaderboard é revisto antes de entrar.
 
 **Princípio:** um harness maduro é medido pelo comportamento sob stress, não por auto-declaração. Todos os cenários são reproduzíveis, read-only em relação ao repo auditado, e produzem métricas comparáveis.
 

@@ -2,7 +2,7 @@
 
 **English** · [Português](BENCHMARK-SPEC.pt.md)
 
-> **Harness Compass public roadmap.** Artificial Analysis measures models (HLE, MMLU, AAII). Nobody measures harnesses. This spec defines the first standardized suite for measuring the layer — the "ARC/MMLU of harnesses". Any harness can run the scenarios and submit metrics + logs; the leaderboard is reviewed before entry.
+> **Harness Compass public roadmap.** Artificial Analysis measures models (HLE, MMLU, AAII). Existing benchmarks measure harness behaviour. Harness Compass adds an evidence-based architecture, governance, maturity and economic audit layer.. This spec defines the first standardized suite for measuring the layer — the "ARC/MMLU of harnesses". Any harness can run the scenarios and submit metrics + logs; the leaderboard is reviewed before entry.
 
 **Principle:** a mature harness is measured by behavior under stress, not by self-declaration. All scenarios are reproducible, read-only with respect to the audited repo, and produce comparable metrics.
 

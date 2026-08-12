@@ -55,7 +55,7 @@ O preço de um LLM não é o preço do modelo — é o preço do modelo **vezes 
 - Sem compressão → conversas longas rebentam a janela e perdem contexto.
 - Sem routing → pagas o modelo caro para tarefas que o barato resolve.
 
-Um harness potente (Hermes, Kando, os coding agents maduros) **recupera o preço dele na primeira semana**. A calculadora quantifica isto com os teus números.
+Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **pode alterar significativamente o desempenho e o custo real de um mesmo modelo** - por vezes, a ponto de mudar a escolha do modelo ideal.
 
 ## Estado dos dados
 

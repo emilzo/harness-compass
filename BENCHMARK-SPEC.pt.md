@@ -1,8 +1,8 @@
-# Benchmark Padronizado de Harnesses — Especificação Aberta (v0.1)
+# Especificação Aberta de Benchmark de Harnesses (v0.1)
 
 [English](BENCHMARK-SPEC.md) · **Português**
 
-> **Roadmap público do Harness Compass.** O Artificial Analysis mede modelos (HLE, MMLU, AAII). Alguns Benchmarks medem comportamento do harness. Harness Compass, adiciona evidencias sobre arquitetura, governança, maturidade e adudita a camada económica. Esta spec define a primeira suíte padronizada para medir a camada — o "ARC/MMLU dos harnesses". Qualquer harness pode correr os cenários e submeter métricas + logs; o leaderboard é revisto antes de entrar.
+> **Pré-visualização de investigação do Harness Compass.** Os benchmarks de modelos já estão maduros; comparar sistematicamente a camada do harness ainda está no início. O Harness Compass acrescenta uma visão baseada em evidência da arquitetura, governação, maturidade e custo. Esta é uma spec aberta para os testes comportamentais B1–B8. Qualquer harness pode correr os cenários e submeter métricas + logs; os resultados precisam de revisão antes de entrarem num futuro leaderboard.
 
 **Princípio:** um harness maduro é medido pelo comportamento sob stress, não por auto-declaração. Todos os cenários são reproduzíveis, read-only em relação ao repo auditado, e produzem métricas comparáveis.
 
@@ -24,15 +24,15 @@
 1. Correr os cenários no harness candidato, com o código-fonte congelado (commit SHA).
 2. Submeter: métricas + logs (redigidos de segredos) + o commit auditado + ambiente (OS, versões).
 3. Revisão: um auditor independente confirma que as métricas batem com os logs.
-4. O harness entra no leaderboard com badge **BENCHMARKED** — acima do Preliminar, abaixo do Auditado completo (o benchmark mede comportamento; a auditoria mede engenharia).
+4. Uma execução pública revista pode receber o badge **BENCHMARKED**. Significa que os resultados comportamentais B1–B8 foram confirmados; é separado dos estados de proveniência do HCI e não transforma uma Estimativa num resultado Auditado.
 5. **Confidencialidade a pedido do submissor:** um harness pode ser auditado/benchmarkado em privado — os resultados são entregues apenas ao submissor e ficam **fora do leaderboard público**. Entrar no leaderboard exige métricas + logs publicados; não há badge público com evidência retida.
 
 ## Como isto se liga ao ranking
 
-- **HCI (Harness Compass Index)** = score estático das 22 dimensões (engenharia, lida no código) — exibido 0–100, dimensões 0–10 na **rubrica v1** com âncoras de fronteira (9–10 exigem critérios que nenhum harness atual cumpre; ver `references/harness-map.md`). Re-norming futuro por versão (v2 com fasquia subida), nunca silencioso.
+- **HCI (Harness Compass Index)** = maturidade arquitetural em 22 dimensões, lida no código e na evidência. Não é um benchmark de desempenho em tarefas. O HCI é exibido de 0–100, com dimensões de 0–10 na **rubrica v1** (ver `references/harness-map.md`). Qualquer re-norming futuro é versionado, nunca silencioso.
 - **Escalada de dificuldade:** os cenários B1–B8 são versionados e endurecem com o campo (payloads novos no B5, thresholds mais exigentes, B9+) — é aqui que vive a curva de dificuldade de longo prazo; resultados citam sempre a versão da suite.
 - **HAC (Harness-Adjusted Cost)** = custo real por tarefa (comportamento, medido pelo B8 + preços reais).
-- **Benchmark** = os dois cruzados: um harness com HCI alto deve ter HAC baixo. Se não tiver, o HCI está errado — e o benchmark corrige o ranking.
+- **Benchmark comportamental** = os resultados B1–B8, apresentados em separado. Esses resultados podem pôr em causa o score arquitetural, mas não são misturados no HCI como se fossem a mesma evidência.
 
 ## Estado
 

@@ -4,7 +4,9 @@
 
 **Live: https://emilzo.github.io/harness-compass/**
 
-**The evidence-based audit and decision layer for AI agent harnesses**. The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. This project goal is Audit architecture. Compare maturity. measure cost. Benchmark behaviour. you **choose the right harness** — and realize that with a powerful harness, **cheap LLMs get there**.
+**Research Preview v0.1**
+
+**The evidence-based audit and decision layer for AI agent harnesses.** The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. The goal is simple: audit the architecture, compare maturity, measure cost, and keep behaviour benchmarks separate. Then you can **choose the right harness** — and see when a strong harness lets **cheap LLMs get there**.
 
 > "Loops coordinate. Harnesses guide, execute, verify and decide. Models generate."
 
@@ -13,15 +15,15 @@
 A single-page web app (zero runtime dependencies, zero build — jsdom exists only as a devDependency of the test suite) with 8 views:
 
 1. **Paradigm** — why the harness decides how much of your token money is wasted.
-2. **Ranking** — harnesses scored across **22 dimensions** with the **HCI (Harness Compass Index) 0–100** (dimensions scored 0–10 on maturity rubric **v1**, with frontier anchors: the 9–10 band requires criteria no current harness meets — today's best sits at 75), radar fingerprint and donut; sortable, filterable by domain and by provenance (integrity). AUDITED / PRELIMINARY / ESTIMATE / LOCAL always distinguished.
+2. **Ranking** — harnesses scored across **22 dimensions** with the **HCI (Harness Compass Index) 0–100** (dimensions scored 0–10 on maturity rubric **v1**, with frontier anchors: the 9–10 band requires criteria no current harness meets — today's best sits at 75), radar fingerprint and donut; sortable, filterable by domain and by provenance (integrity). HCI measures architectural maturity from code and evidence. It is not a task-performance benchmark. AUDITED / PRELIMINARY / ESTIMATE / LOCAL are always kept separate.
 3. **💰 Real cost** — *Same Model, Different Harness*: the same workload, the same model, through each harness → **real cost per task (harness-adjusted)** with cache/retry/routing derived from the scores, live OpenRouter prices and a cost ranking. It's Artificial Analysis' "Cost per Task" applied to the layer.
 4. **Harness Map** — the full taxonomy (6 domains × 22 dimensions).
-5. **📂 Audit a folder** — open a local repo folder; heuristic analysis of the 22 dimensions with justifications, adjustable sliders (adjustments stay flagged — integrity), improvement plan, add-to-ranking and JSON export. 100% local.
+5. **📂 Audit a local repo** — open a repo folder; heuristic analysis of the 22 dimensions with justifications, adjustable sliders (adjustments stay flagged — integrity), improvement plan, add-to-ranking and JSON export. Your code stays in the browser and is not uploaded.
 6. **Decision quiz** — 6 questions weight the dimensions by your profile and recommend the top 3 with justification.
 7. **Savings calculator** — how much you save per month in tokens with cache, retry, compression and routing.
 8. **Method & evidence** — maturity scale, integrity, how the local audit works, case studies.
 
-The **standardized benchmark** (the "ARC of harnesses" — B1–B8 scenarios, submission protocol, leaderboard) is specified in `BENCHMARK-SPEC.md` — the authority-play roadmap.
+The open behavioural benchmark spec (B1–B8 scenarios, submission protocol and a future reviewed leaderboard) lives in `BENCHMARK-SPEC.md`. It is separate from the HCI architecture score.
 
 ## Compatibility
 
@@ -64,6 +66,15 @@ A strong harness (Hermes, Kando, Claude, Codex and the mature coding agents) **c
 | Hermes Agent (Nous Research) | ✅ Audited | 22 dimensions, file:line evidence — see `docs/` |
 | Kando (DevFactoryAI) | ✅ Audited | same |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimate | informed assessment, to be validated by audit |
+
+## How to read the results
+
+- **HCI** — architectural maturity from code and evidence across 22 dimensions. It is not a task-performance benchmark.
+- **Audited** — a human code audit with published `path:line` evidence.
+- **Preliminary** — the browser-only heuristic scan; useful as a first cut, not a full audit.
+- **Estimate** — an informed assessment that has not been verified by an audit.
+- **Local** — added in your own browser session. It does not become part of the project dataset.
+- **Benchmarked** — reserved for a published, reviewed B1–B8 behavioural run. It is separate from the HCI provenance labels above.
 
 ## How to contribute
 
@@ -120,7 +131,7 @@ Full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) — including the **submissio
 
 ## Internationalization (i18n)
 
-Language selector at the top — **English is the norm**, with Portuguese, French, German, Mandarin and Hindi. The dictionary lives at the top of `index.html` (`const T = {...}`): partial translations fall back to English, and anyone can fix terms or add a language via PR. **All 6 languages are complete — 330/330 keys each** (blurbs, 22 dimensions, 64 improvement patterns, quiz, audit, method). **To add a new language:** copy the `pt:{...}` block of the dictionary, translate the values and update the `LANGUAGES` selector — `check-i18n.js` validates keys and placeholders automatically — or open a PR.
+Language selector at the top — **English is the norm**, with Portuguese, French, German, Mandarin and Hindi. The dictionary lives at the top of `index.html` (`const T = {...}`): release copy is kept current in English and Portuguese, while missing labels in the other languages fall back to English. Anyone can fix terms or add a language via PR. **To add a new language:** copy the `pt:{...}` block of the dictionary, translate the values and update the `LANGUAGES` selector — `check-i18n.js` validates keys and placeholders automatically — or open a PR.
 
 **Light/dark theme:** ☀️/🌙 button at the top — respects the system preference on first visit and remembers your choice (localStorage).
 

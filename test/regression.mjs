@@ -245,6 +245,9 @@ test('12. renderRanking + applyI18n: #rank-count continua preenchido', async () 
     const before = el.innerHTML;
     w.applyI18n();
     assert.equal($('#rank-count').innerHTML, before, 'applyI18n idempotente — não apaga o contador');
+    assert.ok($('[data-i18n="rank_desc"]').innerHTML.includes('not a task-performance benchmark'), 'HCI separado do benchmark comportamental em EN');
+    w.setLang('pt');
+    assert.ok($('[data-i18n="rank_desc"]').innerHTML.includes('Não é um benchmark de desempenho em tarefas'), 'distinção HCI/benchmark traduzida em PT');
   });
 });
 
@@ -306,10 +309,17 @@ test('15. hc-lang inválida: initLang cai para en', async () => {
  * ===================================================================== */
 
 test('16. CTA da home abre a vista de auditoria (era nav("audit"), inexistente)', async () => {
-  await withBoot(({ $ }) => {
-    $('[data-i18n="home_cta"]').click();
+  await withBoot(({ w, $ }) => {
+    const cta = $('[data-i18n="home_cta"]');
+    assert.ok(cta.textContent.includes('Audit a local repo'), 'CTA principal diz o que abre');
+    assert.ok(cta.textContent.includes('code stays in this browser'), 'CTA principal inclui a nota de privacidade');
+    assert.equal($('[data-i18n="preview_label"]').textContent, 'Research Preview v0.1', 'estado de preview visível em EN');
+    cta.click();
     assert.ok($('#view-audit').classList.contains('active'), 'vista audit ativa');
     assert.ok(!$('#view-home').classList.contains('active'), 'home desativada');
+    w.setLang('pt');
+    assert.ok($('[data-i18n="home_cta"]').textContent.includes('Auditar um repositório local'), 'CTA traduzido em PT');
+    assert.equal($('[data-i18n="preview_label"]').textContent, 'Pré-visualização de investigação v0.1', 'estado de preview visível em PT');
   });
 });
 

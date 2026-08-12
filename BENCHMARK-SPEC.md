@@ -1,8 +1,8 @@
-# Standardized Harness Benchmark — Open Specification (v0.1)
+# Open Harness Benchmark Specification (v0.1)
 
 **English** · [Português](BENCHMARK-SPEC.pt.md)
 
-> **Harness Compass public roadmap.** Artificial Analysis measures models (HLE, MMLU, AAII). Existing benchmarks measure harness behaviour. Harness Compass adds an evidence-based architecture, governance, maturity and economic audit layer.. This spec defines the first standardized suite for measuring the layer — the "ARC/MMLU of harnesses". Any harness can run the scenarios and submit metrics + logs; the leaderboard is reviewed before entry.
+> **Harness Compass research preview.** Model benchmarks are mature; comparing the harness layer systematically is still early. Harness Compass adds an evidence-based view of architecture, governance, maturity and cost. This is an open spec for the B1–B8 behaviour tests. Any harness can run the scenarios and submit metrics + logs; results need review before they enter a future leaderboard.
 
 **Principle:** a mature harness is measured by behavior under stress, not by self-declaration. All scenarios are reproducible, read-only with respect to the audited repo, and produce comparable metrics.
 
@@ -24,15 +24,15 @@
 1. Run the scenarios on the candidate harness with the source code frozen (commit SHA).
 2. Submit: metrics + logs (redacted of secrets) + the audited commit + environment (OS, versions).
 3. Review: an independent auditor confirms the metrics match the logs.
-4. The harness enters the leaderboard with the **BENCHMARKED** badge — above Preliminary, below the full Audited (the benchmark measures behavior; the audit measures engineering).
+4. A reviewed public run can receive the **BENCHMARKED** badge. It means the B1–B8 behaviour results were checked; it is separate from the HCI provenance labels and does not turn an Estimate into an Audited result.
 5. **Confidentiality at the submitter's request:** a harness can be audited/benchmarked privately — results are delivered only to the submitter and stay **outside the public leaderboard**. Entering the leaderboard requires published metrics + logs; there is no public badge with withheld evidence.
 
 ## How this connects to the ranking
 
-- **HCI (Harness Compass Index)** = static score across the 22 dimensions (engineering, read in the code) — displayed 0–100, dimensions 0–10 on **rubric v1** with frontier anchors (9–10 requires criteria no current harness meets; see `references/harness-map.md`). Future re-norming is versioned (v2 with a raised bar), never silent.
+- **HCI (Harness Compass Index)** = architectural maturity across 22 dimensions, read from code and evidence. It is not a task-performance benchmark. HCI is displayed 0–100, with dimensions scored 0–10 on **rubric v1** (see `references/harness-map.md`). Future re-norming is versioned, never silent.
 - **Difficulty escalation:** the B1–B8 scenarios are versioned and harden with the field (new B5 payloads, stricter thresholds, B9+) — this is where the long-term difficulty curve lives; results always cite the suite version.
 - **HAC (Harness-Adjusted Cost)** = real cost per task (behavior, measured by B8 + live prices).
-- **Benchmark** = the two crossed: a harness with a high HCI should have a low HAC. If it doesn't, the HCI is wrong — and the benchmark corrects the ranking.
+- **Behaviour benchmark** = the separate B1–B8 results. Those results can challenge the architecture score, but they are not folded into HCI as if they were the same evidence.
 
 ## Status
 

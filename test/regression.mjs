@@ -392,14 +392,18 @@ test('22. status da auditoria re-traduz na troca de língua (antes era apagado)'
   });
 });
 
-test('23. integridade do dataset: todo o audited:true tem evidence e o ficheiro existe', () => {
+test('23. integridade do dataset: AUDITED exige evidência pública; Kando fica ESTIMATE', () => {
   const entries = html.match(/\{id:"[^"]+", name:"[^"]+", vendor:"[\s\S]*?scores:\{[^}]*\}\}/g) || [];
   assert.ok(entries.length >= 10, `dataset parseado (${entries.length} entradas)`);
   const audited = entries.filter(e => /audited:true/.test(e));
-  assert.ok(audited.length >= 2, 'há entradas auditadas');
+  assert.ok(audited.length >= 1, 'há pelo menos uma entrada com auditoria pública');
   for (const e of audited) {
     const m = e.match(/evidence:"([^"]+)"/);
     assert.ok(m, 'audited:true sem campo evidence: ' + e.slice(0, 60));
     assert.ok(fs.existsSync(new URL('../' + m[1], import.meta.url)), 'ficheiro de evidência inexistente: ' + m[1]);
   }
+  const kando = entries.find(e => /\{id:"kando"/.test(e));
+  assert.ok(kando, 'entrada do Kando existe');
+  assert.match(kando, /audited:false/, 'auditoria interna sem relatório público fica ESTIMATE');
+  assert.ok(!/evidence:"/.test(kando), 'Kando não aponta um sumário privado como prova de AUDITED');
 });

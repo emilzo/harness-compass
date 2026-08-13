@@ -64,7 +64,7 @@ A strong harness (Hermes, Kando, Claude, Codex and the mature coding agents) **c
 | Harness | Status | Note |
 |---|---|---|
 | Hermes Agent (Nous Research) | ✅ Audited | 22 dimensions, file:line evidence — see `docs/` |
-| Kando (DevFactoryAI) | ✅ Audited | same |
+| Kando (DevFactoryAI) | 🔶 Estimate | internally audited; preparing for go-to-market; the line-by-line report is not public |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimate | informed assessment, to be validated by audit |
 
 ## How to read the results
@@ -72,7 +72,7 @@ A strong harness (Hermes, Kando, Claude, Codex and the mature coding agents) **c
 - **HCI** — architectural maturity from code and evidence across 22 dimensions. It is not a task-performance benchmark.
 - **Audited** — a human code audit with published `path:line` evidence.
 - **Preliminary** — the browser-only heuristic scan; useful as a first cut, not a full audit.
-- **Estimate** — an informed assessment that has not been verified by an audit.
+- **Estimate** — an informed assessment without a published, independently checkable audit report.
 - **Local** — added in your own browser session. It does not become part of the project dataset.
 - **Benchmarked** — reserved for a published, reviewed B1–B8 behavioural run. It is separate from the HCI provenance labels above.
 
@@ -86,6 +86,8 @@ Full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) — including the **submissio
 4. **Improve the map or the quiz**: PRs welcome.
 
 **The project's golden rule:** audited, preliminary and estimated data are **never** mixed without a label.
+
+An internal or private audit can inform an **Estimate**, but it does not earn the public **AUDITED** badge. That badge requires published, line-by-line evidence that readers can check for themselves.
 
 ## Ranking integrity (how "for real" works)
 
@@ -121,7 +123,7 @@ Full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) — including the **submissio
 ## Case studies
 
 - `docs/DEEP-HARNESS-AUDIT-HERMES.md` — line-by-line deep audit of Hermes, **published in full** (15 findings, KPIs, 15 portable patterns, 10 recommendations) — an architecture review of an open-source project, published as a courtesy and as proof of method.
-- `docs/EVIDENCE-SUMMARY-KANDO.md` — Kando's **evidence summary**: the 22 dimension scores + the `path:line` mechanisms the app already cites. The full report (~190K-character comparison, 9 parallel audits) stays in the internal archive — Kando is a commercial product **in final development**; the summary publishes the evidence at exactly the level of detail the app already exposes.
+- `docs/EVIDENCE-SUMMARY-KANDO.md` — Kando's public **evidence summary**. Kando was audited internally and is preparing for go-to-market, but remains an **Estimate** in the public ranking because the full line-by-line report and source are not public.
 
 ## License and integrity
 

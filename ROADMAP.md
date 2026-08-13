@@ -39,7 +39,7 @@ Last update: 2026-08-11 · Code status: regression suite 23/23 green · `check-i
 - [x] **Saturation-proof scale (pre-launch decision):** HCI displayed **0–100** (dimensions keep the 0–10 rubric, now **v1**); frontier anchors documented (9–10 = criteria nobody meets today — best current HCI: 75); future re-norming versioned (v2, never silent); long-term difficulty curve lives in the versioned B1–B8 scenarios
 
 ## Phase 3 — Publication ✅ (site live 2026-08-10; anchor article pending)
-- [x] **Evidence decision (external review P0) — resolved:** Hermes report **published in full** (`docs/DEEP-HARNESS-AUDIT-HERMES.md`, public edition with normalized local paths + OSS courtesy note) · Kando as an **evidence summary** (`docs/EVIDENCE-SUMMARY-KANDO.md`; full report internal — commercial product in final development)
+- [x] **Evidence decision (external review P0) — resolved:** Hermes report **published in full** (`docs/DEEP-HARNESS-AUDIT-HERMES.md`, public edition with normalized local paths + OSS courtesy note) · Kando kept as an **Estimate** with a public summary (`docs/EVIDENCE-SUMMARY-KANDO.md`; internally audited, preparing for go-to-market, line-by-line report private)
 - [x] `evidence` field on `audited:true` harnesses — the audit line in the detail card links to the report
 - [x] **Submission confidentiality policy** (README §Integrity 5 + BENCHMARK-SPEC §5): submitters may request a private audit — report goes only to the submitter, outside the public ranking/leaderboard; the public badge requires published evidence
 - [x] GitHub repo + push (`emilzo/harness-compass`) with history cleaned of internal docs

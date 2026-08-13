@@ -64,7 +64,7 @@ Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **po
 | Harness | Status | Nota |
 |---|---|---|
 | Hermes Agent (Nous Research) | ✅ Auditado | 22 dimensões, evidência file:line — ver `docs/` |
-| Kando (DevFactoryAI) | ✅ Auditado | idem |
+| Kando (DevFactoryAI) | 🔶 Estimativa | auditado internamente; em preparação para go-to-market; o relatório linha a linha não é público |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimativa | avaliação informada, a validar por auditoria |
 
 ## Como ler os resultados
@@ -72,7 +72,7 @@ Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **po
 - **HCI** — maturidade arquitetural a partir de código e evidência, em 22 dimensões. Não é um benchmark de desempenho em tarefas.
 - **Auditado** — auditoria humana do código com evidência `path:line` publicada.
 - **Preliminar** — análise heurística feita no browser; é um primeiro corte, não uma auditoria completa.
-- **Estimativa** — avaliação informada que ainda não foi verificada por auditoria.
+- **Estimativa** — avaliação informada sem relatório de auditoria publicado e verificável de forma independente.
 - **Local** — adicionado na tua sessão do browser. Não passa a fazer parte do dataset do projeto.
 - **Benchmarked** — reservado a uma execução comportamental B1–B8 publicada e revista. É separado dos estados de proveniência do HCI acima.
 
@@ -86,6 +86,8 @@ Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário
 4. **Melhorar o mapa ou o quiz**: PR bem-vindo.
 
 **Regra de ouro do projeto:** dados auditados, preliminares e estimativas **nunca** se misturam sem etiqueta.
+
+Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá direito ao badge público **AUDITADO**. Esse badge exige evidência linha a linha publicada, para qualquer pessoa poder verificar.
 
 ## Integridade do ranking (como é que "a sério" funciona)
 
@@ -121,7 +123,7 @@ Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário
 ## Estudos de caso
 
 - `docs/DEEP-HARNESS-AUDIT-HERMES.md` — deep audit linha-a-linha do Hermes, **publicado integralmente** (15 achados, KPIs, 15 padrões portáveis, 10 recomendações) — revisão de arquitetura de um projeto open-source, publicada como cortesia e como prova do método.
-- `docs/EVIDENCE-SUMMARY-KANDO.md` — **sumário de evidência** do Kando: scores das 22 dimensões + os mecanismos `path:line` que a app já cita. O relatório completo (comparação de ~190K caracteres, 9 auditorias paralelas) fica no arquivo interno — o Kando é um produto comercial **em desenvolvimento final**; o sumário publica a evidência exatamente ao nível de detalhe que a app já expõe.
+- `docs/EVIDENCE-SUMMARY-KANDO.md` — **sumário público de evidência** do Kando. O Kando foi auditado internamente e está em preparação para go-to-market, mas fica como **Estimativa** no ranking público porque o relatório completo linha a linha e o código não são públicos.
 
 ## Licença e integridade
 

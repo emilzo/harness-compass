@@ -364,7 +364,7 @@
       <p data-i18n="method_ld">A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.</p>
       <h3 data-i18n="method_ct">Estudo de caso — Hermes Agent vs Kando</h3>
       <p data-i18n="method_cd">Uma comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.</p>
-      <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário de evidência; relatório completo interno — produto comercial em desenvolvimento final).</p>
+      <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário público; auditoria interna, Kando em preparação para go-to-market e classificado como Estimativa porque o relatório linha a linha não é público).</p>
     </div>
   </section>
   </main>
@@ -415,7 +415,7 @@ const BUILTIN_HARNESSES = [
    tags:["conversational","multi-provider","CLI/gateway/TUI"],
    blurb:"blurb_hermes",
    scores:{A1:8,A2:9,A3:9,A4:9,B1:5,B2:8,B3:8,B4:8,C1:9,C2:3,C3:8,C4:9,D1:8,D2:8,D3:7,D4:6,D5:3,E1:9,E2:8,F1:8,F2:7,F3:9}},
-  {id:"kando", name:"Kando", vendor:"DevFactoryAI", type:"Multi-agent control plane", url:"", audited:true, evidence:"docs/EVIDENCE-SUMMARY-KANDO.md",
+  {id:"kando", name:"Kando", vendor:"DevFactoryAI", type:"Multi-agent control plane", url:"", audited:false,
    tags:["multi-agent","empirical verification","cost cap","leases"],
    blurb:"blurb_kando",
    scores:{A1:7,A2:5,A3:6,A4:2,B1:8,B2:2,B3:8,B4:7,C1:7,C2:7,C3:7,C4:7,D1:5,D2:6,D3:7,D4:6,D5:4,E1:6,E2:6,F1:6,F2:8,F3:8}},
@@ -476,7 +476,7 @@ en:{
   home_anatomy_sub:"The anatomy (Interface → AGENT LOOP → LLM ↔ tools; Tools, Permissions, Sandbox, Verification, Observability) is right. The full version adds what real auditing revealed:",
   home_anatomy_legend:"\"Loops coordinate. Harnesses guide, execute, verify and decide. Models generate.\"",
   rank_title:"Harness ranking",
-  rank_desc:"<b>How to read the results.</b> HCI measures architectural maturity from code and evidence across 22 dimensions. It is not a task-performance benchmark; B1–B8 behavioural validation stays separate. <span class=\"badge b-audit\">Audited</span> = published code evidence · <span class=\"badge b-prel\">Preliminary</span> = heuristic browser scan · <span class=\"badge b-est\">Estimate</span> = informed assessment, not verified · <b>Local</b> = exists only in your session. <b>Benchmarked</b> is reserved for a published, reviewed B1–B8 run.",
+  rank_desc:"<b>How to read the results.</b> HCI measures architectural maturity from code and evidence across 22 dimensions. It is not a task-performance benchmark; B1–B8 behavioural validation stays separate. <span class=\"badge b-audit\">Audited</span> = published, checkable line-by-line code evidence · <span class=\"badge b-prel\">Preliminary</span> = heuristic browser scan · <span class=\"badge b-est\">Estimate</span> = informed assessment without a public audit report · <b>Local</b> = exists only in your session. <b>Benchmarked</b> is reserved for a published, reviewed B1–B8 run.",
   rank_dom:"Filter domain:", dom_all:"All",
   rank_prov:"Provenance (integrity):", prov_all:"All", prov_oficial:"✓ Project dataset", prov_local:"Local (your session)",
   cost_title:"💰 Same Model, Different Harness — real cost per task",
@@ -509,7 +509,7 @@ en:{
   lv_n4:"L5 · Reference",
   lv_d4:"Reason for existing — depth beyond the requirement.",
   blurb_hermes:"The most complete harness in context/caching/tools/containment. Structural obsession with byte-stable prompt caching. Weak spots: no evals, no cost cap, no approval ledger.",
-  blurb_kando:"Supervisory platform for external agents (Codex/Claude/OpenClaw). Leads in evaluation (3-layer LLM-as-judge), hard cost cap and judgment as protocol. Lacks destructive-command containment and native tools.",
+  blurb_kando:"Supervisory platform for external agents (Codex/Claude/OpenClaw), preparing for go-to-market. Internally audited; shown here as an Estimate because the line-by-line report is not public.",
   blurb_claude_code:"Coding agent with good Anthropic ecosystem integration, reasonable approvals and sandboxing. Estimate — to validate.",
   blurb_codex:"OpenAI agent with sandbox by default and approvals. Estimate.",
   blurb_cursor:"IDE-first, great for assisted editing; less multi-step autonomy and governance. Estimate.",
@@ -609,7 +609,7 @@ en:{
   dim_F2:"Cost & efficiency", dim_F2_d:"Cap, budgets, rate limiting.",
   dim_F3:"Resilience", dim_F3_d:"Failover, timeouts, crash recovery.",
   pl_title:"Improvement plan — the Compass as compass", pl_level:"Maturity level:", pl_crit:"🔴 Critical (score < 4) — fix first", pl_imp:"🟠 Important (4–5) — score lever", pl_nogaps:"No critical gaps — above 6 in every dimension. Congratulations: this harness is at managed level or higher.", pl_source:"Advice derived from patterns proven in real audits (Hermes/Kando/CCR). Each pattern cites its source mechanism. Contribute new patterns via PR.", pl_none:"No catalogued patterns yet — contribute one with a PR.",
-  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensions", dt_dims_l:"dimensions", dt_fp:"Fingerprint by domain", dt_laud:"Audit with path:line evidence (reports in docs/).", dt_llocal:"Local heuristic analysis of {n} files{adj}. For an official badge, an audit with a reviewed report via PR is required.", dt_ladj:"dimensions manually adjusted (visible divergence)", dt_lclean:"no adjustments, faithful to the analysis", dt_lest:"Informed estimate — audit candidate.",
+  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensions", dt_dims_l:"dimensions", dt_fp:"Fingerprint by domain", dt_laud:"Audit with path:line evidence (reports in docs/).", dt_llocal:"Local heuristic analysis of {n} files{adj}. For an official badge, an audit with a reviewed report via PR is required.", dt_ladj:"dimensions manually adjusted (visible divergence)", dt_lclean:"no adjustments, faithful to the analysis", dt_lest:"Informed estimate — no public line-by-line audit.",
   qz_res:"Recommendation for your profile", qz_strong:"Strengths:", qz_weak:"Weaknesses:", qz_none:"none critical", qz_note:"The HCI (composite score) is not the criterion — the weighting reflects the dimensions you chose.",
   ec_no:"Without a powerful harness", ec_no_d:"Everything on the premium model, no cache, no fallback, no routing.", ec_yes:"With a powerful harness", ec_yes_d:"Cache {c}% · avoided failures {r}% · compression {co}% · routing {rt}%", ec_save:"You save <b class=\"green\" style=\"color:var(--emerald)\">${s}/month ({p}%)</b> — in tokens alone.", ec_hint:"Illustrative estimate; use your own prices.",
   ct_or_choose:"— choose a model —", ct_or_loaded:"{n} models with real prices loaded", ct_or_offline:"Offline or CORS blocked — manual prices in use (real ones return on GitHub Pages).", ct_base:"Without harness: <b style=\"color:var(--rose)\">${b}/month</b> — what each harness saves:",
@@ -621,7 +621,7 @@ en:{
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"last seen", au_type_fallback:"Project",
   au_submit:"Want your harness in the official ranking? <a href=\"{u}\" target=\"_blank\">Submit it</a> — free public audit (AUDITED badge) or a private, confidential one. Your choice.",
   home_cta:"📂 Audit a local repo — your code stays in this browser and is not uploaded",
-  method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"A complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: the references/harness-map.md taxonomy · docs/DEEP-HARNESS-AUDIT-HERMES.md (full audit, published) · docs/EVIDENCE-SUMMARY-KANDO.md (evidence summary; full report internal — commercial product in final development).",
+  method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"A complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: the references/harness-map.md taxonomy · docs/DEEP-HARNESS-AUDIT-HERMES.md (full audit, published) · docs/EVIDENCE-SUMMARY-KANDO.md (public summary; internal audit, Kando preparing for go-to-market and shown as an Estimate because the line-by-line report is not public).",
   footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
 },
 pt:{
@@ -639,7 +639,7 @@ pt:{
   home_anatomy_sub:"A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:",
   home_anatomy_legend:"\"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram.\"",
   rank_title:"Ranking de harnesses",
-  rank_desc:"<b>Como ler os resultados.</b> O HCI mede maturidade arquitetural a partir de código e evidência em 22 dimensões. Não é um benchmark de desempenho em tarefas; a validação comportamental B1–B8 fica separada. <span class=\"badge b-audit\">Auditado</span> = evidência de código publicada · <span class=\"badge b-prel\">Preliminar</span> = análise heurística no browser · <span class=\"badge b-est\">Estimativa</span> = avaliação informada, não verificada · <b>Local</b> = só existe na tua sessão. <b>Benchmarked</b> fica reservado a uma execução B1–B8 publicada e revista.",
+  rank_desc:"<b>Como ler os resultados.</b> O HCI mede maturidade arquitetural a partir de código e evidência em 22 dimensões. Não é um benchmark de desempenho em tarefas; a validação comportamental B1–B8 fica separada. <span class=\"badge b-audit\">Auditado</span> = evidência de código linha a linha, publicada e verificável · <span class=\"badge b-prel\">Preliminar</span> = análise heurística no browser · <span class=\"badge b-est\">Estimativa</span> = avaliação informada sem relatório de auditoria público · <b>Local</b> = só existe na tua sessão. <b>Benchmarked</b> fica reservado a uma execução B1–B8 publicada e revista.",
   rank_dom:"Filtrar domínio:", dom_all:"Todos",
   rank_prov:"Proveniência (integridade):", prov_all:"Todos", prov_oficial:"✓ Dataset do projeto", prov_local:"Local (a tua sessão)",
   cost_title:"💰 Same Model, Different Harness — custo real por tarefa",
@@ -672,7 +672,7 @@ pt:{
   lv_n4:"L5 · Referência",
   lv_d4:"Razão de existir — profundidade além do requisito.",
   blurb_hermes:"O harness mais completo em contexto/caching/ferramentas/contenção. Obsessão estrutural pelo prompt-cache byte-estável. Pontos fracos: sem evals, sem cap de custo, sem ledger de aprovações.",
-  blurb_kando:"Plataforma supervisora de agentes externos (Codex/Claude/OpenClaw). Lidera em avaliação (LLM-as-judge 3 camadas), cap duro de custo e julgamento como protocolo. Falta contenção de destrutivas e ferramentas nativas.",
+  blurb_kando:"Plataforma supervisora de agentes externos (Codex/Claude/OpenClaw), em preparação para go-to-market. Auditada internamente; aparece aqui como Estimativa porque o relatório linha a linha não é público.",
   blurb_claude_code:"Coding agent com boa integração no ecossistema Anthropic, approvals e sandboxing razoáveis. Estimativa — a validar.",
   blurb_codex:"Agente da OpenAI com sandbox por defeito e approvals. Estimativa.",
   blurb_cursor:"IDE-first, ótimo para edição assistida; menos autonomia multi-step e governação. Estimativa.",
@@ -772,7 +772,7 @@ pt:{
   dim_F2:"Custo & eficiência", dim_F2_d:"Cap, budgets, rate limiting.",
   dim_F3:"Resiliência", dim_F3_d:"Failover, timeouts, crash recovery.",
   pl_title:"Plano de melhoria — o Compass como compass", pl_level:"Nível de maturidade:", pl_crit:"🔴 Crítico (score < 4) — resolver primeiro", pl_imp:"🟠 Importante (4–5) — alavanca de score", pl_nogaps:"Sem gaps críticos — acima de 6 em todas as dimensões. Parabéns: este harness está no nível gerido ou superior.", pl_source:"Conselhos derivados dos padrões provados em auditorias reais (Hermes/Kando/CCR). Cada padrão cita o mecanismo-fonte. Contribui com padrões novos via PR.", pl_none:"Sem padrões catalogados ainda — contribui com um PR.",
-  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensões", dt_dims_l:"dimensões", dt_fp:"Fingerprint por domínio", dt_laud:"Auditoria com evidência path:line (relatórios em docs/).", dt_llocal:"Análise local heurística de {n} ficheiros{adj}. Para badge oficial, auditoria com relatório revisto via PR.", dt_ladj:"dimensões ajustadas manualmente (divergência visível)", dt_lclean:"sem ajustes, fiel à análise", dt_lest:"Estimativa informada — candidata a auditoria.",
+  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensões", dt_dims_l:"dimensões", dt_fp:"Fingerprint por domínio", dt_laud:"Auditoria com evidência path:line (relatórios em docs/).", dt_llocal:"Análise local heurística de {n} ficheiros{adj}. Para badge oficial, auditoria com relatório revisto via PR.", dt_ladj:"dimensões ajustadas manualmente (divergência visível)", dt_lclean:"sem ajustes, fiel à análise", dt_lest:"Estimativa informada — sem auditoria pública linha a linha.",
   qz_res:"Recomendação para o teu perfil", qz_strong:"Forças:", qz_weak:"Fraquezas:", qz_none:"nenhuma crítica", qz_note:"O HCI (score composto) não é o critério — o ajuste pondera as dimensões que escolheste.",
   ec_no:"Sem harness potente", ec_no_d:"Tudo no modelo premium, sem cache, sem fallback, sem routing.", ec_yes:"Com harness potente", ec_yes_d:"Cache {c}% · falhas evitadas {r}% · compressão {co}% · routing {rt}%", ec_save:"Poupas <b class=\"green\" style=\"color:var(--emerald)\">${s}/mês ({p}%)</b> — só em tokens.", ec_hint:"Estimativa ilustrativa; usa os teus preços.",
   ct_or_choose:"— escolhe um modelo —", ct_or_loaded:"{n} modelos com preços reais carregados", ct_or_offline:"Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).", ct_base:"Sem harness: <b style=\"color:var(--rose)\">${b}/mês</b> — o que cada harness poupa:",
@@ -784,7 +784,7 @@ pt:{
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"visto pela última vez", au_type_fallback:"Projeto",
   au_submit:"Queres o teu harness no ranking oficial? <a href=\"{u}\" target=\"_blank\">Submete-o</a> — auditoria pública gratuita (badge AUDITADO) ou privada, confidencial. A escolha é tua.",
   home_cta:"📂 Auditar um repositório local — o código fica neste browser e não é enviado",
-  method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"Uma comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário de evidência; relatório completo interno — produto comercial em desenvolvimento final).",
+  method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"Uma comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário público; auditoria interna, Kando em preparação para go-to-market e classificado como Estimativa porque o relatório linha a linha não é público).",
   footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
 },
 fr:{
@@ -827,7 +827,7 @@ fr:{
   lv_n2:"L3 · Géré", lv_d2:"Mesuré et intégré ; lacunes connues et documentées.", lv_n3:"L4 · Optimisé",
   lv_d3:"Auto-correcteur : capteurs, evals, coût maîtrisé.", lv_n4:"L5 · Référence", lv_d4:"Raison d'être — profondeur au-delà de l'exigence.",
   blurb_hermes:"Le harness le plus complet en contexte/caching/outils/confinement. Obsession structurelle du prompt caching byte-stable. Points faibles : pas d'evals, pas de plafond de coût, pas de registre d'approbations.",
-  blurb_kando:"Plateforme de supervision d'agents externes (Codex/Claude/OpenClaw). Leader en évaluation (LLM-as-judge à 3 couches), plafond de coût dur et jugement comme protocole. Manque le confinement des commandes destructives et les outils natifs.",
+  blurb_kando:"Plateforme de supervision d'agents externes (Codex/Claude/OpenClaw), en préparation pour sa mise sur le marché. Auditée en interne ; affichée ici comme Estimation car le rapport ligne par ligne n'est pas public.",
   blurb_claude_code:"Agent de coding bien intégré à l'écosystème Anthropic, approbations et sandboxing raisonnables. Estimation — à valider.",
   blurb_codex:"Agent d'OpenAI avec sandbox par défaut et approbations. Estimation.",
   blurb_cursor:"IDE-first, excellent pour l'édition assistée ; moins d'autonomie multi-étapes et de gouvernance. Estimation.",
@@ -925,7 +925,7 @@ fr:{
   dt_dims_l:"dimensions", dt_fp:"Fingerprint par domaine", dt_laud:"Audit avec preuves path:line (rapports dans docs/).",
   dt_llocal:"Analyse heuristique locale de {n} fichiers{adj}. Pour un badge officiel, un audit avec rapport relu via PR est requis.",
   dt_ladj:"dimensions ajustées manuellement (divergence visible)", dt_lclean:"sans ajustements, fidèle à l'analyse",
-  dt_lest:"Estimation informée — candidate à l'audit.", qz_res:"Recommandation pour ton profil", qz_strong:"Forces :", qz_weak:"Faiblesses :",
+  dt_lest:"Estimation informée — sans audit public ligne par ligne.", qz_res:"Recommandation pour ton profil", qz_strong:"Forces :", qz_weak:"Faiblesses :",
   qz_none:"aucune critique", qz_note:"Le HCI (score composite) n'est pas le critère — la pondération reflète les dimensions que tu as choisies.",
   ec_no:"Sans harness puissant", ec_no_d:"Tout sur le modèle premium, sans cache, sans fallback, sans routing.", ec_yes:"Avec un harness puissant",
   ec_yes_d:"Cache {c}% · échecs évités {r}% · compression {co}% · routing {rt}%",
@@ -970,7 +970,7 @@ fr:{
   method_ld:"L'app lit jusqu'à 300 fichiers du dossier (max ~2 Mo de contenu) et cherche des signaux objectifs par dimension : présence d'<code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + workflows CI (vérification), <code>skills/</code> (playbooks), patterns d'approbation/sécurité (gouvernance), <code>docker</code>/<code>sandbox</code> (exécution), <code>cost</code>/<code>budget</code> (coût)… Chaque signal ajoute des points à sa dimension avec justification visible. Un premier tri honnête — pas un substitut à l'audit complet.",
   method_ct:"Étude de cas — Hermes Agent vs Kando",
   method_cd:"La première comparaison complète : 22 dimensions, ~190K caractères de preuves, 9 audits parallèles. Leçon centrale : <b>les forces de l'un sont les faiblesses de l'autre</b> — le port croisé est la voie.",
-  method_src:"Sources : taxonomie references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (audit intégral, publié) · docs/EVIDENCE-SUMMARY-KANDO.md (résumé de preuves ; rapport complet interne — produit commercial en développement final)."
+  method_src:"Sources : taxonomie references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (audit intégral, publié) · docs/EVIDENCE-SUMMARY-KANDO.md (résumé public ; audit interne, Kando prépare sa mise sur le marché et reste une Estimation car le rapport ligne par ligne n'est pas public)."
 },
 de:{
   tagline:"Agent = Model + Harness",
@@ -1012,7 +1012,7 @@ de:{
   lv_n2:"L3 · Gemanagt", lv_d2:"Gemessen und integriert; Lücken bekannt und dokumentiert.", lv_n3:"L4 · Optimiert",
   lv_d3:"Selbstkorrigierend: Sensoren, Evals, kontrollierte Kosten.", lv_n4:"L5 · Referenz", lv_d4:"Daseinsgrund — Tiefe über die Anforderung hinaus.",
   blurb_hermes:"Das vollständigste Harness bei Kontext/Caching/Tools/Containment. Strukturelle Obsession mit byte-stabilem Prompt Caching. Schwächen: keine Evals, kein Kosten-Cap, kein Freigabe-Ledger.",
-  blurb_kando:"Supervisions-Plattform für externe Agenten (Codex/Claude/OpenClaw). Führend bei Evaluation (3-Schichten-LLM-as-judge), hartem Kosten-Cap und Urteil als Protokoll. Es fehlen Containment destruktiver Kommandos und native Tools.",
+  blurb_kando:"Supervisions-Plattform für externe Agenten (Codex/Claude/OpenClaw), in Vorbereitung auf den Markteintritt. Intern auditiert; hier als Schätzung geführt, weil der zeilenweise Bericht nicht öffentlich ist.",
   blurb_claude_code:"Coding-Agent mit guter Anthropic-Ökosystem-Integration, vernünftigen Freigaben und Sandboxing. Schätzung — zu validieren.",
   blurb_codex:"OpenAI-Agent mit Sandbox per Default und Freigaben. Schätzung.",
   blurb_cursor:"IDE-first, großartig für assistiertes Editieren; weniger Multi-Step-Autonomie und Governance. Schätzung.",
@@ -1109,7 +1109,7 @@ de:{
   dt_dims_l:"Dimensionen", dt_fp:"Fingerprint nach Domäne", dt_laud:"Audit mit path:line-Belegen (Berichte in docs/).",
   dt_llocal:"Lokale heuristische Analyse von {n} Dateien{adj}. Für ein offizielles Badge ist ein Audit mit begutachtetem Bericht per PR nötig.",
   dt_ladj:"manuell angepasste Dimensionen (sichtbare Abweichung)", dt_lclean:"keine Anpassungen, der Analyse treu",
-  dt_lest:"Fundierte Schätzung — Audit-Kandidat.", qz_res:"Empfehlung für dein Profil", qz_strong:"Stärken:", qz_weak:"Schwächen:",
+  dt_lest:"Fundierte Schätzung — kein öffentliches zeilenweises Audit.", qz_res:"Empfehlung für dein Profil", qz_strong:"Stärken:", qz_weak:"Schwächen:",
   qz_none:"keine kritischen",
   qz_note:"Der HCI (Composite-Score) ist nicht das Kriterium — die Gewichtung spiegelt die Dimensionen, die du gewählt hast.",
   ec_no:"Ohne starkes Harness", ec_no_d:"Alles auf dem Premium-Modell, ohne Cache, ohne Fallback, ohne Routing.", ec_yes:"Mit starkem Harness",
@@ -1157,7 +1157,7 @@ de:{
   method_ld:"Die App liest bis zu 300 Dateien aus dem Ordner (max. ~2 MB Inhalt) und sucht objektive Signale pro Dimension: Präsenz von <code>AGENTS.md</code>/<code>CLAUDE.md</code> (Guides), <code>tests/</code> + CI-Workflows (Verifikation), <code>skills/</code> (Playbooks), Approval-/Security-Patterns (Governance), <code>docker</code>/<code>sandbox</code> (Ausführung), <code>cost</code>/<code>budget</code> (Kosten)… Jedes Signal addiert Punkte zu seiner Dimension mit sichtbarer Begründung. Ein ehrlicher erster Schnitt — kein Ersatz für das vollständige Audit.",
   method_ct:"Fallstudie — Hermes Agent vs. Kando",
   method_cd:"Der erste vollständige Vergleich: 22 Dimensionen, ~190K Zeichen Belege, 9 parallele Audits. Zentrale Lektion: <b>die Stärken des einen sind die Schwächen des anderen</b> — der Cross-Port ist der Weg.",
-  method_src:"Quellen: Taxonomie references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (vollständiges Audit, veröffentlicht) · docs/EVIDENCE-SUMMARY-KANDO.md (Evidenz-Zusammenfassung; vollständiger Bericht intern — kommerzielles Produkt in finaler Entwicklung)."
+  method_src:"Quellen: Taxonomie references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (vollständiges Audit, veröffentlicht) · docs/EVIDENCE-SUMMARY-KANDO.md (öffentliche Zusammenfassung; internes Audit, Kando bereitet den Markteintritt vor und bleibt eine Schätzung, weil der zeilenweise Bericht nicht öffentlich ist)."
 },
 zh:{
   tagline:"Agent = Model + Harness",
@@ -1190,7 +1190,7 @@ zh:{
   quiz_o5a:"信任模型", quiz_o5b:"测试和 CI 就够了", quiz_o5c:"Evals/LLM-as-judge 复审", lv_n0:"L1 · 初始", lv_d0:"碰巧能用——没有不变量，没有度量。", lv_n1:"L2 · 已定义",
   lv_d1:"基本流程存在；退化可预测。", lv_n2:"L3 · 受管理", lv_d2:"已度量并集成；缺口已知且有记录。", lv_n3:"L4 · 已优化", lv_d3:"自我纠正：传感器、evals、成本受控。", lv_n4:"L5 · 标杆",
   lv_d4:"存在的理由——深度超越需求。", blurb_hermes:"在上下文/缓存/工具/隔离方面最完整的 harness。对字节稳定 prompt caching 的结构性执着。弱点：没有 evals、没有成本上限、没有审批台账。",
-  blurb_kando:"外部代理（Codex/Claude/OpenClaw）的监督平台。在评估（3 层 LLM-as-judge）、硬性成本上限和判断即协议方面领先。缺少破坏性命令隔离与原生工具。",
+  blurb_kando:"外部代理（Codex/Claude/OpenClaw）的监督平台，正在准备上市。已完成内部审计；由于逐行报告未公开，因此在此标为估算。",
   blurb_claude_code:"编码代理，与 Anthropic 生态集成良好，审批与沙箱机制合理。估算——待验证。", blurb_codex:"OpenAI 的代理，默认 sandbox 并带审批。估算。",
   blurb_cursor:"IDE 优先，辅助编辑体验极佳；多步自主与治理较弱。估算。", blurb_cline:"开源代理，每个动作都手动审批，支持 BYOK。估算。", blurb_openclaw:"多平台个人 harness。估算——鉴于装机量，是审计候选。",
   blurb_ccr:"让 Claude Code 使用便宜模型的路由器。专注 A1/F2；不是完整 harness。估算。", blurb_langgraph:"以精细控制构建 loop 的框架（持久化、人类在环）。harness 就是你自己。估算。",
@@ -1258,7 +1258,7 @@ zh:{
   pl_level:"成熟度等级：", pl_crit:"🔴 关键（分数 < 4）——优先修复", pl_imp:"🟠 重要（4–5）——提分杠杆", pl_nogaps:"没有关键缺口——所有维度都在 6 分以上。恭喜：这个 harness 已达到受管理级别或更高。",
   pl_source:"建议来自真实审计（Hermes/Kando/CCR）中验证过的模式。每个模式都注明来源机制。欢迎通过 PR 贡献新模式。", pl_none:"尚无收录的模式——通过 PR 贡献一个吧。", dt_hci:"HCI v1 · Harness Compass Index",
   dt_dims:"/100 · 22 个维度", dt_dims_l:"个维度", dt_fp:"按领域的指纹", dt_laud:"带 path:line 证据的审计（报告在 docs/）。",
-  dt_llocal:"对 {n} 个文件的本地启发式分析{adj}。要获得官方徽章，需要通过 PR 提交经审阅的审计报告。", dt_ladj:"个维度被手动调整（差异可见）", dt_lclean:"未调整，忠于分析", dt_lest:"有依据的估算——审计候选。",
+  dt_llocal:"对 {n} 个文件的本地启发式分析{adj}。要获得官方徽章，需要通过 PR 提交经审阅的审计报告。", dt_ladj:"个维度被手动调整（差异可见）", dt_lclean:"未调整，忠于分析", dt_lest:"有依据的估算——没有公开的逐行审计。",
   qz_res:"为你的画像推荐", qz_strong:"优势：", qz_weak:"弱点：", qz_none:"没有关键弱点", qz_note:"HCI（综合分）不是评判标准——加权反映的是你选择的维度。", ec_no:"没有强大 harness",
   ec_no_d:"全部用高级模型，没有缓存、没有回退、没有路由。", ec_yes:"有强大 harness", ec_yes_d:"缓存 {c}% · 避免的失败 {r}% · 压缩 {co}% · 路由 {rt}%",
   ec_save:"你节省 <b class=\"green\" style=\"color:var(--emerald)\">${s}/月（{p}%）</b>——仅 token 一项。", ec_hint:"示意性估算；请用你自己的价格。", ct_or_choose:"— 选择一个模型 —",
@@ -1286,7 +1286,7 @@ zh:{
   m_m10:"存在的理由，深度超越需求", method_lt:"本地审计如何工作（初步徽章）",
   method_ld:"应用最多读取文件夹中的 300 个文件（内容最多约 2 MB），按维度寻找客观信号：<code>AGENTS.md</code>/<code>CLAUDE.md</code>（指南）、<code>tests/</code> + CI workflow（验证）、<code>skills/</code>（playbooks）、审批/安全模式（治理）、<code>docker</code>/<code>sandbox</code>（执行）、<code>cost</code>/<code>budget</code>（成本）……每个信号为对应维度加分，理由可见。诚实的初筛——不能替代完整审计。",
   method_ct:"案例研究 — Hermes Agent vs Kando", method_cd:"首个完整对比：22 个维度、约 19 万字符证据、9 场并行审计。核心教训：<b>一方的强项是另一方的弱项</b>——交叉移植才是出路。",
-  method_src:"来源：references/harness-map.md 分类法 · docs/DEEP-HARNESS-AUDIT-HERMES.md（完整审计，已发布）· docs/EVIDENCE-SUMMARY-KANDO.md（证据摘要；完整报告内部保留——商业产品处于最终开发阶段）。"
+  method_src:"来源：references/harness-map.md 分类法 · docs/DEEP-HARNESS-AUDIT-HERMES.md（完整审计，已发布）· docs/EVIDENCE-SUMMARY-KANDO.md（公开摘要；Kando 已内部审计并正在准备上市，由于逐行报告未公开，因此标为估算）。"
 },
 hi:{
   tagline:"Agent = Model + Harness",
@@ -1327,7 +1327,7 @@ hi:{
   lv_d1:"बुनियादी प्रक्रियाएँ हैं; पूर्वानुमेय रूप से घटती हैं।", lv_n2:"L3 · प्रबंधित", lv_d2:"मापा और एकीकृत; कमियाँ ज्ञात और प्रलेखित।",
   lv_n3:"L4 · अनुकूलित", lv_d3:"स्व-सुधार: सेंसर, evals, नियंत्रित लागत।", lv_n4:"L5 · मानक", lv_d4:"अस्तित्व का कारण — आवश्यकता से परे गहराई।",
   blurb_hermes:"संदर्भ/कैशिंग/टूल्स/नियंत्रण में सबसे संपूर्ण हार्नेस। बाइट-स्थिर prompt caching के प्रति संरचनात्मक समर्पण। कमज़ोरियाँ: न evals, न लागत सीमा, न अनुमोदन बहीखाता।",
-  blurb_kando:"बाहरी एजेंटों (Codex/Claude/OpenClaw) का पर्यवेक्षण मंच। मूल्यांकन (3-परत LLM-as-judge), कठोर लागत सीमा और प्रोटोकॉल रूपी विवेक में अग्रणी। विनाशकारी कमांड नियंत्रण और नेटिव टूल्स की कमी।",
+  blurb_kando:"बाहरी एजेंटों (Codex/Claude/OpenClaw) का पर्यवेक्षण मंच, go-to-market की तैयारी में। आंतरिक ऑडिट पूरा है; line-by-line रिपोर्ट सार्वजनिक न होने के कारण इसे यहाँ अनुमान के रूप में दिखाया गया है।",
   blurb_claude_code:"Anthropic इकोसिस्टम से अच्छे एकीकरण वाला कोडिंग एजेंट, उचित अनुमोदन और सैंडबॉक्सिंग। अनुमान — सत्यापन बाकी।",
   blurb_codex:"OpenAI का एजेंट, डिफ़ॉल्ट sandbox और अनुमोदन के साथ। अनुमान।",
   blurb_cursor:"IDE-प्रथम, सहायक संपादन के लिए उत्कृष्ट; बहु-चरण स्वायत्तता और शासन कम। अनुमान।",
@@ -1423,7 +1423,7 @@ hi:{
   pl_none:"अभी कोई सूचीबद्ध पैटर्न नहीं — PR से एक योगदान करें।", dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 आयाम", dt_dims_l:"आयाम",
   dt_fp:"क्षेत्र अनुसार फ़िंगरप्रिंट", dt_laud:"path:line प्रमाण सहित ऑडिट (रिपोर्टें docs/ में)।",
   dt_llocal:"{n} फ़ाइलों का स्थानीय अनुमानी विश्लेषण{adj}। आधिकारिक बैज के लिए PR से समीक्षित रिपोर्ट वाला ऑडिट आवश्यक है।",
-  dt_ladj:"आयाम हाथ से समायोजित (दृश्य विचलन)", dt_lclean:"बिना समायोजन, विश्लेषण के प्रति निष्ठावान", dt_lest:"सूचित अनुमान — ऑडिट उम्मीदवार।",
+  dt_ladj:"आयाम हाथ से समायोजित (दृश्य विचलन)", dt_lclean:"बिना समायोजन, विश्लेषण के प्रति निष्ठावान", dt_lest:"सूचित अनुमान — सार्वजनिक line-by-line ऑडिट नहीं।",
   qz_res:"आपकी प्रोफ़ाइल के लिए सिफ़ारिश", qz_strong:"ताक़तें:", qz_weak:"कमज़ोरियाँ:", qz_none:"कोई गंभीर नहीं",
   qz_note:"HCI (समग्र स्कोर) कसौटी नहीं है — भार आपके चुने आयामों को दर्शाता है।", ec_no:"शक्तिशाली हार्नेस के बिना",
   ec_no_d:"सब कुछ premium मॉडल पर, न कैश, न fallback, न routing।", ec_yes:"शक्तिशाली हार्नेस के साथ",
@@ -1467,7 +1467,7 @@ hi:{
   method_ld:"ऐप फ़ोल्डर की 300 तक फ़ाइलें पढ़ता है (~2 MB सामग्री तक) और आयाम अनुसार वस्तुनिष्ठ संकेत खोजता है: <code>AGENTS.md</code>/<code>CLAUDE.md</code> (मार्गदर्शक), <code>tests/</code> + CI workflows (सत्यापन), <code>skills/</code> (playbooks), अनुमोदन/सुरक्षा पैटर्न (शासन), <code>docker</code>/<code>sandbox</code> (निष्पादन), <code>cost</code>/<code>budget</code> (लागत)… हर संकेत दृश्य कारण सहित अपने आयाम में अंक जोड़ता है। एक ईमानदार पहला अनुमान — पूर्ण ऑडिट का विकल्प नहीं।",
   method_ct:"केस स्टडी — Hermes Agent बनाम Kando",
   method_cd:"पहली संपूर्ण तुलना: 22 आयाम, ~190K अक्षरों के प्रमाण, 9 समानांतर ऑडिट। केंद्रीय सीख: <b>एक की ताक़तें दूसरे की कमज़ोरियाँ हैं</b> — क्रॉस-पोर्ट ही रास्ता है।",
-  method_src:"स्रोत: references/harness-map.md वर्गीकरण · docs/DEEP-HARNESS-AUDIT-HERMES.md (पूर्ण ऑडिट, प्रकाशित) · docs/EVIDENCE-SUMMARY-KANDO.md (साक्ष्य सारांश; पूर्ण रिपोर्ट आंतरिक — अंतिम विकास में वाणिज्यिक उत्पाद)।"
+  method_src:"स्रोत: references/harness-map.md वर्गीकरण · docs/DEEP-HARNESS-AUDIT-HERMES.md (पूर्ण ऑडिट, प्रकाशित) · docs/EVIDENCE-SUMMARY-KANDO.md (सार्वजनिक सारांश; आंतरिक ऑडिट, Kando go-to-market की तैयारी में है और line-by-line रिपोर्ट सार्वजनिक न होने के कारण अनुमान के रूप में दिखाया गया है)।"
 }
 };
 let LANG = "en";

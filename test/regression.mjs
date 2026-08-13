@@ -310,6 +310,10 @@ test('15. hc-lang inválida: initLang cai para en', async () => {
 
 test('16. CTA da home abre a vista de auditoria (era nav("audit"), inexistente)', async () => {
   await withBoot(({ w, $ }) => {
+    assert.ok($('.logo svg.logo-mark'), 'marca usa um compasso SVG pequeno, não emoji');
+    assert.equal($('.tagline').textContent, 'Agent = Model + Harness', 'slogan principal preservado sem copy promocional extra');
+    assert.equal(w.document.documentElement.getAttribute('data-theme'), 'light', 'tema editorial claro é o default');
+    assert.ok(!/(?:linear|radial)-gradient/i.test(html), 'tema não contém gradientes decorativos');
     const cta = $('[data-i18n="home_cta"]');
     assert.ok(cta.textContent.includes('Audit a local repo'), 'CTA principal diz o que abre');
     assert.ok(cta.textContent.includes('code stays in this browser'), 'CTA principal inclui a nota de privacidade');
@@ -337,6 +341,8 @@ test('18. donut/radar usam variáveis de tema (o número do HCI era invisível n
     const html = $('#rank-detail').innerHTML;
     assert.ok(html.includes('fill:var(--ink)'), 'texto do donut com var(--ink)');
     assert.ok(html.includes('stroke:var(--line)'), 'tracks/grelha com var(--line)');
+    assert.ok(html.includes('var(--accent)'), 'gráficos usam o único accent terracota');
+    assert.ok(!html.includes('linearGradient'), 'gráficos não reintroduzem gradientes');
     assert.ok(!/fill="#e2e8f0"/.test(html), 'sem cor dark hardcoded no texto');
   });
 });

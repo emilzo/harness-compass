@@ -6,8 +6,8 @@
 <meta name="author" content="@emilzo alias @eluminaime">
 <title>Harness Compass — Audit and Compare AI Agent Harnesses</title>
 <meta name="description" content="Research Preview v0.1. Compare architecture maturity across 22 dimensions, inspect evidence, and audit a local repo without uploading its code.">
-<meta name="theme-color" id="meta-theme" content="#07070f">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+<meta name="theme-color" id="meta-theme" content="#f6f2eb">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='12' fill='%23f6f2eb' stroke='%2327231f' stroke-width='2'/><path d='M20 10l-3 8-8 4 3-8z' fill='%23c45c32'/><circle cx='16' cy='16' r='1.6' fill='%2327231f'/></svg>">
 <!-- Social / Open Graph — se o URL do GitHub Pages for outro, atualizar og:url e as duas imagens -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Harness Compass">
@@ -23,110 +23,110 @@
 <meta name="twitter:image" content="https://emilzo.github.io/harness-compass/docs/social-card.png">
 <style>
   :root{
-    --bg:#07070f; --bg2:#0c0c1a; --ink:#e2e8f0; --muted:#8b93a7; --line:rgba(255,255,255,.08);
-    --card:rgba(255,255,255,.035); --card2:rgba(255,255,255,.06);
-    --violet:#8b5cf6; --cyan:#22d3ee; --emerald:#34d399; --amber:#fbbf24; --rose:#fb7185;
-    --grad:linear-gradient(135deg,#8b5cf6,#22d3ee);
-    --grad2:linear-gradient(135deg,#34d399,#22d3ee);
-    --radius:16px;
+    --bg:#191714; --bg2:#24211d; --ink:#f4efe8; --muted:#aaa096; --line:#423c35;
+    --card:#211e1a; --card2:#2c2823;
+    --violet:#dd7a52; --cyan:#dd7a52; --emerald:#79ad8b; --amber:#d3a15e; --rose:#d97868;
+    --accent:#dd7a52; --accent-soft:#3b2921;
+    --radius:6px;
   }
   html[data-theme="light"]{
-    --bg:#f5f6fb; --bg2:#eceef6; --ink:#191c2b; --muted:#59617a; --line:rgba(20,24,50,.13);
-    --card:rgba(255,255,255,.8); --card2:rgba(20,24,50,.05);
-    --violet:#7c3aed; --cyan:#0891b2; --emerald:#047857; --amber:#b45309; --rose:#be123c;
+    --bg:#f6f2eb; --bg2:#eee8df; --ink:#27231f; --muted:#6f675f; --line:#d7cec2;
+    --card:#fffdf9; --card2:#eee7de;
+    --violet:#c45c32; --cyan:#c45c32; --emerald:#2f6b50; --amber:#966120; --rose:#a6473b;
+    --accent:#c45c32; --accent-soft:#f1dfd5;
   }
-  html[data-theme="light"] .pill{color:#6d28d9; background:rgba(139,92,246,.10); border-color:rgba(139,92,246,.28);}
-  html[data-theme="light"] .c-A{color:#1d4ed8; background:rgba(59,130,246,.13);} html[data-theme="light"] .c-B{color:#047857; background:rgba(52,211,153,.14);}
-  html[data-theme="light"] .c-C{color:#b45309; background:rgba(251,191,36,.16);} html[data-theme="light"] .c-D{color:#be123c; background:rgba(251,113,133,.13);}
-  html[data-theme="light"] .c-E{color:#6d28d9; background:rgba(139,92,246,.13);} html[data-theme="light"] .c-F{color:#0e7490; background:rgba(34,211,238,.15);}
-  html[data-theme="light"] .badge.b-est{color:#92400e;} html[data-theme="light"] .b-prel{color:#0e7490;} html[data-theme="light"] .b-audit{color:#047857;}
-  html[data-theme="light"] .legend{color:#59617a;}
+  html[data-theme="light"] .pill{color:#874126; background:var(--accent-soft); border-color:#d8aa96;}
+  html[data-theme="light"] .c-A{color:#234f7d; background:#edf3f7;} html[data-theme="light"] .c-B{color:#2f6b50; background:#edf5f0;}
+  html[data-theme="light"] .c-C{color:#8a5b18; background:#f7f0e4;} html[data-theme="light"] .c-D{color:#983e34; background:#f7ece9;}
+  html[data-theme="light"] .c-E{color:#5d5368; background:#f1eef3;} html[data-theme="light"] .c-F{color:#3e6268; background:#edf3f3;}
+  html[data-theme="light"] .badge.b-est{color:#92400e;} html[data-theme="light"] .b-prel{color:#245b98;} html[data-theme="light"] .b-audit{color:#047857;}
+  html[data-theme="light"] .legend{color:var(--muted);}
   html[data-theme="light"] .notice{background:#fef9e7; border-color:#eab308; color:#92400e;}
   html[data-theme="light"] .ok{background:#ecfdf5; border-color:#059669; color:#047857;}
-  html[data-theme="light"] body{background-image:radial-gradient(1200px 500px at 80% -10%, rgba(139,92,246,.12), transparent 60%),
-    radial-gradient(900px 400px at 10% 110%, rgba(34,211,238,.10), transparent 60%);}
-  html[data-theme="light"] nav{background:rgba(255,255,255,.88);}
-  html[data-theme="light"] thead th{background:#eef0f8;}
+  html[data-theme="light"] nav{background:rgba(246,242,235,.96);}
+  html[data-theme="light"] thead th{background:#eee8df;}
   html[data-theme="light"] .quiz-q select,
   html[data-theme="light"] .calc input,
   html[data-theme="light"] select{background:#fff; color:var(--ink);}
-  html[data-theme="light"] .hero .sub{color:#3c4254;}
-  html[data-theme="light"] .bar{background:rgba(20,24,50,.12);}
-  html[data-theme="light"] tbody tr:hover{background:rgba(139,92,246,.10);}
-  html[data-theme="light"] .dim-row{border-bottom-color:rgba(20,24,50,.08);}
+  html[data-theme="light"] .hero .sub{color:#5f5851;}
+  html[data-theme="light"] .bar{background:#ddd5ca;}
+  html[data-theme="light"] tbody tr:hover{background:#f3e9e1;}
+  html[data-theme="light"] .dim-row{border-bottom-color:#e2dacf;}
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important;} }
-  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; min-height:100vh;
-    background-image:radial-gradient(1200px 500px at 80% -10%, rgba(139,92,246,.14), transparent 60%),
-                     radial-gradient(900px 400px at 10% 110%, rgba(34,211,238,.10), transparent 60%);}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; min-height:100vh;}
   .wrap{max-width:1180px; margin:0 auto; padding:0 22px 70px; position:relative;}
-  header{padding:38px 0 6px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:12px;}
-  .logo{font-size:27px; font-weight:800; letter-spacing:-.6px; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  header{padding:32px 0 10px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px;}
+  .logo{display:flex; align-items:center; gap:9px; color:var(--ink); font-size:23px; font-weight:700; letter-spacing:-.45px;}
+  .logo-mark{width:22px; height:22px; flex:0 0 22px; color:var(--ink);}
+  .logo-needle{fill:var(--accent);}
   .tagline{color:var(--muted); font-size:13.5px; margin-top:2px;}
   nav{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 28px; position:sticky; top:10px; z-index:50;
-    background:rgba(7,7,15,.75); backdrop-filter:blur(14px); border:1px solid var(--line); border-radius:999px; padding:6px; width:fit-content; max-width:100%;}
-  nav button{background:transparent; border:none; border-radius:999px; padding:8px 15px; font-size:13.5px; cursor:pointer; color:var(--muted); transition:all .18s; font-weight:600;}
+    background:rgba(25,23,20,.96); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:0; width:100%; max-width:100%;}
+  nav button{position:relative; background:transparent; border:none; border-radius:0; padding:11px 2px 10px; margin-right:20px; font-size:13.5px; cursor:pointer; color:var(--muted); transition:color .15s; font-weight:600;}
   nav button:hover{color:var(--ink);}
-  nav button.active{background:var(--grad); color:#fff; box-shadow:0 4px 18px rgba(139,92,246,.35);}
+  nav button.active{background:transparent; color:var(--ink); box-shadow:none;}
+  nav button.active::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:3px; background:var(--accent);}
   section{display:none;}
   section.active{display:block; animation:fade .3s ease;}
   @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
-  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:18px; backdrop-filter:blur(8px);}
-  h2{font-size:21px; margin-bottom:6px; letter-spacing:-.3px;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:18px;}
+  h2{font-family:Georgia,"Times New Roman",serif; font-size:23px; font-weight:400; margin-bottom:6px; letter-spacing:-.35px;}
   h3{font-size:15.5px; margin:18px 0 6px;}
   .muted{color:var(--muted); font-size:13px;}
-  .badge{display:inline-block; font-size:10.5px; font-weight:800; border-radius:999px; padding:2.5px 10px; margin-left:6px; vertical-align:middle; letter-spacing:.3px; text-transform:uppercase;}
+  .badge{display:inline-block; font-size:10.5px; font-weight:800; border-radius:3px; padding:2.5px 8px; margin-left:6px; vertical-align:middle; letter-spacing:.3px; text-transform:uppercase;}
   .b-audit{background:rgba(52,211,153,.14); color:var(--emerald); border:1px solid rgba(52,211,153,.35);}
   .b-est{background:rgba(251,191,36,.12); color:var(--amber); border:1px solid rgba(251,191,36,.3);}
-  .b-prel{background:rgba(34,211,238,.12); color:var(--cyan); border:1px solid rgba(34,211,238,.3);}
-  .tbl-wrap{overflow-x:auto; border-radius:12px; border:1px solid var(--line);}
+  .b-prel{background:rgba(59,130,246,.10); color:#6ea8e8; border:1px solid rgba(59,130,246,.28);}
+  .tbl-wrap{overflow-x:auto; border-radius:4px; border:1px solid var(--line);}
   table{width:100%; border-collapse:collapse; font-size:13.5px; min-width:760px;}
   th,td{padding:10px 12px; text-align:left; border-bottom:1px solid var(--line);}
-  thead th{position:sticky; top:0; background:#10101f; z-index:5; cursor:pointer; user-select:none; white-space:nowrap; font-size:12px; color:var(--muted); letter-spacing:.4px; text-transform:uppercase;}
+  thead th{position:sticky; top:0; background:var(--bg2); z-index:5; cursor:pointer; user-select:none; white-space:nowrap; font-size:12px; color:var(--muted); letter-spacing:.4px; text-transform:uppercase;}
   thead th:hover{color:var(--cyan);}
   thead th.sorted{color:var(--violet);} thead th.sorted::after{content:" ▾";} thead th.sorted.asc::after{content:" ▴";}
   tbody tr{cursor:pointer; transition:background .12s;}
   tbody tr:focus-visible{outline:2px solid var(--violet); outline-offset:-2px;}
-  tbody tr:hover{background:rgba(139,92,246,.08);}
+  tbody tr:hover{background:var(--accent-soft);}
   td.num, th.num{text-align:right;}
   .score-cell{font-weight:800; font-size:15.5px;}
-  .bar{height:6px; background:rgba(255,255,255,.07); border-radius:3px; overflow:hidden; min-width:64px;}
-  .bar i{display:block; height:100%; border-radius:3px; background:var(--grad2);}
-  .pill{display:inline-block; background:rgba(139,92,246,.12); border:1px solid rgba(139,92,246,.25); color:#c4b5fd; border-radius:7px; padding:1px 9px; font-size:11.5px; margin:2px 3px 2px 0;}
-  details{border:1px solid var(--line); border-radius:12px; padding:13px 17px; margin-bottom:10px; background:var(--card);}
+  .bar{height:5px; background:var(--card2); border-radius:1px; overflow:hidden; min-width:64px;}
+  .bar i{display:block; height:100%; border-radius:1px; background:var(--emerald);}
+  .pill{display:inline-block; background:var(--accent-soft); border:1px solid var(--line); color:var(--accent); border-radius:3px; padding:1px 8px; font-size:11.5px; margin:2px 3px 2px 0;}
+  details{border:1px solid var(--line); border-radius:4px; padding:13px 17px; margin-bottom:10px; background:var(--card);}
   summary{cursor:pointer; font-weight:700; font-size:14.5px; list-style:none; display:flex; align-items:center; gap:10px;}
   summary::-webkit-details-marker{display:none;}
   summary::before{content:"▸"; color:var(--violet); transition:transform .2s;}
   details[open] summary::before{transform:rotate(90deg);}
-  .chip{font-size:11px; font-weight:800; border-radius:7px; padding:2px 9px; letter-spacing:.4px;}
+  .chip{font-size:11px; font-weight:800; border:1px solid var(--line); border-radius:3px; padding:2px 8px; letter-spacing:.4px;}
   .c-A{background:rgba(59,130,246,.16); color:#93c5fd;} .c-B{background:rgba(52,211,153,.14); color:#6ee7b7;}
   .c-C{background:rgba(251,191,36,.13); color:#fcd34d;} .c-D{background:rgba(251,113,133,.13); color:#fda4af;}
-  .c-E{background:rgba(139,92,246,.15); color:#c4b5fd;} .c-F{background:rgba(34,211,238,.13); color:#67e8f9;}
+  .c-E{background:rgba(148,163,184,.12); color:#c0c7d0;} .c-F{background:rgba(59,130,246,.12); color:#8eb9ec;}
   .quiz-q{margin-bottom:18px;}
   .quiz-q label{display:block; font-weight:700; margin-bottom:6px; font-size:14.5px;}
-  .quiz-q select{width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:11px; font-size:14px; background:#12122a; color:var(--ink);}
-  button.primary{background:var(--grad); color:#fff; border:none; border-radius:999px; padding:12px 28px; font-size:15px; font-weight:800; cursor:pointer; box-shadow:0 6px 24px rgba(139,92,246,.35); transition:transform .15s, box-shadow .15s;}
-  button.primary:hover{transform:translateY(-1px); box-shadow:0 10px 32px rgba(139,92,246,.5);}
-  button.ghost{background:transparent; border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:10px 20px; font-size:14px; cursor:pointer; font-weight:600; transition:all .15s;}
-  button.ghost:hover{border-color:var(--violet); color:var(--violet);}
+  .quiz-q select{width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:4px; font-size:14px; background:var(--bg2); color:var(--ink);}
+  button.primary{background:var(--accent); color:#fff; border:1px solid var(--accent); border-radius:4px; padding:11px 20px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:none; transition:background .15s,border-color .15s;}
+  button.primary:hover{background:#a94d2b; border-color:#a94d2b;}
+  button.ghost{background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:4px; padding:9px 15px; font-size:13px; cursor:pointer; font-weight:600; transition:border-color .15s,color .15s;}
+  button.ghost:hover{border-color:var(--accent); color:var(--accent);}
+  .utility-control{background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:4px; padding:8px 10px; font-size:13px; cursor:pointer;}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
   @media(max-width:780px){.grid2{grid-template-columns:1fr;}}
   .result-card{border-left:4px solid var(--violet);}
-  .calc input{width:100%; padding:10px 13px; border:1px solid var(--line); border-radius:11px; font-size:14px; background:#12122a; color:var(--ink);}
+  .calc input{width:100%; padding:10px 13px; border:1px solid var(--line); border-radius:4px; font-size:14px; background:var(--bg2); color:var(--ink);}
   .calc label{display:block; font-size:12.5px; color:var(--muted); margin:11px 0 4px; font-weight:700; letter-spacing:.2px;}
   .range-row{display:flex; align-items:center; gap:12px;}
   .range-row input[type=range]{flex:1; accent-color:var(--violet);}
   .range-row output{font-weight:800; min-width:52px; text-align:right; color:var(--cyan);}
-  .big{font-size:32px; font-weight:800; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .big{font-family:Georgia,"Times New Roman",serif; font-size:32px; font-weight:400; color:var(--accent);}
   .green{color:var(--emerald);} .red{color:var(--rose);}
-  .hero{background:linear-gradient(135deg, rgba(139,92,246,.16), rgba(34,211,238,.10)); border:1px solid var(--line); border-radius:20px; padding:34px; margin-bottom:20px; position:relative; overflow:hidden;}
-  .hero::after{content:""; position:absolute; inset:0; background:radial-gradient(600px 200px at 85% 0%, rgba(139,92,246,.18), transparent 70%); pointer-events:none;}
-  .hero h2{font-size:27px; letter-spacing:-.5px;}
+  .hero{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:4px; padding:40px 36px; margin-bottom:20px; position:relative; overflow:hidden;}
+  .hero::after{display:none;}
+  .hero h2{font-size:36px; line-height:1.18; letter-spacing:-.75px; max-width:820px;}
   .hero .sub{color:#b8bdd0; font-size:15px; margin-top:8px; max-width:780px;}
   .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:20px;}
-  .step{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px;}
-  .step b{display:block; color:var(--cyan); font-size:12px; text-transform:uppercase; letter-spacing:.8px; margin-bottom:7px;}
+  .step{background:transparent; border:0; border-top:2px solid var(--line); border-radius:0; padding:16px 0;}
+  .step b{display:block; color:var(--accent); font-size:12px; text-transform:uppercase; letter-spacing:.8px; margin-bottom:7px;}
   footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:12.5px;}
   a{color:var(--cyan); text-decoration:none;} a:hover{text-decoration:underline;}
   .legend{font-size:12px; color:var(--muted); margin-top:8px;}
@@ -137,29 +137,37 @@
   .dim-row .why{flex:1; font-size:11.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
   .dim-row input[type=range]{width:90px; accent-color:var(--violet);}
   .dim-row output{font-weight:800; font-size:12.5px; min-width:22px; text-align:right;}
-  @media(max-width:640px){ .dim-row{flex-wrap:wrap;} .dim-row .name{flex:1 1 100%;} .dim-row .why{flex:1; min-width:0;} .dim-row input[type=range]{width:120px;} }
+  @media(max-width:640px){
+    .wrap{padding-left:14px; padding-right:14px;}
+    header{align-items:flex-start; padding-top:22px;}
+    nav{top:0; gap:3px; margin-top:16px;}
+    nav button{margin-right:12px; font-size:12.5px;}
+    .hero{padding:28px 20px;}
+    .hero h2{font-size:29px;}
+    .dim-row{flex-wrap:wrap;} .dim-row .name{flex:1 1 100%;} .dim-row .why{flex:1; min-width:0;} .dim-row input[type=range]{width:120px;}
+  }
   .radar-wrap{display:flex; justify-content:center; padding:6px 0;}
   .donut-row{display:flex; align-items:center; gap:14px;}
-  .spin{display:inline-block; width:14px; height:14px; border:2px solid rgba(139,92,246,.3); border-top-color:var(--violet); border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px;}
+  .spin{display:inline-block; width:14px; height:14px; border:2px solid var(--line); border-top-color:var(--accent); border-radius:50%; animation:sp .7s linear infinite; vertical-align:-2px;}
   @keyframes sp{to{transform:rotate(360deg);}}
-  .notice{border:1px solid rgba(251,191,36,.3); background:rgba(251,191,36,.07); border-radius:12px; padding:12px 16px; font-size:13px; color:var(--amber); margin:12px 0;}
+  .notice{border:1px solid rgba(251,191,36,.3); background:rgba(251,191,36,.07); border-radius:4px; padding:12px 16px; font-size:13px; color:var(--amber); margin:12px 0;}
   .ok{border-color:rgba(52,211,153,.3); background:rgba(52,211,153,.07); color:var(--emerald);}
   .dim-grad{height:7px; border-radius:4px; background:var(--line); overflow:hidden; flex:1;}
-  .dim-grad i{display:block; height:100%; background:var(--grad); border-radius:4px;}
+  .dim-grad i{display:block; height:100%; background:var(--accent); border-radius:2px;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <div>
-      <div class="logo">🧭 Harness Compass</div>
-      <div class="tagline" data-i18n="tagline">Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.</div>
+      <div class="logo"><svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="logo-needle" d="M14.9 7.1 13 13l-5.9 3.9L9 11z"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg><span>Harness Compass</span></div>
+      <div class="tagline" data-i18n="tagline">Agent = Model + Harness</div>
       <div style="color:var(--muted); font-size:11px; margin-top:1px; opacity:.75">by @emilzo alias @eluminaime</div>
       <div style="margin-top:7px"><span class="pill" data-i18n="preview_label">Research Preview v0.1</span></div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <button id="theme-btn" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" aria-label="Theme / Tema / 主题 / थीम" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer">☀️</button>
-      <select id="lang" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" aria-label="Language / Idioma / 语言 / भाषा" style="background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer"></select>
+      <button id="theme-btn" class="utility-control" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" aria-label="Theme / Tema / 主题 / थीम">☀️</button>
+      <select id="lang" class="utility-control" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" aria-label="Language / Idioma / 语言 / भाषा"></select>
       <button class="ghost" onclick="switchView('audit')" data-i18n="audit_pick_top">📂 Auditar uma pasta</button>
     </div>
   </header>
@@ -189,7 +197,7 @@
         <div class="step"><b data-i18n="step2_t">2 · Compara</b><span data-i18n="step2_d">Nem todos os harnesses são iguais. Este ranking classifica-os por 22 dimensões com evidência — auditados, estimativas e análises locais sempre distinguidos.</span></div>
         <div class="step"><b data-i18n="step3_t">3 · Decide</b><span data-i18n="step3_d">Com um harness potente, um modelo barato chega ao nível de um caro. O quiz diz-te qual encaixa no teu caso — e a calculadora mostra quanto poupas.</span></div>
       </div>
-      <div style="margin-top:16px"><button class="pill" style="cursor:pointer;background:var(--cyan);color:#04121f;font-weight:700;padding:10px 16px;border:none;border-radius:999px" onclick="switchView('audit')" data-i18n="home_cta">📂 Auditar um repositório local — o código fica neste browser e não é enviado</button></div>
+      <div style="margin-top:18px"><button class="primary" onclick="switchView('audit')" data-i18n="home_cta">📂 Auditar um repositório local — o código fica neste browser e não é enviado</button></div>
     </div>
     <div class="card">
       <h2 data-i18n="home_anatomy_title">Da anatomia clássica ao sistema cibernético</h2>
@@ -455,7 +463,7 @@ let sortKey="total", sortAsc=false, filter="all", provFilter="all";
 const LANGUAGES = {en:"English", pt:"Português", fr:"Français", de:"Deutsch", zh:"中文", hi:"हिन्दी"};
 const T = {
 en:{
-  tagline:"Agent = Model + Harness · choose the right harness and the cheap model gets there.",
+  tagline:"Agent = Model + Harness",
   preview_label:"Research Preview v0.1",
   audit_pick_top:"📂 Audit a local repo",
   nav_home:"Paradigm", nav_ranking:"Ranking", nav_cost:"Real cost", nav_map:"Map", nav_audit:"Audit repo", nav_quiz:"Which harness?", nav_economy:"Calculator", nav_method:"Method",
@@ -618,7 +626,7 @@ en:{
   footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
 },
 pt:{
-  tagline:"Agent = Model + Harness · escolhe o harness certo e o modelo barato chega lá.",
+  tagline:"Agent = Model + Harness",
   preview_label:"Pré-visualização de investigação v0.1",
   audit_pick_top:"📂 Auditar um repositório local",
   nav_home:"Paradigma", nav_ranking:"Ranking", nav_cost:"Custo real", nav_map:"Mapa", nav_audit:"Auditar repo", nav_quiz:"Que harness para ti?", nav_economy:"Calculadora", nav_method:"Método",
@@ -781,7 +789,7 @@ pt:{
   footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
 },
 fr:{
-  tagline:"Agent = Modèle + Harness · choisissez le bon harness et le modèle économique y arrive.",
+  tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 Auditer un dossier",
   nav_home:"Paradigme", nav_ranking:"Classement", nav_cost:"Coût réel", nav_map:"Carte", nav_audit:"Auditer un dossier", nav_quiz:"Quel harness ?", nav_economy:"Calculateur", nav_method:"Méthode",
   home_hero_title:"Le harness décide combien de ton budget tokens est gaspillé.",
@@ -966,7 +974,7 @@ fr:{
   method_src:"Sources : taxonomie references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (audit intégral, publié) · docs/EVIDENCE-SUMMARY-KANDO.md (résumé de preuves ; rapport complet interne — produit commercial en développement final)."
 },
 de:{
-  tagline:"Agent = Modell + Harness · wähle das richtige Harness und das günstige Modell schafft es.",
+  tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 Ordner prüfen",
   nav_home:"Paradigma", nav_ranking:"Rangliste", nav_cost:"Echte Kosten", nav_map:"Karte", nav_audit:"Ordner prüfen", nav_quiz:"Welches Harness?", nav_economy:"Rechner", nav_method:"Methode",
   home_hero_title:"Das Harness entscheidet, wie viel deines Token-Budgets verschwendet wird.",
@@ -1153,7 +1161,7 @@ de:{
   method_src:"Quellen: Taxonomie references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (vollständiges Audit, veröffentlicht) · docs/EVIDENCE-SUMMARY-KANDO.md (Evidenz-Zusammenfassung; vollständiger Bericht intern — kommerzielles Produkt in finaler Entwicklung)."
 },
 zh:{
-  tagline:"Agent = 模型 + Harness · 选对 Harness，廉价模型也能胜任。",
+  tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 审计文件夹",
   nav_home:"范式", nav_ranking:"排名", nav_cost:"实际成本", nav_map:"地图", nav_audit:"审计文件夹", nav_quiz:"选择哪个 Harness？", nav_economy:"计算器", nav_method:"方法",
   home_hero_title:"Harness 决定了你的 token 预算被浪费多少。",
@@ -1282,7 +1290,7 @@ zh:{
   method_src:"来源：references/harness-map.md 分类法 · docs/DEEP-HARNESS-AUDIT-HERMES.md（完整审计，已发布）· docs/EVIDENCE-SUMMARY-KANDO.md（证据摘要；完整报告内部保留——商业产品处于最终开发阶段）。"
 },
 hi:{
-  tagline:"एजेंट = मॉडल + हार्नेस · सही हार्नेस चुनें और सस्ता मॉडल काम करेगा।",
+  tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 फ़ोल्डर ऑडिट करें",
   nav_home:"प्रतिमान", nav_ranking:"रैंकिंग", nav_cost:"वास्तविक लागत", nav_map:"नक्शा", nav_audit:"फ़ोल्डर ऑडिट", nav_quiz:"कौन सा हार्नेस?", nav_economy:"कैलकुलेटर", nav_method:"विधि",
   home_hero_title:"हार्नेस तय करता है कि आपका टोकन बजट कितना बर्बाद होता है।",
@@ -1515,7 +1523,7 @@ function initLang(){
 function applyTheme(th){
   document.documentElement.setAttribute("data-theme", th);
   const b = $("#theme-btn"); if(b) b.textContent = th === "light" ? "🌙" : "☀️";
-  const m = $("#meta-theme"); if(m) m.content = th === "light" ? "#f5f6fb" : "#07070f"; /* barra do browser segue o tema da app */
+  const m = $("#meta-theme"); if(m) m.content = th === "light" ? "#f6f2eb" : "#191714"; /* barra do browser segue o tema da app */
 }
 function toggleTheme(){
   const cur = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
@@ -1523,8 +1531,8 @@ function toggleTheme(){
   try{ localStorage.setItem("hc-theme", cur); }catch(e){}
 }
 function initTheme(){
-  let th = "dark";
-  try{ th = localStorage.getItem("hc-theme") || (window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"); }catch(e){}
+  let th = "light";
+  try{ th = localStorage.getItem("hc-theme") || "light"; }catch(e){}
   applyTheme(th);
 }
 
@@ -1590,7 +1598,7 @@ const domainScore = (h,d) => DIMENSIONS.filter(x=>x[0][0]===d).reduce((a,dd)=>a+
 const badge = h => {
   let b = h.audited ? `<span class="badge b-audit">${t("badge_audit")}</span>`
         : (h.preliminar ? `<span class="badge b-prel">${t("badge_prel")}</span>` : `<span class="badge b-est">${t("badge_est")}</span>`);
-  if(h.local) b += ` <span class="badge" style="background:rgba(139,92,246,.14);color:var(--violet);border:1px solid rgba(139,92,246,.3)">${t("badge_local")}</span>`;
+  if(h.local) b += ` <span class="badge" style="background:var(--accent-soft);color:var(--accent);border:1px solid var(--line)">${t("badge_local")}</span>`;
   if(h.adjusted>0) b += ` <span class="badge" style="background:rgba(251,113,133,.13);color:var(--rose);border:1px solid rgba(251,113,133,.3)">⚠ ${h.adjusted} ${t("badge_adj")}</span>`;
   return b;
 };
@@ -1605,7 +1613,7 @@ function switchView(v){
 function nav(){$$("#nav button").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));}
 
 /* ================= RANKING ================= */
-function syncFbtnStyles(){ $$(".fbtn").forEach(x=>{ const on=x.dataset.f===filter; x.style.background=on?"rgba(139,92,246,.35)":""; x.style.color=on?"#fff":""; }); }
+function syncFbtnStyles(){ $$(".fbtn").forEach(x=>{ const on=x.dataset.f===filter; x.style.background=on?"var(--accent)":""; x.style.color=on?"#fff":""; }); }
 function buildRanking(){
   const head=$("#rank-head"); head.innerHTML="";
   [["name","ct_col_h",1],["vendor","rank_col_v",1],["total","HCI"],["A","A"],["B","B"],["C","C"],["D","D"],["E","E"],["F","F"]].forEach(([k,label,i18n])=>{
@@ -1719,15 +1727,12 @@ function radarSVG(values, labels, w, h){
   for(let i=0;i<n;i++){const [x,y]=pt(i,Math.max(2,R*values[i]/10)); data+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);}
   data+="Z";
   let dots="";
-  for(let i=0;i<n;i++){const [x,y]=pt(i,Math.max(2,R*values[i]/10)); dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#22d3ee"/>`;}
+  for(let i=0;i<n;i++){const [x,y]=pt(i,Math.max(2,R*values[i]/10)); dots+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" style="fill:var(--accent)"/>`;}
   let labelsSvg="";
   for(let i=0;i<n;i++){const [x,y]=pt(i,R+16); labelsSvg+=`<text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="middle" font-size="11" font-weight="700" style="fill:var(--muted)">${esc(labels[i])}</text>`;}
   return `<svg width="${w+36}" height="${h+30}" viewBox="0 0 ${w+36} ${h+30}" style="max-width:100%">
-    <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#8b5cf6" stop-opacity=".55"/><stop offset="100%" stop-color="#22d3ee" stop-opacity=".35"/>
-    </linearGradient></defs>
     ${grid}${spokes}
-    <path d="${data}" fill="url(#rg)" stroke="#8b5cf6" stroke-width="2" stroke-linejoin="round"/>
+    <path d="${data}" style="fill:var(--accent);fill-opacity:.18;stroke:var(--accent)" stroke-width="2" stroke-linejoin="round"/>
     ${dots}${labelsSvg}
   </svg>`;
 }
@@ -1735,11 +1740,8 @@ function donutSVG(v){
   const R=34, C=2*Math.PI*R;
   return `<svg width="92" height="92" viewBox="0 0 92 92">
     <circle cx="46" cy="46" r="${R}" fill="none" style="stroke:var(--line)" stroke-width="9"/>
-    <circle cx="46" cy="46" r="${R}" fill="none" stroke="url(#dg)" stroke-width="9" stroke-linecap="round"
+    <circle cx="46" cy="46" r="${R}" fill="none" style="stroke:var(--accent)" stroke-width="9" stroke-linecap="round"
       stroke-dasharray="${(v/10*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 46 46)"/>
-    <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#22d3ee"/>
-    </linearGradient></defs>
     <text x="46" y="50" text-anchor="middle" font-size="19" font-weight="800" style="fill:var(--ink)">${(v*10).toFixed(0)}</text>
   </svg>`;
 }
@@ -2221,7 +2223,7 @@ $$(".fbtn").forEach(b=>b.addEventListener("click",()=>{
 }));
 $$(".pbtn").forEach(b=>b.addEventListener("click",()=>{
   provFilter=b.dataset.p;
-  $$(".pbtn").forEach(x=>{x.style.background=x===b?"rgba(34,211,238,.3)":"", x.style.color=x===b?"#fff":"";});
+  $$(".pbtn").forEach(x=>{x.style.background=x===b?"var(--accent)":"", x.style.color=x===b?"#fff":"";});
   renderRanking();
 }));
 </script>

@@ -1,16 +1,14 @@
-# Evidence Summary — Kando (AUDITED badge)
+# Evidence Summary — Kando (PUBLIC ESTIMATE)
 
-> **Why a summary and not the full report:** Kando is a commercial product by
-> DevFactoryAI currently in **final development**. The full internal audit report
+> **Public status: ESTIMATE.** Kando is a commercial product by DevFactoryAI,
+> currently preparing for go-to-market. It was audited internally, but the full report
 > (part of a ~190K-character, 9-parallel-audit comparison against Hermes Agent,
 > performed 2026-08-09 under the same read-only, `path:line` evidence rules as the
 > [published Hermes audit](DEEP-HARNESS-AUDIT-HERMES.md)) is retained internally.
-> This summary publishes the evidence backing Kando's public scores **at the same
-> granularity the Compass app already cites** in its improvement-pattern knowledge
-> base — every mechanism below is quoted with its source location and is the basis
-> of an `imp_*` pattern visible in the app in all six languages.
-> The full report is available under NDA in the context of a consulting engagement
-> (see the confidentiality policy in the README).
+> The public **AUDITED** badge is reserved for reports whose line-by-line evidence
+> readers can inspect for themselves. This summary explains what informed Kando's
+> scores, but it does not qualify Kando for that badge while the source and full
+> report remain private.
 
 ## Scores (22 dimensions, 0–10)
 
@@ -74,8 +72,9 @@ strengths are the other's weaknesses; the cross-port is the way.**
 
 ## Method & coverage
 
-Same taxonomy and evidence rules as the Hermes audit
+The internal review used the same taxonomy and evidence rules as the Hermes audit
 ([references/harness-map.md](../references/harness-map.md)): read-only analysis,
 every claim cites a verified `path:line`, absences proven by search, coverage
-declared. Line references are relative to the internal snapshot of 2026-08-09
-and may drift as the product evolves toward release.
+declared. The references below are retained for internal traceability, but public
+readers cannot independently check them against a public repository. For that
+reason Kando remains an **Estimate** until a line-by-line report can be published.

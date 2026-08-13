@@ -135,8 +135,6 @@ Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, 
 
 **Tema claro/escuro:** botão ☀️/🌙 no topo — respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
 
-**Assinatura:** **@emilzo alias @eluminaime** — rodapé com @emilzo (nome do repo).
-
 ## Constância de modelos (preços sempre atuais)
 
 - **Fonte viva:** a lista de modelos vem do OpenRouter a cada carregamento da app — quando um provider fecha um modelo, ele desaparece automaticamente do seletor; os novos aparecem no mesmo dia.

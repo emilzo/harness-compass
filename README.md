@@ -135,8 +135,6 @@ Language selector at the top — **English is the norm**, with Portuguese, Frenc
 
 **Light/dark theme:** ☀️/🌙 button at the top — respects the system preference on first visit and remembers your choice (localStorage).
 
-**Signature:** **@emilzo alias @eluminaime** — footer credits @emilzo (the repo name).
-
 ## Model constancy (always-current prices)
 
 - **Live source:** the model list comes from OpenRouter on every app load — when a provider retires a model it disappears from the selector automatically; new ones show up the same day.

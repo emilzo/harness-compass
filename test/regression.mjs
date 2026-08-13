@@ -310,8 +310,13 @@ test('15. hc-lang inválida: initLang cai para en', async () => {
 
 test('16. CTA da home abre a vista de auditoria (era nav("audit"), inexistente)', async () => {
   await withBoot(({ w, $ }) => {
-    assert.ok($('.logo svg.logo-mark'), 'marca usa um compasso SVG pequeno, não emoji');
+    const logoMark = $('.logo svg.logo-mark');
+    assert.ok(logoMark, 'marca usa um compasso SVG, não emoji');
+    assert.equal(w.getComputedStyle(logoMark).width, '27px', 'compasso tem mais presença sem dominar o cabeçalho');
     assert.equal($('.tagline').textContent, 'Agent = Model + Harness', 'slogan principal preservado sem copy promocional extra');
+    assert.ok(!w.document.querySelector('header').textContent.includes('@emilzo'), 'crédito removido do cabeçalho');
+    assert.ok(!html.includes('@eluminaime'), 'alias removido da página');
+    assert.ok(w.document.querySelector('footer').textContent.includes('@emilzo'), 'crédito simples mantido no rodapé');
     assert.equal(w.document.documentElement.getAttribute('data-theme'), 'light', 'tema editorial claro é o default');
     assert.ok(!/(?:linear|radial)-gradient/i.test(html), 'tema não contém gradientes decorativos');
     const cta = $('[data-i18n="home_cta"]');

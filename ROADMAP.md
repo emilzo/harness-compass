@@ -23,7 +23,7 @@ Last update: 2026-08-11 · Code status: regression suite 23/23 green · `check-i
 - [x] 6-language selector + persistence (localStorage) + automatic EN fallback
 - [x] `check-i18n.js` as a mandatory norm — EN **and PT** keys (exit 1 if missing), table-driven keys (dim/imp/quiz/lv/blurb/dom), placeholders consistent across languages, orphans, duplicates, `LANGUAGES` vs dictionary blocks, `esc()` in attributes, content allowlist with zero warnings
 - [x] Light/dark theme with persistence and fixed contrast (incl. donut/radar on theme variables)
-- [x] Branding: `@emilzo alias @eluminaime` (header credits and meta author) · footer with `@emilzo`
+- [x] Branding: compact compass mark · footer credit with `@emilzo`
 
 ## Phase 2 — Constancy, Integrity & Hardening ✅
 - [x] Local snapshot + model diff (🆕 new / 📦 removed since last visit)

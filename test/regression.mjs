@@ -424,3 +424,30 @@ test('24. relatório AUDITED do Hermes abre em inglês ou português conforme a 
     assert.ok(!link.getAttribute('href').endsWith('.en.md'), 'PT não é enviado para a tradução inglesa');
   });
 });
+
+test('25. contacto oferece canal privado, público e projeto sem misturar confidencialidade', async () => {
+  await withBoot(({ w, $, $$ }) => {
+    $('[data-view="contact"]').click();
+    assert.ok($('#view-contact').classList.contains('active'), 'vista Contact abre pelo menu');
+
+    const links = Array.from($$('#view-contact a'));
+    const email = links.find(a => a.href.startsWith('mailto:'));
+    const issue = links.find(a => a.href.includes('issues/new?template=contact.yml'));
+    const repo = links.find(a => a.href === 'https://github.com/emilzo/harness-compass');
+    assert.equal(email?.href, 'mailto:emilio.mina@gmail.com?subject=Harness%20Compass', 'email privado correto');
+    assert.ok(issue, 'feedback público usa o formulário de contacto');
+    assert.ok(repo, 'repositório acessível');
+    assert.ok($('#view-contact').textContent.includes('GitHub issues are public'), 'aviso de privacidade visível em EN');
+
+    const author = $('footer a[href="https://github.com/emilzo"]');
+    assert.equal(author?.textContent, '@emilzo', 'autor do rodapé é clicável');
+
+    w.setLang('pt');
+    assert.equal($('[data-view="contact"]').textContent, 'Contactar', 'menu traduzido em PT');
+    assert.ok($('#view-contact').textContent.includes('O email é o único canal privado'), 'aviso de privacidade visível em PT');
+  });
+
+  const template = fs.readFileSync(new URL('../.github/ISSUE_TEMPLATE/contact.yml', import.meta.url), 'utf8');
+  assert.match(template, /This issue will be public/, 'template avisa que o issue é público');
+  assert.match(template, /emilio\.mina@gmail\.com/, 'template encaminha assuntos privados para email');
+});

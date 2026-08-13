@@ -415,6 +415,7 @@ test('24. relatório AUDITED do Hermes abre em inglês ou português conforme a 
     row.click();
     let link = $('#rank-detail .legend a');
     assert.ok(link, 'detail AUDITED tem link para a evidência');
+    assert.ok(link.href.startsWith('https://github.com/emilzo/harness-compass/blob/main/'), 'abre Markdown renderizado no GitHub');
     assert.ok(link.getAttribute('href').endsWith('DEEP-HARNESS-AUDIT-HERMES.en.md'), 'EN abre a tradução integral');
 
     w.setLang('pt');

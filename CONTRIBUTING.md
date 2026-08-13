@@ -5,10 +5,13 @@ Thanks for wanting in. There are four ways to contribute, from 2 minutes to a fu
 ## 1 · Submit your harness (the one you came for)
 
 Audit your own repo in the app (**📂 Audit a folder** — 100% local, nothing leaves
-your machine), click **⬇ Export JSON**, then
-[open a submission issue](../../issues/new?template=submit-harness.yml) with the JSON attached.
+your machine), click **⬇ Export JSON**, then use the right channel:
 
-Pick your track in the form:
+- **Public audit or Estimate:** [open a public submission issue](../../issues/new?template=submit-harness.yml)
+  with the JSON attached.
+- **Private audit:** email [emilio.mina@gmail.com](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit)
+  first. Do not put private code or confidential details in a GitHub issue. We
+  will agree on a safe transfer method before any material is sent.
 
 | Track | What happens | What you get |
 |-------|--------------|--------------|
@@ -17,7 +20,8 @@ Pick your track in the form:
 | **Estimate entry** | You open a PR adding the harness with `audited:false` and a justified score set | **ESTIMATE** badge in the ranking, flagged for future audit |
 
 Public audits are free and queued in submission order; private audits are a consulting
-service. The confidentiality choice is **yours** and can be made at submission time.
+service. The confidentiality choice is **yours**, but private work always starts
+by email rather than through a public issue.
 
 **Curation note:** the official ranking is a curated benchmark, not a directory.
 Priority (and inclusion) favors harnesses with real-world usage, an identifiable

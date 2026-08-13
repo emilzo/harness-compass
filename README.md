@@ -78,7 +78,7 @@ A strong harness (Hermes, Kando, Claude, Codex and the mature coding agents) **c
 
 ## How to contribute
 
-Full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) — including the **submission form for your harness** (public track with AUDITED badge, private confidential track, or estimate entry) and the audit template (`docs/audits/AUDIT-TEMPLATE.md`).
+Full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) — including the **public submission form for your harness** (public track with AUDITED badge or estimate entry), the [private contact email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), and the audit template (`docs/audits/AUDIT-TEMPLATE.md`).
 
 1. **Add/refine a harness**: edit the `BUILTIN_HARNESSES` array in the DATA section (top of the `<script>` in `index.html`) — each entry has 22 scores (0–10), `audited: true/false`, tags and a blurb. Open a PR.
 2. **Audit a harness for real**: follow the method in `docs/` (taxonomy + scale + evidence rules) and flip `audited` to `true` with the reports.
@@ -97,7 +97,7 @@ An internal or private audit can inform an **Estimate**, but it does not earn th
 2. **The AUDITED badge requires a report** — real `path:line` evidence, like the ones in `docs/`. No report, no badge.
 3. **Everything you add locally stays marked LOCAL** — and any manual slider adjustment stays **visible**: a "⚠ N dimensions adjusted" counter on the badge, and the JSON export carries the provenance (`meta.heuristica` = what the analysis detected vs what you changed).
 4. **The principle isn't preventing lies — it's making them visible.** Anyone opening the ranking immediately sees what is verified, what is an estimate, and what was hand-tuned.
-5. **Confidentiality at the submitter's request.** Whoever submits a harness for audit may ask that it **not be revealed publicly** — the choice is the submitter's. In that case the audit is private: the report is delivered only to the submitter and the harness **does not enter the public ranking**, because the public AUDITED badge requires published evidence (no public badge with secret proof — that would be exactly the claim-without-evidence this project calls out). The private track exists as a consulting service; the public track earns the badge and the ranking spot.
+5. **Confidentiality at the submitter's request.** Whoever submits a harness for audit may ask that it **not be revealed publicly** — the choice is the submitter's. In that case the audit is private: the report is delivered only to the submitter and the harness **does not enter the public ranking**, because the public AUDITED badge requires published evidence (no public badge with secret proof — that would be exactly the claim-without-evidence this project calls out). The private track exists as a consulting service and starts by [email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), never in a public issue. Do not send private code until a safe transfer method has been agreed. The public track earns the badge and the ranking spot.
 
 **The honest path to ranking a harness:**
 1. Audit the folder → Preliminary badge (analysis justifications only)
@@ -158,7 +158,7 @@ Language selector at the top — **English is the norm**, with Portuguese, Frenc
 
 ## Tests (automated + manual smoke)
 
-**`npm test`** runs `check-i18n.js` + the **23-scenario jsdom regression suite** (`test/regression.mjs`) — quiz and audit preserved across language switches, reset/cancel without state resurrection, case-insensitive matcher, cache without poisoning, picker re-entrancy, OpenRouter widgets, home CTA, pills, theme variables in SVGs, keyboard navigation, retranslatable status, dataset enforcement (audited → published evidence). CI (`.github/workflows/ci.yml`) runs this on **every push/PR** — none of these regression classes can return without CI going red.
+**`npm test`** runs `check-i18n.js` + the **25-scenario jsdom regression suite** (`test/regression.mjs`) — quiz and audit preserved across language switches, reset/cancel without state resurrection, case-insensitive matcher, cache without poisoning, picker re-entrancy, OpenRouter widgets, home CTA, contact channels, pills, theme variables in SVGs, keyboard navigation, retranslatable status, dataset enforcement (audited → published evidence). CI (`.github/workflows/ci.yml`) runs this on **every push/PR** — none of these regression classes can return without CI going red.
 
 Recommended manual smoke before a release (Chrome, `python -m http.server 8123`):
 

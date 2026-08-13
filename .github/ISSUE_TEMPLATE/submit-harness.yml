@@ -1,5 +1,5 @@
 name: Submit your harness
-description: Submit a harness for audit and ranking (public, private, or estimate track)
+description: Submit a harness publicly for audit and ranking (public or estimate track)
 title: "[Submission] <harness name>"
 labels: ["harness-submission"]
 body:
@@ -8,6 +8,10 @@ body:
       value: |
         Thanks for submitting! Audit your repo in the app first (**📂 Audit a folder** — 100% local),
         click **⬇ Export JSON** and paste it below. Full details in [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md).
+
+        **This issue is public.** For a private or confidential audit, do not open
+        an issue and do not paste private code here. Email **emilio.mina@gmail.com**
+        first so we can agree on a safe transfer method.
   - type: input
     id: name
     attributes:
@@ -23,17 +27,16 @@ body:
   - type: input
     id: repo
     attributes:
-      label: Repository URL (public repo for the public track; private repos go through the private track)
+      label: Public repository URL
     validations:
       required: true
   - type: dropdown
     id: track
     attributes:
       label: Audit track
-      description: "Public: report published, AUDITED badge. Private: report delivered only to you, no public listing (the public badge requires published evidence). Estimate: you open a PR with justified scores."
+      description: "Public: report published, AUDITED badge. Estimate: you open a PR with justified scores. Private audits start by email, never through a public issue."
       options:
         - Public audit (report published, AUDITED badge)
-        - Private audit (confidential — report only to me, no public listing)
         - Estimate entry (I will open a PR with justified scores)
     validations:
       required: true

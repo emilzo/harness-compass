@@ -78,7 +78,7 @@ Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **po
 
 ## Como contribuir
 
-Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário de submissão do teu harness** (via pública com badge AUDITADO, privada confidencial, ou entrada como estimativa) e o template de auditoria (`docs/audits/AUDIT-TEMPLATE.md`).
+Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário público de submissão do teu harness** (via pública com badge AUDITADO ou entrada como estimativa), o [email para contacto privado](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass) e o template de auditoria (`docs/audits/AUDIT-TEMPLATE.md`).
 
 1. **Adicionar/afinar um harness**: edita o array `BUILTIN_HARNESSES` na secção DADOS (início do `<script>` de `index.html`) — cada entrada tem 22 scores (0–10), `audited: true/false`, tags e um blurb. Faz um PR.
 2. **Auditar um harness a sério**: segue o método em `docs/` (taxonomia + escala + regras de evidência) e muda `audited` para `true` com os relatórios.
@@ -97,7 +97,7 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 2. **O badge AUDITADO exige relatório** — evidência `path:line` real, como os que estão em `docs/`. Sem relatório, sem badge.
 3. **Tudo o que adicionas localmente fica marcado LOCAL** — e qualquer ajuste manual aos sliders fica **visível**: contador de "⚠ N dimensões ajustadas" no badge, e o export JSON carrega a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
 4. **O princípio não é impedir a mentira — é torná-la visível.** Quem abre o ranking vê imediatamente o que é verificado, o que é estimativa e o que foi mexido à mão.
-5. **Confidencialidade a pedido de quem submete.** Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente** — a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta — seria exatamente a claim sem prova que este projeto denuncia). A via privada existe como serviço de consultoria; a via pública dá o badge e o lugar no ranking.
+5. **Confidencialidade a pedido de quem submete.** Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente** — a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta — seria exatamente a claim sem prova que este projeto denuncia). A via privada existe como serviço de consultoria e começa por [email](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass), nunca num issue público. Não envies código privado antes de combinarmos uma forma segura de transferência. A via pública dá o badge e o lugar no ranking.
 
 **Fluxo honesto para rankear um harness:**
 1. Audita a pasta → badge Preliminar (só com justificações da análise)
@@ -158,7 +158,7 @@ Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, 
 
 ## Testes (automatizados + smoke manual)
 
-**`npm test`** corre o `check-i18n.js` + a **suite de regressão jsdom com 23 cenários** (`test/regression.mjs`) — quiz e auditoria preservados na troca de língua, reset/cancel sem ressurreição de estado, matcher case-insensitive, cache sem envenenamento, re-entrância do picker, widgets OpenRouter, CTA da home, pills, variáveis de tema nos SVG, navegação por teclado, status re-traduzível, enforcement do dataset (audited → evidência publicada). O CI (`.github/workflows/ci.yml`) corre isto em **cada push/PR** — nenhuma destas classes de regressão pode voltar sem o CI ficar vermelho.
+**`npm test`** corre o `check-i18n.js` + a **suite de regressão jsdom com 25 cenários** (`test/regression.mjs`) — quiz e auditoria preservados na troca de língua, reset/cancel sem ressurreição de estado, matcher case-insensitive, cache sem envenenamento, re-entrância do picker, widgets OpenRouter, CTA da home, canais de contacto, pills, variáveis de tema nos SVG, navegação por teclado, status re-traduzível, enforcement do dataset (audited → evidência publicada). O CI (`.github/workflows/ci.yml`) corre isto em **cada push/PR** — nenhuma destas classes de regressão pode voltar sem o CI ficar vermelho.
 
 Smoke manual recomendado antes de um release (Chrome, `python -m http.server 8123`):
 

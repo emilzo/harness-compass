@@ -127,6 +127,10 @@
   .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:20px;}
   .step{background:transparent; border:0; border-top:2px solid var(--line); border-radius:0; padding:16px 0;}
   .step b{display:block; color:var(--accent); font-size:12px; text-transform:uppercase; letter-spacing:.8px; margin-bottom:7px;}
+  .contact-option{border-top:2px solid var(--line); padding-top:2px;}
+  .contact-option h3{color:var(--accent);}
+  .contact-action{display:inline-block; margin-top:12px; border:1px solid var(--line); border-radius:4px; padding:8px 13px; color:var(--ink); font-size:13px; font-weight:700;}
+  .contact-action:hover{border-color:var(--accent); color:var(--accent); text-decoration:none;}
   footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:12.5px;}
   a{color:var(--cyan); text-decoration:none;} a:hover{text-decoration:underline;}
   .legend{font-size:12px; color:var(--muted); margin-top:8px;}
@@ -180,6 +184,7 @@
     <button data-view="quiz" data-i18n="nav_quiz">Que harness para ti?</button>
     <button data-view="economy" data-i18n="nav_economy">Calculadora</button>
     <button data-view="method" data-i18n="nav_method">Método</button>
+    <button data-view="contact" data-i18n="nav_contact">Contactar</button>
   </nav>
 
   <main>
@@ -367,9 +372,35 @@
       <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário público; auditoria interna, Kando em preparação para go-to-market e classificado como Estimativa porque o relatório linha a linha não é público).</p>
     </div>
   </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="view-contact">
+    <div class="card">
+      <h2 data-i18n="contact_title">Contactar</h2>
+      <p class="muted" data-i18n="contact_intro">Tens uma pergunta, encontraste um erro ou queres falar sobre uma auditoria? Escolhe o canal certo.</p>
+      <div class="steps">
+        <div class="contact-option">
+          <h3 data-i18n="contact_private_t">Auditoria privada ou colaboração</h3>
+          <p class="muted" data-i18n="contact_private_d">Para auditorias confidenciais, material privado ou propostas de colaboração. Não envies segredos nem código antes de combinarmos uma forma segura de transferência.</p>
+          <a class="contact-action" href="mailto:emilio.mina@gmail.com?subject=Harness%20Compass" data-i18n="contact_email_a">emilio.mina@gmail.com</a>
+        </div>
+        <div class="contact-option">
+          <h3 data-i18n="contact_public_t">Feedback público e correções</h3>
+          <p class="muted" data-i18n="contact_public_d">Para perguntas sobre o método, bugs reproduzíveis, correções aos dados ou ideias que podem ser discutidas em público.</p>
+          <a class="contact-action" href="https://github.com/emilzo/harness-compass/issues/new?template=contact.yml" target="_blank" rel="noopener" data-i18n="contact_public_a">Abrir um contacto público no GitHub</a>
+        </div>
+        <div class="contact-option">
+          <h3 data-i18n="contact_project_t">Projeto e contribuições</h3>
+          <p class="muted" data-i18n="contact_project_d">Consulta o código, acompanha as alterações ou abre uma contribuição no repositório.</p>
+          <a class="contact-action" href="https://github.com/emilzo/harness-compass" target="_blank" rel="noopener" data-i18n="contact_project_a">Ver o projeto no GitHub</a>
+        </div>
+      </div>
+      <p class="legend" data-i18n="contact_note">O email é o único canal privado. Issues do GitHub são públicas: não publiques chaves, código proprietário nem dados confidenciais.</p>
+    </div>
+  </section>
   </main>
 
-  <footer data-i18n="footer">Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo.</footer>
+  <footer data-i18n="footer">Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by <a href="https://github.com/emilzo" target="_blank" rel="noopener">@emilzo</a>.</footer>
 </div>
 
 <script>
@@ -465,7 +496,7 @@ en:{
   tagline:"Agent = Model + Harness",
   preview_label:"Research Preview v0.1",
   audit_pick_top:"📂 Audit a local repo",
-  nav_home:"Paradigm", nav_ranking:"Ranking", nav_cost:"Real cost", nav_map:"Map", nav_audit:"Audit repo", nav_quiz:"Which harness?", nav_economy:"Calculator", nav_method:"Method",
+  nav_home:"Paradigm", nav_ranking:"Ranking", nav_cost:"Real cost", nav_map:"Map", nav_audit:"Audit repo", nav_quiz:"Which harness?", nav_economy:"Calculator", nav_method:"Method", nav_contact:"Contact",
   home_hero_title:"The harness decides how much of your token budget is wasted.",
   home_hero_sub:"A powerful harness — byte-stable caching, smart retry, multi-provider fallback, compression, verification — can make cheap LLMs viable. In production, this layer can change the real cost a lot. And now you can audit a local repo without uploading the code.",
   home_steps_title:"The paradigm in 3 steps",
@@ -619,16 +650,28 @@ en:{
   md_new:"new", md_removed:"removed since", md_stable:"✓ stable since {d} ({n} models)", md_first:"first snapshot saved today ({n} models)", md_hist:"Discontinued models (local history)",
   au_ev_file:"file {f}", au_ev_dir:"folder {d}", au_ev_tests:"{n} test/spec files", au_ev_workflows:"{n} CI workflows", au_name_fallback:"Local project", au_blurb_fallback:"Added via local audit.", au_cancel:"Cancelled.", au_error:"Error",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"last seen", au_type_fallback:"Project",
-  au_submit:"Want your harness in the official ranking? <a href=\"{u}\" target=\"_blank\">Submit it</a> — free public audit (AUDITED badge) or a private, confidential one. Your choice.",
+  au_submit:"Want your harness in the official ranking? <a href=\"{u}\" target=\"_blank\">Submit it publicly</a> for a free audit and AUDITED badge. For a private, confidential audit, <a href=\"{m}\">email me</a> instead — never put private code in a GitHub issue.",
   home_cta:"📂 Audit a local repo — your code stays in this browser and is not uploaded",
   method_p1:"The Harness Compass is born from real audits, not opinion. A harness with the <span class=\"badge b-audit\">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class=\"badge b-prel\">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.", method_mt:"Maturity scale (0–10)", m_m0:"Does not exist (proven by search)", m_m2:"Trace / stub not wired to the execution path", m_m4:"Works in the simple case, degrades predictably", m_m6:"Functional and integrated, known gaps", m_m8:"Solid, errors handled, tests", m_m10:"Reason for existing, depth beyond the requirement", method_lt:"How the local audit works (Preliminary badge)", method_ld:"The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.", method_ct:"Case study — Hermes Agent vs Kando", method_cd:"A complete comparison: 22 dimensions, ~190K characters of evidence, 9 parallel audits. Central lesson: <b>one's strengths are the other's weaknesses</b> — the cross-port is the way.", method_src:"Sources: the references/harness-map.md taxonomy · docs/DEEP-HARNESS-AUDIT-HERMES.en.md (full audit, published in English) · docs/EVIDENCE-SUMMARY-KANDO.md (public summary; internal audit, Kando preparing for go-to-market and shown as an Estimate because the line-by-line report is not public).",
-  footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by @emilzo."
+  contact_title:"Contact",
+  contact_intro:"Have a question, found an error or want to discuss an audit? Choose the right channel.",
+  contact_private_t:"Private audit or collaboration",
+  contact_private_d:"For confidential audits, private material or collaboration proposals. Do not send secrets or code until we agree on a safe transfer method.",
+  contact_email_a:"emilio.mina@gmail.com",
+  contact_public_t:"Public feedback and corrections",
+  contact_public_d:"For questions about the method, reproducible bugs, data corrections or ideas that can be discussed in public.",
+  contact_public_a:"Open a public contact issue",
+  contact_project_t:"Project and contributions",
+  contact_project_d:"Read the code, follow changes or contribute through the repository.",
+  contact_project_a:"View the project on GitHub",
+  contact_note:"Email is the only private channel. GitHub issues are public: do not post keys, proprietary code or confidential data.",
+  footer:"Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by <a href=\"https://github.com/emilzo\" target=\"_blank\" rel=\"noopener\">@emilzo</a>."
 },
 pt:{
   tagline:"Agent = Model + Harness",
   preview_label:"Pré-visualização de investigação v0.1",
   audit_pick_top:"📂 Auditar um repositório local",
-  nav_home:"Paradigma", nav_ranking:"Ranking", nav_cost:"Custo real", nav_map:"Mapa", nav_audit:"Auditar repo", nav_quiz:"Que harness para ti?", nav_economy:"Calculadora", nav_method:"Método",
+  nav_home:"Paradigma", nav_ranking:"Ranking", nav_cost:"Custo real", nav_map:"Mapa", nav_audit:"Auditar repo", nav_quiz:"Que harness para ti?", nav_economy:"Calculadora", nav_method:"Método", nav_contact:"Contactar",
   home_hero_title:"O harness decide quanto do teu dinheiro em tokens é desperdiçado.",
   home_hero_sub:"Um harness potente — caching byte-estável, retry inteligente, fallback multi-provider, compressão, verificação — pode tornar <b>viáveis os LLMs económicos</b>. Em produção, esta camada pode mudar bastante o custo real. E agora podes <b>auditar um repositório local</b> sem enviar o código.",
   home_steps_title:"O paradigma em 3 passos",
@@ -782,15 +825,27 @@ pt:{
   md_new:"novos", md_removed:"saíram desde", md_stable:"✓ estável desde {d} ({n} modelos)", md_first:"primeiro snapshot guardado hoje ({n} modelos)", md_hist:"Modelos descontinuados (histórico local)",
   au_ev_file:"ficheiro {f}", au_ev_dir:"pasta {d}", au_ev_tests:"{n} ficheiros test/spec", au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projeto local", au_blurb_fallback:"Adicionado por auditoria local.", au_cancel:"Cancelado.", au_error:"Erro",
   rank_col_v:"Vendor", rank_n:"{n} harnesses", md_seen:"visto pela última vez", au_type_fallback:"Projeto",
-  au_submit:"Queres o teu harness no ranking oficial? <a href=\"{u}\" target=\"_blank\">Submete-o</a> — auditoria pública gratuita (badge AUDITADO) ou privada, confidencial. A escolha é tua.",
+  au_submit:"Queres o teu harness no ranking oficial? <a href=\"{u}\" target=\"_blank\">Submete-o publicamente</a> para uma auditoria gratuita e badge AUDITADO. Para uma auditoria privada e confidencial, <a href=\"{m}\">envia-me um email</a> — nunca coloques código privado num issue do GitHub.",
   home_cta:"📂 Auditar um repositório local — o código fica neste browser e não é enviado",
   method_p1:"O Harness Compass nasce de auditorias reais, não de opinião. Um harness com badge <span class=\"badge b-audit\">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por busca, cobertura declarada. Um harness <span class=\"badge b-prel\">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.", method_mt:"Escala de maturidade (0–10)", m_m0:"Não existe (provado por busca)", m_m2:"Vestígio / stub não ligado ao caminho de execução", m_m4:"Funciona no caso simples, degrada previsivelmente", m_m6:"Funcional e integrado, gaps conhecidos", m_m8:"Sólido, erros tratados, testes", m_m10:"Razão de existir, profundidade além do requisito", method_lt:"Como funciona a auditoria local (badge Preliminar)", method_ld:"A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.", method_ct:"Estudo de caso — Hermes Agent vs Kando", method_cd:"Uma comparação completa: 22 dimensões, ~190K caracteres de evidência, 9 auditorias paralelas. Lição central: <b>os pontos fortes de um são os pontos fracos do outro</b> — o port cruzado é o caminho.", method_src:"Fontes: taxonomia references/harness-map.md · docs/DEEP-HARNESS-AUDIT-HERMES.md (auditoria integral, publicada) · docs/EVIDENCE-SUMMARY-KANDO.md (sumário público; auditoria interna, Kando em preparação para go-to-market e classificado como Estimativa porque o relatório linha a linha não é público).",
-  footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by @emilzo."
+  contact_title:"Contactar",
+  contact_intro:"Tens uma pergunta, encontraste um erro ou queres falar sobre uma auditoria? Escolhe o canal certo.",
+  contact_private_t:"Auditoria privada ou colaboração",
+  contact_private_d:"Para auditorias confidenciais, material privado ou propostas de colaboração. Não envies segredos nem código antes de combinarmos uma forma segura de transferência.",
+  contact_email_a:"emilio.mina@gmail.com",
+  contact_public_t:"Feedback público e correções",
+  contact_public_d:"Para perguntas sobre o método, bugs reproduzíveis, correções aos dados ou ideias que podem ser discutidas em público.",
+  contact_public_a:"Abrir um contacto público no GitHub",
+  contact_project_t:"Projeto e contribuições",
+  contact_project_d:"Consulta o código, acompanha as alterações ou abre uma contribuição no repositório.",
+  contact_project_a:"Ver o projeto no GitHub",
+  contact_note:"O email é o único canal privado. Issues do GitHub são públicas: não publiques chaves, código proprietário nem dados confidenciais.",
+  footer:"Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by <a href=\"https://github.com/emilzo\" target=\"_blank\" rel=\"noopener\">@emilzo</a>."
 },
 fr:{
   tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 Auditer un dossier",
-  nav_home:"Paradigme", nav_ranking:"Classement", nav_cost:"Coût réel", nav_map:"Carte", nav_audit:"Auditer un dossier", nav_quiz:"Quel harness ?", nav_economy:"Calculateur", nav_method:"Méthode",
+  nav_home:"Paradigme", nav_ranking:"Classement", nav_cost:"Coût réel", nav_map:"Carte", nav_audit:"Auditer un dossier", nav_quiz:"Quel harness ?", nav_economy:"Calculateur", nav_method:"Méthode", nav_contact:"Contact",
   home_hero_title:"Le harness décide combien de ton budget tokens est gaspillé.",
   rank_title:"Classement des harnesses",
   cost_title:"💰 Même modèle, différent harness — coût réel par tâche",
@@ -798,7 +853,19 @@ fr:{
   quiz_title:"Quel harness pour vous ?", eco_title:"Calculateur : combien un harness puissant fait-il économiser ?", method_title:"Méthode et preuve",
   audit_pick:"Choisir le dossier du projet", audit_clear:"Effacer", quiz_run:"Calculer la recommandation",
   rank_dom:"Filtrer par domaine :", dom_all:"Tous", rank_prov:"Provenance (intégrité) :", prov_all:"Tous", prov_oficial:"✓ Dataset du projet", prov_local:"Local (votre session)",
-  footer:"Harness Compass · Agent = Modèle + Harness · audité / préliminaire / estimation ne se mélangent jamais sans étiquette · AGPL-3.0 · by @emilzo.",
+  contact_title:"Contact",
+  contact_intro:"Une question, une erreur trouvée ou un audit à discuter ? Choisissez le bon canal.",
+  contact_private_t:"Audit privé ou collaboration",
+  contact_private_d:"Pour les audits confidentiels, le matériel privé ou les propositions de collaboration. N'envoyez pas de secrets ni de code avant d'avoir convenu d'un transfert sûr.",
+  contact_email_a:"emilio.mina@gmail.com",
+  contact_public_t:"Retours publics et corrections",
+  contact_public_d:"Pour les questions sur la méthode, les bugs reproductibles, les corrections de données ou les idées discutables en public.",
+  contact_public_a:"Ouvrir une demande publique",
+  contact_project_t:"Projet et contributions",
+  contact_project_d:"Consultez le code, suivez les changements ou contribuez via le dépôt.",
+  contact_project_a:"Voir le projet sur GitHub",
+  contact_note:"L'email est le seul canal privé. Les issues GitHub sont publiques : ne publiez pas de clés, de code propriétaire ni de données confidentielles.",
+  footer:"Harness Compass · Agent = Modèle + Harness · audité / préliminaire / estimation ne se mélangent jamais sans étiquette · AGPL-3.0 · by <a href=\"https://github.com/emilzo\" target=\"_blank\" rel=\"noopener\">@emilzo</a>.",
   badge_audit:"Audité", badge_est:"Estimation", badge_prel:"Préliminaire", badge_local:"Local", badge_adj:"ajustées",
   home_hero_sub:"Un harness puissant — caching byte-stable, retry intelligent, fallback multi-provider, compression, vérification — rend <b>viables les LLM économiques</b>. Le harness se rembourse dès la première semaine de production. Et maintenant tu peux <b>auditer ton propre projet</b> et le voir entrer dans le classement.",
   home_steps_title:"Le paradigme en 3 étapes", step1_t:"1 · Mesure",
@@ -961,7 +1028,7 @@ fr:{
   md_hist:"Modèles retirés (historique local)", au_ev_file:"fichier {f}", au_ev_dir:"dossier {d}", au_ev_tests:"{n} fichiers test/spec",
   au_ev_workflows:"{n} workflows CI", au_name_fallback:"Projet local", au_blurb_fallback:"Ajouté via audit local.", au_cancel:"Annulé.",
   rank_col_v:"Fournisseur", rank_n:"{n} harnesses", md_seen:"vu la dernière fois", au_type_fallback:"Projet",
-  au_submit:"Tu veux ton harness dans le classement officiel ? <a href=\"{u}\" target=\"_blank\">Soumets-le</a> — audit public gratuit (badge AUDITÉ) ou privé et confidentiel. À toi de choisir.",
+  au_submit:"Tu veux ton harness dans le classement officiel ? <a href=\"{u}\" target=\"_blank\">Soumets-le publiquement</a> pour un audit gratuit et le badge AUDITÉ. Pour un audit privé et confidentiel, <a href=\"{m}\">envoie-moi un email</a> — ne mets jamais de code privé dans une issue GitHub.",
   au_error:"Erreur", home_cta:"🧭 Audite ton propre harness — l'app lit le dossier dans ton navigateur et le note (100 % local, aucun upload)",
   method_p1:"Le Harness Compass naît d'audits réels, pas d'opinions. Un harness avec le badge <span class=\"badge b-audit\">Audité</span> a été analysé selon des règles de preuve : chaque affirmation cite un <code>path:line</code> vérifié, les absences sont prouvées par recherche, la couverture est déclarée. Un harness <span class=\"badge b-prel\">Préliminaire</span> est entré via l'analyse heuristique locale de dossier — utile comme premier tri, mais le badge définitif exige un audit avec lecture réelle.",
   method_mt:"Échelle de maturité (0–10)", m_m0:"N'existe pas (prouvé par recherche)", m_m2:"Trace / stub non relié au chemin d'exécution",
@@ -975,7 +1042,7 @@ fr:{
 de:{
   tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 Ordner prüfen",
-  nav_home:"Paradigma", nav_ranking:"Rangliste", nav_cost:"Echte Kosten", nav_map:"Karte", nav_audit:"Ordner prüfen", nav_quiz:"Welches Harness?", nav_economy:"Rechner", nav_method:"Methode",
+  nav_home:"Paradigma", nav_ranking:"Rangliste", nav_cost:"Echte Kosten", nav_map:"Karte", nav_audit:"Ordner prüfen", nav_quiz:"Welches Harness?", nav_economy:"Rechner", nav_method:"Methode", nav_contact:"Kontakt",
   home_hero_title:"Das Harness entscheidet, wie viel deines Token-Budgets verschwendet wird.",
   rank_title:"Harness-Rangliste",
   cost_title:"💰 Gleiches Modell, anderes Harness — echte Kosten pro Aufgabe",
@@ -983,7 +1050,19 @@ de:{
   quiz_title:"Welches Harness für dich?", eco_title:"Rechner: Wie viel spart ein starkes Harness?", method_title:"Methode & Beweis",
   audit_pick:"Projektordner wählen", audit_clear:"Leeren", quiz_run:"Empfehlung berechnen",
   rank_dom:"Domäne filtern:", dom_all:"Alle", rank_prov:"Herkunft (Integrität):", prov_all:"Alle", prov_oficial:"✓ Projekt-Dataset", prov_local:"Lokal (deine Sitzung)",
-  footer:"Harness Compass · Agent = Modell + Harness · auditiert / vorläufig / Schätzung nie unetikettiert · AGPL-3.0 · by @emilzo.",
+  contact_title:"Kontakt",
+  contact_intro:"Eine Frage, einen Fehler gefunden oder möchten Sie ein Audit besprechen? Wählen Sie den passenden Kanal.",
+  contact_private_t:"Privates Audit oder Zusammenarbeit",
+  contact_private_d:"Für vertrauliche Audits, private Unterlagen oder Kooperationsvorschläge. Senden Sie keine Geheimnisse oder Code, bevor wir einen sicheren Übertragungsweg vereinbart haben.",
+  contact_email_a:"emilio.mina@gmail.com",
+  contact_public_t:"Öffentliches Feedback und Korrekturen",
+  contact_public_d:"Für Fragen zur Methode, reproduzierbare Fehler, Datenkorrekturen oder Ideen, die öffentlich diskutiert werden können.",
+  contact_public_a:"Öffentliche Kontaktanfrage öffnen",
+  contact_project_t:"Projekt und Beiträge",
+  contact_project_d:"Lesen Sie den Code, verfolgen Sie Änderungen oder tragen Sie über das Repository bei.",
+  contact_project_a:"Projekt auf GitHub ansehen",
+  contact_note:"E-Mail ist der einzige private Kanal. GitHub-Issues sind öffentlich: Veröffentlichen Sie keine Schlüssel, proprietären Code oder vertraulichen Daten.",
+  footer:"Harness Compass · Agent = Modell + Harness · auditiert / vorläufig / Schätzung nie unetikettiert · AGPL-3.0 · by <a href=\"https://github.com/emilzo\" target=\"_blank\" rel=\"noopener\">@emilzo</a>.",
   badge_audit:"Auditiert", badge_est:"Schätzung", badge_prel:"Vorläufig", badge_local:"Lokal", badge_adj:"angepasst",
   home_hero_sub:"Ein starkes Harness — byte-stabiles Caching, intelligentes Retry, Multi-Provider-Fallback, Kompression, Verifikation — macht <b>günstige LLMs praxistauglich</b>. Das Harness bezahlt sich in der ersten Produktionswoche. Und jetzt kannst du <b>dein eigenes Projekt auditieren</b> und es ins Ranking aufnehmen.",
   home_steps_title:"Das Paradigma in 3 Schritten", step1_t:"1 · Messen",
@@ -1146,7 +1225,7 @@ de:{
   md_hist:"Eingestellte Modelle (lokale Historie)", au_ev_file:"Datei {f}", au_ev_dir:"Ordner {d}", au_ev_tests:"{n} test/spec-Dateien",
   au_ev_workflows:"{n} CI-Workflows", au_name_fallback:"Lokales Projekt", au_blurb_fallback:"Per lokalem Audit hinzugefügt.", au_cancel:"Abgebrochen.",
   rank_col_v:"Anbieter", rank_n:"{n} Harnesses", md_seen:"zuletzt gesehen", au_type_fallback:"Projekt",
-  au_submit:"Willst du dein Harness im offiziellen Ranking? <a href=\"{u}\" target=\"_blank\">Reiche es ein</a> — kostenloses öffentliches Audit (AUDITIERT-Badge) oder privat und vertraulich. Deine Wahl.",
+  au_submit:"Willst du dein Harness im offiziellen Ranking? <a href=\"{u}\" target=\"_blank\">Reiche es öffentlich ein</a> für ein kostenloses Audit und das AUDITIERT-Badge. Für ein privates, vertrauliches Audit <a href=\"{m}\">schreib mir eine E-Mail</a> — stelle privaten Code nie in ein GitHub-Issue.",
   au_error:"Fehler",
   home_cta:"🧭 Auditiere dein eigenes Harness — die App liest den Ordner in deinem Browser und bewertet ihn (100 % lokal, kein Upload)",
   method_p1:"Der Harness Compass entsteht aus echten Audits, nicht aus Meinung. Ein Harness mit dem Badge <span class=\"badge b-audit\">Auditiert</span> wurde nach Belegregeln analysiert: jede Aussage zitiert ein verifiziertes <code>path:line</code>, Abwesenheiten sind per Suche bewiesen, die Abdeckung ist deklariert. Ein <span class=\"badge b-prel\">Vorläufig</span>-Harness kam über die lokale heuristische Ordneranalyse hinein — nützlich als erster Schnitt, aber das endgültige Badge erfordert ein Audit mit echtem Lesen.",
@@ -1162,7 +1241,7 @@ de:{
 zh:{
   tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 审计文件夹",
-  nav_home:"范式", nav_ranking:"排名", nav_cost:"实际成本", nav_map:"地图", nav_audit:"审计文件夹", nav_quiz:"选择哪个 Harness？", nav_economy:"计算器", nav_method:"方法",
+  nav_home:"范式", nav_ranking:"排名", nav_cost:"实际成本", nav_map:"地图", nav_audit:"审计文件夹", nav_quiz:"选择哪个 Harness？", nav_economy:"计算器", nav_method:"方法", nav_contact:"联系",
   home_hero_title:"Harness 决定了你的 token 预算被浪费多少。",
   rank_title:"Harness 排名",
   cost_title:"💰 同一模型，不同 Harness — 每任务真实成本",
@@ -1170,7 +1249,19 @@ zh:{
   quiz_title:"哪个 Harness 适合你？", eco_title:"计算器：强大的 Harness 能省多少？", method_title:"方法与证据",
   audit_pick:"选择项目文件夹", audit_clear:"清除", quiz_run:"计算推荐",
   rank_dom:"按领域筛选：", dom_all:"全部", rank_prov:"来源（完整性）：", prov_all:"全部", prov_oficial:"✓ 项目数据集", prov_local:"本地（你的会话）",
-  footer:"Harness Compass · Agent = 模型 + Harness · 审计/初步/估算绝不混标签 · AGPL-3.0 · by @emilzo.",
+  contact_title:"联系",
+  contact_intro:"有问题、发现错误或想讨论审计？请选择合适的渠道。",
+  contact_private_t:"私人审计或合作",
+  contact_private_d:"用于保密审计、私人材料或合作建议。在我们商定安全的传输方式之前，请勿发送密钥或代码。",
+  contact_email_a:"emilio.mina@gmail.com",
+  contact_public_t:"公开反馈与更正",
+  contact_public_d:"用于方法问题、可复现的错误、数据更正或可以公开讨论的想法。",
+  contact_public_a:"创建公开联系 Issue",
+  contact_project_t:"项目与贡献",
+  contact_project_d:"查看代码、关注更新或通过仓库贡献。",
+  contact_project_a:"在 GitHub 上查看项目",
+  contact_note:"电子邮件是唯一的私人渠道。GitHub Issue 是公开的：请勿发布密钥、专有代码或机密数据。",
+  footer:"Harness Compass · Agent = 模型 + Harness · 审计/初步/估算绝不混标签 · AGPL-3.0 · by <a href=\"https://github.com/emilzo\" target=\"_blank\" rel=\"noopener\">@emilzo</a>.",
   badge_audit:"已审计", badge_est:"估算", badge_prel:"初步", badge_local:"本地", badge_adj:"已调整",
   home_hero_sub:"强大的 harness——字节稳定的缓存、智能重试、多 provider 回退、压缩、验证——让<b>经济型 LLM 变得可行</b>。harness 在投产第一周就能收回成本。现在你还可以<b>审计自己的项目</b>，让它进入排名。",
   home_steps_title:"三步理解范式", step1_t:"1 · 测量",
@@ -1279,7 +1370,7 @@ zh:{
   md_stable:"✓ 自 {d} 起稳定（{n} 个模型）", md_first:"今天保存了首个快照（{n} 个模型）", md_hist:"已下线的模型（本地历史）", au_ev_file:"文件 {f}", au_ev_dir:"文件夹 {d}",
   au_ev_tests:"{n} 个 test/spec 文件", au_ev_workflows:"{n} 个 CI workflow", au_name_fallback:"本地项目", au_blurb_fallback:"通过本地审计添加。", au_cancel:"已取消。",
   rank_col_v:"厂商", rank_n:"{n} 个 harness", md_seen:"最后出现", au_type_fallback:"项目",
-  au_submit:"想让你的 harness 进入官方排名？<a href=\"{u}\" target=\"_blank\">提交它</a>——免费公开审计（已审计徽章）或私密保密审计。由你选择。",
+  au_submit:"想让你的 harness 进入官方排名？<a href=\"{u}\" target=\"_blank\">公开提交</a>即可获得免费审计和已审计徽章。如需私人保密审计，请<a href=\"{m}\">发邮件给我</a>——切勿在 GitHub Issue 中放入私有代码。",
   au_error:"错误", home_cta:"🧭 审计你自己的 harness——应用在你的浏览器里读取文件夹并打分（100% 本地，不上传）",
   method_p1:"Harness Compass 源于真实审计，而非观点。带 <span class=\"badge b-audit\">已审计</span> 徽章的 harness 按证据规则分析：每条论断都引用经验证的 <code>path:line</code>，缺失以搜索证明，覆盖范围明确声明。<span class=\"badge b-prel\">初步</span> harness 通过本地启发式文件夹分析进入——作为初筛有用，但正式徽章需要真实读码的审计。",
   method_mt:"成熟度等级（0–10）", m_m0:"不存在（搜索证明）", m_m2:"痕迹 / 未接入执行路径的 stub", m_m4:"简单场景可用，退化可预测", m_m6:"功能完整并已集成，缺口已知", m_m8:"扎实，错误已处理，有测试",
@@ -1291,7 +1382,7 @@ zh:{
 hi:{
   tagline:"Agent = Model + Harness",
   audit_pick_top:"📂 फ़ोल्डर ऑडिट करें",
-  nav_home:"प्रतिमान", nav_ranking:"रैंकिंग", nav_cost:"वास्तविक लागत", nav_map:"नक्शा", nav_audit:"फ़ोल्डर ऑडिट", nav_quiz:"कौन सा हार्नेस?", nav_economy:"कैलकुलेटर", nav_method:"विधि",
+  nav_home:"प्रतिमान", nav_ranking:"रैंकिंग", nav_cost:"वास्तविक लागत", nav_map:"नक्शा", nav_audit:"फ़ोल्डर ऑडिट", nav_quiz:"कौन सा हार्नेस?", nav_economy:"कैलकुलेटर", nav_method:"विधि", nav_contact:"संपर्क",
   home_hero_title:"हार्नेस तय करता है कि आपका टोकन बजट कितना बर्बाद होता है।",
   rank_title:"हार्नेस रैंकिंग",
   cost_title:"💰 एक ही मॉडल, अलग हार्नेस — प्रति कार्य वास्तविक लागत",
@@ -1299,7 +1390,19 @@ hi:{
   quiz_title:"आपके लिए कौन सा हार्नेस?", eco_title:"कैलकुलेटर: शक्तिशाली हार्नेस कितना बचाता है?", method_title:"विधि और सबूत",
   audit_pick:"प्रोजेक्ट फ़ोल्डर चुनें", audit_clear:"साफ़ करें", quiz_run:"सिफारिश गणना करें",
   rank_dom:"डोमेन फ़िल्टर करें:", dom_all:"सभी", rank_prov:"उत्पत्ति (अखंडता):", prov_all:"सभी", prov_oficial:"✓ प्रोजेक्ट डेटासेट", prov_local:"स्थानीय (आपका सत्र)",
-  footer:"Harness Compass · Agent = मॉडल + हार्नेस · ऑडिट/प्रारंभिक/अनुमान कभी बिना लेबल नहीं · AGPL-3.0 · by @emilzo.",
+  contact_title:"संपर्क",
+  contact_intro:"कोई प्रश्न है, त्रुटि मिली या ऑडिट पर बात करनी है? सही माध्यम चुनें।",
+  contact_private_t:"निजी ऑडिट या सहयोग",
+  contact_private_d:"गोपनीय ऑडिट, निजी सामग्री या सहयोग प्रस्तावों के लिए। सुरक्षित हस्तांतरण का तरीका तय होने से पहले कोई रहस्य या कोड न भेजें।",
+  contact_email_a:"emilio.mina@gmail.com",
+  contact_public_t:"सार्वजनिक प्रतिक्रिया और सुधार",
+  contact_public_d:"विधि के प्रश्न, दोहराए जा सकने वाले बग, डेटा सुधार या सार्वजनिक रूप से चर्चा योग्य विचारों के लिए।",
+  contact_public_a:"सार्वजनिक संपर्क Issue खोलें",
+  contact_project_t:"प्रोजेक्ट और योगदान",
+  contact_project_d:"कोड देखें, बदलावों का अनुसरण करें या repository के माध्यम से योगदान दें।",
+  contact_project_a:"GitHub पर प्रोजेक्ट देखें",
+  contact_note:"ईमेल ही एकमात्र निजी माध्यम है। GitHub Issues सार्वजनिक हैं: keys, proprietary code या गोपनीय डेटा पोस्ट न करें।",
+  footer:"Harness Compass · Agent = मॉडल + हार्नेस · ऑडिट/प्रारंभिक/अनुमान कभी बिना लेबल नहीं · AGPL-3.0 · by <a href=\"https://github.com/emilzo\" target=\"_blank\" rel=\"noopener\">@emilzo</a>.",
   badge_audit:"ऑडिटेड", badge_est:"अनुमान", badge_prel:"प्रारंभिक", badge_local:"स्थानीय", badge_adj:"समायोजित",
   home_hero_sub:"एक शक्तिशाली हार्नेस — बाइट-स्थिर कैशिंग, स्मार्ट retry, मल्टी-प्रोवाइडर fallback, कम्प्रेशन, सत्यापन — <b>किफ़ायती LLM को व्यवहार्य बनाता है</b>। हार्नेस की लागत प्रोडक्शन के पहले हफ़्ते में ही वसूल हो जाती है। और अब आप <b>अपने प्रोजेक्ट का ऑडिट</b> करके उसे रैंकिंग में आते देख सकते हैं।",
   home_steps_title:"3 चरणों में प्रतिमान", step1_t:"1 · मापें",
@@ -1457,7 +1560,7 @@ hi:{
   md_first:"पहला snapshot आज सहेजा गया ({n} मॉडल)", md_hist:"बंद हुए मॉडल (स्थानीय इतिहास)", au_ev_file:"फ़ाइल {f}", au_ev_dir:"फ़ोल्डर {d}",
   au_ev_tests:"{n} test/spec फ़ाइलें", au_ev_workflows:"{n} CI workflows", au_name_fallback:"स्थानीय प्रोजेक्ट",
   rank_col_v:"विक्रेता", rank_n:"{n} harnesses", md_seen:"अंतिम बार देखा", au_type_fallback:"प्रोजेक्ट",
-  au_submit:"अपना हार्नेस आधिकारिक रैंकिंग में चाहते हैं? <a href=\"{u}\" target=\"_blank\">सबमिट करें</a> — मुफ़्त सार्वजनिक ऑडिट (ऑडिटेड बैज) या निजी, गोपनीय। चुनाव आपका है।",
+  au_submit:"अपना हार्नेस आधिकारिक रैंकिंग में चाहते हैं? मुफ़्त ऑडिट और ऑडिटेड बैज के लिए <a href=\"{u}\" target=\"_blank\">सार्वजनिक रूप से सबमिट करें</a>। निजी गोपनीय ऑडिट के लिए <a href=\"{m}\">मुझे ईमेल करें</a> — निजी कोड कभी GitHub Issue में न डालें।",
   au_blurb_fallback:"स्थानीय ऑडिट से जोड़ा गया।", au_cancel:"रद्द किया गया।", au_error:"त्रुटि",
   home_cta:"🧭 अपने हार्नेस का ऑडिट करें — ऐप आपके ब्राउज़र में फ़ोल्डर पढ़कर स्कोर देता है (100% स्थानीय, कोई अपलोड नहीं)",
   method_p1:"Harness Compass वास्तविक ऑडिट से जन्मा है, राय से नहीं। <span class=\"badge b-audit\">ऑडिटेड</span> बैज वाले हार्नेस का विश्लेषण प्रमाण-नियमों से हुआ: हर दावा सत्यापित <code>path:line</code> उद्धृत करता है, अनुपस्थिति खोज से सिद्ध होती है, कवरेज घोषित है। <span class=\"badge b-prel\">प्रारंभिक</span> हार्नेस स्थानीय अनुमानी फ़ोल्डर-विश्लेषण से आया — पहले अनुमान के लिए उपयोगी, पर निर्णायक बैज के लिए असली पठन वाला ऑडिट अनिवार्य है।",
@@ -2137,7 +2240,7 @@ function showAuditResult(entries, ov){
             <button class="ghost" onclick="previewPlan()" data-i18n="au_plan">🧭 Ver plano de melhoria</button>
             <button class="ghost" onclick="exportAuditedJSON()" data-i18n="au_export">⬇ Exportar JSON</button>
           </div>
-          <p class="legend" style="margin-top:10px">${t("au_submit",{u:REPO_URL+"/issues/new?template=submit-harness.yml"})}</p>
+          <p class="legend" style="margin-top:10px">${t("au_submit",{u:REPO_URL+"/issues/new?template=submit-harness.yml",m:"mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit"})}</p>
           <div id="au-plan-preview" style="margin-top:12px"></div>
         </div>
         <div>

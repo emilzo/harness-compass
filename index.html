@@ -1676,7 +1676,10 @@ function renderRanking(){
 function showDetail(h, noScroll){
   window.__sel = h;
   const el=$("#rank-detail");
-  const evidenceUrl = LANG==="pt" && h.evidence_pt ? h.evidence_pt : h.evidence;
+  const evidenceFile = LANG==="pt" && h.evidence_pt ? h.evidence_pt : h.evidence;
+  const evidenceUrl = evidenceFile && evidenceFile.startsWith("docs/")
+    ? REPO_URL+"/blob/main/"+evidenceFile
+    : evidenceFile;
   const radar = radarSVG([0,1,2,3,4,5].map(i=>domainScore(h,DOMAINS[i].id)), DOMAINS.map(d=>d.id), 150, 130);
   const donut = donutSVG(score(h));
   const dims = DIMENSIONS.map(([id,name,desc])=>{

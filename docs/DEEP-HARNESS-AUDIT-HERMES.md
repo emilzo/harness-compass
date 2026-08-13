@@ -1,23 +1,30 @@
-> **Published evidence — Harness Compass AUDITED badge.** This is the full audit
-> report behind the Hermes Agent entry in the [Harness Compass](../index.html)
-> ranking. Original in Portuguese (evidence citations are language-neutral
-> `path:line` references). Audit performed 2026-08-09, read-only, against a local
-> checkout of the public [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
-> repository — line references are relative to that snapshot and may drift as the
-> project evolves. Published as a courtesy-first architecture review of open-source
-> software: the weaknesses discussed are design absences (no cost cap, no evals,
-> fail-open defaults), not exploitable vulnerabilities; Hermes's own SECURITY.md
-> discloses its boundaries honestly, and this report repeatedly credits that honesty.
-> Corrections welcome via PR or issue.
-> *Scale note:* this report predates the 0–100 HCI display (rubric v1) — its
-> composite figures are on the 0–10 scale (e.g. "média ~7.7" ≈ HCI 75–77/100 by
-> domain averaging; the ranking entry, averaged over the 22 dimensions, is 75).
-> Dimension scores are identical in both presentations.
+> **Evidência publicada — selo AUDITED do Harness Compass.** Este é o relatório
+> integral por detrás da entrada Hermes Agent no ranking do
+> [Harness Compass](../index.html). O original está em português e as citações de
+> evidência são referências `path:line`, independentes da língua. A auditoria foi
+> feita em 2026-08-09, em modo read-only, sobre um checkout local do repositório
+> público [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent).
+> O SHA exato do commit não foi registado no relatório-fonte; as referências de
+> linha são relativas a esse snapshot datado e podem mudar à medida que o projeto
+> evolui. Publicado primeiro como cortesia e revisão de arquitetura de software
+> open-source: as fragilidades discutidas são ausências de design (sem cap de
+> custo, sem evals, defaults fail-open), não vulnerabilidades exploráveis. O
+> SECURITY.md do próprio Hermes declara honestamente as suas fronteiras, e este
+> relatório reconhece essa honestidade várias vezes. Correções são bem-vindas por
+> PR ou issue.
+>
+> **Idiomas:** [English](DEEP-HARNESS-AUDIT-HERMES.en.md) · Português (original)
+>
+> *Nota sobre a escala:* este relatório é anterior à apresentação HCI 0–100
+> (rubrica v1), por isso os valores compostos aparecem na escala 0–10 (por
+> exemplo, "média ~7.7" ≈ HCI 75–77/100 pela média dos domínios; a entrada no
+> ranking, calculada pela média das 22 dimensões, é 75). As pontuações das
+> dimensões são idênticas nas duas apresentações.
 
 # DEEP HARNESS AUDIT — hermes-agent (linha-a-linha)
 
 **Data:** 2026-08-09 · **Modo:** read-only (grep/wc/read; nada executado nem alterado)
-**Alvo:** `checkout local de `NousResearch/hermes-agent`` (Python, ~10.2K ficheiros .py)
+**Alvo:** checkout local de `NousResearch/hermes-agent` (Python, ~10.2K ficheiros .py)
 **Metodologia:** taxonomia `harness-map.md` v1 · 5 auditorias paralelas de esmiuço (core loop, governação D1–D5, guias/contexto, gateway/cron, memória/custo) · consolidação única · evidência `path:line` verificada por leitura.
 **Relatório-fonte integral da governação:** relatório de consolidação da governação (55 KB, arquivo interno do projeto)
 

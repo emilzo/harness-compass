@@ -26,7 +26,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test          # gate: sem 23/23 verde não há deploy
+      - run: npm test          # gate: sem os testes verdes não há deploy
       - run: |
           mkdir _site
           cp index.html _site/

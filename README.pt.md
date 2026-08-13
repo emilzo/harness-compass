@@ -122,7 +122,7 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 
 ## Estudos de caso
 
-- `docs/DEEP-HARNESS-AUDIT-HERMES.md` — deep audit linha-a-linha do Hermes, **publicado integralmente** (15 achados, KPIs, 15 padrões portáveis, 10 recomendações) — revisão de arquitetura de um projeto open-source, publicada como cortesia e como prova do método.
+- `docs/DEEP-HARNESS-AUDIT-HERMES.md` — deep audit linha-a-linha do Hermes, **publicado integralmente** (15 achados, KPIs, 15 padrões portáveis, 10 recomendações) — revisão de arquitetura de um projeto open-source, publicada como cortesia e como prova do método. A [tradução inglesa integral](docs/DEEP-HARNESS-AUDIT-HERMES.en.md) também está publicada.
 - `docs/EVIDENCE-SUMMARY-KANDO.md` — **sumário público de evidência** do Kando. O Kando foi auditado internamente e está em preparação para go-to-market, mas fica como **Estimativa** no ranking público porque o relatório completo linha a linha e o código não são públicos.
 
 ## Licença e integridade

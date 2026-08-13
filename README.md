@@ -122,7 +122,7 @@ An internal or private audit can inform an **Estimate**, but it does not earn th
 
 ## Case studies
 
-- `docs/DEEP-HARNESS-AUDIT-HERMES.md` — line-by-line deep audit of Hermes, **published in full** (15 findings, KPIs, 15 portable patterns, 10 recommendations) — an architecture review of an open-source project, published as a courtesy and as proof of method.
+- `docs/DEEP-HARNESS-AUDIT-HERMES.en.md` — line-by-line deep audit of Hermes, **published in full in English** (15 findings, KPIs, 15 portable patterns, 10 recommendations) — an architecture review of an open-source project, published as a courtesy and as proof of method. The [Portuguese original](docs/DEEP-HARNESS-AUDIT-HERMES.md) remains available.
 - `docs/EVIDENCE-SUMMARY-KANDO.md` — Kando's public **evidence summary**. Kando was audited internally and is preparing for go-to-market, but remains an **Estimate** in the public ranking because the full line-by-line report and source are not public.
 
 ## License and integrity

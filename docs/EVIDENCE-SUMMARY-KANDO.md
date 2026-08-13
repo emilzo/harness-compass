@@ -4,7 +4,7 @@
 > currently preparing for go-to-market. It was audited internally, but the full report
 > (part of a ~190K-character, 9-parallel-audit comparison against Hermes Agent,
 > performed 2026-08-09 under the same read-only, `path:line` evidence rules as the
-> [published Hermes audit](DEEP-HARNESS-AUDIT-HERMES.md)) is retained internally.
+> [published Hermes audit](DEEP-HARNESS-AUDIT-HERMES.en.md)) is retained internally.
 > The public **AUDITED** badge is reserved for reports whose line-by-line evidence
 > readers can inspect for themselves. This summary explains what informed Kando's
 > scores, but it does not qualify Kando for that badge while the source and full

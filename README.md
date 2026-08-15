@@ -78,7 +78,7 @@ A strong harness (Hermes, Kando, Claude, Codex and the mature coding agents) **c
 
 ## How to contribute
 
-Full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) — including the **public submission form for your harness** (public track with AUDITED badge or estimate entry), the [private contact email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), and the audit template (`docs/audits/AUDIT-TEMPLATE.md`).
+Full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) — including the **public submission form for your harness** (public track with AUDITED badge or estimate entry), the [private contact email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), [LinkedIn](https://www.linkedin.com/in/emiliomina/) for business contact, and the audit template (`docs/audits/AUDIT-TEMPLATE.md`).
 
 1. **Add/refine a harness**: edit the `BUILTIN_HARNESSES` array in the DATA section (top of the `<script>` in `index.html`) — each entry has 22 scores (0–10), `audited: true/false`, tags and a blurb. Open a PR.
 2. **Audit a harness for real**: follow the method in `docs/` (taxonomy + scale + evidence rules) and flip `audited` to `true` with the reports.

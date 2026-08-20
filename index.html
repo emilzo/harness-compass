@@ -500,6 +500,10 @@ const BUILTIN_HARNESSES = [
    tags:["framework","multi-agent","Python"],
    blurb:"blurb_crewai",
    scores:{A1:6,A2:5,A3:7,A4:7,B1:6,B2:5,B3:4,B4:4,C1:5,C2:4,C3:5,C4:4,D1:3,D2:4,D3:4,D4:3,D5:3,E1:4,E2:5,F1:5,F2:4,F3:5}},
+  {id:"t3code", name:"T3 Code", vendor:"T3 Tools", type:"Agent harness control surface", url:"https://github.com/pingdotgg/t3code", audited:false, preliminar:true,
+   tags:["control surface","mobile","web","desktop","remote"],
+   blurb:"blurb_t3code",
+   scores:{A1:8,A2:3,A3:6,A4:7,B1:6,B2:5,B3:8,B4:6,C1:7,C2:6,C3:6,C4:6,D1:8,D2:7,D3:5,D4:6,D5:0,E1:4,E2:8,F1:9,F2:7,F3:9}},
 ];
 
 const REPO_URL = "https://github.com/emilzo/harness-compass"; /* ajustar com o og:url se o repo tiver outro nome */
@@ -568,6 +572,7 @@ en:{
   blurb_ccr:"Router to use cheap models with Claude Code. Focus on A1/F2; not a full harness. Estimate.",
   blurb_langgraph:"Framework to build loops with fine control (persistence, human-in-the-loop). You are the harness. Estimate.",
   blurb_crewai:"Multi-agent teams framework; convenient, lighter governance. Estimate.",
+  blurb_t3code:"Agent harness control surface — a mobile/web/desktop cockpit that drives Claude Code, Codex, Cursor, Grok Build and OpenCode on your machine. Preliminary: heuristic folder scan, not a line-by-line audit.",
   imp_A1_0:"Add a multi-provider fallback chain with config dedup (pattern: Hermes `fallback_config.py:80-101`).",
   imp_A1_1:"Consider smart routing by quality×cost — utility = quality − λ·cost − μ·latency (pattern: Kando `scored-selection.ts:107-150`).",
   imp_A1_2:"Credential pools with cooldown and rotation on 429 (pattern: Hermes `run_agent.py:310-330`).",
@@ -744,6 +749,7 @@ pt:{
   blurb_ccr:"Router para usar modelos baratos com Claude Code. Foco em A1/F2; sem harness completo. Estimativa.",
   blurb_langgraph:"Framework para construir loops com controlo fino (persistência, humano-no-loop). O harness és tu. Estimativa.",
   blurb_crewai:"Framework de equipas de agentes; conveniente, governação mais leve. Estimativa.",
+  blurb_t3code:"Superfície de controlo de harnesses — cockpit mobile/web/desktop que comanda Claude Code, Codex, Cursor, Grok Build e OpenCode na tua máquina. Preliminar: análise heurística da pasta, não uma auditoria linha a linha.",
   imp_A1_0:"Adiciona fallback chain multi-provider com dedup de config (padrão: Hermes `fallback_config.py:80-101`).",
   imp_A1_1:"Considera smart routing por qualidade×custo — utilidade = quality − λ·custo − μ·latência (padrão: Kando `scored-selection.ts:107-150`).",
   imp_A1_2:"Pools de credenciais com cooldown e rotação em 429 (padrão: Hermes `run_agent.py:310-330`).",

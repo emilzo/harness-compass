@@ -413,13 +413,13 @@ test('24. relatório AUDITED do Hermes abre em inglês ou português conforme a 
     const row = Array.from($$('#rank-body tr')).find(r => r.textContent.includes('Hermes Agent'));
     assert.ok(row, 'linha do Hermes existe');
     row.click();
-    let link = $('#rank-detail .legend a');
+    let link = $('#rank-detail a.evid-link');
     assert.ok(link, 'detail AUDITED tem link para a evidência');
     assert.ok(link.href.startsWith('https://github.com/emilzo/harness-compass/blob/main/'), 'abre Markdown renderizado no GitHub');
     assert.ok(link.getAttribute('href').endsWith('DEEP-HARNESS-AUDIT-HERMES.en.md'), 'EN abre a tradução integral');
 
     w.setLang('pt');
-    link = $('#rank-detail .legend a');
+    link = $('#rank-detail a.evid-link');
     assert.ok(link.getAttribute('href').endsWith('DEEP-HARNESS-AUDIT-HERMES.md'), 'PT abre o relatório original');
     assert.ok(!link.getAttribute('href').endsWith('.en.md'), 'PT não é enviado para a tradução inglesa');
   });

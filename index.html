@@ -141,6 +141,8 @@
   .contact-option h3{color:var(--accent);}
   .contact-action{display:inline-block; margin-top:12px; border:1px solid var(--line); border-radius:4px; padding:8px 13px; color:var(--ink); font-size:13px; font-weight:700;}
   .contact-action:hover{border-color:var(--accent); color:var(--accent); text-decoration:none;}
+  .evid-link{display:inline-flex; align-items:center; gap:8px; margin-top:12px; padding:9px 16px; font-size:14.5px; font-weight:700; color:var(--emerald); border:1px solid rgba(52,211,153,.4); background:rgba(52,211,153,.10); border-radius:4px; transition:background .15s,border-color .15s;}
+  .evid-link:hover{color:var(--emerald); text-decoration:none; background:rgba(52,211,153,.18); border-color:var(--emerald);}
   footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:12.5px;}
   a{color:var(--cyan); text-decoration:none;} a:hover{text-decoration:underline;}
   .legend{font-size:12px; color:var(--muted); margin-top:8px;}
@@ -194,6 +196,7 @@
     <button data-view="quiz" data-i18n="nav_quiz">Que harness para ti?</button>
     <button data-view="economy" data-i18n="nav_economy">Calculadora</button>
     <button data-view="method" data-i18n="nav_method">Método</button>
+    <button data-view="evidence" data-i18n="nav_evidence">Evidência</button>
     <button data-view="contact" data-i18n="nav_contact">Contactar</button>
   </nav>
 
@@ -391,6 +394,15 @@
     </div>
   </section>
 
+  <!-- ============ EVIDENCE ============ -->
+  <section id="view-evidence">
+    <div class="card">
+      <h2 data-i18n="ev_title">Auditorias publicadas</h2>
+      <p class="muted" data-i18n="ev_desc">Cada harness Auditado tem uma auditoria pública, linha a linha — cada afirmação cita um path:line verificado, ausências provadas por busca e cobertura declarada. Lê os relatórios completos.</p>
+      <div id="ev-list" style="margin-top:14px"></div>
+    </div>
+  </section>
+
   <!-- ============ CONTACT ============ -->
   <section id="view-contact">
     <div class="card">
@@ -546,6 +558,7 @@ en:{
   eco_title:"Paradigm calculator: how much does a powerful harness save?",
   eco_desc:"Same workload, with and without an efficient harness. Drag the sliders and see the effect in $/month.",
   method_title:"Method & evidence",
+  nav_evidence:"Evidence", ev_title:"Published audits", ev_desc:"Every Audited harness has a public, line-by-line audit — every claim cites a verified <code>path:line</code>, absences are proven by search, and coverage is declared. Read the full reports.", ev_read:"Read the full audit (path:line)", ev_none:"No published audits yet.",
   badge_audit:"Audited", badge_est:"Estimate", badge_prel:"Preliminary", badge_local:"Local", badge_adj:"adjusted",
   quiz_q1:"Monthly LLM budget", quiz_o1a:"Up to $50 — every token counts", quiz_o1b:"$50–500 — efficiency matters", quiz_o1c:"$500+ — comfort, want quality",
   quiz_q2:"Desired autonomy", quiz_o2a:"Maximum — minimal approvals", quiz_o2b:"Balanced — approve destructive", quiz_o2c:"Conservative — human in the loop",
@@ -664,7 +677,7 @@ en:{
   dim_F2:"Cost & efficiency", dim_F2_d:"Cap, budgets, rate limiting.",
   dim_F3:"Resilience", dim_F3_d:"Failover, timeouts, crash recovery.",
   pl_title:"Improvement plan — the Compass as compass", pl_level:"Maturity level:", pl_crit:"🔴 Critical (score < 4) — fix first", pl_imp:"🟠 Important (4–5) — score lever", pl_nogaps:"No critical gaps — above 6 in every dimension. Congratulations: this harness is at managed level or higher.", pl_source:"Advice derived from patterns proven in real audits (Hermes/Kando/CCR). Each pattern cites its source mechanism. Contribute new patterns via PR.", pl_none:"No catalogued patterns yet — contribute one with a PR.",
-  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensions", dt_dims_l:"dimensions", dt_fp:"Fingerprint by domain", dt_laud:"Audit with path:line evidence (reports in docs/).", dt_llocal:"Local heuristic analysis of {n} files{adj}. For an official badge, an audit with a reviewed report via PR is required.", dt_ladj:"dimensions manually adjusted (visible divergence)", dt_lclean:"no adjustments, faithful to the analysis", dt_lest:"Informed estimate — no public line-by-line audit.",
+  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensions", dt_dims_l:"dimensions", dt_fp:"Fingerprint by domain", dt_laud:"Full audit report — path:line evidence", dt_llocal:"Local heuristic analysis of {n} files{adj}. For an official badge, an audit with a reviewed report via PR is required.", dt_ladj:"dimensions manually adjusted (visible divergence)", dt_lclean:"no adjustments, faithful to the analysis", dt_lest:"Informed estimate — no public line-by-line audit.",
   qz_res:"Recommendation for your profile", qz_strong:"Strengths:", qz_weak:"Weaknesses:", qz_none:"none critical", qz_note:"The HCI (composite score) is not the criterion — the weighting reflects the dimensions you chose.",
   ec_no:"Without a powerful harness", ec_no_d:"Everything on the premium model, no cache, no fallback, no routing.", ec_yes:"With a powerful harness", ec_yes_d:"Cache {c}% · avoided failures {r}% · compression {co}% · routing {rt}%", ec_save:"You save <b class=\"green\" style=\"color:var(--emerald)\">${s}/month ({p}%)</b> — in tokens alone.", ec_hint:"Illustrative estimate; use your own prices.",
   ct_or_choose:"— choose a model —", ct_or_loaded:"{n} models with real prices loaded", ct_or_offline:"Offline or CORS blocked — manual prices in use (real ones return on GitHub Pages).", ct_base:"Without harness: <b style=\"color:var(--rose)\">${b}/month</b> — what each harness saves:",
@@ -723,6 +736,7 @@ pt:{
   eco_title:"Calculadora do paradigma: quanto poupa um harness potente?",
   eco_desc:"O mesmo volume de trabalho, com e sem harness eficiente. Ajusta os sliders e vê o efeito em $/mês.",
   method_title:"Método e evidência",
+  nav_evidence:"Evidência", ev_title:"Auditorias publicadas", ev_desc:"Cada harness Auditado tem uma auditoria pública, linha a linha — cada afirmação cita um <code>path:line</code> verificado, ausências provadas por busca e cobertura declarada. Lê os relatórios completos.", ev_read:"Ler a auditoria completa (path:line)", ev_none:"Ainda sem auditorias publicadas.",
   badge_audit:"Auditado", badge_est:"Estimativa", badge_prel:"Preliminar", badge_local:"Local", badge_adj:"ajustadas",
   quiz_q1:"Orçamento mensal de LLM", quiz_o1a:"Até $50 — cada token conta", quiz_o1b:"$50–500 — eficiência importa", quiz_o1c:"$500+ — conforto, quero qualidade",
   quiz_q2:"Autonomia desejada", quiz_o2a:"Máxima — aprovações mínimas", quiz_o2b:"Equilibrada — aprova em destrutivas", quiz_o2c:"Conservadora — humano no loop",
@@ -841,7 +855,7 @@ pt:{
   dim_F2:"Custo & eficiência", dim_F2_d:"Cap, budgets, rate limiting.",
   dim_F3:"Resiliência", dim_F3_d:"Failover, timeouts, crash recovery.",
   pl_title:"Plano de melhoria — o Compass como compass", pl_level:"Nível de maturidade:", pl_crit:"🔴 Crítico (score < 4) — resolver primeiro", pl_imp:"🟠 Importante (4–5) — alavanca de score", pl_nogaps:"Sem gaps críticos — acima de 6 em todas as dimensões. Parabéns: este harness está no nível gerido ou superior.", pl_source:"Conselhos derivados dos padrões provados em auditorias reais (Hermes/Kando/CCR). Cada padrão cita o mecanismo-fonte. Contribui com padrões novos via PR.", pl_none:"Sem padrões catalogados ainda — contribui com um PR.",
-  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensões", dt_dims_l:"dimensões", dt_fp:"Fingerprint por domínio", dt_laud:"Auditoria com evidência path:line (relatórios em docs/).", dt_llocal:"Análise local heurística de {n} ficheiros{adj}. Para badge oficial, auditoria com relatório revisto via PR.", dt_ladj:"dimensões ajustadas manualmente (divergência visível)", dt_lclean:"sem ajustes, fiel à análise", dt_lest:"Estimativa informada — sem auditoria pública linha a linha.",
+  dt_hci:"HCI v1 · Harness Compass Index", dt_dims:"/100 · 22 dimensões", dt_dims_l:"dimensões", dt_fp:"Fingerprint por domínio", dt_laud:"Relatório completo da auditoria — evidência path:line", dt_llocal:"Análise local heurística de {n} ficheiros{adj}. Para badge oficial, auditoria com relatório revisto via PR.", dt_ladj:"dimensões ajustadas manualmente (divergência visível)", dt_lclean:"sem ajustes, fiel à análise", dt_lest:"Estimativa informada — sem auditoria pública linha a linha.",
   qz_res:"Recomendação para o teu perfil", qz_strong:"Forças:", qz_weak:"Fraquezas:", qz_none:"nenhuma crítica", qz_note:"O HCI (score composto) não é o critério — o ajuste pondera as dimensões que escolheste.",
   ec_no:"Sem harness potente", ec_no_d:"Tudo no modelo premium, sem cache, sem fallback, sem routing.", ec_yes:"Com harness potente", ec_yes_d:"Cache {c}% · falhas evitadas {r}% · compressão {co}% · routing {rt}%", ec_save:"Poupas <b class=\"green\" style=\"color:var(--emerald)\">${s}/mês ({p}%)</b> — só em tokens.", ec_hint:"Estimativa ilustrativa; usa os teus preços.",
   ct_or_choose:"— escolhe um modelo —", ct_or_loaded:"{n} modelos com preços reais carregados", ct_or_offline:"Offline ou CORS bloqueado — preços manuais em uso (os reais voltam no GitHub Pages).", ct_base:"Sem harness: <b style=\"color:var(--rose)\">${b}/mês</b> — o que cada harness poupa:",
@@ -1619,6 +1633,20 @@ function renderHomeTop(){
     <span class="htop-badge">${badge(h)}</span>
   </div>`).join("");
 }
+function renderEvidence(){
+  const box=$("#ev-list"); if(!box) return;
+  const audited=HARNESSES.filter(h=>h.audited && h.evidence);
+  if(!audited.length){ box.innerHTML=`<p class="muted">${t("ev_none")}</p>`; return; }
+  box.innerHTML=audited.map(h=>{
+    const url=h.evidence.startsWith("docs/")?REPO_URL+"/blob/main/"+h.evidence:h.evidence;
+    return `<div class="card" style="border-left:4px solid var(--emerald)">
+      <h3 style="margin-top:0">${esc(h.name)} ${badge(h)} <span class="muted" style="font-weight:400; font-size:13px">· HCI ${(score(h)*10).toFixed(0)}</span></h3>
+      <p class="muted">${esc(h.vendor)} · ${esc(h.type)}</p>
+      <p style="margin:10px 0">${esc(t(h.blurb))}</p>
+      <a class="evid-link" href="${esc(url)}" target="_blank" rel="noopener">${t("ev_read")} →</a>
+    </div>`;
+  }).join("");
+}
 function qAnswers(v){ const a=[]; const n=(window.__quiz||[]).length||6; for(let i=0;i<n;i++){ const s=$("#qq-"+i); if(v){ if(s) s.value=v[i]; } else a.push(s?+s.value:0); } return v?null:a; }
 function currentAuditScores(){ const s={}; DIMENSIONS.forEach(([id])=>{ const o=document.querySelector(`[data-out="${id}"]`); if(o) s[id]=+o.textContent||0; }); return s; }
 function persistLang(l){ LANG = hasKey(LANGUAGES, l) ? l : "en"; try{ localStorage.setItem("hc-lang", LANG); }catch(e){} const sel=$("#lang"); if(sel) sel.value = LANG; document.documentElement.lang = LANG; }
@@ -1643,7 +1671,7 @@ function setLang(l){
   const oldLang = LANG;
   persistLang(l);
   const qa = qAnswers(); /* captura SEMPRE (pré-submissão incluída) — o buildQuiz reseta os selects */
-  applyI18n(); renderHomePills(); renderHomeTop(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); renderORWidgets();
+  applyI18n(); renderHomePills(); renderHomeTop(); renderEvidence(); renderRanking(); renderCost(); calcEconomy(); buildQuiz(); buildMap(); renderORWidgets();
   if(window.__auditStatusState){ const s=window.__auditStatusState; auditStatus(s.cls,s.key,s.vars,s.spin,s.extra); } /* re-traduz o status em vez de o apagar */
   replayOpenState(oldLang);
   if(qa) qAnswers(qa);
@@ -1656,7 +1684,7 @@ function initLang(){
   if(sel){ sel.innerHTML = Object.entries(LANGUAGES).map(([k,v])=>`<option value="${esc(k)}">${esc(v)}</option>`).join(""); sel.value = LANG; }
   document.documentElement.lang = LANG;
   applyI18n();
-  renderHomePills(); renderHomeTop();
+  renderHomePills(); renderHomeTop(); renderEvidence();
 }
 function applyTheme(th){
   document.documentElement.setAttribute("data-theme", th);
@@ -1847,7 +1875,7 @@ function showDetail(h, noScroll){
     <h3>22 ${t("dt_dims_l")}</h3>
     <div style="margin-top:6px">${dims}</div>
     ${improvementPlan(h)}
-    <p class="legend">${h.audited?(evidenceUrl?`<a href="${esc(evidenceUrl)}" target="_blank">${t("dt_laud")}</a>`:t("dt_laud")):h.local?t("dt_llocal",{n:h.meta&&h.meta.filesRead||0,adj:h.adjusted>0?` — <b style="color:var(--rose)">${h.adjusted} ${t("dt_ladj")}</b>`:` — ${t("dt_lclean")}`}):t("dt_lest")}</p>
+    ${h.audited?(evidenceUrl?`<p><a class="evid-link" href="${esc(evidenceUrl)}" target="_blank" rel="noopener">${t("dt_laud")} →</a></p>`:`<p class="legend">${t("dt_laud")}</p>`):`<p class="legend">${h.local?t("dt_llocal",{n:h.meta&&h.meta.filesRead||0,adj:h.adjusted>0?` — <b style="color:var(--rose)">${h.adjusted} ${t("dt_ladj")}</b>`:` — ${t("dt_lclean")}`}):t("dt_lest")}</p>`}
   </div>`;
   if(!noScroll) el.scrollIntoView(); /* sem behavior explícito: o scroll-behavior do CSS decide e respeita prefers-reduced-motion ao vivo */
 }

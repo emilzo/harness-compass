@@ -29,6 +29,33 @@
 
 ---
 
+> **RE-AUDITED 2026-08-22 — scores refreshed against HEAD `c69b6471e6` (2,286 commits later).**
+> The report below is retained as the foundational line-by-line audit. Its per-mechanism
+> `file:line` references predate a major repo restructure (~10.2K → ~4.4K `.py` files) and
+> have drifted; the **authoritative per-dimension scores are the re-audited ones below**,
+> which is what the ranking entry now uses.
+
+## Re-audit — 2026-08-22 (HEAD `c69b6471e6`)
+
+**Verdict: the aggregate HCI was *not* over-evaluated — it stays 75/100 — but the composition was.** Six dimensions were over-scored and four were under-scored; the deltas net to zero. The most consequential correction is **C2 (evaluation): 3 → 7** — a real `evals/` directory now exists with LLM-as-judge scoring and committed measured results, overturning the prior "absent" finding.
+
+| Dim | 2026-08-09 | 2026-08-22 | Δ | Why it moved |
+|---|---|---|---|---|
+| A3 Agent loop & orchestration | 9 | **8** | −1 | `_budget_grace_call` still dead code; explicitly-fragile traceback classification; tool-execution gaps unchanged |
+| A4 Tools & extensibility | 9 | **8** | −1 | comprehensive but conventional — no exceptional depth or registry-level test evidence |
+| B3 Project conventions | 8 | **7** | −1 | `AGENTS.md:1213` cache invariant still contradicted by `config_defaults.py:704/727/832` |
+| C4 Self-correction | 9 | **8** | −1 | deterministic classifier, no cross-session learning loop |
+| D2 Permissions & sandboxing | 8 | **6** | −2 | **non-interactive fail-open persists** — dangerous-command path auto-approves in script/batch mode |
+| E1 Memory & learning | 9 | **8** | −1 | exceptional persistence, but no reward/outcome loop → not "learning" |
+| B1 Intent specification | 5 | **6** | +1 | new `plan` skill + evidenced `.hermes/plans/` consumption in code |
+| C2 Evaluation | 3 | **7** | +4 | `evals/` exists: LLM-judged compaction recall + full-agent readtool A/B, committed results |
+| D5 Ethics | 3 | **4** | +1 | SECURITY.md rewritten into a 335-line candid trust model |
+| F2 Cost & efficiency | 7 | **8** | +1 | 6 pricing sources (was 4) + sub-cent honesty; monetary cap still absent |
+
+**Net: 166 → 166 → HCI 75/100 (unchanged).** The first audit was too generous on the "9"s (A3/A4/C4/E1) and on D2, but too harsh on C2 (evals now exist) and F2. The aggregate happened to land correctly; the per-dimension profile did not.
+
+---
+
 ## 0. Executive summary
 
 hermes-agent is **an enterprise-class conversational harness with one structural obsession: a byte-stable prompt cache**. Everything else — the loop's cascading recovery, the replay sidecar, system prompt tiers, non-destructive compression, the frozen memory snapshot, yolo frozen at import — serves that invariant. It is also the most honest governance harness I have seen: SECURITY.md says clearly that the operating system is the only real boundary against an adversarial LLM, and that the approval gate, redaction and scanners are *heuristics, not boundaries*.

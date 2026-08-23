@@ -2,7 +2,7 @@
 
 **Harness Compass** is licensed to the public under **AGPL-3.0** and will remain
 so. To keep the project sustainable, its steward must retain the ability to
-license the codebase under other terms as well — for example dual-licensing
+license the codebase under other terms as well, for example dual-licensing
 parts of it into commercial certification and monitoring tooling that funds the
 free, public benchmark. This agreement makes that possible while **you keep the
 copyright to your contribution**.
@@ -13,11 +13,11 @@ The pull-request template asks you to confirm it explicitly.
 
 ## 1. Definitions
 
-- **"You"** — the individual (or entity, see §7) submitting the Contribution.
-- **"Contribution"** — any original work of authorship you intentionally submit
+- **"You"**: the individual (or entity, see §7) submitting the Contribution.
+- **"Contribution"**: any original work of authorship you intentionally submit
   for inclusion in the project: code, tests, documentation, translations, audit
   reports, scores and their justifications.
-- **"Steward"** — the project owner: Emílio (@emilzo) / DevFactoryAI, and any
+- **"Steward"**: the project owner: Emílio (@emilzo) / DevFactoryAI, and any
   successor entity designated to steward the project.
 
 ## 2. Copyright license

@@ -6,22 +6,22 @@
 
 **Pré-visualização de investigação v0.1**
 
-A camada de auditoria e decisão baseada em evidências para *harnesses* de agentes de IA. O harness é tudo o que não é o modelo: guias, loop, ferramentas, permissões, *sandbox*, verificação, observabilidade e custos. O objetivo é simples: auditar a arquitetura, comparar maturidade, medir custos e manter separados os benchmarks de comportamento. Assim consegues **escolher o harness certo** — e perceber quando um harness robusto permite que **LLMs económicos cheguem lá**.
+A camada de auditoria e decisão baseada em evidências para *harnesses* de agentes de IA. O harness é tudo o que não é o modelo: guias, loop, ferramentas, permissões, *sandbox*, verificação, observabilidade e custos. O objetivo é simples: auditar a arquitetura, comparar maturidade, medir custos e manter separados os benchmarks de comportamento. Assim consegues **escolher o harness certo** e perceber quando um harness robusto permite que **LLMs económicos cheguem lá**.
 
 > "Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."
 
 ## O que é
 
-Uma web app de página única (zero dependências em runtime, zero build — jsdom existe apenas como devDependency da suite de testes) com 8 vistas:
+Uma web app de página única (zero dependências em runtime, zero build, jsdom existe apenas como devDependency da suite de testes) com 8 vistas:
 
-1. **Paradigma** — por que o harness decide quanto do teu dinheiro em tokens é desperdiçado.
-2. **Ranking** — harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index) 0–100** (dimensões 0–10 na rubrica de maturidade **v1**, com âncoras de fronteira: o 9–10 exige critérios que nenhum harness atual cumpre — o melhor de hoje está a 75), fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). O HCI mede maturidade arquitetural a partir de código e evidência. Não é um benchmark de desempenho em tarefas. AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL ficam sempre separados.
-3. **💰 Custo real** — *Same Model, Different Harness*: o mesmo volume de trabalho, o mesmo modelo, através de cada harness → **custo real por tarefa (harness-adjusted)** com cache/retry/routing derivados dos scores, preços reais do OpenRouter e ranking por custo. É o "Cost per Task" do Artificial Analysis aplicado à camada.
-4. **Mapa do Harness** — a taxonomia completa (6 domínios × 22 dimensões).
-5. **📂 Auditar um repositório local** — abre a pasta do repo; análise heurística das 22 dimensões com justificações, sliders ajustáveis (ajustes ficam marcados — integridade), plano de melhoria, adição ao ranking e export JSON. O código fica no browser e não é enviado.
-6. **Quiz de decisão** — 6 perguntas ponderam as dimensões pelo teu perfil e recomendam os 3 harnesses com justificação.
-7. **Calculadora de economia** — quanto poupas por mês em tokens com cache, retry, compressão e routing.
-8. **Método & evidência** — escala de maturidade, integridade, como funciona a auditoria local, estudos de caso.
+1. **Paradigma**: por que o harness decide quanto do teu dinheiro em tokens é desperdiçado.
+2. **Ranking**: harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index) 0–100** (dimensões 0–10 na rubrica de maturidade **v1**, com âncoras de fronteira: o 9–10 exige critérios que nenhum harness atual cumpre o melhor de hoje está a 75), fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). O HCI mede maturidade arquitetural a partir de código e evidência. Não é um benchmark de desempenho em tarefas. AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL ficam sempre separados.
+3. **💰 Custo real**: *Same Model, Different Harness*: o mesmo volume de trabalho, o mesmo modelo, através de cada harness → **custo real por tarefa (harness-adjusted)** com cache/retry/routing derivados dos scores, preços reais do OpenRouter e ranking por custo. É o "Cost per Task" do Artificial Analysis aplicado à camada.
+4. **Mapa do Harness**: a taxonomia completa (6 domínios × 22 dimensões).
+5. **📂 Auditar um repositório local**: abre a pasta do repo; análise heurística das 22 dimensões com justificações, sliders ajustáveis (ajustes ficam marcados — integridade), plano de melhoria, adição ao ranking e export JSON. O código fica no browser e não é enviado.
+6. **Quiz de decisão**: 6 perguntas ponderam as dimensões pelo teu perfil e recomendam os 3 harnesses com justificação.
+7. **Calculadora de economia**: quanto poupas por mês em tokens com cache, retry, compressão e routing.
+8. **Método & evidência**: escala de maturidade, integridade, como funciona a auditoria local, estudos de caso.
 
 A spec aberta do benchmark comportamental (cenários B1–B8, protocolo de submissão e um futuro leaderboard revisto) está em `BENCHMARK-SPEC.md`. É separada do score arquitetural HCI.
 
@@ -34,7 +34,7 @@ A spec aberta do benchmark comportamental (cenários B1–B8, protocolo de submi
 | Auditar pasta (fallback clássico) | ✅ | ✅ | ⚠️ parcial | Safari não devolve a hierarquia de pastas de forma fiável |
 | `file://` (duplo clique) | ✅ (fallback) | ✅ | ✅ | O seletor moderno cai no clássico automaticamente |
 
-**Mac, Windows, Linux:** comportamento idêntico — as APIs dependem do browser, não do SO. Para a melhor experiência de auditoria de pastas: **Chrome ou Edge com a app publicada em GitHub Pages** (HTTPS).
+**Mac, Windows, Linux:** comportamento idêntico Ás APIs dependem do browser, não do SO. Para a melhor experiência de auditoria de pastas: **Chrome ou Edge com a app publicada em GitHub Pages** (HTTPS).
 
 ## Como usar
 
@@ -50,12 +50,12 @@ start index.html       # Windows
 
 ## O paradigma (a tese)
 
-O preço de um LLM não é o preço do modelo — é o preço do modelo **vezes o desperdício do harness**:
+O preço de um LLM não é o preço do modelo. É o preço do modelo **vezes o desperdício do harness**:
 
-- Sem caching byte-estável → pagas o mesmo prefixo vezes sem conta.
-- Sem retry/fallback inteligente → falhas transitórias viram chamadas mortas e tempo do dev.
-- Sem compressão → conversas longas rebentam a janela e perdem contexto.
-- Sem routing → pagas o modelo caro para tarefas que o barato resolve.
+- Sem caching byte-estável pagas o mesmo prefixo vezes sem conta.
+- Sem retry/fallback inteligente falhas transitórias viram chamadas mortas e tempo do dev.
+- Sem compressão conversas longas rebentam a janela e perdem contexto.
+- Sem routing pagas o modelo caro para tarefas que o barato resolve.
 
 Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **pode alterar significativamente o desempenho e o custo real de um mesmo modelo** - por vezes, a ponto de mudar a escolha do modelo ideal.
 
@@ -63,26 +63,26 @@ Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **po
 
 | Harness | Status | Nota |
 |---|---|---|
-| Hermes Agent (Nous Research) | ✅ Auditado | 22 dimensões, evidência file:line — ver `docs/` |
+| Hermes Agent (Nous Research) | ✅ Auditado | 22 dimensões, evidência file:line, ver `docs/` |
 | Kando (DevFactoryAI) | 🔶 Estimativa | auditado internamente; em preparação para go-to-market; o relatório linha a linha não é público |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimativa | avaliação informada, a validar por auditoria |
 
 ## Como ler os resultados
 
-- **HCI** — maturidade arquitetural a partir de código e evidência, em 22 dimensões. Não é um benchmark de desempenho em tarefas.
-- **Auditado** — auditoria humana do código com evidência `path:line` publicada.
-- **Preliminar** — análise heurística feita no browser; é um primeiro corte, não uma auditoria completa.
-- **Estimativa** — avaliação informada sem relatório de auditoria publicado e verificável de forma independente.
-- **Local** — adicionado na tua sessão do browser. Não passa a fazer parte do dataset do projeto.
-- **Benchmarked** — reservado a uma execução comportamental B1–B8 publicada e revista. É separado dos estados de proveniência do HCI acima.
+- **HCI**: maturidade arquitetural a partir de código e evidência, em 22 dimensões. Não é um benchmark de desempenho em tarefas.
+- **Auditado**: auditoria humana do código com evidência `path:line` publicada.
+- **Preliminar**: análise heurística feita no browser; é um primeiro corte, não uma auditoria completa.
+- **Estimativa**: avaliação informada sem relatório de auditoria publicado e verificável de forma independente.
+- **Local**: adicionado na tua sessão do browser. Não passa a fazer parte do dataset do projeto.
+- **Benchmarked**: reservado a uma execução comportamental B1–B8 publicada e revista. É separado dos estados de proveniência do HCI acima.
 
 ## Como contribuir
 
 Guia completo em [`CONTRIBUTING.md`](CONTRIBUTING.md) — inclui o **formulário público de submissão do teu harness** (via pública com badge AUDITADO ou entrada como estimativa), o [email para contacto privado](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass), o [LinkedIn](https://www.linkedin.com/in/emiliomina/) para contacto comercial e o template de auditoria (`docs/audits/AUDIT-TEMPLATE.md`).
 
-1. **Adicionar/afinar um harness**: edita o array `BUILTIN_HARNESSES` na secção DADOS (início do `<script>` de `index.html`) — cada entrada tem 22 scores (0–10), `audited: true/false`, tags e um blurb. Faz um PR.
+1. **Adicionar/afinar um harness**: edita o array `BUILTIN_HARNESSES` na secção DADOS (início do `<script>` de `index.html`). Cada entrada tem 22 scores (0–10), `audited: true/false`, tags e um blurb. Faz um PR.
 2. **Auditar um harness a sério**: segue o método em `docs/` (taxonomia + escala + regras de evidência) e muda `audited` para `true` com os relatórios.
-3. **Melhorar a base de conhecimento**: o mapa `IMPROVEMENT_PATTERNS` (recomendações por dimensão, com o mecanismo-fonte citado) cresce a cada auditoria. Cada padrão novo = um PR — é assim que os rankings e os conselhos ficam mais precisos e robustos.
+3. **Melhorar a base de conhecimento**: o mapa `IMPROVEMENT_PATTERNS` (recomendações por dimensão, com o mecanismo-fonte citado) cresce a cada auditoria. Cada padrão novo = um PR. É assim que os rankings e os conselhos ficam mais precisos e robustos.
 4. **Melhorar o mapa ou o quiz**: PR bem-vindo.
 
 **Regra de ouro do projeto:** dados auditados, preliminares e estimativas **nunca** se misturam sem etiqueta.
@@ -91,19 +91,19 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 
 ## Integridade do ranking (como é que "a sério" funciona)
 
-**Pergunta legítima: não pode alguém mexer nos pesos, guardar e rankear em primeiro?** Resposta: na sessão local de cada pessoa, sim — e é irrelevante, porque o ranking *oficial* não vem dos browsers das pessoas. É assim que funciona:
+**Pergunta legítima: não pode alguém mexer nos pesos, guardar e rankear em primeiro?** Resposta: na sessão local de cada pessoa, sim e é irrelevante, porque o ranking *oficial* não vem dos browsers das pessoas. É assim que funciona:
 
-1. **O ranking oficial vive no repo** — o array `HARNESSES` em `index.html`. Entra por **PR revisto**, não por download.
-2. **O badge AUDITADO exige relatório** — evidência `path:line` real, como os que estão em `docs/`. Sem relatório, sem badge.
-3. **Tudo o que adicionas localmente fica marcado LOCAL** — e qualquer ajuste manual aos sliders fica **visível**: contador de "⚠ N dimensões ajustadas" no badge, e o export JSON carrega a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
-4. **O princípio não é impedir a mentira — é torná-la visível.** Quem abre o ranking vê imediatamente o que é verificado, o que é estimativa e o que foi mexido à mão.
-5. **Confidencialidade a pedido de quem submete.** Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente** — a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta — seria exatamente a claim sem prova que este projeto denuncia). A via privada existe como serviço de consultoria e começa por [email](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass), nunca num issue público. Não envies código privado antes de combinarmos uma forma segura de transferência. A via pública dá o badge e o lugar no ranking.
+1. **O ranking oficial vive no repo**: o array `HARNESSES` em `index.html`. Entra por **PR revisto**, não por download.
+2. **O badge AUDITADO exige relatório**: evidência `path:line` real, como os que estão em `docs/`. Sem relatório, sem badge.
+3. **Tudo o que adicionas localmente fica marcado LOCAL**: e qualquer ajuste manual aos sliders fica **visível**: contador de "⚠ N dimensões ajustadas" no badge, e o export JSON carrega a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
+4. **O princípio não é impedir a mentira, é torná-la visível.**: Quem abre o ranking vê imediatamente o que é verificado, o que é estimativa e o que foi mexido à mão.
+5. **Confidencialidade a pedido de quem submete.**: Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente**, a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta. Seria exatamente a claim sem prova que este projeto denuncia). A via privada existe como serviço de consultoria e começa por [email](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass), nunca num issue público. Não envies código privado antes de combinarmos uma forma segura de transferência. A via pública dá o badge e o lugar no ranking.
 
 **Fluxo honesto para rankear um harness:**
 1. Audita a pasta → badge Preliminar (só com justificações da análise)
 2. Ajusta o que quiseres → fica marcado (divergência visível)
 3. Auditoria completa com relatório → submete via PR → badge Auditado oficial
-4. O harness entra no ranking do projeto para toda a gente — com a prova junta.
+4. O harness entra no ranking do projeto para toda a gente, com a prova junta.
 
 ## Ciclo de melhoria contínua (como o Compass fica mais esperto)
 
@@ -116,49 +116,49 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 ## Método
 
 - **Taxonomia:** 6 domínios × 22 dimensões (A Núcleo · B Guias · C Sensores · D Governação ★ · E Aprendizagem · F Operacional).
-- **Escala 0–10 por dimensão (rubrica v1):** 0 = não existe (provado) · 2 = vestígio · 4 = caso simples · 6 = integrado com gaps · 8 = sólido com testes · 9–10 = **fronteira** (invariantes verificados formalmente, aprendizagem com outcomes medidos, prova comportamental B1–B8 — nenhum harness atual lá chega). O HCI exibe a média ×10 (0–100); re-norming futuro é versionado (v2), nunca silencioso — ver `references/harness-map.md`.
+- **Escala 0–10 por dimensão (rubrica v1):** 0 = não existe (provado) · 2 = vestígio · 4 = caso simples · 6 = integrado com gaps · 8 = sólido com testes · 9–10 = **fronteira** (invariantes verificados formalmente, aprendizagem com outcomes medidos, prova comportamental B1–B8. Nenhum harness atual lá chega). O HCI exibe a média ×10 (0–100); re-norming futuro é versionado (v2), nunca silencioso. Ver `references/harness-map.md`.
 - **Evidência:** auditorias read-only; cada afirmação cita `path:line` verificado; ausências provadas por busca; cobertura declarada.
-- **Foco obrigatório:** domínio D — governação, julgamento, compliance, guardrails.
+- **Foco obrigatório:** domínio D. Governança, julgamento, compliance, guardrails.
 
 ## Estudos de caso
 
-- `docs/DEEP-HARNESS-AUDIT-HERMES.md` — deep audit linha-a-linha do Hermes, **publicado integralmente** (15 achados, KPIs, 15 padrões portáveis, 10 recomendações) — revisão de arquitetura de um projeto open-source, publicada como cortesia e como prova do método. A [tradução inglesa integral](docs/DEEP-HARNESS-AUDIT-HERMES.en.md) também está publicada.
-- `docs/EVIDENCE-SUMMARY-KANDO.md` — **sumário público de evidência** do Kando. O Kando foi auditado internamente e está em preparação para go-to-market, mas fica como **Estimativa** no ranking público porque o relatório completo linha a linha e o código não são públicos.
+- `docs/DEEP-HARNESS-AUDIT-HERMES.md` Deep audit linha-a-linha do Hermes, **publicado integralmente** (15 achados, KPIs, 15 padrões portáveis, 10 recomendações), revisão de arquitetura de um projeto open-source, publicada como cortesia e como prova do método. A [tradução inglesa integral](docs/DEEP-HARNESS-AUDIT-HERMES.en.md) também está publicada.
+- `docs/EVIDENCE-SUMMARY-KANDO.md` **Sumário público de evidência** do Kando. O Kando foi auditado internamente e está em preparação para go-to-market, mas fica como **Estimativa** no ranking público porque o relatório completo linha a linha e o código não são públicos.
 
 ## Licença e integridade
 
-**Licença: AGPL-3.0** — o código é aberto, mas quem fornecer uma versão derivada como serviço (SaaS) é obrigado a publicar o código-fonte. Isto protege o projeto contra forks que o revendam fechado.
+**Licença: AGPL-3.0** O código é aberto, mas quem fornecer uma versão derivada como serviço (SaaS) é obrigado a publicar o código-fonte. Isto protege o projeto contra forks que o revendam fechado.
 
 **O que é público vs retido:** o código, a taxonomia e as auditorias publicadas são a prova e o ímã. O **dataset vivo** (auditorias novas, telemetria agregada, scores em evolução) e o **selo de auditoria certificada** são ativos do projeto que não se forkiam — o que se publica hoje determina o que se pode vender amanhã.
 
 ## Internacionalização (i18n)
 
-Seletor de idioma no topo — **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): o texto de lançamento é mantido em Inglês e Português; etiquetas em falta nas outras línguas caem para Inglês. Qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` — o `check-i18n.js` valida automaticamente chaves e placeholders — ou abre um PR.
+Seletor de idioma no topo, **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): o texto de lançamento é mantido em Inglês e Português; etiquetas em falta nas outras línguas caem para Inglês. Qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` O `check-i18n.js` valida automaticamente chaves e placeholders ou abre um PR.
 
-**Tema claro/escuro:** botão ☀️/🌙 no topo — respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
+**Tema claro/escuro:** botão ☀️/🌙 no topo, respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
 
 ## Constância de modelos (preços sempre atuais)
 
-- **Fonte viva:** a lista de modelos vem do OpenRouter a cada carregamento da app — quando um provider fecha um modelo, ele desaparece automaticamente do seletor; os novos aparecem no mesmo dia.
+- **Fonte viva:** a lista de modelos vem do OpenRouter a cada carregamento da app quando um provider fecha um modelo, ele desaparece automaticamente do seletor; os novos aparecem no mesmo dia.
 - **Diff local:** a app guarda um snapshot no teu browser e mostra o que mudou desde a última visita ("🆕 N novos · 📦 M saíram desde …").
-- **Histórico local de descontinuados:** os modelos que saem ficam registados (nome, data, último preço) numa lista colapsável — útil para proveniência de pricing e continuidade de auditorias.
-- **Histórico global (público):** o GitHub Actions corre `scripts/snapshot-models.mjs` diariamente e commita `docs/models/latest.json` + `docs/models/history.json` — o dataset aberto e versionado de modelos (o que a app sozinha não pode guardar). Dados abertos = ativo e prova.
+- **Histórico local de descontinuados:** os modelos que saem ficam registados (nome, data, último preço) numa lista colapsável, útil para proveniência de pricing e continuidade de auditorias.
+- **Histórico global (público):** o GitHub Actions corre `scripts/snapshot-models.mjs` diariamente e commita `docs/models/latest.json` + `docs/models/history.json` O dataset aberto e versionado de modelos (o que a app sozinha não pode guardar). Dados abertos = ativo e prova.
 
 ## Garantia i18n (norma obrigatória)
 
 `node check-i18n.js` valida (exit 1 se falhar):
 - [x] Chaves em **EN e PT** para qualquer funcionalidade nova (as outras línguas reportam fallback)
-- [x] Chaves **table-driven** (`dim_*`, `imp_*`, `quiz_*`, `lv_*`, `blurb_*`, `dom_*`) — as ~160 chaves que chegam ao `t()` por variável
+- [x] Chaves **table-driven** (`dim_*`, `imp_*`, `quiz_*`, `lv_*`, `blurb_*`, `dom_*`) as ~160 chaves que chegam ao `t()` por variável
 - [x] `t("chave")` literal (aspas duplas, simples ou template) sem chave em EN
 - [x] **Placeholders `{x}` consistentes** entre EN e cada língua (um typo `{N}` vs `{n}` falha)
 - [x] Chaves órfãs (existem numa língua mas não em EN) e duplicadas no mesmo bloco
 - [x] Línguas declaradas em `LANGUAGES` vs blocos do dicionário (nenhuma língua fica invisível ao check)
-- [x] Interpolação em atributos HTML (`value`/`title`/`placeholder`/…) **sem `esc()`** — em qualquer posição do valor (injeção latente)
+- [x] Interpolação em atributos HTML (`value`/`title`/`placeholder`/…) **sem `esc()`** em qualquer posição do valor (injeção latente)
 - [x] Interpolações de conteúdo fora da allowlist auditada (aviso; zero avisos em árvore limpa)
 
 ## Testes (automatizados + smoke manual)
 
-**`npm test`** corre o `check-i18n.js` + a **suite de regressão jsdom com 25 cenários** (`test/regression.mjs`) — quiz e auditoria preservados na troca de língua, reset/cancel sem ressurreição de estado, matcher case-insensitive, cache sem envenenamento, re-entrância do picker, widgets OpenRouter, CTA da home, canais de contacto, pills, variáveis de tema nos SVG, navegação por teclado, status re-traduzível, enforcement do dataset (audited → evidência publicada). O CI (`.github/workflows/ci.yml`) corre isto em **cada push/PR** — nenhuma destas classes de regressão pode voltar sem o CI ficar vermelho.
+**`npm test`** corre o `check-i18n.js` + a **suite de regressão jsdom com 25 cenários** (`test/regression.mjs`) quiz e auditoria preservados na troca de língua, reset/cancel sem ressurreição de estado, matcher case-insensitive, cache sem envenenamento, re-entrância do picker, widgets OpenRouter, CTA da home, canais de contacto, pills, variáveis de tema nos SVG, navegação por teclado, status re-traduzível, enforcement do dataset (audited → evidência publicada). O CI (`.github/workflows/ci.yml`) corre isto em **cada push/PR** nenhuma destas classes de regressão pode voltar sem o CI ficar vermelho.
 
 Smoke manual recomendado antes de um release (Chrome, `python -m http.server 8123`):
 

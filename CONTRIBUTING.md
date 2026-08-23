@@ -4,7 +4,7 @@ Thanks for wanting in. There are four ways to contribute, from 2 minutes to a fu
 
 ## 1 · Submit your harness (the one you came for)
 
-Audit your own repo in the app (**📂 Audit a folder** — 100% local, nothing leaves
+Audit your own repo in the app (**📂 Audit a folder** 100% local, nothing leaves
 your machine), click **⬇ Export JSON**, then use the right channel:
 
 - **Public audit or Estimate:** [open a public submission issue](../../issues/new?template=submit-harness.yml)
@@ -16,7 +16,7 @@ your machine), click **⬇ Export JSON**, then use the right channel:
 | Track | What happens | What you get |
 |-------|--------------|--------------|
 | **Public audit** | We audit the code against the [22-dimension taxonomy](references/harness-map.md) with `path:line` evidence; the report is published in `docs/audits/` | **AUDITED** badge + official ranking entry |
-| **Private audit** | Same audit, report delivered only to you, nothing published | Private report; **no public listing** (the public badge requires published evidence — no exceptions) |
+| **Private audit** | Same audit, report delivered only to you, nothing published | Private report; **no public listing** (the public badge requires published evidence, with no exceptions) |
 | **Estimate entry** | You open a PR adding the harness with `audited:false` and a justified score set | **ESTIMATE** badge in the ranking, flagged for future audit |
 
 Public audits are free and queued in submission order; private audits are a consulting
@@ -27,7 +27,7 @@ by email rather than through a public issue.
 Priority (and inclusion) favors harnesses with real-world usage, an identifiable
 vendor/maintainer and an active project. Duplicates of an already-listed harness
 are closed; experiments and personal forks are exactly what the **local audit**
-in the app is for — private, instant, and yours.
+in the app is for private, instant, and yours.
 
 ## 2 · Add or fix an estimate entry (PR)
 
@@ -41,12 +41,12 @@ Use [`docs/audits/AUDIT-TEMPLATE.md`](docs/audits/AUDIT-TEMPLATE.md). The eviden
 rules are non-negotiable: read-only analysis, every claim cites a verified
 `path:line`, absences proven by search, coverage declared, unread areas listed.
 An entry only ships `audited:true` when the `evidence` field points to a report
-in this repo — the test suite enforces it.
+in this repo - the test suite enforces it.
 
 ## 4 · Translations and fixes
 
 Six languages live in the `T` dictionary in `index.html` (`node check-i18n.js`
-validates keys and placeholders — EN and PT are mandatory for new features).
+validates keys and placeholders - EN and PT are mandatory for new features).
 Bug fixes: the jsdom regression suite (`npm test`) must stay green; add a test
 when you fix a behavior.
 
@@ -54,10 +54,10 @@ when you fix a behavior.
 
 - Integrity first: AUDITED / PRELIMINARY / ESTIMATE / LOCAL are never mixed
   without a label, and manual adjustments stay visible. Don't submit PRs that
-  blur those lines — they will be declined regardless of code quality.
+  blur those lines they will be declined regardless of code quality.
 - One PR, one concern. `npm test` green before review.
 - **Contributor License Agreement:** by submitting a contribution you accept the
-  [CLA](CLA.md) — you keep your copyright and grant the project steward a broad
+  [CLA](CLA.md) - you keep your copyright and grant the project steward a broad
   license (including relicensing) so the free, AGPL public benchmark can be
   funded by commercial tooling built on the same codebase. The PR template asks
   you to confirm it.

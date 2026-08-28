@@ -36,7 +36,7 @@
 
 | # | Dimension | What it measures |
 |---|-----------|------------------|
-| D1 | Security guardrails | Anti-injection, scanning, validation. |
+| D1 | Security guardrails | Defences around untrusted inputs and model outputs: trust boundaries, injection detection, sanitisation, validation, tool permission controls, sandboxing/containment, and secret protection. This measures the harness boundary, not the model's intrinsic resistance to jailbreaks. |
 | D2 | Permissions & sandboxing | Approvals, least privilege, sandbox. |
 | D3 | Judgment & escalation | Decides alone vs human; thresholds. |
 | D4 | Compliance & legal | Audit, retention, GDPR. |

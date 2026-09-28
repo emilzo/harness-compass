@@ -7,8 +7,10 @@
 > O SHA exato do commit não foi registado no relatório-fonte; as referências de
 > linha são relativas a esse snapshot datado e podem mudar à medida que o projeto
 > evolui. Publicado primeiro como cortesia e revisão de arquitetura de software
-> open-source: as fragilidades discutidas são ausências de design (sem cap de
-> custo, sem evals, defaults fail-open), não vulnerabilidades exploráveis. O
+> open-source. As notas de 2026-08-09 abaixo incluem "sem evals". A reauditoria
+> de 2026-08-22 substitui esse achado: `evals/` existe em `c69b647` e C2 é 7.
+> As fragilidades discutidas são ausências de design (sem cap de custo, defaults
+> fail-open), não vulnerabilidades exploráveis. O
 > SECURITY.md do próprio Hermes declara honestamente as suas fronteiras, e este
 > relatório reconhece essa honestidade várias vezes. Correções são bem-vindas por
 > PR ou issue.
@@ -24,7 +26,9 @@
 # DEEP HARNESS AUDIT — hermes-agent (linha-a-linha)
 
 **Data:** 2026-08-09 · **Modo:** read-only (grep/wc/read; nada executado nem alterado)
-**Alvo:** checkout local de `NousResearch/hermes-agent` (Python, ~10.2K ficheiros .py)
+**Alvo:** checkout local de `NousResearch/hermes-agent`. O número anterior "~10.2K ficheiros .py" é retirado. Não tem fonte. O SHA da primeira auditoria não foi registado. Uma árvore pública datada de 2026-08-09, commit `3bd844e`, tem 3.979 ficheiros `.py`. O commit da reauditoria `c69b647` tem 4.363 ficheiros `.py`. Não há uma reestruturação evidenciada de ~10.2K para ~4.4K.
+
+> **Reauditoria 2026-08-22, HEAD `c69b6471e6`.** Os scores por dimensão autoritativos estão na [tradução inglesa](DEEP-HARNESS-AUDIT-HERMES.en.md). O texto abaixo mantém a leitura de 2026-08-09, incluindo "zero evals". Essa frase está ultrapassada: em `c69b647` existe `evals/` e C2 é 7. O número "2.286 commits depois" não tem fonte pública e foi retirado.
 **Metodologia:** taxonomia `harness-map.md` v1 · 5 auditorias paralelas de esmiuço (core loop, governação D1–D5, guias/contexto, gateway/cron, memória/custo) · consolidação única · evidência `path:line` verificada por leitura.
 **Relatório-fonte integral da governação:** relatório de consolidação da governação (55 KB, arquivo interno do projeto)
 

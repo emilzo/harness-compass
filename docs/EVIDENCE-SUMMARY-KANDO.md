@@ -1,14 +1,15 @@
-# Evidence Summary — Kando (PUBLIC ESTIMATE)
+# Evidence Summary — Kando (not ranked)
 
-> **Public status: ESTIMATE.** Kando is a commercial product by DevFactoryAI,
-> currently preparing for go-to-market. It was audited internally, but the full report
-> (part of a ~190K-character, 9-parallel-audit comparison against Hermes Agent,
-> performed 2026-08-09 under the same read-only, `path:line` evidence rules as the
-> [published Hermes audit](DEEP-HARNESS-AUDIT-HERMES.en.md)) is retained internally.
-> The public **AUDITED** badge is reserved for reports whose line-by-line evidence
-> readers can inspect for themselves. This summary explains what informed Kando's
-> scores, but it does not qualify Kando for that badge while the source and full
-> report remain private.
+> **Conflict of interest.** Kando is built by the author of Harness Compass
+> (Emílio, @emilzo / DevFactoryAI). See `CLA.md`.
+>
+> **Public status: not ranked.** The scores below are an Estimate. The
+> line-by-line report is private. Kando is not in the ranking until a public
+> audit exists. Earlier text cited about 190K characters of evidence and 9
+> parallel audits. Those figures have no public source and are removed.
+>
+> Every `path:line` below is **unverifiable (private source)**. Readers cannot
+> check them against a public repository. They do not earn an Audited badge.
 
 ## Scores (22 dimensions, 0–10)
 
@@ -62,19 +63,15 @@ tooling (A4) and skills (B2) — by design, Kando supervises *external* agents
 **Resilience (F3)**
 - Leases/fencing for multi-instance and anti-duplication — `path_leases.py:13-54`
 
-## Known weaknesses (as publicly stated in the ranking)
+## Known weaknesses (not independently checkable)
 
 Lack of destructive-command containment and of a native toolset (A4: 2); no
 skills/playbook system (B2: 2); security guardrails and sandboxing below the
-Hermes bar (D1/D2). These are the flip side of the supervisory design — the
-audit's central lesson, published in the app's method view: **one harness's
-strengths are the other's weaknesses; the cross-port is the way.**
+Hermes scores (D1/D2). These notes are unverifiable (private source).
 
 ## Method & coverage
 
-The internal review used the same taxonomy and evidence rules as the Hermes audit
-([references/harness-map.md](../references/harness-map.md)): read-only analysis,
-every claim cites a verified `path:line`, absences proven by search, coverage
-declared. The references below are retained for internal traceability, but public
-readers cannot independently check them against a public repository. For that
-reason Kando remains an **Estimate** until a line-by-line report can be published.
+The internal review used the same taxonomy as the Hermes audit
+([references/harness-map.md](../references/harness-map.md)). Public readers
+cannot check the citations. Kando stays unranked until a line-by-line report
+is public.

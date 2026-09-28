@@ -8,8 +8,10 @@
 > repository. The exact commit SHA was not recorded in the source audit, so line
 > references are relative to that dated snapshot and may drift as the project
 > evolves. Published as a courtesy-first architecture review of open-source
-> software: the weaknesses discussed are design absences (no cost cap, no evals,
-> fail-open defaults), not exploitable vulnerabilities; Hermes's own SECURITY.md
+> software. The 2026-08-09 notes below include "no evals". The 2026-08-22
+> re-audit supersedes that finding: `evals/` exists at `c69b647` and C2 is 7.
+> The weaknesses discussed are design absences (no cost cap, fail-open
+> defaults), not exploitable vulnerabilities. Hermes's own SECURITY.md
 > discloses its boundaries honestly, and this report repeatedly credits that
 > honesty. Corrections welcome via PR or issue.
 >
@@ -23,17 +25,18 @@
 # DEEP HARNESS AUDIT — hermes-agent (line by line)
 
 **Date:** 2026-08-09 · **Mode:** read-only (grep/wc/read; nothing executed or changed)<br>
-**Target:** local checkout of `NousResearch/hermes-agent` (Python, ~10.2K .py files)<br>
+**Target:** local checkout of `NousResearch/hermes-agent`. The earlier "~10.2K .py files" figure is withdrawn. It has no source. The first-audit commit SHA was not recorded. A public tree dated 2026-08-09, commit `3bd844e`, has 3,979 `.py` files. The re-audit commit `c69b647` has 4,363 `.py` files. There is no evidenced restructure from ~10.2K to ~4.4K.<br>
 **Method:** `harness-map.md` taxonomy v1 · 5 parallel deep dives (core loop, governance D1–D5, guides/context, gateway/cron, memory/cost) · single consolidation · `path:line` evidence verified by reading.<br>
 **Full governance source report:** governance consolidation report (55 KB, internal project archive)
 
 ---
 
-> **RE-AUDITED 2026-08-22 — scores refreshed against HEAD `c69b6471e6` (2,286 commits later).**
+> **RE-AUDITED 2026-08-22 — scores refreshed against HEAD `c69b6471e6`.**
 > The report below is retained as the foundational line-by-line audit. Its per-mechanism
-> `file:line` references predate a major repo restructure (~10.2K → ~4.4K `.py` files) and
-> have drifted; the **authoritative per-dimension scores are the re-audited ones below**,
-> which is what the ranking entry now uses.
+> `file:line` references are from the 2026-08-09 reading and may have drifted. The
+> earlier "~10.2K .py" size and "2,286 commits later" are withdrawn. They have no
+> public source. The **authoritative per-dimension scores are the re-audited ones below**,
+> which is what the ranking entry now uses. At `c69b647`, `evals/` exists and C2 is 7.
 
 ## Re-audit — 2026-08-22 (HEAD `c69b6471e6`)
 

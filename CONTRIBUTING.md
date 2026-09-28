@@ -23,7 +23,7 @@ Public audits are free and queued in submission order; private audits are a cons
 service. The confidentiality choice is **yours**, but private work always starts
 by email rather than through a public issue.
 
-**Curation note:** the official ranking is a curated benchmark, not a directory.
+**Curation note:** the official ranking is a curated architecture maturity scorecard, not a directory.
 Priority (and inclusion) favors harnesses with real-world usage, an identifiable
 vendor/maintainer and an active project. Duplicates of an already-listed harness
 are closed; experiments and personal forks are exactly what the **local audit**
@@ -58,6 +58,6 @@ when you fix a behavior.
 - One PR, one concern. `npm test` green before review.
 - **Contributor License Agreement:** by submitting a contribution you accept the
   [CLA](CLA.md) - you keep your copyright and grant the project steward a broad
-  license (including relicensing) so the free, AGPL public benchmark can be
+  license (including relicensing) so the free, AGPL public architecture maturity scorecard can be
   funded by commercial tooling built on the same codebase. The PR template asks
   you to confirm it.

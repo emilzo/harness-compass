@@ -72,11 +72,9 @@
 **displayed 0–100** (average × 10). Dimensions are scored 0–10 on the maturity
 rubric above. This is **rubric v1**.
 
-## Frontier anchors (why nobody is at 100 — by design)
+## Frontier anchors (why nobody is at 100)
 
-The 9–10 band of every dimension is reserved for **frontier criteria that no
-harness meets today** (2026 baseline: the best audited dimension scores are 9;
-the best HCI is 75/100). A 10 requires evidence such as:
+A score of 9 is in use. Hermes Agent has 9s in A2, C1 and F3. T3 Code has 9s in C1 and C3. The best HCI is 75/100 (2026). A 10 is still unmet. A 10 requires evidence such as:
 
 - invariants and guardrails **formally verified**, not just tested;
 - cross-session learning with **measured** outcome improvement (not just memory);

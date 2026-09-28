@@ -7,7 +7,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: write
 
 jobs:
   snapshot:
@@ -20,11 +19,11 @@ jobs:
       - name: Fetch OpenRouter models
         run: node scripts/snapshot-models.mjs
       - name: Open a pull request when the snapshot changed
-        id: snapshot-pr
         # peter-evans/create-pull-request v8.1.1
         # If docs/models is unchanged, this step exits without opening a pull request.
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
         with:
+          token: ${{ secrets.SNAPSHOT_PR_TOKEN || github.token }}
           branch: models-snapshot
           base: main
           delete-branch: true
@@ -36,18 +35,4 @@ jobs:
           commit-message: "Update the OpenRouter model snapshot."
           title: "Update OpenRouter model snapshot"
           body: |
-            Daily snapshot of OpenRouter models.
-
-            This updates docs/models/latest.json and docs/models/history.json when the list or prices change.
-
-            After this pull request is created or updated, the workflow runs `gh workflow run ci.yml --ref models-snapshot` with the default GITHUB_TOKEN. The job name is `test`. GitHub docs say a workflow_dispatch check does not appear on the pull request and does not satisfy a required status check in a branch ruleset. The pull_request run still needs a person with write access to approve it. Auto-merge is not enabled, so this pull request is merged by hand.
-      - name: Dispatch the test workflow on the snapshot branch
-        if: >-
-          (steps.snapshot-pr.outputs.pull-request-operation == 'created' || steps.snapshot-pr.outputs.pull-request-operation == 'updated')
-          && steps.snapshot-pr.outputs.pull-request-head-sha != ''
-        env:
-          GH_TOKEN: ${{ github.token }}
-          HEAD_SHA: ${{ steps.snapshot-pr.outputs.pull-request-head-sha }}
-        run: |
-          gh workflow run ci.yml --ref models-snapshot
-          echo "Dispatched ci.yml on models-snapshot at ${HEAD_SHA}."
+            Daily snapshot of OpenRouter models. This updates docs/models/latest.json and docs/models/history.json when the list or prices change, by opening or updating a pull request from models-snapshot instead of pushing to main. With the default token, the test run needs a maintainer to click "Approve workflows to run", unless the optional SNAPSHOT_PR_TOKEN secret is set. This pull request is merged by hand.

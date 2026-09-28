@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 jobs:
   snapshot:
@@ -19,6 +20,7 @@ jobs:
       - name: Fetch OpenRouter models
         run: node scripts/snapshot-models.mjs
       - name: Open a pull request when the snapshot changed
+        id: snapshot-pr
         # peter-evans/create-pull-request v8.1.1
         # If docs/models is unchanged, this step exits without opening a pull request.
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
@@ -38,4 +40,14 @@ jobs:
 
             This updates docs/models/latest.json and docs/models/history.json when the list or prices change.
 
-            The workflow uses the default GITHUB_TOKEN. GitHub does not start the required test workflow until someone with write access approves it on this pull request. Auto-merge is not enabled on the repository, so this pull request is merged by hand.
+            After this pull request is created or updated, the workflow runs `gh workflow run ci.yml --ref models-snapshot` with the default GITHUB_TOKEN. The job name is `test`. GitHub docs say a workflow_dispatch check does not appear on the pull request and does not satisfy a required status check in a branch ruleset. The pull_request run still needs a person with write access to approve it. Auto-merge is not enabled, so this pull request is merged by hand.
+      - name: Dispatch the test workflow on the snapshot branch
+        if: >-
+          (steps.snapshot-pr.outputs.pull-request-operation == 'created' || steps.snapshot-pr.outputs.pull-request-operation == 'updated')
+          && steps.snapshot-pr.outputs.pull-request-head-sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ steps.snapshot-pr.outputs.pull-request-head-sha }}
+        run: |
+          gh workflow run ci.yml --ref models-snapshot
+          echo "Dispatched ci.yml on models-snapshot at ${HEAD_SHA}."

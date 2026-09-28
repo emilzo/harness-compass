@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Harness Compass social card</title>
+<!--
+  Source for docs/social-card-v2.png (1200×630).
+  Render: node scripts/render-social-card.mjs
+  Uses the system Chrome or Chromium. No extra npm dependency.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #07070f;
+  }
+  .card {
+    width: 1200px;
+    height: 630px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(900px 620px at 108% -12%, #3c2874 0%, rgba(60, 40, 116, 0) 58%),
+      radial-gradient(760px 540px at -12% 118%, #0d5162 0%, rgba(13, 81, 98, 0) 56%),
+      linear-gradient(112deg, #07070f 0%, #0a121c 36%, #14102c 66%, #271a4e 100%);
+    font-family: Inter, "Segoe UI", sans-serif;
+    color: #e2e8f0;
+  }
+  .top {
+    position: absolute;
+    top: 68px;
+    left: 76px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .mark {
+    font-family: "Noto Color Emoji", "Apple Color Emoji", sans-serif;
+    font-size: 30px;
+    line-height: 1;
+  }
+  .word {
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: #e2e8f0;
+  }
+  .badge {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    color: #c4b5fd;
+    border: 1px solid rgba(167, 139, 250, 0.55);
+    background: rgba(67, 32, 128, 0.38);
+    border-radius: 999px;
+    padding: 8px 14px;
+  }
+  h1 {
+    position: absolute;
+    top: 228px;
+    left: 76px;
+    font-size: 68px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    white-space: nowrap;
+    color: #e2e8f0;
+  }
+  h1 span {
+    background: linear-gradient(90deg, #7a73f5 0%, #5a8cf3 42%, #32c0ef 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sub {
+    position: absolute;
+    top: 348px;
+    left: 76px;
+    width: 1040px;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #c5ceda;
+  }
+  .chips {
+    position: absolute;
+    left: 76px;
+    bottom: 64px;
+    display: flex;
+    gap: 12px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(14, 58, 72, 0.78);
+    border: 1px solid rgba(103, 232, 249, 0.28);
+    color: #e7eef6;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .footer {
+    position: absolute;
+    right: 72px;
+    bottom: 72px;
+    color: #94a3b8;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="top">
+      <span class="mark">🧭</span>
+      <span class="word">Harness Compass</span>
+      <span class="badge">Agent harness maturity scorecard</span>
+    </div>
+    <h1>Agent = Model + <span>Harness</span></h1>
+    <p class="sub">22 dimensions, with published evidence for audited entries.<br>Audit your own repo in your browser.</p>
+    <div class="chips">
+      <span class="chip">Illustrative cost model</span>
+      <span class="chip">Local repo audit</span>
+      <span class="chip">6 languages</span>
+    </div>
+    <div class="footer">by @emilzo · AGPL-3.0</div>
+  </div>
+</body>
+</html>

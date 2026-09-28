@@ -46,7 +46,7 @@ Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regr
 - [x] GitHub Pages live via Actions, gated by `npm test` (no green, no deploy)
 - [x] `og:url`/`og:image`/`REPO_URL` confirmed against the real URL
 - [x] Gate 2 on the public URL: OpenRouter loading 377 real models over HTTPS, modern folder picker active, badge evidence reachable, Actions green
-- [x] Launch assets: 16 screenshots (8 views × 2 themes, regenerated post-fixes) in `launch-assets/` + social card in `docs/social-card.png`
+- [x] Launch assets: 16 screenshots (8 views × 2 themes, regenerated post-fixes) in `launch-assets/` + social card in `docs/social-card-v2.png` (`docs/social-card.png` kept)
 - [x] EN-first README (`README.md`) + preserved Portuguese (`README.pt.md`)
 - [x] Internal docs out of the public repo (`internal/`, gitignored) — history rewritten before any forks existed
 - [ ] Daily model-snapshot cron: the workflow opens or updates a pull request from `models-snapshot` into `main` when `docs/models` changes, instead of pushing to `main`. The schedule runs from the workflow file on `main`. With the default token, the `test` run needs a maintainer to click "Approve workflows to run", unless the optional `SNAPSHOT_PR_TOKEN` secret is set. The snapshot pull request is merged by hand, and the committed file stays the 2026-08-09 snapshot until then.

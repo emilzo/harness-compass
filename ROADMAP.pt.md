@@ -46,7 +46,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] GitHub Pages live via Actions, gated por `npm test` (sem verde não há deploy)
 - [x] `og:url`/`og:image`/`REPO_URL` confirmados contra o URL real
 - [x] Gate 2 na URL pública: OpenRouter a carregar 377 modelos reais em HTTPS, picker moderno ativo, evidência dos badges acessível, Actions verdes
-- [x] Assets de lançamento: 16 screenshots (8 vistas × 2 temas, regenerados pós-correções) em `launch-assets/` + social card em `docs/social-card.png`
+- [x] Assets de lançamento: 16 screenshots (8 vistas × 2 temas, regenerados pós-correções) em `launch-assets/` + social card em `docs/social-card-v2.png` (`docs/social-card.png` mantido)
 - [x] README EN-first (`README.md`) + português preservado (`README.pt.md`)
 - [x] Docs internos fora do repo público (`internal/`, gitignored) — histórico reescrito antes de existirem forks
 - [ ] Cron diário do snapshot de modelos: o workflow abre ou atualiza um pull request de `models-snapshot` para `main` quando `docs/models` muda, em vez de fazer push para `main`. O agendamento corre a partir do ficheiro de workflow em `main`. Com o token por omissão, a execução `test` precisa que um maintainer clique em "Approve workflows to run", a menos que o segredo opcional `SNAPSHOT_PR_TOKEN` esteja definido. O pull request do snapshot é integrado à mão, e o ficheiro commitado continua a ser o de 2026-08-09 até lá.

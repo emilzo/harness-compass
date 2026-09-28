@@ -1479,7 +1479,7 @@ zh:{
   blurb_cursor:"IDE 优先，辅助编辑体验极佳；多步自主与治理较弱。估算。", blurb_cline:"开源代理，每个动作都手动审批，支持 BYOK。估算。", blurb_openclaw:"多平台个人 harness。估算——鉴于装机量，是审计候选。",
   blurb_ccr:"让 Claude Code 使用便宜模型的路由器。专注 A1/F2；不是完整 harness。估算。", blurb_langgraph:"以精细控制构建 loop 的框架（持久化、人类在环）。harness 就是你自己。估算。",
   blurb_crewai:"多代理团队框架；方便，治理较轻。估算。", imp_A1_0:"加一条多 provider 回退链并做配置去重（模式：Hermes `fallback_config.py:80-101`）。",
-  imp_A1_1:"考虑按质量×成本做智能路由：效用 = quality − λ·成本 − μ·延迟（模式：Kando `scored-selection.ts:107-150`）。不可核验（私人来源）。",
+  imp_A1_1:"考虑按质量×成本做智能路由：效用 = quality − λ·成本 − μ·延迟（模式：Kando `scored-selection.ts:107-150`）。不可核实（私人来源）。",
   imp_A1_2:"凭证池，429 时冷却并轮换（模式：Hermes `run_agent.py:310-330`）。",
   imp_A2_0:"字节稳定的 system prompt，静态/易变分离——这是 prompt caching 可预测的关键（模式：Hermes `system_prompt.py:549-573`）。",
   imp_A2_1:"分层上下文压缩（去重 → 一行摘要 → LLM 摘要），而不是按窗口截断（模式：Hermes `context_compressor.py:5840+`）。",
@@ -1487,24 +1487,24 @@ zh:{
   imp_A3_0:"决策→执行→观察的 loop，带父/子分层迭代预算（模式：Hermes `iteration_budget.py`——500/50）。",
   imp_A3_1:"任务持久性：执行之前先持久化状态，完成时原子认领（模式：Hermes `async_delegation.py` SQLite + 完成队列）。", imp_A3_2:"基于心跳的不活动超时，而非墙钟（模式：Hermes 网关——警告 900 秒，终止 1800 秒）。",
   imp_A4_0:"受控足迹的工具注册表——schema 按需加载（模式：Hermes `tools/registry.py` + `model_tools.py:288-364`）。", imp_A4_1:"以配置做门控；用插件扩展，绝不改动核心。",
-  imp_B1_0:"持久化的意图规格：task → run → 阶段，每阶段锁定模型（模式：Kando `task_orchestration_service.py:50,323-379`）。 不可核实（私人来源）。",
-  imp_B1_1:"带状态与验证日期+SHA 的规范路线图（模式：Kando `docs/MASTER-ROADMAP.md`）。 不可核实（私人来源）。",
+  imp_B1_0:"持久化的意图规格：task → run → 阶段，每阶段锁定模型（模式：Kando `task_orchestration_service.py:50,323-379`）。不可核实（私人来源）。",
+  imp_B1_1:"带状态与验证日期+SHA 的规范路线图（模式：Kando `docs/MASTER-ROADMAP.md`）。不可核实（私人来源）。",
   imp_B2_0:"SKILL.md 格式 + 作为 user message 按需加载——保护 prompt cache（模式：Hermes `skill_commands.py:569-613`）。",
   imp_B2_1:"以 active→stale→archived 周期做管护，变更前 dry-run 加备份（模式：Hermes `curator.py:305-432`）。", imp_B2_2:"跨进程锁与原子写入的使用遥测（模式：Hermes `skill_usage.py`）。",
   imp_B3_0:"AGENTS.md 作为唯一来源：可验证的不变量、带 PR 编号的陷阱清单、测试准则（模式：Hermes `AGENTS.md`）。",
-  imp_B3_1:"多客户端层级：AGENTS.md 为源 + CLAUDE.md/GEMINI.md 只指向、不重定义（模式：Kando）。 不可核实（私人来源）。", imp_B3_2:"声明冲突解决规则：代码说了算（模式：Kando `README.md:73`）。 不可核实（私人来源）。",
-  imp_B4_0:"三层执行力的政策：文本 + CI + 运行时（模式：Hermes——22 个 workflow + `tool_guardrails.py`）。", imp_B4_1:"每条规则都可测试：好规则是可验证的（模式：Kando 按名字测试不变量的混沌测试）。 不可核实（私人来源）。",
+  imp_B3_1:"多客户端层级：AGENTS.md 为源 + CLAUDE.md/GEMINI.md 只指向、不重定义（模式：Kando）。不可核实（私人来源）。", imp_B3_2:"声明冲突解决规则：代码说了算（模式：Kando `README.md:73`）。不可核实（私人来源）。",
+  imp_B4_0:"三层执行力的政策：文本 + CI + 运行时（模式：Hermes——22 个 workflow + `tool_guardrails.py`）。", imp_B4_1:"每条规则都可测试：好规则是可验证的（模式：Kando 按名字测试不变量的混沌测试）。不可核实（私人来源）。",
   imp_C1_0:"密闭的测试 runner——隔离环境 + 每文件一个子进程（模式：Hermes `run_tests.sh` + `run_tests_parallel.py`）。",
   imp_C1_1:"反 change-detector、反 source-regex 的准则，写明并强制执行（模式：Hermes `AGENTS.md:1333-1435`）。",
   imp_C1_2:"以专门报告管理 flakiness——pass-on-retry 是要修的 bug，不是噪音（模式：Hermes）。",
-  imp_C2_0:"三层 LLM-as-judge：确定性 → N 个并行专家 → fresh-eyes 校验器，fail-closed（模式：Kando `ai_review_service.py:1-25`）。 不可核实（私人来源）。",
-  imp_C2_1:"经验核验：把项目的真实检查跑到通过，重试时升级模型（模式：Kando `outcome_verification_service.py:504-617`）。不可核验（私人来源）。",
+  imp_C2_0:"三层 LLM-as-judge：确定性 → N 个并行专家 → fresh-eyes 校验器，fail-closed（模式：Kando `ai_review_service.py:1-25`）。不可核实（私人来源）。",
+  imp_C2_1:"经验核验：把项目的真实检查跑到通过，重试时升级模型（模式：Kando `outcome_verification_service.py:504-617`）。不可核实（私人来源）。",
   imp_C2_2:"带保留策略的验证证据台账（模式：Hermes `verification_evidence.py`）。", imp_C3_0:"在所有日志 handler 中做密钥涂抹（模式：Hermes `RedactingFormatter` + `redact.py`）。",
   imp_C3_1:"带分类法的错误分类器 + 供 loop 消费的结构化恢复提示（模式：Hermes `error_classifier.py:24-97`）。",
-  imp_C3_2:"可查询的系统指标 + 带涂抹的按请求审计日志（模式：Kando `/ops/metrics` + `audit_log.py`）。 不可核实（私人来源）。",
+  imp_C3_2:"可查询的系统指标 + 带涂抹的按请求审计日志（模式：Kando `/ops/metrics` + `audit_log.py`）。不可核实（私人来源）。",
   imp_C4_0:"重试带 transient/permanent 分类 + 抖动退避 + Retry-After 解析（模式：Hermes `retry_utils.py` + Kando `llm_retry.py`）。 Kando 的文件不可核实（私人来源）。",
-  imp_C4_1:"专用断路器 closed/open/half_open，时钟可注入（模式：Kando `llm_circuit_breaker.py:23-161`）。 不可核实（私人来源）。",
-  imp_C4_2:"带模型升级的修复循环，用于代码自我纠正（模式：Kando `iterative_fixer_service.py`）。 不可核实（私人来源）。",
+  imp_C4_1:"专用断路器 closed/open/half_open，时钟可注入（模式：Kando `llm_circuit_breaker.py:23-161`）。不可核实（私人来源）。",
+  imp_C4_2:"带模型升级的修复循环，用于代码自我纠正（模式：Kando `iterative_fixer_service.py`）。不可核实（私人来源）。",
   imp_D1_0:"审批管线中的反注入——剥离 shell 注释（`rm -rf / # approve` 向量）（模式：Hermes `approval.py:2644-2662`）。",
   imp_D1_1:"带信任级别与内容哈希证明的 skill/插件扫描器（模式：Hermes `skills_guard.py`）。", imp_D1_2:"建立正式的 prompt injection 测试集——被审计的 harness 中没有一个有。",
   imp_D1_3:"模式匹配前的反混淆归一化：ANSI/NFKC/IFS/反斜杠（模式：Hermes `approval.py:916-974`）。",
@@ -1515,8 +1515,8 @@ zh:{
   imp_D3_0:"显式决策树，含人类必审类别（模式：Hermes `approval.py:3365-3834`——6 个类别）。",
   imp_D3_1:"只追加的决策台账（pattern_key、verdict、surface、choice、timestamp）——Hermes 没有并因此吃亏；从第一天就加上。",
   imp_D3_2:"按上下文调节的 clarify：只在工具解决不了时；headless 下禁止（模式：Hermes `prompt_builder.py:463,297`）。",
-  imp_D4_0:"按请求的审计轨迹，带涂抹 + 统计（模式：Kando `audit_log.py` + `routes/audit.py`）。 不可核实（私人来源）。", imp_D4_1:"按数据类型可配置的保留 + 涂抹后导出（模式：Hermes 90 天清理 + `export --redact`）。",
-  imp_D4_2:"仅哈希的遥测：从不以原始内容，只有 prompt_hash（模式：Kando `outcomes.ts:3-14`）。不可核验（私人来源）。",
+  imp_D4_0:"按请求的审计轨迹，带涂抹 + 统计（模式：Kando `audit_log.py` + `routes/audit.py`）。不可核实（私人来源）。", imp_D4_1:"按数据类型可配置的保留 + 涂抹后导出（模式：Hermes 90 天清理 + `export --redact`）。",
+  imp_D4_2:"仅哈希的遥测：从不以原始内容，只有 prompt_hash（模式：Kando `outcomes.ts:3-14`）。不可核实（私人来源）。",
   imp_D5_0:"在 system prompt 与各平台中做 AI 披露（模式：Hermes `prompt_builder.py:145-146`）。",
   imp_D5_1:"诚实的局限声明：boundary 与 heuristic 的区别（模式：Hermes SECURITY.md——罕见而可信）。", imp_D5_2:"带 evals 的公平/偏见政策——被审计者都没有；这是领导力机会。",
   imp_E1_0:"带隔舱的记忆：外部 provider 放在带超时的线程里；失败绝不阻塞回合（模式：Hermes `memory_manager.py:525-595`）。",
@@ -1525,10 +1525,10 @@ zh:{
   imp_E2_0:"人类引导环：记忆/skill 写入的事前审批（模式：Hermes `commands.py:246-254`）。", imp_E2_1:"反复失败 → 新指南：把指引注入给人类的回复（模式：Hermes `thinking_timeout_guidance.py`）。",
   imp_E2_2:"洞察仪表盘 + 可见的学习图谱（模式：Hermes `insights.py` + `learning_graph.py`）。",
   imp_F1_0:"带真实能力探针的执行沙箱——主机不支持时优雅降级，安全依赖处大声失败（模式：Hermes `docker.py:715-764`）。", imp_F1_1:"按操作系统声明可移植性（Windows/Unix/Termux/Nix）（模式：Hermes）。",
-  imp_F2_0:"每次运行的硬性金额上限，加上按调用追加的账本。Hermes 记录每次调用的成本，但不强制上限（模式：Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`）。不可核验（私人来源）。",
-  imp_F2_1:"限速：回退时主动跳过被限速的 provider（模式：Kando `agent_llm_client.py:1286-1295`）。 不可核实（私人来源）。", imp_F2_2:"带出处的定价：每条记录有来源 + 日期 + 版本（模式：Hermes `usage_pricing.py`）。",
+  imp_F2_0:"每次运行的硬性金额上限，加上按调用追加的账本。Hermes 记录每次调用的成本，但不强制上限（模式：Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`）。不可核实（私人来源）。",
+  imp_F2_1:"限速：回退时主动跳过被限速的 provider（模式：Kando `agent_llm_client.py:1286-1295`）。不可核实（私人来源）。", imp_F2_2:"带出处的定价：每条记录有来源 + 日期 + 版本（模式：Hermes `usage_pricing.py`）。",
   imp_F3_0:"调度 at-most-once：执行之前先在锁内推进 next_run（模式：Hermes `cron/scheduler.py:4159`）。",
-  imp_F3_1:"崩溃恢复：破坏性最小的修复，带备份 + 一次性认领（模式：Hermes `hermes_state.py:1248-1330`）。", imp_F3_2:"多实例与防重复的租约/围栏（模式：Kando `path_leases.py:13-54`）。 不可核实（私人来源）。",
+  imp_F3_1:"崩溃恢复：破坏性最小的修复，带备份 + 一次性认领（模式：Hermes `hermes_state.py:1248-1330`）。", imp_F3_2:"多实例与防重复的租约/围栏（模式：Kando `path_leases.py:13-54`）。不可核实（私人来源）。",
   quiz_q6:"可扩展性", quiz_o6a:"只用出厂工具", quiz_o6b:"生态的插件/skills", quiz_o6c:"我会自建工具和 skills", dom_A:"核心与接口", dom_B:"前馈指南", dom_C:"反馈传感器", dom_D:"治理、判断与护栏 ★",
   dom_E:"生命周期与学习", dom_F:"运维", fbtn_A:"A 核心", fbtn_B:"B 指南", fbtn_C:"C 传感器", fbtn_D:"D 治理 ★", fbtn_E:"E 学习", fbtn_F:"F 运维",
   home_pills:"推断式评估（evals、LLM-as-judge）· 多模型与路由 · 判断与升级 · 成本即控制（上限）· 学习与管护 · 合规与隐私 · 韧性与恢复 · 人类引导环 · 前馈指南（AGENTS.md、skills、计划）", dim_A1:"多模型与路由",
@@ -1667,7 +1667,7 @@ hi:{
   blurb_langgraph:"सूक्ष्म नियंत्रण (स्थायित्व, human-in-the-loop) के साथ loop बनाने का फ़्रेमवर्क। हार्नेस आप स्वयं हैं। अनुमान।",
   blurb_crewai:"मल्टी-एजेंट टीमों का फ़्रेमवर्क; सुविधाजनक, हल्का शासन। अनुमान।",
   imp_A1_0:"कॉन्फ़िग dedup के साथ मल्टी-प्रोवाइडर fallback शृंखला जोड़ें (पैटर्न: Hermes `fallback_config.py:80-101`)।",
-  imp_A1_1:"गुणवत्ता×लागत के अनुसार स्मार्ट रूटिंग पर विचार करें: उपयोगिता = quality − λ·लागत − μ·विलंब (पैटर्न: Kando `scored-selection.ts:107-150`)। सत्यापित नहीं (निजी स्रोत)।",
+  imp_A1_1:"गुणवत्ता×लागत के अनुसार स्मार्ट रूटिंग पर विचार करें: उपयोगिता = quality − λ·लागत − μ·विलंब (पैटर्न: Kando `scored-selection.ts:107-150`)। असत्यापित (निजी स्रोत)।",
   imp_A1_2:"429 पर cooldown और रोटेशन के साथ क्रेडेंशियल पूल (पैटर्न: Hermes `run_agent.py:310-330`)।",
   imp_A2_0:"स्थिर/परिवर्तनशील विभाजन के साथ बाइट-स्थिर system prompt — यही prompt caching को पूर्वानुमेय बनाता है (पैटर्न: Hermes `system_prompt.py:549-573`)।",
   imp_A2_1:"विंडो काटने के बजाय परतदार संदर्भ कम्प्रेशन (dedup → एक-पंक्ति → LLM सार) (पैटर्न: Hermes `context_compressor.py:5840+`)।",
@@ -1691,7 +1691,7 @@ hi:{
   imp_C1_1:"anti change-detector और anti source-regex सिद्धांत, लिखित और लागू (पैटर्न: Hermes `AGENTS.md:1333-1435`)।",
   imp_C1_2:"समर्पित रिपोर्ट से flakiness प्रबंधन — pass-on-retry सुधारने लायक़ bug है, शोर नहीं (पैटर्न: Hermes)।",
   imp_C2_0:"3-परत LLM-as-judge: नियतात्मक → N समानांतर विशेषज्ञ → fresh-eyes सत्यापक, fail-closed (पैटर्न: Kando `ai_review_service.py:1-25`)। असत्यापित (निजी स्रोत)।",
-  imp_C2_1:"अनुभवजन्य सत्यापन: प्रोजेक्ट की वास्तविक जाँचें हरी होने तक चलाएँ, पुनः प्रयास पर मॉडल एस्केलेशन के साथ (पैटर्न: Kando `outcome_verification_service.py:504-617`)। सत्यापित नहीं (निजी स्रोत)।",
+  imp_C2_1:"अनुभवजन्य सत्यापन: प्रोजेक्ट की वास्तविक जाँचें हरी होने तक चलाएँ, पुनः प्रयास पर मॉडल एस्केलेशन के साथ (पैटर्न: Kando `outcome_verification_service.py:504-617`)। असत्यापित (निजी स्रोत)।",
   imp_C2_2:"प्रतिधारण सहित सत्यापन-प्रमाण बहीखाता (पैटर्न: Hermes `verification_evidence.py`)।",
   imp_C3_0:"सभी लॉग handlers में गोपनीय जानकारी की redaction (पैटर्न: Hermes `RedactingFormatter` + `redact.py`)।",
   imp_C3_1:"वर्गीकरण सहित त्रुटि-वर्गीकारक + loop द्वारा उपयोग होने वाले संरचित recovery hints (पैटर्न: Hermes `error_classifier.py:24-97`)।",
@@ -1712,7 +1712,7 @@ hi:{
   imp_D3_2:"संदर्भ-नियंत्रित clarify: केवल जब tools हल न कर पाएँ; headless में वर्जित (पैटर्न: Hermes `prompt_builder.py:463,297`)।",
   imp_D4_0:"redaction + आँकड़ों सहित प्रति-अनुरोध audit trail (पैटर्न: Kando `audit_log.py` + `routes/audit.py`)। असत्यापित (निजी स्रोत)।",
   imp_D4_1:"डेटा प्रकार अनुसार विन्यास-योग्य प्रतिधारण + redacted निर्यात (पैटर्न: Hermes prune 90d + `export --redact`)।",
-  imp_D4_2:"केवल हैश टेलीमेट्री: कभी कच्चा कंटेंट नहीं, केवल prompt_hash (पैटर्न: Kando `outcomes.ts:3-14`)। सत्यापित नहीं (निजी स्रोत)।",
+  imp_D4_2:"केवल हैश टेलीमेट्री: कभी कच्चा कंटेंट नहीं, केवल prompt_hash (पैटर्न: Kando `outcomes.ts:3-14`)। असत्यापित (निजी स्रोत)।",
   imp_D5_0:"system prompt में और हर प्लेटफ़ॉर्म पर AI प्रकटीकरण (पैटर्न: Hermes `prompt_builder.py:145-146`)।",
   imp_D5_1:"सीमाओं का ईमानदार वक्तव्य: boundary बनाम heuristic (पैटर्न: Hermes SECURITY.md — दुर्लभ और विश्वसनीय)।",
   imp_D5_2:"evals सहित निष्पक्षता/पूर्वाग्रह नीति — किसी ऑडिटेड के पास नहीं; नेतृत्व का अवसर है।",
@@ -1724,7 +1724,7 @@ hi:{
   imp_E2_2:"insights डैशबोर्ड + दृश्य learning graph (पैटर्न: Hermes `insights.py` + `learning_graph.py`)।",
   imp_F1_0:"वास्तविक capability probes वाला निष्पादन sandbox — host के असमर्थ होने पर सहज degrade, सुरक्षा-निर्भरता पर ज़ोरदार विफलता (पैटर्न: Hermes `docker.py:715-764`)।",
   imp_F1_1:"OS अनुसार घोषित पोर्टेबिलिटी (Windows/Unix/Termux/Nix) (पैटर्न: Hermes)।",
-  imp_F2_0:"प्रति रन सख्त मौद्रिक सीमा और प्रति कॉल append-only लेजर। Hermes प्रति कॉल लागत दर्ज करता है लेकिन सीमा लागू नहीं करता (पैटर्न: Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`)। सत्यापित नहीं (निजी स्रोत)।",
+  imp_F2_0:"प्रति रन सख्त मौद्रिक सीमा और प्रति कॉल append-only लेजर। Hermes प्रति कॉल लागत दर्ज करता है लेकिन सीमा लागू नहीं करता (पैटर्न: Kando `KANDO_LLM_COST_CAP_EUR` + `migrations/027`)। असत्यापित (निजी स्रोत)।",
   imp_F2_1:"fallback में rate-limited providers की सक्रिय अनदेखी सहित rate limiting (पैटर्न: Kando `agent_llm_client.py:1286-1295`)। असत्यापित (निजी स्रोत)।",
   imp_F2_2:"उद्गम सहित मूल्य-निर्धारण: प्रति प्रविष्टि स्रोत + तिथि + संस्करण (पैटर्न: Hermes `usage_pricing.py`)।",
   imp_F3_0:"शेड्यूलिंग में at-most-once: निष्पादन से पहले lock के भीतर next_run बढ़ाएँ (पैटर्न: Hermes `cron/scheduler.py:4159`)।",
@@ -2096,8 +2096,9 @@ function renderRanking(){
   if(provFilter==="oficial") base=base.filter(h=>!h.local);
   if(provFilter==="local") base=base.filter(h=>h.local);
   const audited=sortHarnessRows(base.filter(h=>h.audited && !h.authorProduct));
-  const estimates=showEstimates?sortHarnessRows(base.filter(h=>!h.audited && !h.local && !h.authorProduct)):[];
-  const locals=sortHarnessRows(base.filter(h=>h.local && !h.authorProduct));
+  const byName=rows=>rows.slice().sort((a,b)=>a.name.localeCompare(b.name));
+  const estimates=showEstimates?byName(base.filter(h=>!h.audited && !h.local && !h.authorProduct)):[];
+  const locals=byName(base.filter(h=>h.local && !h.authorProduct));
   $$("#rank-head th").forEach(th=>{
     const on = filter==="all" ? th.dataset.k===sortKey : th.dataset.k===filter;
     th.classList.toggle("sorted", on);
@@ -2358,8 +2359,7 @@ function trackModels(current){
     window.__orDiff={hadSnap:!!snap, added:added.length, gone:gone.length, prevDate:snap?snap.date:null, count:curIds.size};
   }catch(e){ /* localStorage indisponível — segue sem histórico */ }
 }
-/* Cache reads are billed at 0.1x the input price. Cache-write premiums are not modelled.
-   min() caps are unchanged. route has no 30% floor: 0.65 * A1/10, still capped at 0.95. */
+/* min() caps kept pending ROADMAP decision; unreachable with current coefficients (max 0.70/0.50/0.45/0.65). */
 function harnessEff(h){
   const A2=(h.scores.A2||0)/10, C4=(h.scores.C4||0)/10, A1=(h.scores.A1||0)/10;
   return {cache:Math.min(0.85, A2*0.7), retry:Math.min(0.6, C4*0.5), comp:Math.min(0.6, A2*0.45), route:Math.min(0.95, A1*0.65)};

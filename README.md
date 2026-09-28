@@ -157,7 +157,7 @@ Language selector at the top. **English is the norm**, with Portuguese, French, 
 - **Live source:** the model list comes from OpenRouter on every app load — when a provider retires a model it disappears from the selector automatically; new ones show up the same day.
 - **Local diff:** the app keeps a snapshot in your browser and shows what changed since your last visit ("🆕 N new · 📦 M removed since …").
 - **Local history of discontinued models:** models that leave are recorded (name, date, last price) in a collapsible list — useful for pricing provenance and audit continuity.
-- **Committed snapshot:** `docs/models/latest.json` is still the file committed on 2026-08-09 (378 models), and `.github/workflows/models-snapshot.yml` opens or updates a pull request from `models-snapshot` into `main` when it changes, instead of pushing to `main`. The schedule uses the workflow file on `main`, so this starts after this pull request is merged. With the default token, the `test` run needs a maintainer to click "Approve workflows to run", unless the optional `SNAPSHOT_PR_TOKEN` secret is set. That snapshot pull request is merged by hand.
+- **Committed snapshot:** `docs/models/latest.json` is still the file committed on 2026-08-09 (378 models), and `.github/workflows/models-snapshot.yml` opens or updates a pull request from `models-snapshot` into `main` when it changes, instead of pushing to `main`. The schedule runs from the workflow file on `main`. With the default token, the `test` run needs a maintainer to click "Approve workflows to run", unless the optional `SNAPSHOT_PR_TOKEN` secret is set. That snapshot pull request is merged by hand.
 
 ## i18n guarantee (mandatory norm)
 

@@ -49,7 +49,7 @@ Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regr
 - [x] Launch assets: 16 screenshots (8 views × 2 themes, regenerated post-fixes) in `launch-assets/` + social card in `docs/social-card.png`
 - [x] EN-first README (`README.md`) + preserved Portuguese (`README.pt.md`)
 - [x] Internal docs out of the public repo (`internal/`, gitignored) — history rewritten before any forks existed
-- [ ] Daily model-snapshot cron: the workflow opens or updates a pull request from `models-snapshot` into `main` when `docs/models` changes, instead of pushing to `main`. It starts after this pull request is merged. With the default token, the `test` run needs a maintainer to click "Approve workflows to run", unless the optional `SNAPSHOT_PR_TOKEN` secret is set. The snapshot pull request is merged by hand, and the committed file stays the 2026-08-09 snapshot until then.
+- [ ] Daily model-snapshot cron: the workflow opens or updates a pull request from `models-snapshot` into `main` when `docs/models` changes, instead of pushing to `main`. The schedule runs from the workflow file on `main`. With the default token, the `test` run needs a maintainer to click "Approve workflows to run", unless the optional `SNAPSHOT_PR_TOKEN` secret is set. The snapshot pull request is merged by hand, and the committed file stays the 2026-08-09 snapshot until then.
 - [ ] Decide whether `launch-assets/` (16 screenshots, ~2 MB) enters git — deliberately local today; version it if marketing runs from the public repo
 - [ ] EN anchor article (Show HN + blog) — launch copy drafted in `launch-assets/launch-copy.md`
 - [ ] Short landing page as a funnel — the Compass itself is the anchor product; a separate formal landing does not exist yet

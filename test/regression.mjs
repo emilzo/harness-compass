@@ -479,11 +479,24 @@ test('26. custo modelado em dois cenários; ranking por omissão só auditado; K
     assert.equal($('[data-i18n="cost_title"]').textContent, 'Modelled cost (illustrative)');
     assert.ok(html.includes('unverifiable (private source)'));
 
+    const auditedOrder = $$('#rank-body tr').map(r => r.children[1].childNodes[0].textContent.trim());
     $$('.ebtn[data-e="on"]')[0].click();
+    assert.deepEqual(
+      $$('#rank-body tr').map(r => r.children[1].childNodes[0].textContent.trim()),
+      auditedOrder,
+      'entradas auditadas mantêm a ordem por HCI'
+    );
     const est = $$('#rank-est-body tr').filter(r => !r.classList.contains('rank-label'));
     assert.ok(est.length > 0, 'estimativas visíveis após o controlo');
     assert.ok(est.every(r => r.firstChild.textContent === 'n/a'));
     assert.ok(est.some(r => r.textContent.includes('CrewAI')));
     assert.ok(!$$('#rank-body tr').some(r => r.textContent.includes('CrewAI')));
+    const estNames = est.map(r => r.children[1].childNodes[0].textContent.trim());
+    assert.deepEqual(estNames, estNames.slice().sort((a, b) => a.localeCompare(b)), 'estimativas por nome, não por HCI');
+    const byScore = est.map(r => ({
+      name: r.children[1].childNodes[0].textContent.trim(),
+      hci: parseInt(r.children[3].textContent, 10),
+    })).sort((a, b) => b.hci - a.hci || a.name.localeCompare(b.name)).map(r => r.name);
+    assert.notDeepEqual(estNames, byScore, 'a ordem alfabética não coincide com o HCI');
   });
 });

@@ -49,7 +49,7 @@ Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regr
 - [x] Launch assets: 16 screenshots (8 views × 2 themes, regenerated post-fixes) in `launch-assets/` + social card in `docs/social-card.png`
 - [x] EN-first README (`README.md`) + preserved Portuguese (`README.pt.md`)
 - [x] Internal docs out of the public repo (`internal/`, gitignored) — history rewritten before any forks existed
-- [ ] Daily model-snapshot cron: `.github/workflows/models-snapshot.yml` is scheduled, but `git push` to `main` has been failing since 2026-08-29. The committed snapshot remains 2026-08-09. Not repaired on the credibility-fixes branch.
+- [ ] Daily model-snapshot cron: the workflow on this branch no longer pushes to `main`. When `docs/models` changes it opens or updates a pull request (`models-snapshot` into `main`). The schedule still uses the workflow file on `main`, so this starts after merge. With the default token the required `test` check waits until a person approves the workflow run. Auto-merge is off. The snapshot committed in git remains 2026-08-09 until that pull request is merged.
 - [ ] Decide whether `launch-assets/` (16 screenshots, ~2 MB) enters git — deliberately local today; version it if marketing runs from the public repo
 - [ ] EN anchor article (Show HN + blog) — launch copy drafted in `launch-assets/launch-copy.md`
 - [ ] Short landing page as a funnel — the Compass itself is the anchor product; a separate formal landing does not exist yet

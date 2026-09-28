@@ -49,7 +49,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] Assets de lançamento: 16 screenshots (8 vistas × 2 temas, regenerados pós-correções) em `launch-assets/` + social card em `docs/social-card.png`
 - [x] README EN-first (`README.md`) + português preservado (`README.pt.md`)
 - [x] Docs internos fora do repo público (`internal/`, gitignored) — histórico reescrito antes de existirem forks
-- [ ] Cron diário do snapshot de modelos: `.github/workflows/models-snapshot.yml` está agendado, mas o `git push` para `main` falha desde 2026-08-29. O snapshot commitado continua a ser o de 2026-08-09. Não foi reparado no branch de correções de credibilidade.
+- [ ] Cron diário do snapshot de modelos: o workflow neste branch já não faz push para `main`. Quando `docs/models` muda, abre ou atualiza um pull request (`models-snapshot` para `main`). O agendamento continua a usar o ficheiro de workflow em `main`, por isso isto começa depois da integração. Com o token por omissão, o check `test` obrigatório espera até uma pessoa aprovar a execução do workflow. O auto-merge está desligado. O snapshot commitado no git continua a ser o de 2026-08-09 até esse pull request ser integrado.
 - [ ] Decidir se `launch-assets/` (16 screenshots, ~2 MB) entra no git — hoje é deliberadamente local; se o marketing partir do repo público, versionar
 - [ ] Artigo-âncora EN (Show HN + blog) — textos de lançamento prontos em `launch-assets/launch-copy.md`
 - [ ] Landing curta como funil — o Compass serve de produto-âncora; landing formal separada ainda não existe

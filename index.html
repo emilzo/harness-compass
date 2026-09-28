@@ -2332,8 +2332,8 @@ function useOpenRouterPriceCT(){
   renderCost();
 }
 /* Model list: live OpenRouter fetch on each load, plus a browser-local diff.
-   docs/models/ holds the snapshot committed on 2026-08-09. The daily GitHub
-   Actions workflow has been failing at git push since 2026-08-29. */
+   docs/models/ in git is still the 2026-08-09 snapshot. The daily workflow
+   opens a pull request for updates. It does not push to main. */
 function trackModels(current){
   try{
     const now = new Date().toISOString().slice(0,10);

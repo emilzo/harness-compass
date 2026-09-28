@@ -25,18 +25,18 @@
 # DEEP HARNESS AUDIT — hermes-agent (line by line)
 
 **Date:** 2026-08-09 · **Mode:** read-only (grep/wc/read; nothing executed or changed)<br>
-**Target:** local checkout of `NousResearch/hermes-agent`. The earlier "~10.2K .py files" figure is withdrawn. It has no source. The first-audit commit SHA was not recorded. A public tree dated 2026-08-09, commit `3bd844e`, has 3,979 `.py` files. The re-audit commit `c69b647` has 4,363 `.py` files. There is no evidenced restructure from ~10.2K to ~4.4K.<br>
+**Target:** local checkout of `NousResearch/hermes-agent` (Python). The first-audit commit SHA was not recorded. The earlier figure of ~10.2K `.py` files is withdrawn because it has no source: the public tree at commit `3bd844e` (2026-08-09) has 3,979 `.py` files, and the re-audit commit `c69b647` has 4,363. There is no evidence of a restructure from ~10.2K to ~4.4K files.<br>
 **Method:** `harness-map.md` taxonomy v1 · 5 parallel deep dives (core loop, governance D1–D5, guides/context, gateway/cron, memory/cost) · single consolidation · `path:line` evidence verified by reading.<br>
 **Full governance source report:** governance consolidation report (55 KB, internal project archive)
 
 ---
 
-> **RE-AUDITED 2026-08-22 — scores refreshed against HEAD `c69b6471e6`.**
+> **RE-AUDITED 2026-08-22: scores refreshed against HEAD `c69b6471e6`.**
 > The report below is retained as the foundational line-by-line audit. Its per-mechanism
 > `file:line` references are from the 2026-08-09 reading and may have drifted. The
-> earlier "~10.2K .py" size and "2,286 commits later" are withdrawn. They have no
-> public source. The **authoritative per-dimension scores are the re-audited ones below**,
-> which is what the ranking entry now uses. At `c69b647`, `evals/` exists and C2 is 7.
+> earlier figures "~10.2K .py files" and "2,286 commits later" are withdrawn because
+> they have no public source. The **authoritative per-dimension scores are the re-audited ones below**,
+> and the ranking entry uses them. At `c69b647`, `evals/` exists and C2 is 7.
 
 ## Re-audit — 2026-08-22 (HEAD `c69b6471e6`)
 

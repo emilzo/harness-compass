@@ -74,7 +74,7 @@ rubric above. This is **rubric v1**.
 
 ## Frontier anchors (why nobody is at 100)
 
-A score of 9 is in use. Hermes Agent has 9s in A2, C1 and F3. T3 Code has 9s in C1 and C3. The best HCI is 75/100 (2026). A 10 is still unmet. A 10 requires evidence such as:
+Scores of 9 are in use: Hermes Agent has 9s in A2, C1 and F3, and T3 Code has 9s in C1 and C3. The best HCI is 75/100 (2026). No listed harness scores 10 in any dimension. A 10 requires evidence such as:
 
 - invariants and guardrails **formally verified**, not just tested;
 - cross-session learning with **measured** outcome improvement (not just memory);

@@ -26,9 +26,10 @@
 # DEEP HARNESS AUDIT — hermes-agent (linha-a-linha)
 
 **Data:** 2026-08-09 · **Modo:** read-only (grep/wc/read; nada executado nem alterado)
-**Alvo:** checkout local de `NousResearch/hermes-agent`. O número anterior "~10.2K ficheiros .py" é retirado. Não tem fonte. O SHA da primeira auditoria não foi registado. Uma árvore pública datada de 2026-08-09, commit `3bd844e`, tem 3.979 ficheiros `.py`. O commit da reauditoria `c69b647` tem 4.363 ficheiros `.py`. Não há uma reestruturação evidenciada de ~10.2K para ~4.4K.
+**Alvo:** checkout local de `NousResearch/hermes-agent` (Python). O SHA da primeira auditoria não foi registado. O número anterior de ~10.2K ficheiros `.py` é retirado por não ter fonte: a árvore pública no commit `3bd844e` (2026-08-09) tem 3.979 ficheiros `.py` e o commit da reauditoria `c69b647` tem 4.363. Não há evidência de uma reestruturação de ~10.2K para ~4.4K ficheiros.
 
-> **Reauditoria 2026-08-22, HEAD `c69b6471e6`.** Os scores por dimensão autoritativos estão na [tradução inglesa](DEEP-HARNESS-AUDIT-HERMES.en.md). O texto abaixo mantém a leitura de 2026-08-09, incluindo "zero evals". Essa frase está ultrapassada: em `c69b647` existe `evals/` e C2 é 7. O número "2.286 commits depois" não tem fonte pública e foi retirado.
+> **Reauditoria de 2026-08-22, HEAD `c69b6471e6`.** Os scores por dimensão que prevalecem estão na [tradução inglesa](DEEP-HARNESS-AUDIT-HERMES.en.md). O texto abaixo mantém a leitura de 2026-08-09, incluindo "zero evals"; essa frase está ultrapassada, porque em `c69b647` existe `evals/` e C2 é 7. O número "2.286 commits depois" é retirado por não ter fonte pública.
+
 **Metodologia:** taxonomia `harness-map.md` v1 · 5 auditorias paralelas de esmiuço (core loop, governação D1–D5, guias/contexto, gateway/cron, memória/custo) · consolidação única · evidência `path:line` verificada por leitura.
 **Relatório-fonte integral da governação:** relatório de consolidação da governação (55 KB, arquivo interno do projeto)
 

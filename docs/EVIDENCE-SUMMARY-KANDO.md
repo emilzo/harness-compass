@@ -1,15 +1,16 @@
-# Evidence Summary — Kando (not ranked)
+# Evidence Summary: Kando (not ranked)
 
 > **Conflict of interest.** Kando is built by the author of Harness Compass
 > (Emílio, @emilzo / DevFactoryAI). See `CLA.md`.
 >
-> **Public status: not ranked.** The scores below are an Estimate. The
-> line-by-line report is private. Kando is not in the ranking until a public
-> audit exists. Earlier text cited about 190K characters of evidence and 9
-> parallel audits. Those figures have no public source and are removed.
+> **Public status: not ranked.** The scores below are an Estimate and the
+> line-by-line report is private. Kando is not ranked until a public audit
+> exists. An earlier version of this summary cited about 190K characters of
+> evidence and 9 parallel audits; those figures are withdrawn because they have
+> no public source.
 >
-> Every `path:line` below is **unverifiable (private source)**. Readers cannot
-> check them against a public repository. They do not earn an Audited badge.
+> Every `path:line` below is **unverifiable (private source)**: readers cannot
+> check it against a public repository, and it does not earn an Audited badge.
 
 ## Scores (22 dimensions, 0–10)
 
@@ -73,5 +74,5 @@ Hermes scores (D1/D2). These notes are unverifiable (private source).
 
 The internal review used the same taxonomy as the Hermes audit
 ([references/harness-map.md](../references/harness-map.md)). Public readers
-cannot check the citations. Kando stays unranked until a line-by-line report
+cannot check the citations. Kando is not ranked until a line-by-line report
 is public.

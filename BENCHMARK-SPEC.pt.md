@@ -2,7 +2,7 @@
 
 [English](BENCHMARK-SPEC.md) · **Português**
 
-> **Pré-visualização de investigação do Harness Compass.** Já existem benchmarks de desempenho de scaffolds de agentes, incluindo o Terminal-Bench, o Coding Agent Index da Artificial Analysis e o HAL. O que falta aqui é uma vista baseada em evidência da arquitetura do harness. Essa vista é o scorecard de maturidade de arquitetura (HCI), separado deste ficheiro. Este ficheiro é a spec aberta do benchmark comportamental B1–B8 planeado. Qualquer harness pode correr os cenários e submeter métricas + logs. Os resultados precisam de revisão antes de entrarem num futuro leaderboard. O runner não está implementado.
+> **Pré-visualização de investigação do Harness Compass.** Já existem benchmarks de desempenho de scaffolds de agentes, incluindo o Terminal-Bench, o Coding Agent Index da Artificial Analysis e o HAL. O que não oferecem é uma vista baseada em evidência da arquitetura do harness. Essa vista é o scorecard de maturidade de arquitetura (HCI), separado deste ficheiro. Este ficheiro é a spec aberta do benchmark comportamental B1–B8 planeado; o runner não está implementado. Qualquer harness pode correr os cenários e submeter métricas + logs, e os resultados precisam de revisão antes de entrarem num futuro leaderboard.
 
 **Princípio:** um harness maduro é medido pelo comportamento sob stress, não por auto-declaração. Todos os cenários são reproduzíveis, read-only em relação ao repo auditado, e produzem métricas comparáveis.
 
@@ -31,14 +31,14 @@
 
 - **HCI (Harness Compass Index)** = maturidade arquitetural em 22 dimensões, lida no código e na evidência. Não é um benchmark de desempenho em tarefas. O HCI é exibido de 0–100, com dimensões de 0–10 na **rubrica v1** (ver `references/harness-map.md`). Qualquer re-norming futuro é versionado, nunca silencioso.
 - **Escalada de dificuldade:** os cenários B1–B8 são versionados e endurecem com o campo (payloads novos no B5, thresholds mais exigentes, B9+). É aqui que vive a curva de dificuldade de longo prazo; resultados citam sempre a versão da suite.
-- **HAC (Harness-Adjusted Cost)** = custo por tarefa medido, planeado via B8 mais preços. Não está implementado. A página mostra um custo mensal modelado. Essa vista não é o HAC e não é um custo por tarefa.
+- **HAC (Harness-Adjusted Cost)** = custo por tarefa medido a partir de execuções B8 mais preços. Está planeado e não está implementado. O custo mensal modelado da página não é o HAC nem um custo por tarefa.
 - **Benchmark comportamental** = os resultados B1–B8, apresentados em separado. Esses resultados podem pôr em causa o score arquitetural, mas não são misturados no HCI como se fossem a mesma evidência.
 
 ## Estado
 
 - [x] Taxonomia (22 dimensões) em uso
-- [x] Heurística local. Uma afirmação anterior de "erro médio ~1,6/dimensão" contra o Hermes não tinha fonte pública e foi retirada.
-- [x] Vista de custo mensal modelado na página (ilustrativa). Não é o B8 e não é um custo por tarefa medido.
+- [x] Heurística local
+- [x] Vista de custo mensal modelado na página (ilustrativa), que não é o B8 nem um custo por tarefa medido.
 - [ ] Harness de execução dos cenários (runner Python standalone)
 - [ ] Test set formal de prompt injection (B5)
 - [ ] Leaderboard público revisto

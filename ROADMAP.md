@@ -3,7 +3,7 @@
 **English** · [Português](ROADMAP.pt.md)
 
 Legend: `[x]` = done and verified · `[ ]` = to do
-Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regression.mjs`) · HCI 0–100 (rubric v1) · **Live: https://emilzo.github.io/harness-compass/** · A previous "Lighthouse 98/100/100/100" line had no report in this repo and is removed.
+Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regression.mjs`) · HCI 0–100 (rubric v1) · **Live: https://emilzo.github.io/harness-compass/**
 
 ## Phase 0 — Foundation ✅
 - [x] Single-file app, works offline (`index.html`; jsdom only as a test devDependency)
@@ -11,7 +11,7 @@ Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regr
 - [x] Ranking with scores, HCI (Harness Compass Index) and provenance badges
 - [x] Taxonomy map (interactive A–F view)
 - [x] Weighted recommendation quiz
-- [x] Cost calculator + modelled monthly cost view (illustrative, two labelled results). Not a measured cost per task.
+- [x] Cost calculator + modelled monthly cost view (illustrative, two labelled results), not a measured cost per task.
 - [x] Live OpenRouter prices at runtime (no credentials, CORS-friendly)
 - [x] Local in-browser audit: reads up to 300 files from a folder, 100% local, no upload
 - [x] JSON export with original heuristic + adjusted-dimensions counter
@@ -19,7 +19,7 @@ Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regr
 
 ## Phase 1 — Globalization ✅
 - [x] Complete EN + PT i18n
-- [x] FR/DE/ZH/HI dictionaries. An earlier "6 languages at 330/330 keys, no EN fallback" claim was wrong (`check-i18n.js` did not require those four languages to be complete). Do not freeze a key count. Run `node check-i18n.js`.
+- [x] FR/DE/ZH/HI dictionaries (missing labels fall back to English). Run `node check-i18n.js` for current coverage.
 - [x] 6-language selector + persistence (localStorage) + automatic EN fallback
 - [x] `check-i18n.js` as a mandatory norm — EN **and PT** keys (exit 1 if missing), table-driven keys (dim/imp/quiz/lv/blurb/dom), placeholders consistent across languages, orphans, duplicates, `LANGUAGES` vs dictionary blocks, `esc()` in attributes, content allowlist with zero warnings
 - [x] Light/dark theme with persistence and fixed contrast (incl. donut/radar on theme variables)
@@ -31,15 +31,15 @@ Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regr
 - [x] `scripts/snapshot-models.mjs` + GitHub Actions workflow (daily cron)
 - [x] `docs/models/` dataset (378 real models with prices — first snapshot)
 - [x] External reviews closed: 15 findings + 6 new (N1–N6) + a final 21-finding triple check — all fixed with verification
-- [x] jsdom regression suite in `test/regression.mjs` (quiz, language replay, audit, cache, picker, re-entrancy, OpenRouter widgets, CTA, pills, SVG theme, keyboard, retranslatable status, dataset enforcement audited→evidence, modelled cost, audited-only default ranking). An earlier "23/23" status line is outdated. Do not freeze a count here.
+- [x] jsdom regression suite in `test/regression.mjs` (quiz, language replay, audit, cache, picker, re-entrancy, OpenRouter widgets, CTA, pills, SVG theme, keyboard, retranslatable status, dataset enforcement audited→evidence, modelled cost, audited-only default ranking)
 - [x] CI (`.github/workflows/ci.yml`): `npm test` (check-i18n + suite) on every push/PR
 - [x] Privacy verified: Clear releases cache/meta/closures (~2 MB); picker re-entrancy safe
-- [x] Accessibility: `main` landmark, aria-labels, keyboard on tables, `prefers-reduced-motion` (CSS + JS), `for=` labels. A previous "Lighthouse A11y 100" claim had no report in this repo and is removed.
+- [x] Accessibility: `main` landmark, aria-labels, keyboard on tables, `prefers-reduced-motion` (CSS + JS), `for=` labels
 - [x] SEO/social: meta description, Open Graph + Twitter Card, 1200×630 social card, favicon, dynamic theme-color
-- [x] **Saturation-proof scale (pre-launch decision):** HCI displayed **0–100** (dimensions keep the 0–10 rubric, now **v1**). A 10 is still unmet (formal verification, measured learning, a reviewed B1–B8 run, cost optimality against a baseline). Scores of 9 exist: Hermes Agent A2, C1, F3; T3 Code C1, C3. Best current HCI: 75. Future re-norming is versioned (v2, never silent). The long-term difficulty curve lives in the versioned B1–B8 scenarios.
+- [x] **Saturation-proof scale (pre-launch decision):** HCI displayed **0–100** (dimensions keep the 0–10 rubric, now **v1**). No listed harness scores 10 in any dimension; a 10 needs formal verification, measured learning, a reviewed B1–B8 run, or cost optimality against a baseline. Scores of 9 exist: Hermes Agent A2, C1, F3; T3 Code C1, C3. Best current HCI: 75. Future re-norming is versioned (v2, never silent). The long-term difficulty curve lives in the versioned B1–B8 scenarios.
 
 ## Phase 3 — Publication ✅ (site live 2026-08-10; anchor article pending)
-- [x] **Evidence decision (external review P0) — resolved:** Hermes report **published in full in English and Portuguese** (`docs/DEEP-HARNESS-AUDIT-HERMES.en.md` + Portuguese original) · Kando is the author's own product (DevFactoryAI) and is **not ranked** until a public audit exists. Public summary: `docs/EVIDENCE-SUMMARY-KANDO.md`. The line-by-line report is private.
+- [x] **Evidence decision (external review P0), resolved:** Hermes report **published in full in English and Portuguese** (`docs/DEEP-HARNESS-AUDIT-HERMES.en.md` + Portuguese original) · Kando is the author's own product (DevFactoryAI) and is **not ranked** until a public audit exists. Public summary: `docs/EVIDENCE-SUMMARY-KANDO.md`. The line-by-line report is private.
 - [x] `evidence` field on `audited:true` harnesses — the audit line in the detail card links to the report
 - [x] **Submission confidentiality policy** (README §Integrity 5 + BENCHMARK-SPEC §5): submitters may request a private audit — report goes only to the submitter, outside the public ranking/leaderboard; the public badge requires published evidence
 - [x] GitHub repo + push (`emilzo/harness-compass`) with history cleaned of internal docs
@@ -83,10 +83,10 @@ Last update: 2026-09-28 · Code status: `npm test` (`check-i18n.js` + `test/regr
 
 ## Future triggers (decide when they happen, not before)
 - [ ] **Ranking scale** — trigger ~30–50 entries: search + pagination in the table and tiers as separate views (Audited/Benchmarked/Estimates). Architecture note: the local audit is private and ephemeral (session memory, no upload) — the shared ranking ONLY grows through the editorial pipeline, so "thousands of rows" cannot happen by accident
-- [ ] **Written notability policy** — trigger: submission queue > sign-off capacity. The ranking is a curated architecture maturity scorecard, not a directory: entries need real-world usage / identifiable vendor / living project; the rest lives in the local audit or as unlisted estimates. Tied scores are separated by the B1–B8 behaviour benchmark when that runner exists, not by more rows.
+- [ ] **Written notability policy** (trigger: submission queue > sign-off capacity). The ranking is a curated architecture maturity scorecard, not a directory: entries need real-world usage / identifiable vendor / living project; the rest lives in the local audit or as unlisted estimates. Tied scores are separated by the B1–B8 behaviour benchmark when that runner exists, not by more rows.
 - [ ] Data as data (`data/harnesses/*.json`, `locales/*.json`) — trigger: first real external contribution
 - [ ] Vite + TypeScript + render-from-state migration — trigger: leaderboard / team growth
-- [ ] Product decision still open: whether to lower the `min()` caps in `harnessEff` (cache 0.85, avoided failures 0.60, compression 0.60, routing 0.95). Those caps are unchanged. With the current coefficients the reachable rates are cache up to 70%, avoided failures up to 50%, compression up to 45%, and routing from 0% to 65% (`0.65 × A1/10`, no 30% floor). UI text states both the reachable rates and the unused caps.
+- [ ] Product decision: whether to lower the `min()` caps in `harnessEff` (cache 0.85, avoided failures 0.60, compression 0.60, routing 0.95). With the current coefficients these caps are not reached. Reachable rates are cache up to 70%, avoided failures up to 50%, compression up to 45%, and routing from 0% to 65% (`0.65 × A1/10`). The UI states the reachable rates; the caps are listed in the README section Cost model assumptions.
 
 ## Recorded without fixing (minor, documented in the reviews)
 - `md_stable` shows the last-visit date, not the true start of stability

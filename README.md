@@ -6,7 +6,7 @@
 
 **Research Preview v0.1**
 
-**An evidence-based architecture maturity scorecard for AI agent harnesses.** The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. The scorecard compares architecture maturity. The planned B1–B8 behaviour benchmark stays separate and is not implemented. Performance benchmarks of agent scaffolds already exist, including [Terminal-Bench](https://www.tbench.ai/leaderboard), the [Artificial Analysis Coding Agent Index](https://artificialanalysis.ai/agents/coding-agents), and [HAL](https://hal.cs.princeton.edu/).
+**An evidence-based architecture maturity scorecard for AI agent harnesses.** The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. The scorecard compares architecture maturity; the planned B1–B8 behaviour benchmark is separate and not implemented. Performance benchmarks of agent scaffolds already exist, including [Terminal-Bench](https://www.tbench.ai/leaderboard), the [Artificial Analysis Coding Agent Index](https://artificialanalysis.ai/agents/coding-agents), and [HAL](https://hal.cs.princeton.edu/).
 
 > "Loops coordinate. Harnesses guide, execute, verify and decide. Models generate."
 
@@ -15,12 +15,12 @@
 A single-page web app (zero runtime dependencies, zero build, jsdom exists only as a devDependency of the test suite) with 8 views:
 
 1. **Paradigm**: why the harness decides how much of your token money is wasted.
-2. **Ranking**: harnesses scored across **22 dimensions** with the **HCI (Harness Compass Index) 0–100** (dimensions scored 0–10 on maturity rubric **v1**). A score of 10 is still unmet: formal verification, learning with measured outcomes, a reviewed B1–B8 run, or cost optimality against a baseline. Scores of 9 exist. Hermes Agent has 9s in A2, C1 and F3. T3 Code has 9s in C1 and C3. The best current HCI is 75. The default list shows audited entries only. Estimate entries are behind a control, have no rank position, and carry a note on how they were assigned. Radar fingerprint and donut; sortable, filterable by domain and by provenance. HCI is an architecture maturity scorecard. It is not a task-performance benchmark. AUDITED / PRELIMINARY / ESTIMATE / LOCAL are always kept separate.
-3. **Modelled cost (illustrative)**: one assumed monthly token workload, shown as two results. (a) Premium model only: cache, compression and avoided-failure assumptions, no routing. (b) With routing to the economy model, labelled as such. Units are dollars per month. This is not a measurement and not a cost per task. Measured cost per task is planned in the B8 scenario runner and is not implemented. Default volumes and prices are assumptions. See [Cost model assumptions](#cost-model-assumptions).
+2. **Ranking**: harnesses scored across **22 dimensions** with the **HCI (Harness Compass Index) 0–100** (dimensions scored 0–10 on maturity rubric **v1**). No listed harness scores 10 in any dimension; a 10 requires evidence such as formal verification, learning with measured outcomes, a reviewed B1–B8 run, or cost optimality against a baseline. Scores of 9 exist: Hermes Agent has 9s in A2, C1 and F3, and T3 Code has 9s in C1 and C3. The best current HCI is 75. The default list shows audited entries only. Estimate entries are behind a control, are not ranked, and carry a note on how they were assigned. Radar fingerprint and donut; sortable, filterable by domain and by provenance. HCI is the composite index of this architecture maturity scorecard, not a task-performance benchmark. AUDITED / PRELIMINARY / ESTIMATE / LOCAL are always kept separate.
+3. **Modelled cost (illustrative)**: one assumed monthly token workload, shown as two results in dollars per month: (a) premium model only, with cache, compression and avoided-failure assumptions and no routing; (b) with routing to the economy model. It is a model, not a measurement and not a cost per task. Measured cost per task is planned in the B8 scenario runner, which is not implemented. Default volumes and prices are assumptions; see [Cost model assumptions](#cost-model-assumptions).
 4. **Harness Map**: the full taxonomy (6 domains × 22 dimensions).
 5. **📂 Audit a local repo**: open a repo folder; heuristic analysis of the 22 dimensions with justifications, adjustable sliders (adjustments stay flagged, integrity), improvement plan, add-to-ranking and JSON export. Your code stays in the browser and is not uploaded.
 6. **Decision quiz**: 6 questions weight the dimensions by your profile and recommend the top 3 with justification.
-7. **Calculator**: the same assumed monthly workload, with separate results for the premium model only and for routing to the economy model. Slider defaults are assumptions.
+7. **Calculator**: the same assumed monthly workload, with two separate results: premium model only, and with routing to the economy model. Slider defaults are assumptions.
 8. **Method & evidence**: maturity scale, integrity, how the local audit works, case studies.
 
 The open behavioural benchmark spec (B1–B8 scenarios, submission protocol and a future reviewed leaderboard) lives in `BENCHMARK-SPEC.md`. It is separate from the HCI architecture score.
@@ -55,16 +55,16 @@ The price of an LLM is not the model's price. It's the model's price **times the
 - No byte-stable caching → you pay for the same prefix over and over.
 - No smart retry/fallback → transient failures become dead calls and dev time.
 - No compression → long conversations blow the window and lose context.
-- No routing → every call uses the premium price in this model.
+- No routing → in the cost model, every call is billed at the premium price.
 
-This project does not claim that a strong harness makes a cheaper model match a more expensive one. The links above are task benchmarks of agent scaffolds. They are not evidence for that claim.
+This project does not claim that a strong harness makes a cheaper model match a more expensive one. The benchmarks linked above compare agent scaffolds on tasks and are not evidence for that claim.
 
 ## Data status
 
 | Harness | Status | Note |
 |---|---|---|
 | Hermes Agent (Nous Research) | ✅ Audited | 22 dimensions, file:line evidence. see `docs/` |
-| Kando (DevFactoryAI) | Author's own product, not ranked | Built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI). See CLA.md. Estimate scores. The line-by-line report is private. Not in the ranking until a public audit exists. |
+| Kando (DevFactoryAI) | Author's own product (not ranked) | Built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI); see CLA.md. Estimate scores; the line-by-line report is private. Not ranked until a public audit exists. |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimate | informed assessment, to be validated by audit |
 
 ## How to read the results
@@ -117,28 +117,28 @@ An internal or private audit can inform an **Estimate**, but it does not earn th
 1. **Local audit** (Preliminary badge) → first cut in minutes.
 2. **Improvement plan** → the Compass points out the gaps (dimensions < 6) with proven patterns and L1–L5 maturity levels ("what's missing, what to do").
 3. **Full audit** (Audited badge) → definitive scores with evidence.
-4. **Recalibration** → each pair (heuristic vs audited) can be compared. A previous note claimed a mean error of about 1.6 per dimension against Hermes. That figure has no public source and is removed. The heuristic is not calibrated against a published error table.
+4. **Recalibration** → each pair (heuristic vs audited) can be compared. The heuristic is not calibrated against a published error table.
 5. **Knowledge base** → every new pattern enters `IMPROVEMENT_PATTERNS` and benefits all future harnesses.
 
 ## Method
 
 - **Taxonomy:** 6 domains × 22 dimensions (A Core · B Guides · C Sensors · D Governance ★ · E Learning · F Operations).
-- **0–10 scale per dimension (rubric v1):** 0 = doesn't exist (proven) · 2 = trace · 4 = simple case · 6 = integrated with gaps · 8 = solid with tests · 9 = high, and in use (Hermes Agent A2, C1, F3; T3 Code C1, C3) · 10 = unmet frontier (formally verified invariants, learning with measured outcomes, a reviewed B1–B8 run, cost optimality against a baseline). The HCI displays the average ×10 (0–100). The best current HCI is 75. Future re-norming is versioned (v2), never silent. See `references/harness-map.md`.
+- **0–10 scale per dimension (rubric v1):** 0 = doesn't exist (proven) · 2 = trace · 4 = simple case · 6 = integrated with gaps · 8 = solid with tests · 9 = high, in use (Hermes Agent A2, C1, F3; T3 Code C1, C3) · 10 = frontier, not reached by any listed harness (formally verified invariants, learning with measured outcomes, a reviewed B1–B8 run, cost optimality against a baseline). The HCI displays the average ×10 (0–100). The best current HCI is 75. Future re-norming is versioned (v2), never silent. See `references/harness-map.md`.
 - **Evidence:** read-only audits; every claim cites a verified `path:line`; absences proven by search; coverage declared.
 - **Mandatory focus:** domain D, governance, judgment, compliance, guardrails.
 
 ## Case studies
 
 - `docs/DEEP-HARNESS-AUDIT-HERMES.en.md` line-by-line deep audit of Hermes, **published in full in English** (15 findings, KPIs, 15 portable patterns, 10 recommendations), an architecture review of an open-source project, published as a courtesy and as proof of method. The [Portuguese original](docs/DEEP-HARNESS-AUDIT-HERMES.md) remains available.
-- `docs/EVIDENCE-SUMMARY-KANDO.md` public summary of a private review. Kando is built by the author of Harness Compass (DevFactoryAI). It is not ranked. Every `path:line` in that summary is unverifiable (private source).
+- `docs/EVIDENCE-SUMMARY-KANDO.md` public summary of a private audit. Kando is built by the author of Harness Compass (DevFactoryAI) and is not ranked. Every `path:line` in that summary is unverifiable (private source).
 
 ## Disclosure
 
-Kando is built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI). See `CLA.md`. It is not in the ranking until a public audit exists. Improvement-plan patterns that cite Kando files are marked unverifiable (private source).
+Kando is built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI); see `CLA.md`. It is not ranked until a public audit exists. Improvement-plan patterns that cite Kando files are marked unverifiable (private source).
 
 ## Cost model assumptions
 
-The coefficients 0.7 (cache), 0.5 (avoided failures), 0.45 (compression) and 0.65 (routing) have no published measurement. They are assumptions. Cache is applied after compression. Compression reduces the volume sent. Cache then splits that volume into cached reads and uncached input. The two rates are treated as independent. That is also an assumption. Cached reads cost 0.1 times the input price, the factor Anthropic publishes for prompt-cache reads (https://platform.claude.com/docs/en/build-with-claude/prompt-caching). It is not a measured bill for these harnesses. Cache-write premiums are not modelled. Default volumes: 200 million input tokens and 20 million output tokens per month. Default prices: $0.14 and $0.42 (economy) and $3 and $15 (premium) per million tokens. The models are not named and the prices are not dated. Calculator controls start at 55/25/30/70. Those are assumptions too. Routing is `0.65 × A1/10`. A score of 0 routes nothing. The `min()` caps in `harnessEff` are unchanged (0.85, 0.60, 0.60, 0.95) and are not reached by the current coefficients. Reachable rates are cache up to 70%, avoided failures up to 50%, compression up to 45%, routing from 0% to 65%. Measured cost per task is planned in the B8 scenario runner and is not implemented.
+The coefficients 0.7 (cache), 0.5 (avoided failures), 0.45 (compression) and 0.65 (routing) are assumptions with no published measurement. Cache is applied after compression: compression reduces the volume sent, then cache splits that volume into cached reads and uncached input. Treating the two rates as independent is also an assumption. Cached reads cost 0.1 times the input price, the factor Anthropic publishes for prompt-cache reads (https://platform.claude.com/docs/en/build-with-claude/prompt-caching); this is a published price factor, not a measured bill for these harnesses. Cache-write premiums are not modelled. Default volumes are 200 million input tokens and 20 million output tokens per month. Default prices per million tokens are $0.14 (input) and $0.42 (output) for the economy model, and $3 (input) and $15 (output) for the premium model. The models are not named and the prices are not dated. The calculator controls start at 55/25/30/70 (cache, avoided failures, compression, routing), which are also assumptions. Routing is `0.65 × A1/10`, so a score of 0 routes nothing. The `min()` caps in `harnessEff` (cache 0.85, avoided failures 0.60, compression 0.60, routing 0.95) are not reached with the current coefficients. Reachable rates are cache up to 70%, avoided failures up to 50%, compression up to 45%, and routing from 0% to 65%. Measured cost per task is planned in the B8 scenario runner, which is not implemented.
 
 ## License and integrity
 
@@ -148,7 +148,7 @@ The coefficients 0.7 (cache), 0.5 (avoided failures), 0.45 (compression) and 0.6
 
 ## Internationalization (i18n)
 
-Language selector at the top. **English is the norm**, with Portuguese, French, German, Mandarin and Hindi. The dictionary lives at the top of `index.html` (`const T = {...}`). A missing label in another language falls back to English. An earlier claim that all six languages were complete at 330 keys was wrong. Do not freeze a key count here. Run `node check-i18n.js`. **To add a new language:** copy the `pt:{...}` block, translate the values and update the `LANGUAGES` selector.
+Language selector at the top. **English is the norm**, with Portuguese, French, German, Mandarin and Hindi. The dictionary lives at the top of `index.html` (`const T = {...}`). A missing label in another language falls back to English; `node check-i18n.js` checks keys and placeholders. **To add a new language:** copy the `pt:{...}` block, translate the values and update the `LANGUAGES` selector.
 
 **Light/dark theme:** ☀️/🌙 button at the top — respects the system preference on first visit and remembers your choice (localStorage).
 

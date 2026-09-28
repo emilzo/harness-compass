@@ -2,7 +2,7 @@
 
 **English** · [Português](BENCHMARK-SPEC.pt.md)
 
-> **Harness Compass research preview.** Performance benchmarks of agent scaffolds already exist, including Terminal-Bench, the Artificial Analysis Coding Agent Index, and HAL. What is missing here is an evidence-based view of harness architecture. That view is the architecture maturity scorecard (HCI), which is separate from this file. This file is an open spec for the planned B1–B8 behaviour benchmark. Any harness can run the scenarios and submit metrics + logs. Results need review before they enter a future leaderboard. The runner is not implemented.
+> **Harness Compass research preview.** Performance benchmarks of agent scaffolds already exist, including Terminal-Bench, the Artificial Analysis Coding Agent Index, and HAL. What they do not provide is an evidence-based view of harness architecture. That view is the architecture maturity scorecard (HCI), which is separate from this file. This file is an open spec for the planned B1–B8 behaviour benchmark; the runner is not implemented. Any harness can run the scenarios and submit metrics + logs, and results need review before they enter a future leaderboard.
 
 **Principle:** a mature harness is measured by behavior under stress, not by self-declaration. All scenarios are reproducible, read-only with respect to the audited repo, and produce comparable metrics.
 
@@ -31,14 +31,14 @@
 
 - **HCI (Harness Compass Index)** = architectural maturity across 22 dimensions, read from code and evidence. It is not a task-performance benchmark. HCI is displayed 0–100, with dimensions scored 0–10 on **rubric v1** (see `references/harness-map.md`). Future re-norming is versioned, never silent.
 - **Difficulty escalation:** the B1–B8 scenarios are versioned and harden with the field (new B5 payloads, stricter thresholds, B9+), this is where the long-term difficulty curve lives; results always cite the suite version.
-- **HAC (Harness-Adjusted Cost)** = measured cost per task, planned via B8 plus prices. It is not implemented. The page shows a modelled monthly cost. That view is not HAC and not a cost per task.
+- **HAC (Harness-Adjusted Cost)** = measured cost per task from B8 runs plus prices. It is planned and not implemented. The modelled monthly cost on the page is not HAC and not a cost per task.
 - **Behaviour benchmark** = the separate B1–B8 results. Those results can challenge the architecture score, but they are not folded into HCI as if they were the same evidence.
 
 ## Status
 
 - [x] Taxonomy (22 dimensions) in use
-- [x] Local heuristic. A previous "mean error ~1.6/dimension" claim against Hermes had no public source and is removed.
-- [x] Modelled monthly cost view on the page (illustrative). It is not B8 and not a measured cost per task.
+- [x] Local heuristic
+- [x] Modelled monthly cost view on the page (illustrative), not B8 and not a measured cost per task.
 - [ ] Scenario execution harness (standalone Python runner)
 - [ ] Formal prompt-injection test set (B5)
 - [ ] Reviewed public leaderboard

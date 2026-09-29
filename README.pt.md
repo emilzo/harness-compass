@@ -93,9 +93,9 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 
 **Pergunta legítima: não pode alguém mexer nos pesos, guardar e rankear em primeiro?** Resposta: na sessão local de cada pessoa, sim e é irrelevante, porque o ranking *oficial* não vem dos browsers das pessoas. É assim que funciona:
 
-1. **O ranking oficial vive no repo**: o array `HARNESSES` em `index.html`. Entra por **PR revisto**, não por download.
+1. **O ranking oficial vive no repo**: o array `HARNESSES` em `index.html`. Entra por **PR revisto**, nunca a partir de um export local.
 2. **O badge AUDITADO exige relatório**: evidência `path:line` real, como os que estão em `docs/`. Sem relatório, sem badge.
-3. **Tudo o que adicionas localmente fica marcado LOCAL**: e qualquer ajuste manual aos sliders fica **visível**: contador de "⚠ N dimensões ajustadas" no badge, e o export JSON carrega a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
+3. **Tudo o que adicionas localmente fica marcado LOCAL**, e qualquer ajuste manual aos sliders fica **visível**. O badge mostra um contador "⚠ N ajustadas", em que N é o número de dimensões que mudaste, e o export JSON inclui a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
 4. **O princípio não é impedir a mentira, é torná-la visível.**: Quem abre o ranking vê imediatamente o que é verificado, o que é estimativa e o que foi mexido à mão.
 5. **Confidencialidade a pedido de quem submete.**: Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente**, a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta. Seria exatamente a claim sem prova que este projeto denuncia). A via privada existe como serviço de consultoria e começa por [email](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass), nunca num issue público. Não envies código privado antes de combinarmos uma forma segura de transferência. A via pública dá o badge e o lugar no ranking.
 

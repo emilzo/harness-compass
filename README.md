@@ -91,20 +91,13 @@ An internal or private audit can inform an **Estimate**, but it does not earn th
 
 ## Ranking integrity (how "for real" works)
 
-**Fair question: can't someone tweak the weights, save, and rank first?** Answer: in their own local session, yes and it's irrelevant, because the *official* ranking doesn't come from people's browsers. Here's how it works:
+**Fair question: can't someone tweak the weights, save, and rank first?** In their own local session, yes, and it doesn't matter, because the *official* ranking doesn't come from anyone's browser. Here's how it works:
 
-1. **The official ranking lives in the repo**: the `HARNESSES` array in `index.html`. Entries come in through a **reviewed PR**, not through a download.
-2. **The AUDITED badge requires a report**: real `path:line` evidence, like the ones in `docs/`. No report, no badge.
-3. **Everything you add locally stays marked LOCAL**: and any manual slider adjustment stays **visible**: a "⚠ N dimensions adjusted" counter on the badge, and the JSON export carries the provenance (`meta.heuristica` = what the analysis detected vs what you changed).
-4. **The principle isn't preventing lies.
-5.
-6.
-7.
-8.
-9.
-10.
-11. It's making them visible.** Anyone opening the ranking immediately sees what is verified, what is an estimate, and what was hand-tuned.
-12. **Confidentiality at the submitter's request.** Whoever submits a harness for audit may ask that it **not be revealed publicly** the choice is the submitter's. In that case the audit is private: the report is delivered only to the submitter and the harness **does not enter the public ranking**, because the public AUDITED badge requires published evidence (no public badge with secret proof that would be exactly the claim-without-evidence this project calls out). The private track exists as a consulting service and starts by [email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), never in a public issue. Do not send private code until a safe transfer method has been agreed. The public track earns the badge and the ranking spot.
+1. **The official ranking lives in the repo**: the `HARNESSES` array in `index.html`. Entries come in through a **reviewed PR**, never from someone's local export.
+2. **The AUDITED badge requires a report** with `path:line` evidence, like the reports in `docs/`. No report, no badge.
+3. **Everything you add locally stays marked LOCAL**, and any manual slider adjustment stays **visible**. The badge shows a "⚠ N adjusted" counter, where N is the number of dimensions you changed, and the JSON export carries the provenance (`meta.heuristica` = what the analysis detected vs what you changed).
+4. **The design makes tampering visible.** Anyone opening the ranking can see what is verified, what is an estimate, and what was hand-tuned.
+5. **Confidentiality at the submitter's request.** Whoever submits a harness for audit may ask to keep it **out of public view**. In that case the audit is private: only the submitter receives the report, and the harness **does not enter the public ranking**, because the public AUDITED badge requires published evidence. A public badge backed by secret proof would be exactly the claim-without-evidence this project calls out. The private track is a consulting service and starts by [email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), never in a public issue. Do not send private code until we have agreed on a safe way to transfer it. The public track earns the badge and the ranking spot.
 
 **The honest path to ranking a harness:**
 1. Audit the folder → Preliminary badge (analysis justifications only)

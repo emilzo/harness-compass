@@ -4,7 +4,7 @@
 so. To keep the project sustainable, its steward must retain the ability to
 license the codebase under other terms as well, for example dual-licensing
 parts of it into commercial certification and monitoring tooling that funds the
-free, public benchmark. This agreement makes that possible while **you keep the
+free, public architecture maturity scorecard. This agreement makes that possible while **you keep the
 copyright to your contribution**.
 
 By submitting a Contribution to this repository (pull request, or content

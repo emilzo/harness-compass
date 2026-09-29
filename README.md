@@ -6,7 +6,7 @@
 
 **Research Preview v0.1**
 
-**The evidence-based audit and decision layer for AI agent harnesses.** The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. The goal is simple: audit the architecture, compare maturity, measure cost, and keep behaviour benchmarks separate. Then you can **choose the right harness** and see when a strong harness lets **cheap LLMs get there**.
+**An evidence-based architecture maturity scorecard for AI agent harnesses.** The harness is everything that isn't the model: guides, loop, tools, permissions, sandbox, verification, observability, cost. The scorecard compares architecture maturity; the planned B1–B8 behaviour benchmark is separate and not implemented. Performance benchmarks of agent scaffolds already exist, including [Terminal-Bench](https://www.tbench.ai/leaderboard), the [Artificial Analysis Coding Agent Index](https://artificialanalysis.ai/agents/coding-agents), and [HAL](https://hal.cs.princeton.edu/).
 
 > "Loops coordinate. Harnesses guide, execute, verify and decide. Models generate."
 
@@ -15,12 +15,12 @@
 A single-page web app (zero runtime dependencies, zero build, jsdom exists only as a devDependency of the test suite) with 8 views:
 
 1. **Paradigm**: why the harness decides how much of your token money is wasted.
-2. **Ranking**: harnesses scored across **22 dimensions** with the **HCI (Harness Compass Index) 0–100** (dimensions scored 0–10 on maturity rubric **v1**, with frontier anchors: the 9–10 band requires criteria no current harness meets today's best sits at 75), radar fingerprint and donut; sortable, filterable by domain and by provenance (integrity). HCI measures architectural maturity from code and evidence. It is not a task-performance benchmark. AUDITED / PRELIMINARY / ESTIMATE / LOCAL are always kept separate.
-3. **💰 Real cost**: *Same Model, Different Harness*: the same workload, the same model, through each harness → **real cost per task (harness-adjusted)** with cache/retry/routing derived from the scores, live OpenRouter prices and a cost ranking. It's Artificial Analysis' "Cost per Task" applied to the layer.
+2. **Ranking**: harnesses scored across **22 dimensions** with the **HCI (Harness Compass Index) 0–100** (dimensions scored 0–10 on maturity rubric **v1**). No listed harness scores 10 in any dimension; a 10 requires evidence such as formal verification, learning with measured outcomes, a reviewed B1–B8 run, or cost optimality against a baseline. Scores of 9 exist: Hermes Agent has 9s in A2, C1 and F3, and T3 Code has 9s in C1 and C3. The best current HCI is 75. The default list shows audited entries only. Estimate entries are behind a control, are not ranked, and carry a note on how they were assigned. Radar fingerprint and donut; sortable, filterable by domain and by provenance. HCI is the composite index of this architecture maturity scorecard, not a task-performance benchmark. AUDITED / PRELIMINARY / ESTIMATE / LOCAL are always kept separate.
+3. **Modelled cost (illustrative)**: one assumed monthly token workload, shown as two results in dollars per month: (a) premium model only, with cache, compression and avoided-failure assumptions and no routing; (b) with routing to the economy model. It is a model, not a measurement and not a cost per task. Measured cost per task is planned in the B8 scenario runner, which is not implemented. Default volumes and prices are assumptions; see [Cost model assumptions](#cost-model-assumptions).
 4. **Harness Map**: the full taxonomy (6 domains × 22 dimensions).
 5. **📂 Audit a local repo**: open a repo folder; heuristic analysis of the 22 dimensions with justifications, adjustable sliders (adjustments stay flagged, integrity), improvement plan, add-to-ranking and JSON export. Your code stays in the browser and is not uploaded.
 6. **Decision quiz**: 6 questions weight the dimensions by your profile and recommend the top 3 with justification.
-7. **Savings calculator**: how much you save per month in tokens with cache, retry, compression and routing.
+7. **Calculator**: the same assumed monthly workload, with two separate results: premium model only, and with routing to the economy model. Slider defaults are assumptions.
 8. **Method & evidence**: maturity scale, integrity, how the local audit works, case studies.
 
 The open behavioural benchmark spec (B1–B8 scenarios, submission protocol and a future reviewed leaderboard) lives in `BENCHMARK-SPEC.md`. It is separate from the HCI architecture score.
@@ -55,16 +55,16 @@ The price of an LLM is not the model's price. It's the model's price **times the
 - No byte-stable caching → you pay for the same prefix over and over.
 - No smart retry/fallback → transient failures become dead calls and dev time.
 - No compression → long conversations blow the window and lose context.
-- No routing → you pay the expensive model for tasks the cheap one solves.
+- No routing → in the cost model, every call is billed at the premium price.
 
-A strong harness (Hermes, Kando, Claude, Codex and the mature coding agents) **can materially change the perfomance and real cost of the same model - sometimes enough to change the optimal model choice**.
+This project does not claim that a strong harness makes a cheaper model match a more expensive one. The benchmarks linked above compare agent scaffolds on tasks and are not evidence for that claim.
 
 ## Data status
 
 | Harness | Status | Note |
 |---|---|---|
 | Hermes Agent (Nous Research) | ✅ Audited | 22 dimensions, file:line evidence. see `docs/` |
-| Kando (DevFactoryAI) | 🔶 Estimate | internally audited; preparing for go-to-market; the line-by-line report is not public |
+| Kando (DevFactoryAI) | Author's own product (not ranked) | Built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI); see CLA.md. Estimate scores; the line-by-line report is private. Not ranked until a public audit exists. |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimate | informed assessment, to be validated by audit |
 
 ## How to read the results
@@ -117,20 +117,28 @@ An internal or private audit can inform an **Estimate**, but it does not earn th
 1. **Local audit** (Preliminary badge) → first cut in minutes.
 2. **Improvement plan** → the Compass points out the gaps (dimensions < 6) with proven patterns and L1–L5 maturity levels ("what's missing, what to do").
 3. **Full audit** (Audited badge) → definitive scores with evidence.
-4. **Recalibration** → each pair (heuristic vs audited) is compared and the heuristic's weights get sharper (validated against Hermes: mean error ~1.6/dimension).
+4. **Recalibration** → each pair (heuristic vs audited) can be compared. The heuristic is not calibrated against a published error table.
 5. **Knowledge base** → every new pattern enters `IMPROVEMENT_PATTERNS` and benefits all future harnesses.
 
 ## Method
 
 - **Taxonomy:** 6 domains × 22 dimensions (A Core · B Guides · C Sensors · D Governance ★ · E Learning · F Operations).
-- **0–10 scale per dimension (rubric v1):** 0 = doesn't exist (proven) · 2 = trace · 4 = simple case · 6 = integrated with gaps · 8 = solid with tests · 9–10 = **frontier** (formally verified invariants, learning with measured outcomes, B1–B8 behavioral proof no current harness gets there). The HCI displays the average ×10 (0–100); future re-norming is versioned (v2), never silent — see `references/harness-map.md`.
+- **0–10 scale per dimension (rubric v1):** 0 = doesn't exist (proven) · 2 = trace · 4 = simple case · 6 = integrated with gaps · 8 = solid with tests · 9 = high, in use (Hermes Agent A2, C1, F3; T3 Code C1, C3) · 10 = frontier, not reached by any listed harness (formally verified invariants, learning with measured outcomes, a reviewed B1–B8 run, cost optimality against a baseline). The HCI displays the average ×10 (0–100). The best current HCI is 75. Future re-norming is versioned (v2), never silent. See `references/harness-map.md`.
 - **Evidence:** read-only audits; every claim cites a verified `path:line`; absences proven by search; coverage declared.
 - **Mandatory focus:** domain D, governance, judgment, compliance, guardrails.
 
 ## Case studies
 
 - `docs/DEEP-HARNESS-AUDIT-HERMES.en.md` line-by-line deep audit of Hermes, **published in full in English** (15 findings, KPIs, 15 portable patterns, 10 recommendations), an architecture review of an open-source project, published as a courtesy and as proof of method. The [Portuguese original](docs/DEEP-HARNESS-AUDIT-HERMES.md) remains available.
-- `docs/EVIDENCE-SUMMARY-KANDO.md` Kando's public **evidence summary**. Kando was audited internally and is preparing for go-to-market, but remains an **Estimate** in the public ranking because the full line-by-line report and source are not public.
+- `docs/EVIDENCE-SUMMARY-KANDO.md` public summary of a private audit. Kando is built by the author of Harness Compass (DevFactoryAI) and is not ranked. Every `path:line` in that summary is unverifiable (private source).
+
+## Disclosure
+
+Kando is built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI); see `CLA.md`. It is not ranked until a public audit exists. Improvement-plan patterns that cite Kando files are marked unverifiable (private source).
+
+## Cost model assumptions
+
+The coefficients 0.7 (cache), 0.5 (avoided failures), 0.45 (compression) and 0.65 (routing) are assumptions with no published measurement. Cache is applied after compression: compression reduces the volume sent, then cache splits that volume into cached reads and uncached input. Treating the two rates as independent is also an assumption. Cached reads cost 0.1 times the input price, the factor Anthropic publishes for prompt-cache reads (https://platform.claude.com/docs/en/build-with-claude/prompt-caching); this is a published price factor, not a measured bill for these harnesses. Cache-write premiums are not modelled. Default volumes are 200 million input tokens and 20 million output tokens per month. Default prices per million tokens are $0.14 (input) and $0.42 (output) for the economy model, and $3 (input) and $15 (output) for the premium model. The models are not named and the prices are not dated. The calculator controls start at 55/25/30/70 (cache, avoided failures, compression, routing), which are also assumptions. Routing is `0.65 × A1/10`, so a score of 0 routes nothing. The `min()` caps in `harnessEff` (cache 0.85, avoided failures 0.60, compression 0.60, routing 0.95) are not reached with the current coefficients. Reachable rates are cache up to 70%, avoided failures up to 50%, compression up to 45%, and routing from 0% to 65%. Measured cost per task is planned in the B8 scenario runner, which is not implemented.
 
 ## License and integrity
 
@@ -140,7 +148,7 @@ An internal or private audit can inform an **Estimate**, but it does not earn th
 
 ## Internationalization (i18n)
 
-Language selector at the top — **English is the norm**, with Portuguese, French, German, Mandarin and Hindi. The dictionary lives at the top of `index.html` (`const T = {...}`): release copy is kept current in English and Portuguese, while missing labels in the other languages fall back to English. Anyone can fix terms or add a language via PR. **To add a new language:** copy the `pt:{...}` block of the dictionary, translate the values and update the `LANGUAGES` selector — `check-i18n.js` validates keys and placeholders automatically — or open a PR.
+Language selector at the top. **English is the norm**, with Portuguese, French, German, Mandarin and Hindi. The dictionary lives at the top of `index.html` (`const T = {...}`). A missing label in another language falls back to English; `node check-i18n.js` checks keys and placeholders. **To add a new language:** copy the `pt:{...}` block, translate the values and update the `LANGUAGES` selector.
 
 **Light/dark theme:** ☀️/🌙 button at the top — respects the system preference on first visit and remembers your choice (localStorage).
 
@@ -149,7 +157,7 @@ Language selector at the top — **English is the norm**, with Portuguese, Frenc
 - **Live source:** the model list comes from OpenRouter on every app load — when a provider retires a model it disappears from the selector automatically; new ones show up the same day.
 - **Local diff:** the app keeps a snapshot in your browser and shows what changed since your last visit ("🆕 N new · 📦 M removed since …").
 - **Local history of discontinued models:** models that leave are recorded (name, date, last price) in a collapsible list — useful for pricing provenance and audit continuity.
-- **Global history (public):** GitHub Actions runs `scripts/snapshot-models.mjs` daily and commits `docs/models/latest.json` + `docs/models/history.json` — the open, versioned model dataset (what the app alone can't store). Open data = asset and proof.
+- **Committed snapshot:** `docs/models/latest.json` is still the file committed on 2026-08-09 (378 models), and `.github/workflows/models-snapshot.yml` opens or updates a pull request from `models-snapshot` into `main` when it changes, instead of pushing to `main`. The schedule runs from the workflow file on `main`. With the default token, the `test` run needs a maintainer to click "Approve workflows to run", unless the optional `SNAPSHOT_PR_TOKEN` secret is set. That snapshot pull request is merged by hand.
 
 ## i18n guarantee (mandatory norm)
 
@@ -165,7 +173,7 @@ Language selector at the top — **English is the norm**, with Portuguese, Frenc
 
 ## Tests (automated + manual smoke)
 
-**`npm test`** runs `check-i18n.js` + the **25-scenario jsdom regression suite** (`test/regression.mjs`) — quiz and audit preserved across language switches, reset/cancel without state resurrection, case-insensitive matcher, cache without poisoning, picker re-entrancy, OpenRouter widgets, home CTA, contact channels, pills, theme variables in SVGs, keyboard navigation, retranslatable status, dataset enforcement (audited → published evidence). CI (`.github/workflows/ci.yml`) runs this on **every push/PR** — none of these regression classes can return without CI going red.
+**`npm test`** runs `check-i18n.js` + the jsdom regression suite (`test/regression.mjs`). It covers quiz and audit state across language switches, reset/cancel, the matcher, cache, picker re-entrancy, OpenRouter widgets, the home CTA, contact channels, pills, theme variables in SVGs, keyboard navigation, dataset enforcement (audited → published evidence), the modelled-cost formula, and the audited-only default ranking. CI (`.github/workflows/ci.yml`) runs this on **every push/PR**.
 
 Recommended manual smoke before a release (Chrome, `python -m http.server 8123`):
 

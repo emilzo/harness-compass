@@ -3,7 +3,7 @@
 [English](ROADMAP.md) · **Português**
 
 Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
-Última atualização: 2026-08-11 · Estado do código: suite de regressão 23/23 verde · `check-i18n` exit 0 · Lighthouse 98/100/100/100 · HCI 0–100 (rubrica v1) · **Live: https://emilzo.github.io/harness-compass/**
+Última atualização: 2026-09-28 · Estado do código: `npm test` (`check-i18n.js` + `test/regression.mjs`) · HCI 0–100 (rubrica v1) · **Live: https://emilzo.github.io/harness-compass/**
 
 ## Fase 0 — Fundação ✅
 - [x] App single-file, funciona offline (`index.html`; jsdom só como devDependency de testes)
@@ -11,7 +11,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] Ranking com scores, HCI (Harness Compass Index) e badges de proveniência
 - [x] Mapa da taxonomia (vista interativa A–F)
 - [x] Quiz de recomendação ponderada
-- [x] Calculadora de custo + vista "Same Model, Different Harness" (custo harness-adjusted)
+- [x] Calculadora de custo + vista de custo mensal modelado (ilustrativa, dois resultados etiquetados), não um custo por tarefa medido.
 - [x] Preços reais do OpenRouter em runtime (sem credenciais, CORS-friendly)
 - [x] Auditoria local no browser: lê até 300 ficheiros da pasta, 100% local, sem upload
 - [x] Export JSON com heurística original + contador de dimensões ajustadas
@@ -19,7 +19,7 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 
 ## Fase 1 — Globalização ✅
 - [x] i18n EN + PT completos
-- [x] i18n FR/DE/ZH/HI **completos** — 6 línguas a 330/330 chaves (fim do fallback EN visível)
+- [x] Dicionários FR/DE/ZH/HI (as etiquetas em falta são mostradas em inglês). Corre `node check-i18n.js` para ver a cobertura atual.
 - [x] Selector de 6 línguas + persistência (localStorage) + fallback EN automático
 - [x] `check-i18n.js` como norma obrigatória — chaves EN **e PT** (exit 1 se faltarem), chaves table-driven (dim/imp/quiz/lv/blurb/dom), placeholders consistentes entre línguas, órfãs, duplicados, `LANGUAGES` vs blocos do dicionário, `esc()` em atributos, allowlist de conteúdo com zero avisos
 - [x] Tema claro/escuro com persistência e contraste corrigido (incl. donut/radar com variáveis de tema)
@@ -31,25 +31,25 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 - [x] `scripts/snapshot-models.mjs` + workflow GitHub Actions (cron diário)
 - [x] Dataset `docs/models/` (378 modelos reais com preços — primeiro snapshot)
 - [x] Revisões externas fechadas: 15 findings + 6 novos (N1–N6) + triple check final de 21 findings — todos corrigidos com verificação
-- [x] Suite de regressão jsdom — **23 cenários** (quiz, replay de língua, auditoria, cache, picker, re-entrância, widgets OpenRouter, CTA, pills, tema dos SVG, teclado, status re-traduzível, enforcement do dataset audited→evidence)
+- [x] Suite de regressão jsdom em `test/regression.mjs` (quiz, replay de língua, auditoria, cache, picker, re-entrância, widgets OpenRouter, CTA, pills, tema dos SVG, teclado, status re-traduzível, enforcement do dataset audited→evidence, custo modelado, ranking por omissão só com auditados)
 - [x] CI (`.github/workflows/ci.yml`): `npm test` (check-i18n + suite) em cada push/PR
 - [x] Privacidade verificada: Limpar liberta cache/meta/closures (~2 MB); re-entrância do picker segura
-- [x] Acessibilidade: landmark `main`, aria-labels, teclado nas tabelas, `prefers-reduced-motion` (CSS + JS), labels `for=` — Lighthouse A11y 100
+- [x] Acessibilidade: landmark `main`, aria-labels, teclado nas tabelas, `prefers-reduced-motion` (CSS + JS), labels `for=`
 - [x] SEO/social: meta description, Open Graph + Twitter Card, social card 1200×630, favicon, theme-color dinâmico
-- [x] **Escala à prova de saturação (decisão pré-lançamento):** HCI exibido **0–100** (dimensões mantêm a rubrica 0–10, agora **v1**); âncoras de fronteira documentadas (9–10 = critérios que ninguém cumpre hoje — melhor HCI atual: 75); re-norming futuro versionado (v2, nunca silencioso); curva de dificuldade de longo prazo nos cenários B1–B8 versionados
+- [x] **Escala à prova de saturação (decisão pré-lançamento):** HCI mostrado **0–100** (as dimensões mantêm a rubrica 0–10, agora **v1**). Nenhum harness listado tem 10 em nenhuma dimensão; um 10 exige verificação formal, aprendizagem medida, uma execução B1–B8 revista ou otimalidade de custo face a uma linha de base. Há 9s: Hermes Agent A2, C1, F3; T3 Code C1, C3. Melhor HCI atual: 75. O re-norming futuro é versionado (v2, nunca silencioso). A curva de dificuldade de longo prazo está nos cenários B1–B8 versionados.
 
 ## Fase 3 — Publicação ✅ (site live 2026-08-10; falta o artigo-âncora)
-- [x] **Decisão de evidência (P0 do review externo) — resolvida:** relatório do Hermes **publicado integralmente em português e inglês** (`docs/DEEP-HARNESS-AUDIT-HERMES.md` + tradução inglesa, edições públicas com paths locais normalizados + nota de cortesia OSS) · Kando mantido como **Estimativa** com sumário público (`docs/EVIDENCE-SUMMARY-KANDO.md`; auditado internamente, em preparação para go-to-market, relatório linha a linha privado)
+- [x] **Decisão de evidência (P0 do review externo), resolvida:** relatório do Hermes **publicado integralmente em português e inglês** (`docs/DEEP-HARNESS-AUDIT-HERMES.md` + tradução inglesa) · O Kando é produto do próprio autor (DevFactoryAI) e **não está no ranking** enquanto não houver uma auditoria pública. Sumário público: `docs/EVIDENCE-SUMMARY-KANDO.md`. O relatório linha a linha é privado.
 - [x] Campo `evidence` nos harnesses `audited:true` — o texto "Auditoria com evidência path:line" no detail é agora um link para o relatório
 - [x] **Política de confidencialidade de submissões** (README §Integridade 5 + BENCHMARK-SPEC §5): quem submete pode pedir auditoria privada — relatório só para o submissor e fora do ranking/leaderboard público; badge público exige evidência publicada
 - [x] Repo no GitHub + push (`emilzo/harness-compass`) com o histórico limpo de docs internos
-- [x] GitHub Pages live via Actions, **gated pela suite de 23 testes** (sem verde não há deploy)
+- [x] GitHub Pages live via Actions, gated por `npm test` (sem verde não há deploy)
 - [x] `og:url`/`og:image`/`REPO_URL` confirmados contra o URL real
 - [x] Gate 2 na URL pública: OpenRouter a carregar 377 modelos reais em HTTPS, picker moderno ativo, evidência dos badges acessível, Actions verdes
-- [x] Assets de lançamento: 16 screenshots (8 vistas × 2 temas, regenerados pós-correções) em `launch-assets/` + social card em `docs/social-card.png`
+- [x] Assets de lançamento: 16 screenshots (8 vistas × 2 temas, regenerados pós-correções) em `launch-assets/` + social card em `docs/social-card-v2.png` (`docs/social-card.png` mantido)
 - [x] README EN-first (`README.md`) + português preservado (`README.pt.md`)
 - [x] Docs internos fora do repo público (`internal/`, gitignored) — histórico reescrito antes de existirem forks
-- [ ] Cron diário do snapshot de modelos: workflow armado desde o push; primeiro run agendado pendente
+- [ ] Cron diário do snapshot de modelos: o workflow abre ou atualiza um pull request de `models-snapshot` para `main` quando `docs/models` muda, em vez de fazer push para `main`. O agendamento corre a partir do ficheiro de workflow em `main`. Com o token por omissão, a execução `test` precisa que um maintainer clique em "Approve workflows to run", a menos que o segredo opcional `SNAPSHOT_PR_TOKEN` esteja definido. O pull request do snapshot é integrado à mão, e o ficheiro commitado continua a ser o de 2026-08-09 até lá.
 - [ ] Decidir se `launch-assets/` (16 screenshots, ~2 MB) entra no git — hoje é deliberadamente local; se o marketing partir do repo público, versionar
 - [ ] Artigo-âncora EN (Show HN + blog) — textos de lançamento prontos em `launch-assets/launch-copy.md`
 - [ ] Landing curta como funil — o Compass serve de produto-âncora; landing formal separada ainda não existe
@@ -83,10 +83,10 @@ Legenda: `[x]` = feito e verificado · `[ ]` = por fazer
 
 ## Gatilhos futuros (decidir quando acontecerem, não antes)
 - [ ] **Escala do ranking** — gatilho ~30-50 entradas: pesquisa + paginação na tabela e tiers em vistas próprias (Auditados/Benchmarked/Estimativas). Nota de arquitetura: a auditoria local é privada e efémera (memória da sessão, sem upload) — o ranking partilhado SÓ cresce pelo pipeline editorial, por isso "milhares de linhas" não acontecem por acidente
-- [ ] **Política de notabilidade escrita** — gatilho: fila de submissões > capacidade de sign-off. O ranking é um benchmark curado, não um diretório: entra quem tem uso real/vendor identificável/projeto vivo; o resto fica em auditoria local ou estimativa não listada. A banalização de scores empatados desempata-se com o B1–B8 (comportamento), não com mais linhas
+- [ ] **Política de notabilidade escrita** (gatilho: fila de submissões > capacidade de sign-off). O ranking é um scorecard curado de maturidade de arquitetura, não um diretório: entra quem tem uso real, vendor identificável e projeto vivo; o resto fica em auditoria local ou estimativa não listada. Os empates separam-se com o benchmark comportamental B1–B8 quando esse runner existir, não com mais linhas.
 - [ ] Dados como dados (`data/harnesses/*.json`, `locales/*.json`) — gatilho: primeira contribuição externa real
 - [ ] Migração Vite + TypeScript + render-a-partir-de-estado — gatilho: leaderboard/crescimento da equipa
-- [ ] Decisão de produto: `harnessEff` com caps atingíveis na fórmula (hoje o texto declara os tetos reais: cache ≤70%, falhas ≤50%, compressão ≤45%, routing 30–95%)
+- [ ] Decisão de produto: baixar ou não os tetos `min()` em `harnessEff` (cache 0,85, falhas evitadas 0,60, compressão 0,60, routing 0,95). Com os coeficientes atuais, estes tetos não são atingidos. As taxas atingíveis são cache até 70%, falhas evitadas até 50%, compressão até 45% e routing de 0% a 65% (`0.65 × A1/10`). A interface mostra as taxas atingíveis; os tetos estão na secção Pressupostos do modelo de custo do README.
 
 ## Registado sem correção (menores, documentados nas revisões)
 - `md_stable` mostra a data da última visita, não o início real da estabilidade

@@ -1,30 +1,43 @@
 name: models-snapshot
 on:
   schedule:
-    - cron: "0 3 * * *"   # diário às 03:00 UTC
-  workflow_dispatch: {}    # permite correr à mão
+    - cron: "0 3 * * *"   # daily at 03:00 UTC
+  workflow_dispatch: {}
 
-permissions:
-  contents: write
+concurrency:
+  group: models-snapshot
+  cancel-in-progress: false
 
 jobs:
   snapshot:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
-          node-version: 20
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
       - name: Fetch OpenRouter models
         run: node scripts/snapshot-models.mjs
-      - name: Commit if changed
-        run: |
-          git config user.name "harness-compass-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add docs/models
-          if ! git diff --cached --quiet; then
-            git commit -m "models: snapshot diário (docs/models)"
-            git push
-          else
-            echo "sem mudanças — nada a commitar"
-          fi
+      - name: Open a pull request when the snapshot changed
+        # peter-evans/create-pull-request v8.1.1
+        # If docs/models is unchanged, this step exits without opening a pull request.
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
+        with:
+          token: ${{ secrets.SNAPSHOT_PR_TOKEN || github.token }}
+          branch: models-snapshot
+          base: main
+          delete-branch: true
+          add-paths: |
+            docs/models/latest.json
+            docs/models/history.json
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          commit-message: "Update the OpenRouter model snapshot."
+          title: "Update OpenRouter model snapshot"
+          body: |
+            Daily snapshot of OpenRouter models. This updates docs/models/latest.json and docs/models/history.json when the list or prices change, by opening or updating a pull request from models-snapshot instead of pushing to main. With the default token, the test run needs a maintainer to click "Approve workflows to run", unless the optional SNAPSHOT_PR_TOKEN secret is set. This pull request is merged by hand.

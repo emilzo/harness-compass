@@ -451,3 +451,52 @@ test('25. contacto oferece canal privado, público e projeto sem misturar confid
   assert.match(template, /This issue will be public/, 'template avisa que o issue é público');
   assert.match(template, /emilio\.mina@gmail\.com/, 'template encaminha assuntos privados para email');
 });
+
+test('26. custo modelado em dois cenários; ranking por omissão só auditado; Kando fora', async () => {
+  await withBoot(({ w, $, $$ }) => {
+    const hermes = w.costFor({ scores: { A1: 8, A2: 9, C4: 8 } }, 200, 20, 0.14, 0.42, 3, 15);
+    const crew = w.costFor({ scores: { A1: 6, A2: 5, C4: 4 } }, 200, 20, 0.14, 0.42, 3, 15);
+    const zero = w.costFor({ scores: { A1: 0, A2: 0, C4: 0 } }, 200, 20, 0.14, 0.42, 3, 15);
+    assert.ok(Math.abs(hermes.e.route - 0.52) < 1e-9, 'Hermes route 0.52');
+    assert.ok(Math.abs(hermes.premiumOnly - 334.581) < 0.001);
+    assert.ok(Math.abs(hermes.withRouting - 166.9708456) < 0.001);
+    assert.ok(Math.abs(crew.premiumOnly - 558.525) < 0.001);
+    assert.ok(Math.abs(crew.withRouting - 349.118205) < 0.001);
+    assert.equal(zero.e.route, 0);
+    assert.equal(zero.premiumOnly, 900);
+    assert.equal(zero.withRouting, 900);
+
+    const ranked = $$('#rank-body tr').map(r => r.textContent);
+    assert.equal(ranked.length, 2, 'só duas entradas auditadas');
+    assert.ok(ranked.some(t => t.includes('Hermes Agent')));
+    assert.ok(ranked.some(t => t.includes('T3 Code')));
+    assert.ok(!ranked.some(t => t.includes('Kando') || t.includes('CrewAI')));
+    const home = $('#home-top').textContent;
+    assert.ok(home.includes('Hermes Agent') && home.includes('T3 Code'));
+    assert.ok(!home.includes('Kando'));
+    assert.ok($('#rank-author').textContent.includes('Kando'));
+    assert.ok(w.document.body.textContent.includes('DevFactoryAI'));
+    assert.equal($('[data-i18n="cost_title"]').textContent, 'Modelled cost (illustrative)');
+    assert.ok(html.includes('unverifiable (private source)'));
+
+    const auditedOrder = $$('#rank-body tr').map(r => r.children[1].childNodes[0].textContent.trim());
+    $$('.ebtn[data-e="on"]')[0].click();
+    assert.deepEqual(
+      $$('#rank-body tr').map(r => r.children[1].childNodes[0].textContent.trim()),
+      auditedOrder,
+      'entradas auditadas mantêm a ordem por HCI'
+    );
+    const est = $$('#rank-est-body tr').filter(r => !r.classList.contains('rank-label'));
+    assert.ok(est.length > 0, 'estimativas visíveis após o controlo');
+    assert.ok(est.every(r => r.firstChild.textContent === 'n/a'));
+    assert.ok(est.some(r => r.textContent.includes('CrewAI')));
+    assert.ok(!$$('#rank-body tr').some(r => r.textContent.includes('CrewAI')));
+    const estNames = est.map(r => r.children[1].childNodes[0].textContent.trim());
+    assert.deepEqual(estNames, estNames.slice().sort((a, b) => a.localeCompare(b)), 'estimativas por nome, não por HCI');
+    const byScore = est.map(r => ({
+      name: r.children[1].childNodes[0].textContent.trim(),
+      hci: parseInt(r.children[3].textContent, 10),
+    })).sort((a, b) => b.hci - a.hci || a.name.localeCompare(b.name)).map(r => r.name);
+    assert.notDeepEqual(estNames, byScore, 'a ordem alfabética não coincide com o HCI');
+  });
+});

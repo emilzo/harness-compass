@@ -6,7 +6,7 @@
 
 **Pré-visualização de investigação v0.1**
 
-A camada de auditoria e decisão baseada em evidências para *harnesses* de agentes de IA. O harness é tudo o que não é o modelo: guias, loop, ferramentas, permissões, *sandbox*, verificação, observabilidade e custos. O objetivo é simples: auditar a arquitetura, comparar maturidade, medir custos e manter separados os benchmarks de comportamento. Assim consegues **escolher o harness certo** e perceber quando um harness robusto permite que **LLMs económicos cheguem lá**.
+**Scorecard de maturidade de arquitetura, baseado em evidência, para harnesses de agentes de IA.** O harness é tudo o que não é o modelo: guias, loop, ferramentas, permissões, *sandbox*, verificação, observabilidade e custos. O scorecard compara maturidade de arquitetura; o benchmark comportamental B1–B8, planeado, é separado e não está implementado. Já existem benchmarks de desempenho de scaffolds de agentes, incluindo o [Terminal-Bench](https://www.tbench.ai/leaderboard), o [Coding Agent Index da Artificial Analysis](https://artificialanalysis.ai/agents/coding-agents) e o [HAL](https://hal.cs.princeton.edu/).
 
 > "Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."
 
@@ -15,12 +15,12 @@ A camada de auditoria e decisão baseada em evidências para *harnesses* de agen
 Uma web app de página única (zero dependências em runtime, zero build, jsdom existe apenas como devDependency da suite de testes) com 8 vistas:
 
 1. **Paradigma**: por que o harness decide quanto do teu dinheiro em tokens é desperdiçado.
-2. **Ranking**: harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index) 0–100** (dimensões 0–10 na rubrica de maturidade **v1**, com âncoras de fronteira: o 9–10 exige critérios que nenhum harness atual cumpre o melhor de hoje está a 75), fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência (integridade). O HCI mede maturidade arquitetural a partir de código e evidência. Não é um benchmark de desempenho em tarefas. AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL ficam sempre separados.
-3. **💰 Custo real**: *Same Model, Different Harness*: o mesmo volume de trabalho, o mesmo modelo, através de cada harness → **custo real por tarefa (harness-adjusted)** com cache/retry/routing derivados dos scores, preços reais do OpenRouter e ranking por custo. É o "Cost per Task" do Artificial Analysis aplicado à camada.
+2. **Ranking**: harnesses classificados por **22 dimensões** com o **HCI (Harness Compass Index) 0–100** (dimensões 0–10 na rubrica de maturidade **v1**). Nenhum harness listado tem 10 em nenhuma dimensão; um 10 exige evidência como verificação formal, aprendizagem com resultados medidos, uma execução B1–B8 revista ou otimalidade de custo face a uma linha de base. Há 9s: o Hermes Agent tem 9 em A2, C1 e F3, e o T3 Code tem 9 em C1 e C3. O melhor HCI atual é 75. A lista por omissão mostra só entradas auditadas. As estimativas ficam atrás de um controlo, sem posição, com uma nota sobre como foram atribuídas. Fingerprint radar e donut; ordenável, filtrável por domínio e por proveniência. O HCI é o índice composto deste scorecard de maturidade de arquitetura, não um benchmark de desempenho em tarefas. AUDITADO / PRELIMINAR / ESTIMATIVA / LOCAL ficam sempre separados.
+3. **Custo modelado (ilustrativo)**: uma carga mensal de tokens assumida, em dois resultados em dólares por mês: (a) modelo premium isolado, com pressupostos de cache, compressão e falhas evitadas e sem routing; (b) com routing para o modelo económico. É um modelo, não uma medição nem um custo por tarefa. O custo por tarefa medido está planeado no runner do cenário B8, que ainda não está implementado. Os volumes e preços por omissão são pressupostos; ver [Pressupostos do modelo de custo](#pressupostos-do-modelo-de-custo).
 4. **Mapa do Harness**: a taxonomia completa (6 domínios × 22 dimensões).
 5. **📂 Auditar um repositório local**: abre a pasta do repo; análise heurística das 22 dimensões com justificações, sliders ajustáveis (ajustes ficam marcados — integridade), plano de melhoria, adição ao ranking e export JSON. O código fica no browser e não é enviado.
 6. **Quiz de decisão**: 6 perguntas ponderam as dimensões pelo teu perfil e recomendam os 3 harnesses com justificação.
-7. **Calculadora de economia**: quanto poupas por mês em tokens com cache, retry, compressão e routing.
+7. **Calculadora**: a mesma carga mensal assumida, com dois resultados separados: modelo premium isolado e com routing para o modelo económico. Os valores por omissão dos controlos são pressupostos.
 8. **Método & evidência**: escala de maturidade, integridade, como funciona a auditoria local, estudos de caso.
 
 A spec aberta do benchmark comportamental (cenários B1–B8, protocolo de submissão e um futuro leaderboard revisto) está em `BENCHMARK-SPEC.md`. É separada do score arquitetural HCI.
@@ -55,16 +55,16 @@ O preço de um LLM não é o preço do modelo. É o preço do modelo **vezes o d
 - Sem caching byte-estável pagas o mesmo prefixo vezes sem conta.
 - Sem retry/fallback inteligente falhas transitórias viram chamadas mortas e tempo do dev.
 - Sem compressão conversas longas rebentam a janela e perdem contexto.
-- Sem routing pagas o modelo caro para tarefas que o barato resolve.
+- Sem routing, no modelo de custo, cada chamada é cobrada ao preço premium.
 
-Um harness robusto (Hermes, Kando, Claude, Codex, e coding agentes maduros) **pode alterar significativamente o desempenho e o custo real de um mesmo modelo** - por vezes, a ponto de mudar a escolha do modelo ideal.
+Este projeto não afirma que um harness forte faça um modelo mais barato igualar um mais caro. Os benchmarks indicados acima comparam scaffolds de agentes em tarefas e não são evidência dessa afirmação.
 
 ## Estado dos dados
 
 | Harness | Status | Nota |
 |---|---|---|
 | Hermes Agent (Nous Research) | ✅ Auditado | 22 dimensões, evidência file:line, ver `docs/` |
-| Kando (DevFactoryAI) | 🔶 Estimativa | auditado internamente; em preparação para go-to-market; o relatório linha a linha não é público |
+| Kando (DevFactoryAI) | Produto do próprio autor (sem posição) | Desenvolvido pelo autor do Harness Compass (Emílio, @emilzo / DevFactoryAI); ver CLA.md. Scores de estimativa; o relatório linha a linha é privado. Não está no ranking enquanto não houver uma auditoria pública. |
 | Claude Code, Codex CLI, Cursor, Cline, OpenClaw, claude-code-router, LangGraph, CrewAI | 🔶 Estimativa | avaliação informada, a validar por auditoria |
 
 ## Como ler os resultados
@@ -110,20 +110,28 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 1. **Auditoria local** (badge Preliminar) → primeiro corte em minutos.
 2. **Plano de melhoria** → o Compass aponta os gaps (dimensões < 6) com padrões provados e níveis de maturidade L1–L5 ("o que falta, o que fazer").
 3. **Auditoria completa** (badge Auditado) → scores definitivos com evidência.
-4. **Recalibração** → cada par (heurística vs auditada) é comparado e os pesos da heurística afiam-se (validado contra o Hermes: erro médio ~1.6/dimensão).
+4. **Recalibração** → cada par (heurística vs auditada) pode ser comparado. A heurística não está calibrada contra uma tabela de erro publicada.
 5. **Base de conhecimento** → cada padrão novo entra no `IMPROVEMENT_PATTERNS` e beneficia todos os harnesses futuros.
 
 ## Método
 
 - **Taxonomia:** 6 domínios × 22 dimensões (A Núcleo · B Guias · C Sensores · D Governação ★ · E Aprendizagem · F Operacional).
-- **Escala 0–10 por dimensão (rubrica v1):** 0 = não existe (provado) · 2 = vestígio · 4 = caso simples · 6 = integrado com gaps · 8 = sólido com testes · 9–10 = **fronteira** (invariantes verificados formalmente, aprendizagem com outcomes medidos, prova comportamental B1–B8. Nenhum harness atual lá chega). O HCI exibe a média ×10 (0–100); re-norming futuro é versionado (v2), nunca silencioso. Ver `references/harness-map.md`.
-- **Evidência:** auditorias read-only; cada afirmação cita `path:line` verificado; ausências provadas por busca; cobertura declarada.
+- **Escala 0–10 por dimensão (rubrica v1):** 0 = não existe (provado) · 2 = vestígio · 4 = caso simples · 6 = integrado com gaps · 8 = sólido com testes · 9 = alto, em uso (Hermes Agent A2, C1, F3; T3 Code C1, C3) · 10 = fronteira, não atingida por nenhum harness listado (invariantes verificados formalmente, aprendizagem com resultados medidos, uma execução B1–B8 revista, otimalidade de custo face a uma linha de base). O HCI mostra a média ×10 (0–100). O melhor HCI atual é 75. O re-norming futuro é versionado (v2), nunca silencioso. Ver `references/harness-map.md`.
+- **Evidência:** auditorias read-only; cada afirmação cita `path:line` verificado; ausências provadas por pesquisa; cobertura declarada.
 - **Foco obrigatório:** domínio D. Governança, julgamento, compliance, guardrails.
 
 ## Estudos de caso
 
 - `docs/DEEP-HARNESS-AUDIT-HERMES.md` Deep audit linha-a-linha do Hermes, **publicado integralmente** (15 achados, KPIs, 15 padrões portáveis, 10 recomendações), revisão de arquitetura de um projeto open-source, publicada como cortesia e como prova do método. A [tradução inglesa integral](docs/DEEP-HARNESS-AUDIT-HERMES.en.md) também está publicada.
-- `docs/EVIDENCE-SUMMARY-KANDO.md` **Sumário público de evidência** do Kando. O Kando foi auditado internamente e está em preparação para go-to-market, mas fica como **Estimativa** no ranking público porque o relatório completo linha a linha e o código não são públicos.
+- `docs/EVIDENCE-SUMMARY-KANDO.md` sumário público de uma auditoria privada. O Kando é desenvolvido pelo autor do Harness Compass (DevFactoryAI) e não está no ranking. Nenhum `path:line` desse sumário é verificável (fonte privada).
+
+## Declaração de interesses
+
+O Kando é desenvolvido pelo autor do Harness Compass (Emílio, @emilzo / DevFactoryAI); ver `CLA.md`. Não está no ranking enquanto não houver uma auditoria pública. Os padrões do plano de melhoria que citam ficheiros do Kando estão marcados como não verificáveis (fonte privada).
+
+## Pressupostos do modelo de custo
+
+Os coeficientes 0,7 (cache), 0,5 (falhas evitadas), 0,45 (compressão) e 0,65 (routing) são pressupostos sem medição publicada. A cache aplica-se depois da compressão: a compressão reduz o volume enviado e a cache divide esse volume entre leituras em cache e entrada sem cache. Tratar as duas taxas como independentes também é um pressuposto. As leituras em cache custam 0,1 vezes o preço de entrada, o fator que a Anthropic publica para leituras de prompt caching (https://platform.claude.com/docs/en/build-with-claude/prompt-caching); é um fator de preço publicado, não uma fatura medida destes harnesses. O prémio de escrita em cache não é modelado. Os volumes por omissão são 200 milhões de tokens de entrada e 20 milhões de tokens de saída por mês. Os preços por omissão, por milhão de tokens, são 0,14 dólares (entrada) e 0,42 dólares (saída) para o modelo económico, e 3 dólares (entrada) e 15 dólares (saída) para o modelo premium. Os modelos não estão identificados e os preços não têm data. Os controlos da calculadora começam em 55/25/30/70 (cache, falhas evitadas, compressão, routing), valores que também são pressupostos. O routing é `0.65 × A1/10`, por isso um score 0 não encaminha nada. Os tetos `min()` em `harnessEff` (cache 0,85, falhas evitadas 0,60, compressão 0,60, routing 0,95) não são atingidos com os coeficientes atuais. As taxas atingíveis são cache até 70%, falhas evitadas até 50%, compressão até 45% e routing de 0% a 65%. O custo por tarefa medido está planeado no runner do cenário B8, que ainda não está implementado.
 
 ## Licença e integridade
 
@@ -133,7 +141,7 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 
 ## Internacionalização (i18n)
 
-Seletor de idioma no topo, **Inglês é a norma**, com Português, Francês, Alemão, Mandarim e Hindi. O dicionário vive no topo do `index.html` (`const T = {...}`): o texto de lançamento é mantido em Inglês e Português; etiquetas em falta nas outras línguas caem para Inglês. Qualquer pessoa pode corrigir termos ou adicionar uma língua via PR. **Para adicionar uma língua nova:** copia o bloco `pt:{...}` do dicionário, traduz os valores e muda o seletor `LANGUAGES` O `check-i18n.js` valida automaticamente chaves e placeholders ou abre um PR.
+Seletor de idioma no topo. **O inglês é a norma**, com português, francês, alemão, mandarim e hindi. O dicionário está no topo do `index.html` (`const T = {...}`). Uma etiqueta em falta noutra língua é mostrada em inglês; o `node check-i18n.js` verifica chaves e placeholders. **Para adicionar uma língua nova:** copia o bloco `pt:{...}`, traduz os valores e atualiza o seletor `LANGUAGES`.
 
 **Tema claro/escuro:** botão ☀️/🌙 no topo, respeita a preferência do sistema na primeira visita e lembra a tua escolha (localStorage).
 
@@ -142,7 +150,7 @@ Seletor de idioma no topo, **Inglês é a norma**, com Português, Francês, Ale
 - **Fonte viva:** a lista de modelos vem do OpenRouter a cada carregamento da app quando um provider fecha um modelo, ele desaparece automaticamente do seletor; os novos aparecem no mesmo dia.
 - **Diff local:** a app guarda um snapshot no teu browser e mostra o que mudou desde a última visita ("🆕 N novos · 📦 M saíram desde …").
 - **Histórico local de descontinuados:** os modelos que saem ficam registados (nome, data, último preço) numa lista colapsável, útil para proveniência de pricing e continuidade de auditorias.
-- **Histórico global (público):** o GitHub Actions corre `scripts/snapshot-models.mjs` diariamente e commita `docs/models/latest.json` + `docs/models/history.json` O dataset aberto e versionado de modelos (o que a app sozinha não pode guardar). Dados abertos = ativo e prova.
+- **Snapshot commitado:** `docs/models/latest.json` continua a ser o ficheiro commitado em 2026-08-09 (378 modelos), e `.github/workflows/models-snapshot.yml` abre ou atualiza um pull request de `models-snapshot` para `main` quando esse ficheiro muda, em vez de fazer push para `main`. O agendamento corre a partir do ficheiro de workflow em `main`. Com o token por omissão, a execução `test` precisa que um maintainer clique em "Approve workflows to run", a menos que o segredo opcional `SNAPSHOT_PR_TOKEN` esteja definido. Esse pull request do snapshot é integrado à mão.
 
 ## Garantia i18n (norma obrigatória)
 
@@ -158,7 +166,7 @@ Seletor de idioma no topo, **Inglês é a norma**, com Português, Francês, Ale
 
 ## Testes (automatizados + smoke manual)
 
-**`npm test`** corre o `check-i18n.js` + a **suite de regressão jsdom com 25 cenários** (`test/regression.mjs`) quiz e auditoria preservados na troca de língua, reset/cancel sem ressurreição de estado, matcher case-insensitive, cache sem envenenamento, re-entrância do picker, widgets OpenRouter, CTA da home, canais de contacto, pills, variáveis de tema nos SVG, navegação por teclado, status re-traduzível, enforcement do dataset (audited → evidência publicada). O CI (`.github/workflows/ci.yml`) corre isto em **cada push/PR** nenhuma destas classes de regressão pode voltar sem o CI ficar vermelho.
+**`npm test`** corre o `check-i18n.js` e a suite de regressão jsdom (`test/regression.mjs`). Cobre o quiz e a auditoria na troca de língua, reset/cancel, o matcher, a cache, a reentrância do picker, os widgets OpenRouter, o CTA da home, os canais de contacto, as pills, as variáveis de tema nos SVG, a navegação por teclado, a regra de evidência publicada para entradas auditadas, a fórmula de custo modelado e o ranking por omissão só com auditados. O CI (`.github/workflows/ci.yml`) corre isto em **cada push/PR**.
 
 Smoke manual recomendado antes de um release (Chrome, `python -m http.server 8123`):
 

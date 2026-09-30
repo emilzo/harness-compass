@@ -97,7 +97,7 @@ Uma auditoria interna ou privada pode informar uma **Estimativa**, mas não dá 
 2. **O badge AUDITADO exige relatório**: evidência `path:line` real, como os que estão em `docs/`. Sem relatório, sem badge.
 3. **Tudo o que adicionas localmente fica marcado LOCAL**, e qualquer ajuste manual aos sliders fica **visível**. O badge mostra um contador "⚠ N ajustadas", em que N é o número de dimensões que mudaste, e o export JSON inclui a proveniência (`meta.heuristica` = o que a análise detetou vs o que tu mudaste).
 4. **O princípio não é impedir a mentira, é torná-la visível.**: Quem abre o ranking vê imediatamente o que é verificado, o que é estimativa e o que foi mexido à mão.
-5. **Confidencialidade a pedido de quem submete.**: Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente**, a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta. Seria exatamente a claim sem prova que este projeto denuncia). A via privada existe como serviço de consultoria e começa por [email](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass), nunca num issue público. Não envies código privado antes de combinarmos uma forma segura de transferência. A via pública dá o badge e o lugar no ranking.
+5. **Confidencialidade a pedido de quem submete.**: Quem submete um harness para auditoria pode pedir que ele **não seja revelado publicamente**, a decisão é do submissor. Nesse caso a auditoria é privada: o relatório é entregue apenas ao submissor e o harness **não entra no ranking público**, porque o badge AUDITADO público exige evidência publicada (não há badge público com prova secreta. Seria exatamente a claim sem prova que este projeto denuncia). A via privada começa por [email](mailto:emilio.mina@gmail.com?subject=Auditoria%20privada%20Harness%20Compass), nunca num issue público. Não envies código privado antes de combinarmos uma forma segura de transferência. A via pública dá o badge e o lugar no ranking.
 
 **Fluxo honesto para rankear um harness:**
 1. Audita a pasta → badge Preliminar (só com justificações da análise)
@@ -136,8 +136,6 @@ Os coeficientes 0,7 (cache), 0,5 (falhas evitadas), 0,45 (compressão) e 0,65 (r
 ## Licença e integridade
 
 **Licença: AGPL-3.0** O código é aberto, mas quem fornecer uma versão derivada como serviço (SaaS) é obrigado a publicar o código-fonte. Isto protege o projeto contra forks que o revendam fechado.
-
-**O que é público vs retido:** o código, a taxonomia e as auditorias publicadas são a prova e o ímã. O **dataset vivo** (auditorias novas, telemetria agregada, scores em evolução) e o **selo de auditoria certificada** são ativos do projeto que não se forkiam — o que se publica hoje determina o que se pode vender amanhã.
 
 ## Internacionalização (i18n)
 

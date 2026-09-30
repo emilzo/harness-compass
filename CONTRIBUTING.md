@@ -19,9 +19,7 @@ your machine), click **⬇ Export JSON**, then use the right channel:
 | **Private audit** | Same audit, report delivered only to you, nothing published | Private report; **no public listing** (the public badge requires published evidence, with no exceptions) |
 | **Estimate entry** | You open a PR adding the harness with `audited:false` and a justified score set | **ESTIMATE** badge in the ranking, flagged for future audit |
 
-Public audits are free and queued in submission order; private audits are a consulting
-service. The confidentiality choice is **yours**, but private work always starts
-by email rather than through a public issue.
+Public audits are free and queued in submission order. The confidentiality choice is **yours**: private audits start by email, not through a public issue.
 
 **Curation note:** the official ranking is a curated architecture maturity scorecard, not a directory.
 Priority (and inclusion) favors harnesses with real-world usage, an identifiable

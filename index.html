@@ -8,7 +8,7 @@
 <meta name="description" content="Research Preview v0.1. An architecture maturity scorecard for AI agent harnesses across 22 dimensions, with published evidence for audited entries. The local audit keeps your code in the browser.">
 <meta name="theme-color" id="meta-theme" content="#f6f2eb">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='12' fill='%23f6f2eb' stroke='%2327231f' stroke-width='2'/><path d='M20 10l-3 8-8 4 3-8z' fill='%23c45c32'/><circle cx='16' cy='16' r='1.6' fill='%2327231f'/></svg>">
-<!-- Social / Open Graph — se o URL do GitHub Pages for outro, atualizar og:url e as duas imagens -->
+<!-- Social / Open Graph: if the GitHub Pages URL changes, update og:url and both images -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Harness Compass">
 <meta property="og:title" content="Harness Compass: architecture maturity scorecard for AI agent harnesses">
@@ -184,21 +184,21 @@
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
       <button id="theme-btn" class="utility-control" onclick="toggleTheme()" title="Theme / Tema / 主题 / थीम" aria-label="Theme / Tema / 主题 / थीम">☀️</button>
       <select id="lang" class="utility-control" onchange="setLang(this.value)" title="Language / Idioma / 语言 / भाषा" aria-label="Language / Idioma / 语言 / भाषा"></select>
-      <button class="ghost" onclick="switchView('audit')" data-i18n="audit_pick_top">Auditar uma pasta</button>
+      <button class="ghost" onclick="switchView('audit')" data-i18n="audit_pick_top">Audit a local repo</button>
     </div>
   </header>
 
   <nav id="nav" aria-label="Views">
-    <button data-view="home" class="active" data-i18n="nav_home">Paradigma</button>
+    <button data-view="home" class="active" data-i18n="nav_home">Paradigm</button>
     <button data-view="ranking" data-i18n="nav_ranking">Ranking</button>
-    <button data-view="cost" data-i18n="nav_cost">Custo modelado</button>
-    <button data-view="map" data-i18n="nav_map">Mapa</button>
-    <button data-view="audit" data-i18n="nav_audit">Auditar pasta</button>
-    <button data-view="quiz" data-i18n="nav_quiz">Que harness para ti?</button>
-    <button data-view="economy" data-i18n="nav_economy">Calculadora</button>
-    <button data-view="method" data-i18n="nav_method">Método</button>
-    <button data-view="evidence" data-i18n="nav_evidence">Evidência</button>
-    <button data-view="contact" data-i18n="nav_contact">Contactar</button>
+    <button data-view="cost" data-i18n="nav_cost">Modelled cost</button>
+    <button data-view="map" data-i18n="nav_map">Map</button>
+    <button data-view="audit" data-i18n="nav_audit">Audit repo</button>
+    <button data-view="quiz" data-i18n="nav_quiz">Which harness?</button>
+    <button data-view="economy" data-i18n="nav_economy">Calculator</button>
+    <button data-view="method" data-i18n="nav_method">Method</button>
+    <button data-view="evidence" data-i18n="nav_evidence">Evidence</button>
+    <button data-view="contact" data-i18n="nav_contact">Contact</button>
   </nav>
 
   <main>
@@ -207,62 +207,62 @@
     <div class="hero">
       <div class="hero-grid">
         <div>
-          <h2 data-i18n="home_hero_title">Harnesses de agentes de IA, pontuados em 22 dimensões, com evidência publicada para as entradas auditadas.</h2>
-          <p class="sub" data-i18n="home_hero_sub">O teu harness, não só o modelo, decide quanto do teu orçamento de tokens é desperdiçado. Aqui, cada score é uma de três coisas: <b>auditado</b> (auditoria pública, linha a linha, com citação <code>path:line</code>), <b>preliminar</b> (análise heurística local) ou uma <b>estimativa</b>. As três nunca se misturam sem etiqueta, e o ranking por omissão lista só entradas auditadas. Audita qualquer repo local neste browser; o teu código nunca é enviado.</p>
+          <h2 data-i18n="home_hero_title">AI agent harnesses, scored across 22 dimensions, with published evidence for audited entries.</h2>
+          <p class="sub" data-i18n="home_hero_sub">Your harness, not just your model, decides how much of your token budget is wasted. Every score here is one of three things: <b>audited</b> (a public, line-by-line audit citing <code>path:line</code>), <b>preliminary</b> (a local heuristic scan), or an <b>estimate</b>. The three are never mixed without a label, and the default ranking lists audited entries only. You can audit any local repo in this browser; your code is never uploaded.</p>
         </div>
         <aside class="hero-snap" aria-label="Audited entries">
-          <div class="hero-snap-title" data-i18n="home_top_title">Topo do ranking (auditados)</div>
+          <div class="hero-snap-title" data-i18n="home_top_title">Top of the ranking (audited)</div>
           <div id="home-top" class="hero-snap-list"></div>
         </aside>
       </div>
     </div>
-    <p class="notice" data-i18n="disclosure_kando">Declaração de interesses. O Kando é desenvolvido pelo autor do Harness Compass (Emílio, @emilzo / DevFactoryAI); ver CLA.md. Não está no ranking enquanto não houver uma auditoria pública.</p>
+    <p class="notice" data-i18n="disclosure_kando">Disclosure. Kando is built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI); see CLA.md. It is not ranked until a public audit exists.</p>
     <div class="card">
-      <h2 data-i18n="home_steps_title">O paradigma em 3 passos</h2>
+      <h2 data-i18n="home_steps_title">The paradigm in 3 steps</h2>
       <div class="steps">
-        <div class="step"><b data-i18n="step1_t">1 · Mede</b><span data-i18n="step1_d">O harness é a camada entre o modelo e o teu produto: guia (prompts, AGENTS.md, skills), executa (loop, tools, sandbox), verifica (testes, evals) e decide (permissões, julgamento, custo).</span></div>
-        <div class="step"><b data-i18n="step2_t">2 · Compara</b><span data-i18n="step2_d">O ranking por omissão lista só entradas auditadas. As estimativas ficam atrás de um controlo e não têm posição. As etiquetas de proveniência mantêm-se visíveis.</span></div>
-        <div class="step"><b data-i18n="step3_t">3 · Decide</b><span data-i18n="step3_d">O quiz sugere uma escolha adequada a partir deste scorecard. A calculadora mostra um custo mensal modelado de tokens, não uma medição. Entre os benchmarks de tarefas publicados que comparam scaffolds de agentes estão o Terminal-Bench (https://www.tbench.ai/leaderboard), o Coding Agent Index da Artificial Analysis (https://artificialanalysis.ai/agents/coding-agents) e o HAL (https://hal.cs.princeton.edu/).</span></div>
+        <div class="step"><b data-i18n="step1_t">1 · Measure</b><span data-i18n="step1_d">The harness is the layer between the model and your product: it guides (prompts, AGENTS.md, skills), executes (loop, tools, sandbox), verifies (tests, evals) and decides (permissions, judgment, cost).</span></div>
+        <div class="step"><b data-i18n="step2_t">2 · Compare</b><span data-i18n="step2_d">The default ranking lists audited entries only. Estimate entries stay behind a control and are not ranked. Provenance labels stay visible.</span></div>
+        <div class="step"><b data-i18n="step3_t">3 · Decide</b><span data-i18n="step3_d">The quiz suggests a fit from this scorecard. The calculator shows a modelled monthly token cost, not a measurement. Published task benchmarks that compare agent scaffolds include Terminal-Bench (https://www.tbench.ai/leaderboard), the Artificial Analysis Coding Agent Index (https://artificialanalysis.ai/agents/coding-agents), and HAL (https://hal.cs.princeton.edu/).</span></div>
       </div>
-      <div style="margin-top:18px"><button class="primary" onclick="switchView('audit')" data-i18n="home_cta">Auditar um repositório local — o código fica neste browser e não é enviado</button></div>
+      <div style="margin-top:18px"><button class="primary" onclick="switchView('audit')" data-i18n="home_cta">Audit a local repo — your code stays in this browser and is not uploaded</button></div>
     </div>
     <div class="card">
-      <h2 data-i18n="home_anatomy_title">Da anatomia clássica ao sistema cibernético</h2>
-      <p class="muted" data-i18n="home_anatomy_sub">A anatomia (Interface → AGENT LOOP → LLM ↔ tools; Ferramentas, Permissões, Sandbox, Verificação, Observabilidade) está certa. A versão completa acrescenta o que a auditação real revelou:</p>
-      <p style="margin-top:10px" id="home-pills"><!-- pills re-renderizados por renderHomePills() a partir de t("home_pills"); os estáticos são o fallback sem JS -->
-        <span class="pill">Avaliação inferencial (evals, LLM-as-judge)</span><span class="pill">Multi-modelo &amp; routing</span><span class="pill">Julgamento &amp; escalação</span><span class="pill">Custo como controlo (cap)</span><span class="pill">Aprendizagem &amp; curadoria</span><span class="pill">Compliance &amp; privacidade</span><span class="pill">Resiliência &amp; recuperação</span><span class="pill">Steering loop humano</span><span class="pill">Guias feedforward (AGENTS.md, skills, plans)</span></p>
-      <p class="legend" data-i18n="home_anatomy_legend">"Loops coordenam. Harnesses guiam, executam, verificam e decidem. Modelos geram."</p>
+      <h2 data-i18n="home_anatomy_title">From classic anatomy to a cybernetic system</h2>
+      <p class="muted" data-i18n="home_anatomy_sub">The anatomy (Interface → AGENT LOOP → LLM ↔ tools; Tools, Permissions, Sandbox, Verification, Observability) is right. The full version adds what real auditing revealed:</p>
+      <p style="margin-top:10px" id="home-pills"><!-- pills re-rendered by renderHomePills() from t("home_pills"); the static ones are the no-JS fallback -->
+        <span class="pill">Inferential evaluation (evals, LLM-as-judge)</span><span class="pill">Multi-model &amp; routing</span><span class="pill">Judgment &amp; escalation</span><span class="pill">Cost as control (cap)</span><span class="pill">Learning &amp; curation</span><span class="pill">Compliance &amp; privacy</span><span class="pill">Resilience &amp; recovery</span><span class="pill">Human steering loop</span><span class="pill">Feedforward guides (AGENTS.md, skills, plans)</span></p>
+      <p class="legend" data-i18n="home_anatomy_legend">"Loops coordinate. Harnesses guide, execute, verify and decide. Models generate."</p>
     </div>
   </section>
 
   <!-- ============ RANKING ============ -->
   <section id="view-ranking">
     <div class="card">
-      <h2><span data-i18n="rank_title">Ranking de harnesses</span> <span id="rank-count"></span></h2>
-      <p class="muted" data-i18n="rank_desc"><b>Como ler os resultados.</b> O HCI é o índice composto deste scorecard de maturidade de arquitetura, baseado em código e evidência em 22 dimensões. Não é um benchmark de desempenho em tarefas; o benchmark comportamental B1–B8 está especificado, mas não está implementado. <span class="badge b-audit">Auditado</span> = evidência de código linha a linha, publicada e verificável. <span class="badge b-prel">Preliminar</span> = análise heurística no browser. <span class="badge b-est">Estimativa</span> = avaliação informada feita pelo autor do projeto, sem relatório de auditoria público. <b>Local</b> = só existe na tua sessão. <b>Benchmarked</b> fica reservado a uma execução B1–B8 publicada e revista. A lista por omissão mostra só entradas auditadas.</p>
+      <h2><span data-i18n="rank_title">Harness ranking</span> <span id="rank-count"></span></h2>
+      <p class="muted" data-i18n="rank_desc"><b>How to read the results.</b> HCI is the composite index of this architecture maturity scorecard based on code and evidence across 22 dimensions. It is not a task-performance benchmark; the B1–B8 behaviour benchmark is specified but not implemented. <span class="badge b-audit">Audited</span> = published, checkable line-by-line code evidence. <span class="badge b-prel">Preliminary</span> = heuristic browser scan. <span class="badge b-est">Estimate</span> = an informed assessment by the project author, with no public audit report. <b>Local</b> = exists only in your session. <b>Benchmarked</b> is reserved for a published, reviewed B1–B8 run. The default list shows audited entries only.</p>
       <div style="margin:14px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
-        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_dom">Filtrar domínio:</b>
-        <button class="pill fbtn" data-f="all" style="cursor:pointer" data-i18n="dom_all">Todos</button>
-        <button class="pill fbtn" data-f="A" style="cursor:pointer" data-i18n="fbtn_A">A Núcleo</button>
-        <button class="pill fbtn" data-f="B" style="cursor:pointer" data-i18n="fbtn_B">B Guias</button>
-        <button class="pill fbtn" data-f="C" style="cursor:pointer" data-i18n="fbtn_C">C Sensores</button>
-        <button class="pill fbtn" data-f="D" style="cursor:pointer" data-i18n="fbtn_D">D Governação ★</button>
-        <button class="pill fbtn" data-f="E" style="cursor:pointer" data-i18n="fbtn_E">E Aprendizagem</button>
-        <button class="pill fbtn" data-f="F" style="cursor:pointer" data-i18n="fbtn_F">F Operacional</button>
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_dom">Filter domain:</b>
+        <button class="pill fbtn" data-f="all" style="cursor:pointer" data-i18n="dom_all">All</button>
+        <button class="pill fbtn" data-f="A" style="cursor:pointer" data-i18n="fbtn_A">A Core</button>
+        <button class="pill fbtn" data-f="B" style="cursor:pointer" data-i18n="fbtn_B">B Guides</button>
+        <button class="pill fbtn" data-f="C" style="cursor:pointer" data-i18n="fbtn_C">C Sensors</button>
+        <button class="pill fbtn" data-f="D" style="cursor:pointer" data-i18n="fbtn_D">D Governance ★</button>
+        <button class="pill fbtn" data-f="E" style="cursor:pointer" data-i18n="fbtn_E">E Learning</button>
+        <button class="pill fbtn" data-f="F" style="cursor:pointer" data-i18n="fbtn_F">F Ops</button>
       </div>
       <div style="margin:0 0 14px; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
-        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_prov">Proveniência (integridade):</b>
-        <button class="pill pbtn" data-p="all" style="cursor:pointer" data-i18n="prov_all">Todos</button>
-        <button class="pill pbtn" data-p="oficial" style="cursor:pointer" data-i18n="prov_oficial">✓ Dataset do projeto</button>
-        <button class="pill pbtn" data-p="local" style="cursor:pointer" data-i18n="prov_local">Local (a tua sessão)</button>
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_prov">Provenance (integrity):</b>
+        <button class="pill pbtn" data-p="all" style="cursor:pointer" data-i18n="prov_all">All</button>
+        <button class="pill pbtn" data-p="oficial" style="cursor:pointer" data-i18n="prov_oficial">✓ Project dataset</button>
+        <button class="pill pbtn" data-p="local" style="cursor:pointer" data-i18n="prov_local">Local (your session)</button>
       </div>
       <div style="margin:0 0 14px; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
-        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_scope">O que é mostrado:</b>
-        <button type="button" class="pill ebtn" data-e="off" style="cursor:pointer" data-i18n="rank_audited_only">Só auditados</button>
-        <button type="button" class="pill ebtn" data-e="on" style="cursor:pointer" data-i18n="rank_show_est">Mostrar estimativas</button>
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_scope">Shown:</b>
+        <button type="button" class="pill ebtn" data-e="off" style="cursor:pointer" data-i18n="rank_audited_only">Audited only</button>
+        <button type="button" class="pill ebtn" data-e="on" style="cursor:pointer" data-i18n="rank_show_est">Show estimates</button>
       </div>
-      <p class="notice" data-i18n="disclosure_kando">Declaração de interesses. O Kando é desenvolvido pelo autor do Harness Compass (Emílio, @emilzo / DevFactoryAI); ver CLA.md. Não está no ranking enquanto não houver uma auditoria pública.</p>
-      <p class="notice" id="rank-est-note" hidden data-i18n="rank_est_note">As linhas de estimativa não têm posição. O autor do projeto atribuiu estes scores como avaliação informada, sem auditoria publicada, sem data e sem ficheiro de evidência por dimensão. Os produtos de código fechado nesta lista não foram pontuados a partir de uma leitura integral do código.</p>
+      <p class="notice" data-i18n="disclosure_kando">Disclosure. Kando is built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI); see CLA.md. It is not ranked until a public audit exists.</p>
+      <p class="notice" id="rank-est-note" hidden data-i18n="rank_est_note">Estimate rows are not ranked and have no position number. The project author assigned these scores as an informed assessment, with no published audit, no date, and no per-dimension evidence file. Closed-source products in this list were not scored from a full code read.</p>
       <div class="tbl-wrap">
         <table id="rank-table">
           <thead><tr id="rank-head"></tr></thead>
@@ -279,44 +279,44 @@
   <!-- ============ COST (modelled, illustrative) ============ -->
   <section id="view-cost">
     <div class="card">
-      <h2 data-i18n="cost_title">Custo modelado (ilustrativo)</h2>
-      <p class="muted" data-i18n="cost_desc">Custo mensal modelado de tokens para uma carga assumida. É um modelo, não uma medição nem um custo por tarefa. O custo por tarefa medido está planeado no runner do cenário B8, que ainda não está implementado. O primeiro resultado, modelo premium isolado, aplica os pressupostos de cache, compressão e falhas evitadas, sem routing. O segundo, com routing, envia também parte do trabalho para o modelo económico. A fração encaminhada é 0,65 × A1/10, por isso um score 0 não encaminha nada. Os scores Auditados vêm de uma auditoria publicada; os scores de Estimativa não.</p>
+      <h2 data-i18n="cost_title">Modelled cost (illustrative)</h2>
+      <p class="muted" data-i18n="cost_desc">Modelled monthly token cost for one assumed workload. It is a model, not a measurement and not a cost per task. Measured cost per task is planned in the B8 scenario runner, which is not implemented. The first result, premium model only, applies the cache, compression, and avoided-failure assumptions, with no routing. The second, with routing, also sends part of the work to the economy model. The routed fraction is 0.65 × A1/10, so a score of 0 routes nothing. Audited scores come from a published audit; Estimate scores do not.</p>
       <div style="margin:12px 0; display:flex; flex-wrap:wrap; gap:6px; align-items:center">
-        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_scope">O que é mostrado:</b>
-        <button type="button" class="pill ebtn" data-e="off" style="cursor:pointer" data-i18n="rank_audited_only">Só auditados</button>
-        <button type="button" class="pill ebtn" data-e="on" style="cursor:pointer" data-i18n="rank_show_est">Mostrar estimativas</button>
+        <b class="muted" style="font-size:12px; letter-spacing:.4px; text-transform:uppercase" data-i18n="rank_scope">Shown:</b>
+        <button type="button" class="pill ebtn" data-e="off" style="cursor:pointer" data-i18n="rank_audited_only">Audited only</button>
+        <button type="button" class="pill ebtn" data-e="on" style="cursor:pointer" data-i18n="rank_show_est">Show estimates</button>
       </div>
-      <p class="notice" id="cost-est-note" hidden data-i18n="rank_est_note">As linhas de estimativa não têm posição. O autor do projeto atribuiu estes scores como avaliação informada, sem auditoria publicada, sem data e sem ficheiro de evidência por dimensão. Os produtos de código fechado nesta lista não foram pontuados a partir de uma leitura integral do código.</p>
+      <p class="notice" id="cost-est-note" hidden data-i18n="rank_est_note">Estimate rows are not ranked and have no position number. The project author assigned these scores as an informed assessment, with no published audit, no date, and no per-dimension evidence file. Closed-source products in this list were not scored from a full code read.</p>
       <div class="grid2" style="margin-top:14px">
         <div class="calc">
-          <label data-i18n="ct_t_in">Tokens de entrada / mês (milhões)</label>
+          <label data-i18n="ct_t_in">Input tokens / month (millions)</label>
           <input type="number" id="ct-tokens" value="200" min="1" oninput="renderCost()">
-          <label data-i18n="ct_t_out">Tokens de saída / mês (milhões)</label>
+          <label data-i18n="ct_t_out">Output tokens / month (millions)</label>
           <input type="number" id="ct-out" value="20" min="1" oninput="renderCost()">
-          <label data-i18n="ct_eco">Modelo económico — input $/M · output $/M</label>
+          <label data-i18n="ct_eco">Economy model — input $/M · output $/M</label>
           <div style="display:flex;gap:8px"><input type="number" id="ct-pi" value="0.14" step="0.01" oninput="renderCost()"><input type="number" id="ct-po" value="0.42" step="0.01" oninput="renderCost()"></div>
-          <label data-i18n="ct_prem">Modelo premium — input $/M · output $/M</label>
+          <label data-i18n="ct_prem">Premium model — input $/M · output $/M</label>
           <div style="display:flex;gap:8px"><input type="number" id="ct-ppi" value="3.00" step="0.1" oninput="renderCost()"><input type="number" id="ct-ppo" value="15.00" step="0.5" oninput="renderCost()"></div>
-          <label style="margin-top:14px" data-i18n="ct_or">Preencher com preços reais (OpenRouter)</label>
-          <select id="ct-model" onchange="useOpenRouterPriceCT()"><option value="" data-i18n="ct_or_choose">— escolhe um modelo —</option></select>
+          <label style="margin-top:14px" data-i18n="ct_or">Fill with real prices (OpenRouter)</label>
+          <select id="ct-model" onchange="useOpenRouterPriceCT()"><option value="" data-i18n="ct_or_choose">— choose a model —</option></select>
           <div id="ct-or-status" class="legend"></div>
           <div id="ct-models-diff" class="legend"></div>
           <div id="ct-history"></div>
         </div>
         <div>
-          <p class="muted" style="font-size:12.5px" data-i18n="ct_assumptions">Os valores por omissão são pressupostos, não uma carga medida: 200 milhões de tokens de entrada e 20 milhões de tokens de saída por mês. Modelo económico: 0,14 dólares (entrada) e 0,42 dólares (saída) por milhão de tokens. Modelo premium: 3,00 dólares (entrada) e 15,00 dólares (saída) por milhão de tokens. Os modelos não estão identificados e os preços não têm data. As leituras em cache são cobradas a 0,1 vezes o preço de entrada e a entrada sem cache ao preço de entrada completo. O prémio de escrita em cache não é modelado.</p>
-          <p class="muted" style="font-size:12.5px" data-i18n="ct_eff">Taxas assumidas a partir dos scores, sem calibração com medições. Os máximos atingíveis são 70% para a cache (0,7 × A2/10), 50% para as falhas evitadas (0,5 × C4/10) e 45% para a compressão (0,45 × A2/10). O routing vai de 0% a 65% (0,65 × A1/10); com score 0 não há routing.</p>
+          <p class="muted" style="font-size:12.5px" data-i18n="ct_assumptions">Default inputs are assumptions, not a measured workload: 200 million input tokens and 20 million output tokens per month. Economy model: $0.14 (input) and $0.42 (output) per million tokens. Premium model: $3.00 (input) and $15.00 (output) per million tokens. The models are not named and the prices are not dated. Cached reads are billed at 0.1 times the input price and uncached input at the full input price. Cache-write premiums are not modelled.</p>
+          <p class="muted" style="font-size:12.5px" data-i18n="ct_eff">Assumed rates derived from the scores, not calibrated against measurements. The reachable maximums are 70% for cache (0.7 × A2/10), 50% for avoided failures (0.5 × C4/10), and 45% for compression (0.45 × A2/10). Routing ranges from 0% to 65% (0.65 × A1/10); a score of 0 gives no routing.</p>
           <div id="ct-chart"></div>
         </div>
       </div>
       <div class="tbl-wrap" style="margin-top:14px">
         <table id="cost-table">
-          <thead><tr><th data-i18n="ct_col_h">Harness</th><th class="num" data-i18n="ct_col_c">Modelo premium isolado ($/mês)</th><th class="num" data-i18n="ct_col_routed">Com routing para o modelo económico ($/mês)</th><th class="num" data-i18n="ct_col_vs">vs sem harness (só premium)</th><th class="num" data-i18n="ct_col_vs_r">vs sem harness (com routing)</th><th class="num" data-i18n="ct_col_cache">Cache</th><th class="num" data-i18n="ct_col_retry">Falhas evit.</th><th class="num" data-i18n="ct_col_route">Routing</th><th class="num">HCI</th></tr></thead>
+          <thead><tr><th data-i18n="ct_col_h">Harness</th><th class="num" data-i18n="ct_col_c">Premium model only ($/mo)</th><th class="num" data-i18n="ct_col_routed">With routing to the economy model ($/mo)</th><th class="num" data-i18n="ct_col_vs">vs no harness (premium only)</th><th class="num" data-i18n="ct_col_vs_r">vs no harness (with routing)</th><th class="num" data-i18n="ct_col_cache">Cache</th><th class="num" data-i18n="ct_col_retry">Failures avoided</th><th class="num" data-i18n="ct_col_route">Routing</th><th class="num">HCI</th></tr></thead>
           <tbody id="cost-body"></tbody>
         </table>
       </div>
       <div id="cost-est-wrap" hidden>
-        <h3 data-i18n="rank_est_heading">Estimativas (sem posição)</h3>
+        <h3 data-i18n="rank_est_heading">Estimates (not ranked)</h3>
         <div class="tbl-wrap">
           <table>
             <tbody id="cost-est-body"></tbody>
@@ -330,8 +330,8 @@
   <!-- ============ MAP ============ -->
   <section id="view-map">
     <div class="card">
-      <h2 data-i18n="map_title">Mapa do Harness — 6 domínios × 22 dimensões</h2>
-      <p class="muted" data-i18n="map_desc">A taxonomia usada para auditar qualquer harness. Cada dimensão tem KPIs próprios e escala de maturidade 0–10.</p>
+      <h2 data-i18n="map_title">Harness Map — 6 domains × 22 dimensions</h2>
+      <p class="muted" data-i18n="map_desc">The taxonomy used to audit any harness. Each dimension has its own KPIs and a 0–10 maturity scale.</p>
       <div id="map-container" style="margin-top:14px"></div>
     </div>
   </section>
@@ -339,12 +339,12 @@
   <!-- ============ AUDIT ============ -->
   <section id="view-audit">
     <div class="card">
-      <h2 data-i18n="audit_title">Auditar um repositório local</h2>
-      <p class="muted" data-i18n="audit_desc">Escolhe a pasta de um projeto/repo. O Compass lê sinais estruturais (AGENTS.md, testes, CI, skills, security patterns…) e produz scores preliminares para as 22 dimensões. Ajusta o que quiseres, adiciona ao ranking e exporta o JSON para contribuir. <b>O código fica neste browser — não é enviado.</b></p>
-      <p class="legend" data-i18n="audit_compat">Compatibilidade: <b>Chrome/Edge</b> (qualquer OS) = experiência completa via seletor de pastas (requer HTTPS — o GitHub Pages dá). <b>Firefox</b> = usa o seletor clássico automaticamente. <b>Safari</b> = tudo funciona exceto a leitura de pastas (limitada pelo browser). O resto da app funciona em qualquer browser moderno.</p>
+      <h2 data-i18n="audit_title">Audit a local repo</h2>
+      <p class="muted" data-i18n="audit_desc">Choose a project/repo folder. The Compass reads structural signals (AGENTS.md, tests, CI, skills, security patterns…) and produces preliminary scores for the 22 dimensions. Adjust as you wish, add to the ranking and export the JSON to contribute. <b>Your code stays in this browser — it is not uploaded.</b></p>
+      <p class="legend" data-i18n="audit_compat">Compatibility: <b>Chrome/Edge</b> (any OS) = full experience via folder picker (needs HTTPS — GitHub Pages provides it). <b>Firefox</b> = classic picker automatically. <b>Safari</b> = everything works except folder reading (browser limitation). The rest of the app works on any modern browser.</p>
       <div style="margin:18px 0; display:flex; gap:10px; flex-wrap:wrap">
-        <button class="primary" onclick="pickFolder()" data-i18n="audit_pick">Escolher pasta do projeto</button>
-        <button class="ghost" onclick="resetAudit()" data-i18n="audit_clear">Limpar</button>
+        <button class="primary" onclick="pickFolder()" data-i18n="audit_pick">Choose project folder</button>
+        <button class="ghost" onclick="resetAudit()" data-i18n="audit_clear">Clear</button>
         <input type="file" id="folder-input" webkitdirectory directory multiple style="display:none">
       </div>
       <div id="audit-status" class="muted"></div>
@@ -355,10 +355,10 @@
   <!-- ============ QUIZ ============ -->
   <section id="view-quiz">
     <div class="card">
-      <h2 data-i18n="quiz_title">Que harness para ti?</h2>
-      <p class="muted" data-i18n="quiz_desc">Responde a 6 perguntas. O scorecard pondera as 22 dimensões pelo teu perfil e sugere até 3 harnesses entre as entradas incluídas. O Kando fica de fora.</p>
+      <h2 data-i18n="quiz_title">Which harness for you?</h2>
+      <p class="muted" data-i18n="quiz_desc">Answer 6 questions. The scorecard weights the 22 dimensions by your profile and suggests up to 3 harnesses from the entries currently included. Kando is excluded.</p>
       <div id="quiz-questions" style="margin:16px 0"></div>
-      <button class="primary" onclick="runQuiz()" data-i18n="quiz_run">Calcular recomendação</button>
+      <button class="primary" onclick="runQuiz()" data-i18n="quiz_run">Calculate recommendation</button>
       <div id="quiz-result" style="margin-top:18px"></div>
     </div>
   </section>
@@ -366,32 +366,32 @@
   <!-- ============ ECONOMY ============ -->
   <section id="view-economy">
     <div class="card">
-      <h2 data-i18n="eco_title">Calculadora: custo mensal modelado de tokens</h2>
-      <p class="muted" data-i18n="eco_desc">A mesma carga assumida da vista de custo modelado. Ajusta os controlos para ver o efeito em dólares por mês. Os resultados são modelados, não medidos.</p>
-      <p class="muted" data-i18n="ec_assumptions">Os valores por omissão dos controlos são pressupostos: cache 55%, falhas evitadas 25%, compressão 30%, routing 70%. Não vêm do score de um harness. Os volumes e os preços usam os mesmos pressupostos da vista de custo modelado.</p>
+      <h2 data-i18n="eco_title">Calculator: modelled monthly token cost</h2>
+      <p class="muted" data-i18n="eco_desc">Same assumed workload as the modelled-cost view. Adjust the controls to see the effect in dollars per month. Results are modelled, not measured.</p>
+      <p class="muted" data-i18n="ec_assumptions">Slider defaults are assumptions: cache 55%, avoided failures 25%, compression 30%, routing 70%. They are not taken from a harness score. Token volumes and prices use the same assumptions as the modelled-cost view.</p>
       <div class="grid2" style="margin-top:14px">
         <div class="calc">
-          <label data-i18n="ec_t_in">Tokens de entrada / mês (milhões)</label>
+          <label data-i18n="ec_t_in">Input tokens / month (millions)</label>
           <input type="number" id="ec-tokens" value="200" min="1">
-          <label data-i18n="ec_t_out">Tokens de saída / mês (milhões)</label>
+          <label data-i18n="ec_t_out">Output tokens / month (millions)</label>
           <input type="number" id="ec-out" value="20" min="1">
-          <label data-i18n="ec_p_in">Preço modelo económico ($ / M input)</label>
+          <label data-i18n="ec_p_in">Economy model price ($ / M input)</label>
           <input type="number" id="ec-price-in" value="0.14" step="0.01">
-          <label data-i18n="ec_p_out">Preço modelo económico ($ / M output)</label>
+          <label data-i18n="ec_p_out">Economy model price ($ / M output)</label>
           <input type="number" id="ec-price-out" value="0.42" step="0.01">
-          <label data-i18n="ec_p_in_p">Preço modelo premium ($ / M input)</label>
+          <label data-i18n="ec_p_in_p">Premium model price ($ / M input)</label>
           <input type="number" id="ec-price-in-p" value="3.00" step="0.1">
-          <label data-i18n="ec_p_out_p">Preço modelo premium ($ / M output)</label>
+          <label data-i18n="ec_p_out_p">Premium model price ($ / M output)</label>
           <input type="number" id="ec-price-out-p" value="15.00" step="0.5">
         </div>
         <div class="calc">
-          <label data-i18n="ec_cache">Eficiência do harness — cache de prompt (hit rate %)</label>
+          <label data-i18n="ec_cache">Harness efficiency — prompt cache (hit rate %)</label>
           <div class="range-row"><input type="range" id="ec-cache" min="0" max="90" value="55" oninput="calcEconomy()"><output id="ec-cache-o">55%</output></div>
-          <label data-i18n="ec_retry">Falhas evitadas — retry/fallback inteligente (% não desperdiçado)</label>
+          <label data-i18n="ec_retry">Avoided failures — smart retry/fallback (% not wasted)</label>
           <div class="range-row"><input type="range" id="ec-retry" min="0" max="60" value="25" oninput="calcEconomy()"><output id="ec-retry-o">25%</output></div>
-          <label data-i18n="ec_comp">Compressão de contexto (redução % do contexto enviado)</label>
+          <label data-i18n="ec_comp">Context compression (reduction % of context sent)</label>
           <div class="range-row"><input type="range" id="ec-comp" min="0" max="70" value="30" oninput="calcEconomy()"><output id="ec-comp-o">30%</output></div>
-          <label data-i18n="ec_route">Routing para o modelo económico (fração de trabalho nesse modelo)</label>
+          <label data-i18n="ec_route">Routing to the economy model (share of work on that model)</label>
           <div class="range-row"><input type="range" id="ec-route" min="0" max="100" value="70" oninput="calcEconomy()"><output id="ec-route-o">70%</output></div>
         </div>
       </div>
@@ -402,36 +402,36 @@
   <!-- ============ METHOD ============ -->
   <section id="view-method">
     <div class="card">
-      <h2 data-i18n="method_title">Método e evidência</h2>
-      <p data-i18n="method_p1">O Harness Compass nasce de auditorias reais, não de opinião. Um harness <span class="badge b-audit">Auditado</span> foi analisado com regras de evidência: cada afirmação cita <code>path:line</code> verificado, ausências provadas por pesquisa, cobertura declarada. Um harness <span class="badge b-prel">Preliminar</span> entrou por análise heurística local da pasta — útil para primeiro corte, mas o badge definitivo exige auditoria com leitura real.</p>
-      <h3 data-i18n="method_mt">Escala de maturidade (0–10)</h3>
+      <h2 data-i18n="method_title">Method & evidence</h2>
+      <p data-i18n="method_p1">The Harness Compass is born from real audits, not opinion. A harness with the <span class="badge b-audit">Audited</span> badge was analyzed under evidence rules: every claim cites a verified <code>path:line</code>, absences proven by search, coverage declared. A <span class="badge b-prel">Preliminary</span> harness entered via local heuristic folder analysis — useful as a first cut, but the definitive badge requires an audit with real reading.</p>
+      <h3 data-i18n="method_mt">Maturity scale (0–10)</h3>
       <div class="tbl-wrap" style="margin-top:8px">
         <table style="min-width:0">
-          <tr><td><b>0</b></td><td data-i18n="m_m0">Não existe (provado por pesquisa)</td></tr>
-          <tr><td><b>2</b></td><td data-i18n="m_m2">Vestígio / stub não ligado ao caminho de execução</td></tr>
-          <tr><td><b>4</b></td><td data-i18n="m_m4">Funciona no caso simples, degrada previsivelmente</td></tr>
-          <tr><td><b>6</b></td><td data-i18n="m_m6">Funcional e integrado, gaps conhecidos</td></tr>
-          <tr><td><b>8</b></td><td data-i18n="m_m8">Sólido, erros tratados, testes</td></tr>
-          <tr><td><b>10</b></td><td data-i18n="m_m10">Razão de existir, profundidade além do requisito</td></tr>
+          <tr><td><b>0</b></td><td data-i18n="m_m0">Does not exist (proven by search)</td></tr>
+          <tr><td><b>2</b></td><td data-i18n="m_m2">Trace / stub not wired to the execution path</td></tr>
+          <tr><td><b>4</b></td><td data-i18n="m_m4">Works in the simple case, degrades predictably</td></tr>
+          <tr><td><b>6</b></td><td data-i18n="m_m6">Functional and integrated, known gaps</td></tr>
+          <tr><td><b>8</b></td><td data-i18n="m_m8">Solid, errors handled, tests</td></tr>
+          <tr><td><b>10</b></td><td data-i18n="m_m10">Reason for existing, depth beyond the requirement</td></tr>
         </table>
       </div>
-      <h3 data-i18n="method_lt">Como funciona a auditoria local (badge Preliminar)</h3>
-      <p data-i18n="method_ld">A app lê até 300 ficheiros da pasta (máx ~2 MB de conteúdo) e procura sinais objetivos por dimensão: presença de <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guias), <code>tests/</code> + workflows CI (verificação), <code>skills/</code> (playbooks), padrões de approval/security (governação), <code>docker</code>/<code>sandbox</code> (execução), <code>cost</code>/<code>budget</code> (custo)… Cada sinal soma pontos à dimensão correspondente com justificação visível. É um primeiro corte honesto — não substitui a auditoria completa.</p>
-      <h3 data-i18n="method_disc_t">Declarações de interesses</h3>
-      <p data-i18n="disclosure_kando">Declaração de interesses. O Kando é desenvolvido pelo autor do Harness Compass (Emílio, @emilzo / DevFactoryAI); ver CLA.md. Não está no ranking enquanto não houver uma auditoria pública.</p>
-      <h3 data-i18n="method_cost_t">Pressupostos do modelo de custo</h3>
-      <p data-i18n="method_cost_d">Os coeficientes 0,7 (cache), 0,5 (falhas evitadas), 0,45 (compressão) e 0,65 (routing) são pressupostos sem medição publicada. A cache aplica-se depois da compressão: a compressão reduz o volume enviado e a cache divide esse volume entre leituras em cache e entrada sem cache. Tratar as duas taxas como independentes também é um pressuposto. As leituras em cache custam 0,1 vezes o preço de entrada, o fator que a Anthropic publica para leituras de prompt caching (https://platform.claude.com/docs/en/build-with-claude/prompt-caching); é um fator de preço publicado, não uma fatura medida destes harnesses. O prémio de escrita em cache não é modelado. Os volumes por omissão são 200 milhões de tokens de entrada e 20 milhões de tokens de saída por mês. Os preços por omissão, por milhão de tokens, são 0,14 dólares (entrada) e 0,42 dólares (saída) para o modelo económico, e 3 dólares (entrada) e 15 dólares (saída) para o modelo premium. Os modelos não estão identificados e os preços não têm data. Os controlos da calculadora começam em 55/25/30/70 (cache, falhas evitadas, compressão, routing), valores que também são pressupostos. O custo por tarefa medido está planeado no runner do cenário B8, que ainda não está implementado.</p>
-      <h3 data-i18n="method_ct">Notas: Hermes Agent e Kando</h3>
-      <p data-i18n="method_cd">A auditoria do Hermes está publicada em docs/DEEP-HARNESS-AUDIT-HERMES.en.md. O Kando tem apenas um sumário público (docs/EVIDENCE-SUMMARY-KANDO.md); o relatório linha a linha do Kando é privado e o Kando não está no ranking.</p>
-      <p class="muted" style="margin-top:10px" data-i18n="method_src">Fontes: references/harness-map.md, docs/DEEP-HARNESS-AUDIT-HERMES.en.md (auditoria publicada) e docs/EVIDENCE-SUMMARY-KANDO.md (sumário público de uma auditoria privada). O Kando é desenvolvido pelo autor deste projeto (DevFactoryAI).</p>
+      <h3 data-i18n="method_lt">How the local audit works (Preliminary badge)</h3>
+      <p data-i18n="method_ld">The app reads up to 300 files from the folder (max ~2 MB of content) and looks for objective signals per dimension: presence of <code>AGENTS.md</code>/<code>CLAUDE.md</code> (guides), <code>tests/</code> + CI workflows (verification), <code>skills/</code> (playbooks), approval/security patterns (governance), <code>docker</code>/<code>sandbox</code> (execution), <code>cost</code>/<code>budget</code> (cost)… Each signal adds points to its dimension with visible justification. An honest first cut — not a substitute for the full audit.</p>
+      <h3 data-i18n="method_disc_t">Disclosures</h3>
+      <p data-i18n="disclosure_kando">Disclosure. Kando is built by the author of Harness Compass (Emílio, @emilzo / DevFactoryAI); see CLA.md. It is not ranked until a public audit exists.</p>
+      <h3 data-i18n="method_cost_t">Cost model assumptions</h3>
+      <p data-i18n="method_cost_d">The coefficients 0.7 (cache), 0.5 (avoided failures), 0.45 (compression) and 0.65 (routing) are assumptions with no published measurement. Cache is applied after compression: compression reduces the volume sent, then cache splits that volume into cached reads and uncached input. Treating the two rates as independent is also an assumption. Cached reads cost 0.1 times the input price, the factor Anthropic publishes for prompt-cache reads (https://platform.claude.com/docs/en/build-with-claude/prompt-caching); this is a published price factor, not a measured bill for these harnesses. Cache-write premiums are not modelled. Default volumes are 200 million input tokens and 20 million output tokens per month. Default prices per million tokens are $0.14 (input) and $0.42 (output) for the economy model, and $3 (input) and $15 (output) for the premium model. The models are not named and the prices are not dated. The calculator controls start at 55/25/30/70 (cache, avoided failures, compression, routing), which are also assumptions. Measured cost per task is planned in the B8 scenario runner, which is not implemented.</p>
+      <h3 data-i18n="method_ct">Notes: Hermes Agent and Kando</h3>
+      <p data-i18n="method_cd">The Hermes audit is published in docs/DEEP-HARNESS-AUDIT-HERMES.en.md. Kando has only a public summary (docs/EVIDENCE-SUMMARY-KANDO.md); the line-by-line Kando report is private, and Kando is not ranked.</p>
+      <p class="muted" style="margin-top:10px" data-i18n="method_src">Sources: references/harness-map.md, docs/DEEP-HARNESS-AUDIT-HERMES.en.md (published audit), and docs/EVIDENCE-SUMMARY-KANDO.md (public summary of a private audit). Kando is built by the author of this project (DevFactoryAI).</p>
     </div>
   </section>
 
   <!-- ============ EVIDENCE ============ -->
   <section id="view-evidence">
     <div class="card">
-      <h2 data-i18n="ev_title">Auditorias publicadas</h2>
-      <p class="muted" data-i18n="ev_desc">Cada harness Auditado tem uma auditoria pública, linha a linha. Cada afirmação cita um <code>path:line</code> verificado, as ausências são provadas por pesquisa e a cobertura é declarada. Lê os relatórios completos.</p>
+      <h2 data-i18n="ev_title">Published audits</h2>
+      <p class="muted" data-i18n="ev_desc">Every Audited harness has a public, line-by-line audit. Every claim cites a verified <code>path:line</code>, absences are proven by search, and coverage is declared. Read the full reports.</p>
       <div id="ev-list" style="margin-top:14px"></div>
     </div>
   </section>
@@ -439,31 +439,31 @@
   <!-- ============ CONTACT ============ -->
   <section id="view-contact">
     <div class="card">
-      <h2 data-i18n="contact_title">Contactar</h2>
-      <p class="muted" data-i18n="contact_intro">Tens uma pergunta, encontraste um erro ou queres falar sobre uma auditoria? Escolhe o canal certo.</p>
+      <h2 data-i18n="contact_title">Contact</h2>
+      <p class="muted" data-i18n="contact_intro">Have a question, found an error or want to discuss an audit? Choose the right channel.</p>
       <div class="steps">
         <div class="contact-option">
-          <h3 data-i18n="contact_private_t">Auditoria privada ou colaboração</h3>
-          <p class="muted" data-i18n="contact_private_d">Para auditorias confidenciais, material privado ou propostas de colaboração. Não envies segredos nem código antes de combinarmos uma forma segura de transferência.</p>
+          <h3 data-i18n="contact_private_t">Private audit or collaboration</h3>
+          <p class="muted" data-i18n="contact_private_d">For confidential audits, private material or collaboration proposals. Do not send secrets or code until we agree on a safe transfer method.</p>
           <a class="contact-action" href="mailto:emilio.mina@gmail.com?subject=Harness%20Compass" data-i18n="contact_email_a">emilio.mina@gmail.com</a>
         </div>
         <div class="contact-option">
-          <h3 data-i18n="contact_public_t">Feedback público e correções</h3>
-          <p class="muted" data-i18n="contact_public_d">Para perguntas sobre o método, bugs reproduzíveis, correções aos dados ou ideias que podem ser discutidas em público.</p>
-          <a class="contact-action" href="https://github.com/emilzo/harness-compass/issues/new?template=contact.yml" target="_blank" rel="noopener" data-i18n="contact_public_a">Abrir um contacto público no GitHub</a>
+          <h3 data-i18n="contact_public_t">Public feedback and corrections</h3>
+          <p class="muted" data-i18n="contact_public_d">For questions about the method, reproducible bugs, data corrections or ideas that can be discussed in public.</p>
+          <a class="contact-action" href="https://github.com/emilzo/harness-compass/issues/new?template=contact.yml" target="_blank" rel="noopener" data-i18n="contact_public_a">Open a public contact issue</a>
         </div>
         <div class="contact-option">
-          <h3 data-i18n="contact_project_t">Projeto e contribuições</h3>
-          <p class="muted" data-i18n="contact_project_d">Consulta o código, acompanha as alterações ou abre uma contribuição no repositório.</p>
-          <a class="contact-action" href="https://github.com/emilzo/harness-compass" target="_blank" rel="noopener" data-i18n="contact_project_a">Ver o projeto no GitHub</a>
+          <h3 data-i18n="contact_project_t">Project and contributions</h3>
+          <p class="muted" data-i18n="contact_project_d">Read the code, follow changes or contribute through the repository.</p>
+          <a class="contact-action" href="https://github.com/emilzo/harness-compass" target="_blank" rel="noopener" data-i18n="contact_project_a">View the project on GitHub</a>
         </div>
       </div>
-      <p class="legend" data-i18n="contact_note">O email é o único canal privado. Issues do GitHub são públicas: não publiques chaves, código proprietário nem dados confidenciais.</p>
+      <p class="legend" data-i18n="contact_note">Email is the only private channel. GitHub issues are public: do not post keys, proprietary code or confidential data.</p>
     </div>
   </section>
   </main>
 
-  <footer data-i18n="footer">Harness Compass · Agent = Model + Harness · auditado / preliminar / estimativa nunca se misturam sem etiqueta · AGPL-3.0 · by <a href="https://github.com/emilzo" target="_blank" rel="noopener">@emilzo</a> · <a href="https://www.linkedin.com/in/emiliomina/" target="_blank" rel="noopener">LinkedIn</a>.</footer>
+  <footer data-i18n="footer">Harness Compass · Agent = Model + Harness · audited / preliminary / estimate never mixed without a label · AGPL-3.0 · by <a href="https://github.com/emilzo" target="_blank" rel="noopener">@emilzo</a> · <a href="https://www.linkedin.com/in/emiliomina/" target="_blank" rel="noopener">LinkedIn</a>.</footer>
 </div>
 
 <script>
@@ -551,7 +551,7 @@ const BUILTIN_HARNESSES = [
    scores:{A1:7,A2:4,A3:7,A4:5,B1:6,B2:7,B3:8,B4:7,C1:9,C2:1,C3:9,C4:7,D1:4,D2:7,D3:6,D4:3,D5:1,E1:2,E2:7,F1:7,F2:7,F3:8}},
 ];
 
-const REPO_URL = "https://github.com/emilzo/harness-compass"; /* ajustar com o og:url se o repo tiver outro nome */
+const REPO_URL = "https://github.com/emilzo/harness-compass"; /* keep in sync with og:url if the repo is renamed */
 let HARNESSES = BUILTIN_HARNESSES.slice();
 let sortKey="total", sortAsc=false, filter="all", provFilter="all", showEstimates=false;
 
@@ -2359,7 +2359,7 @@ function trackModels(current){
     window.__orDiff={hadSnap:!!snap, added:added.length, gone:gone.length, prevDate:snap?snap.date:null, count:curIds.size};
   }catch(e){ /* localStorage indisponível — segue sem histórico */ }
 }
-/* min() caps kept pending ROADMAP decision; unreachable with current coefficients (max 0.70/0.50/0.45/0.65). */
+/* min() caps kept pending a product decision; unreachable with current coefficients (max 0.70/0.50/0.45/0.65). */
 function harnessEff(h){
   const A2=(h.scores.A2||0)/10, C4=(h.scores.C4||0)/10, A1=(h.scores.A1||0)/10;
   return {cache:Math.min(0.85, A2*0.7), retry:Math.min(0.6, C4*0.5), comp:Math.min(0.6, A2*0.45), route:Math.min(0.95, A1*0.65)};
@@ -2613,19 +2613,19 @@ function showAuditResult(entries, ov){
         <div>
           <h3>${t("au_id")}</h3>
           <div class="calc">
-            <label for="au-name" data-i18n="au_name">Nome do harness</label><input id="au-name" value="${esc(defaultName)}">
-            <label for="au-vendor" data-i18n="au_vendor">Vendor / autor</label><input id="au-vendor" placeholder="${esc(t("au_vendor_ph"))}">
-            <label for="au-type" data-i18n="au_type">Tipo</label><input id="au-type" value="${esc(t("au_type_v"))}" placeholder="${esc(t("au_type_ph"))}">
-            <label for="au-tags" data-i18n="au_tags">Tags (vírgulas)</label><input id="au-tags" value="local" placeholder="${esc(t("au_tags_ph"))}">
-            <label for="au-blurb" data-i18n="au_blurb">Descrição curta (blurb)</label><input id="au-blurb" value="${esc(t("au_blurb_v"))}">
+            <label for="au-name" data-i18n="au_name">Harness name</label><input id="au-name" value="${esc(defaultName)}">
+            <label for="au-vendor" data-i18n="au_vendor">Vendor / author</label><input id="au-vendor" placeholder="${esc(t("au_vendor_ph"))}">
+            <label for="au-type" data-i18n="au_type">Type</label><input id="au-type" value="${esc(t("au_type_v"))}" placeholder="${esc(t("au_type_ph"))}">
+            <label for="au-tags" data-i18n="au_tags">Tags (comma separated)</label><input id="au-tags" value="local" placeholder="${esc(t("au_tags_ph"))}">
+            <label for="au-blurb" data-i18n="au_blurb">Short description (blurb)</label><input id="au-blurb" value="${esc(t("au_blurb_v"))}">
           </div>
           <div style="margin-top:14px">
             <div class="notice" style="margin:0; font-size:12px">${t("au_integrity")}</div>
           </div>
           <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
-            <button class="primary" onclick="addAuditedHarness()" data-i18n="au_add">+ Adicionar ao ranking</button>
-            <button class="ghost" onclick="previewPlan()" data-i18n="au_plan">Ver plano de melhoria</button>
-            <button class="ghost" onclick="exportAuditedJSON()" data-i18n="au_export">⬇ Exportar JSON</button>
+            <button class="primary" onclick="addAuditedHarness()" data-i18n="au_add">+ Add to ranking</button>
+            <button class="ghost" onclick="previewPlan()" data-i18n="au_plan">View improvement plan</button>
+            <button class="ghost" onclick="exportAuditedJSON()" data-i18n="au_export">⬇ Export JSON</button>
           </div>
           <p class="legend" style="margin-top:10px">${t("au_submit",{u:REPO_URL+"/issues/new?template=submit-harness.yml",m:"mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit"})}</p>
           <div id="au-plan-preview" style="margin-top:12px"></div>

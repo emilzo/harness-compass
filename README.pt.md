@@ -137,8 +137,6 @@ Os coeficientes 0,7 (cache), 0,5 (falhas evitadas), 0,45 (compressão) e 0,65 (r
 
 **Licença: AGPL-3.0** O código é aberto, mas quem fornecer uma versão derivada como serviço (SaaS) é obrigado a publicar o código-fonte. Isto protege o projeto contra forks que o revendam fechado.
 
-**O que é público vs retido:** o código, a taxonomia e as auditorias publicadas são a prova e o ímã. O **dataset vivo** (auditorias novas, telemetria agregada, scores em evolução) e o **selo de auditoria certificada** são ativos do projeto que não se forkiam — o que se publica hoje determina o que se pode vender amanhã.
-
 ## Internacionalização (i18n)
 
 Seletor de idioma no topo. **O inglês é a norma**, com português, francês, alemão, mandarim e hindi. O dicionário está no topo do `index.html` (`const T = {...}`). Uma etiqueta em falta noutra língua é mostrada em inglês; o `node check-i18n.js` verifica chaves e placeholders. **Para adicionar uma língua nova:** copia o bloco `pt:{...}`, traduz os valores e atualiza o seletor `LANGUAGES`.

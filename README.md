@@ -137,8 +137,6 @@ The coefficients 0.7 (cache), 0.5 (avoided failures), 0.45 (compression) and 0.6
 
 **License: AGPL-3.0** the code is open, but anyone offering a derived version as a service (SaaS) must publish their source. This protects the project from forks reselling it closed.
 
-**What's public vs retained:** the code, the taxonomy and the published audits are the proof and the magnet. The **living dataset** (new audits, aggregated telemetry, evolving scores) and the **certified audit seal** are project assets that don't fork what gets published today determines what can be sold tomorrow.
-
 ## Internationalization (i18n)
 
 Language selector at the top. **English is the norm**, with Portuguese, French, German, Mandarin and Hindi. The dictionary lives at the top of `index.html` (`const T = {...}`). A missing label in another language falls back to English; `node check-i18n.js` checks keys and placeholders. **To add a new language:** copy the `pt:{...}` block, translate the values and update the `LANGUAGES` selector.

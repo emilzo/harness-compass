@@ -25,21 +25,21 @@
  },
  {
   "id": "~deepseek/deepseek-flash-latest",
-  "in": 2.49e-8,
-  "out": 7e-7,
+  "in": 3e-9,
+  "out": 0.0000024,
   "context": 1048576
  },
  {
   "id": "~deepseek/deepseek-pro-latest",
-  "in": 2.2592e-7,
-  "out": 0.0000019584,
+  "in": 1.901e-7,
+  "out": 0.0000042,
   "context": 1048576
  },
  {
   "id": "~deepseek/deepseek-v4-flash-latest",
-  "in": 1.8e-8,
-  "out": 3.2e-7,
-  "context": 1310720
+  "in": 1.52e-8,
+  "out": 0.00000128,
+  "context": 1048576
  },
  {
   "id": "~google/gemini-flash-latest",
@@ -55,8 +55,8 @@
  },
  {
   "id": "~moonshotai/kimi-latest",
-  "in": 8.5825e-7,
-  "out": 0.0000111062,
+  "in": 6.06e-7,
+  "out": 0.000013,
   "context": 1048576
  },
  {
@@ -97,15 +97,15 @@
  },
  {
   "id": "~z-ai/glm-flash-latest",
-  "in": 4e-8,
+  "in": 3.52e-8,
   "out": 5e-7,
-  "context": 1310720
+  "context": 1048576
  },
  {
   "id": "~z-ai/glm-latest",
-  "in": 1.5e-7,
-  "out": 0.000004,
-  "context": 1310720
+  "in": 4e-8,
+  "out": 0.000008,
+  "context": 1048576
  },
  {
   "id": "aion-labs/aion-2.0",
@@ -475,7 +475,7 @@
  },
  {
   "id": "deepseek/deepseek-v3.1-terminus",
-  "in": 3e-7,
+  "in": 2.7e-7,
   "out": 0.000001,
   "context": 163840
  },
@@ -487,21 +487,21 @@
  },
  {
   "id": "deepseek/deepseek-v3.2-exp",
-  "in": 1.344e-7,
-  "out": 2.016e-7,
+  "in": 2.7e-7,
+  "out": 4.1e-7,
   "context": 163840
  },
  {
   "id": "deepseek/deepseek-v4-flash",
-  "in": 1.4e-7,
-  "out": 2.8e-7,
+  "in": 2.5e-8,
+  "out": 0.00000128,
   "context": 1048576
  },
  {
   "id": "deepseek/deepseek-v4-flash-0731",
-  "in": 1.8e-8,
-  "out": 3.2e-7,
-  "context": 1310720
+  "in": 1.52e-8,
+  "out": 0.00000128,
+  "context": 1048576
  },
  {
   "id": "deepseek/deepseek-v4-flash-vision-exp",
@@ -511,20 +511,20 @@
  },
  {
   "id": "deepseek/deepseek-v4-pro",
-  "in": 9.5526e-7,
-  "out": 0.00000191052,
+  "in": 2.088e-7,
+  "out": 4.176e-7,
   "context": 1048576
  },
  {
   "id": "deepseek/deepseek-v4-pro-0813",
-  "in": 3.949e-7,
-  "out": 0.0000042,
+  "in": 5.5e-7,
+  "out": 0.000005,
   "context": 1048576
  },
  {
   "id": "deepseek/deepseek-v4.1-flash",
-  "in": 3e-7,
-  "out": 0.0000012,
+  "in": 3e-9,
+  "out": 0.0000024,
   "context": 1048576
  },
  {
@@ -751,8 +751,8 @@
  },
  {
   "id": "google/gemma-4-26b-a4b-it",
-  "in": 7.65e-8,
-  "out": 2.55e-7,
+  "in": 6.75e-8,
+  "out": 2.25e-7,
   "context": 262144
  },
  {
@@ -799,8 +799,8 @@
  },
  {
   "id": "inclusionai/ling-3.0-flash-fin",
-  "in": 6e-8,
-  "out": 1.8e-7,
+  "in": 4.2e-8,
+  "out": 1.232e-7,
   "context": 262144
  },
  {
@@ -865,8 +865,8 @@
  },
  {
   "id": "meta-llama/llama-3.3-70b-instruct",
-  "in": 1e-7,
-  "out": 3.2e-7,
+  "in": 2.2e-7,
+  "out": 5e-7,
   "context": 131072
  },
  {
@@ -889,8 +889,8 @@
  },
  {
   "id": "meta/muse-glimmer-30b",
-  "in": 3e-7,
-  "out": 0.0000012,
+  "in": 3.5e-7,
+  "out": 0.0000015,
   "context": 131072
  },
  {
@@ -943,7 +943,7 @@
  },
  {
   "id": "minimax/minimax-m1",
-  "in": 4e-7,
+  "in": 5.5e-7,
   "out": 0.0000022,
   "context": 1000000
  },
@@ -1159,20 +1159,20 @@
  },
  {
   "id": "moonshotai/kimi-k2.6",
-  "in": 6.5e-7,
-  "out": 0.00000341,
+  "in": 9.5e-7,
+  "out": 0.000004,
   "context": 262144
  },
  {
   "id": "moonshotai/kimi-k2.7-code",
-  "in": 6.562e-7,
-  "out": 0.0000033,
+  "in": 6.712e-7,
+  "out": 0.00000335,
   "context": 262144
  },
  {
   "id": "moonshotai/kimi-k3",
-  "in": 0.000003,
-  "out": 0.000015,
+  "in": 6.7e-7,
+  "out": 0.000014,
   "context": 1048576
  },
  {
@@ -1237,8 +1237,8 @@
  },
  {
   "id": "nvidia/nemotron-3-ultra-550b-a55b",
-  "in": 6e-7,
-  "out": 0.0000024,
+  "in": 5e-7,
+  "out": 0.0000022,
   "context": 262144
  },
  {
@@ -1251,7 +1251,7 @@
   "id": "nvidia/nemotron-3.5-lightning",
   "in": 6e-8,
   "out": 1.6e-7,
-  "context": 1000000
+  "context": 262144
  },
  {
   "id": "openai/gpt-3.5-turbo",
@@ -1627,8 +1627,8 @@
  },
  {
   "id": "openai/gpt-5.6-sol-pro",
-  "in": 0.000004,
-  "out": 0.00002,
+  "in": 0.000002,
+  "out": 0.00001,
   "context": 1050000
  },
  {
@@ -1740,6 +1740,18 @@
   "context": 1050000
  },
  {
+  "id": "openai/gpt-6.1-sol",
+  "in": 0.000002,
+  "out": 0.00001,
+  "context": 1050000
+ },
+ {
+  "id": "openai/gpt-6.1-sol-pro",
+  "in": 0.000002,
+  "out": 0.00001,
+  "context": 1050000
+ },
+ {
   "id": "openai/gpt-audio",
   "in": 0.0000025,
   "out": 0.00001,
@@ -1759,8 +1771,8 @@
  },
  {
   "id": "openai/gpt-oss-120b",
-  "in": 1.5e-7,
-  "out": 6e-7,
+  "in": 3.7e-8,
+  "out": 1.7e-7,
   "context": 131072
  },
  {
@@ -1975,8 +1987,8 @@
  },
  {
   "id": "qwen/qwen3-30b-a3b",
-  "in": 1.3e-7,
-  "out": 5.2e-7,
+  "in": 1.2e-7,
+  "out": 5e-7,
   "context": 131072
  },
  {
@@ -2113,8 +2125,8 @@
  },
  {
   "id": "qwen/qwen3.5-35b-a3b",
-  "in": 1.625e-7,
-  "out": 0.0000013,
+  "in": 1.5e-7,
+  "out": 0.000001,
   "context": 262144
  },
  {
@@ -2150,7 +2162,7 @@
  {
   "id": "qwen/qwen3.6-27b",
   "in": 3.2e-7,
-  "out": 0.0000032,
+  "out": 0.0000027,
   "context": 262144
  },
  {
@@ -2203,8 +2215,8 @@
  },
  {
   "id": "qwen/qwen3.8-27b",
-  "in": 5.49e-8,
-  "out": 0.0000044,
+  "in": 4.25e-7,
+  "out": 0.00000255,
   "context": 1000000
  },
  {
@@ -2371,7 +2383,7 @@
  },
  {
   "id": "thinkingmachines/inkling",
-  "in": 0.000001,
+  "in": 9.5e-7,
   "out": 0.00000405,
   "context": 524288
  },
@@ -2386,6 +2398,12 @@
   "in": 0.0000025,
   "out": 0.0000075,
   "context": 262144
+ },
+ {
+  "id": "unbiased/pareto-26.10-preview",
+  "in": 8e-7,
+  "out": 0.0000032,
+  "context": 1048576
  },
  {
   "id": "undi95/remm-slerp-l2-13b",
@@ -2481,7 +2499,7 @@
   "id": "xiaomi/mimo-v2.6-flash",
   "in": 1.4e-7,
   "out": 2.8e-7,
-  "context": 1048576
+  "context": 1050000
  },
  {
   "id": "xiaomi/mimo-v2.6-pro",
@@ -2557,21 +2575,21 @@
  },
  {
   "id": "z-ai/glm-5.2",
-  "in": 3.449e-7,
-  "out": 0.0000044,
+  "in": 2.4e-8,
+  "out": 0.000016,
   "context": 1048576
  },
  {
   "id": "z-ai/glm-5.3",
   "in": 0.0000014,
   "out": 0.0000044,
-  "context": 1310720
+  "context": 1048576
  },
  {
   "id": "z-ai/glm-5.3-flash",
   "in": 1.5e-7,
   "out": 5e-7,
-  "context": 1310720
+  "context": 1048576
  },
  {
   "id": "z-ai/glm-5.3-flash:batch",

@@ -523,5 +523,15 @@
    "z-ai/glm-5.2:batch"
   ],
   "total": 434
+ },
+ {
+  "date": "2026-10-05",
+  "added": [
+   "openai/gpt-6.1-sol",
+   "openai/gpt-6.1-sol-pro",
+   "unbiased/pareto-26.10-preview"
+  ],
+  "removed": [],
+  "total": 437
  }
 ]

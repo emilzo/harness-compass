@@ -97,7 +97,7 @@ An internal or private audit can inform an **Estimate**, but it does not earn th
 2. **The AUDITED badge requires a report** with `path:line` evidence, like the reports in `docs/`. No report, no badge.
 3. **Everything you add locally stays marked LOCAL**, and any manual slider adjustment stays **visible**. The badge shows a "⚠ N adjusted" counter, where N is the number of dimensions you changed, and the JSON export carries the provenance (`meta.heuristica` = what the analysis detected vs what you changed).
 4. **The design makes tampering visible.** Anyone opening the ranking can see what is verified, what is an estimate, and what was hand-tuned.
-5. **Confidentiality at the submitter's request.** Whoever submits a harness for audit may ask to keep it **out of public view**. In that case the audit is private: only the submitter receives the report, and the harness **does not enter the public ranking**, because the public AUDITED badge requires published evidence. A public badge backed by secret proof would be exactly the claim-without-evidence this project calls out. The private track is a consulting service and starts by [email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), never in a public issue. Do not send private code until we have agreed on a safe way to transfer it. The public track earns the badge and the ranking spot.
+5. **Confidentiality at the submitter's request.** Whoever submits a harness for audit may ask to keep it **out of public view**. In that case the audit is private: only the submitter receives the report, and the harness **does not enter the public ranking**, because the public AUDITED badge requires published evidence. A public badge backed by secret proof would be exactly the claim-without-evidence this project calls out. The private track starts by [email](mailto:emilio.mina@gmail.com?subject=Private%20Harness%20Compass%20audit), never in a public issue. Do not send private code until we have agreed on a safe way to transfer it. The public track earns the badge and the ranking spot.
 
 **The honest path to ranking a harness:**
 1. Audit the folder → Preliminary badge (analysis justifications only)
@@ -136,8 +136,6 @@ The coefficients 0.7 (cache), 0.5 (avoided failures), 0.45 (compression) and 0.6
 ## License and integrity
 
 **License: AGPL-3.0** the code is open, but anyone offering a derived version as a service (SaaS) must publish their source. This protects the project from forks reselling it closed.
-
-**What's public vs retained:** the code, the taxonomy and the published audits are the proof and the magnet. The **living dataset** (new audits, aggregated telemetry, evolving scores) and the **certified audit seal** are project assets that don't fork what gets published today determines what can be sold tomorrow.
 
 ## Internationalization (i18n)
 

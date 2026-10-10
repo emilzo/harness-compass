@@ -7,9 +7,9 @@
  },
  {
   "id": "~anthropic/claude-haiku-latest",
-  "in": 0.000001,
-  "out": 0.000005,
-  "context": 200000
+  "in": 1e-7,
+  "out": 5e-7,
+  "context": 1000000
  },
  {
   "id": "~anthropic/claude-opus-latest",
@@ -25,20 +25,20 @@
  },
  {
   "id": "~deepseek/deepseek-flash-latest",
-  "in": 3e-9,
-  "out": 0.0000024,
+  "in": 1.6e-8,
+  "out": 6e-7,
   "context": 1048576
  },
  {
   "id": "~deepseek/deepseek-pro-latest",
-  "in": 1.901e-7,
-  "out": 0.0000042,
+  "in": 3e-7,
+  "out": 0.000005,
   "context": 1048576
  },
  {
   "id": "~deepseek/deepseek-v4-flash-latest",
-  "in": 1.52e-8,
-  "out": 0.00000128,
+  "in": 8.32e-9,
+  "out": 0.000001536,
   "context": 1048576
  },
  {
@@ -55,8 +55,8 @@
  },
  {
   "id": "~moonshotai/kimi-latest",
-  "in": 6.06e-7,
-  "out": 0.000013,
+  "in": 5.5e-7,
+  "out": 0.000015,
   "context": 1048576
  },
  {
@@ -97,14 +97,14 @@
  },
  {
   "id": "~z-ai/glm-flash-latest",
-  "in": 3.52e-8,
-  "out": 5e-7,
+  "in": 3.2e-8,
+  "out": 7.2e-7,
   "context": 1048576
  },
  {
   "id": "~z-ai/glm-latest",
-  "in": 4e-8,
-  "out": 0.000008,
+  "in": 3.9e-8,
+  "out": 0.0000048,
   "context": 1048576
  },
  {
@@ -214,6 +214,18 @@
   "in": 5e-7,
   "out": 0.0000025,
   "context": 200000
+ },
+ {
+  "id": "anthropic/claude-haiku-5.5",
+  "in": 1e-7,
+  "out": 5e-7,
+  "context": 1000000
+ },
+ {
+  "id": "anthropic/claude-haiku-5.5:batch",
+  "in": 5e-8,
+  "out": 2.5e-7,
+  "context": 1000000
  },
  {
   "id": "anthropic/claude-opus-4.1",
@@ -360,12 +372,6 @@
   "context": 262144
  },
  {
-  "id": "baidu/ernie-4.5-vl-424b-a47b",
-  "in": 4.2e-7,
-  "out": 0.00000125,
-  "context": 123000
- },
- {
   "id": "bytedance-seed/seed-1.6",
   "in": 2.5e-7,
   "out": 0.000002,
@@ -445,8 +451,8 @@
  },
  {
   "id": "deepseek/deepseek-chat",
-  "in": 2.574e-7,
-  "out": 0.0000010287,
+  "in": 3.2e-7,
+  "out": 8.9e-7,
   "context": 163840
  },
  {
@@ -481,7 +487,7 @@
  },
  {
   "id": "deepseek/deepseek-v3.2",
-  "in": 2.8e-7,
+  "in": 2.59e-7,
   "out": 4.2e-7,
   "context": 163840
  },
@@ -493,13 +499,13 @@
  },
  {
   "id": "deepseek/deepseek-v4-flash",
-  "in": 2.5e-8,
+  "in": 1.73e-8,
   "out": 0.00000128,
   "context": 1048576
  },
  {
   "id": "deepseek/deepseek-v4-flash-0731",
-  "in": 1.52e-8,
+  "in": 1.04e-8,
   "out": 0.00000128,
   "context": 1048576
  },
@@ -511,20 +517,20 @@
  },
  {
   "id": "deepseek/deepseek-v4-pro",
-  "in": 2.088e-7,
-  "out": 4.176e-7,
+  "in": 9.483e-7,
+  "out": 0.0000018966,
   "context": 1048576
  },
  {
   "id": "deepseek/deepseek-v4-pro-0813",
-  "in": 5.5e-7,
-  "out": 0.000005,
+  "in": 6.6e-7,
+  "out": 0.00000198,
   "context": 1048576
  },
  {
   "id": "deepseek/deepseek-v4.1-flash",
-  "in": 3e-9,
-  "out": 0.0000024,
+  "in": 3e-7,
+  "out": 0.0000012,
   "context": 1048576
  },
  {
@@ -726,6 +732,12 @@
   "context": 1048576
  },
  {
+  "id": "google/gemini-nano-banana-2.1",
+  "in": 0.0000015,
+  "out": 0.0000075,
+  "context": 65536
+ },
+ {
   "id": "google/gemma-2-27b-it",
   "in": 6.5e-7,
   "out": 6.5e-7,
@@ -804,6 +816,12 @@
   "context": 262144
  },
  {
+  "id": "inclusionai/ling-3.0-flash-sante",
+  "in": 4.2e-8,
+  "out": 1.232e-7,
+  "context": 262144
+ },
+ {
   "id": "inclusionai/ling-3.0-flash-vl",
   "in": 2.1e-8,
   "out": 6.16e-8,
@@ -820,12 +838,6 @@
   "in": 3e-8,
   "out": 1.5e-7,
   "context": 128000
- },
- {
-  "id": "kwaipilot/kat-coder-pro-v2.5",
-  "in": 7.4e-7,
-  "out": 0.00000296,
-  "context": 262144
  },
  {
   "id": "mancer/weaver",
@@ -889,8 +901,8 @@
  },
  {
   "id": "meta/muse-glimmer-30b",
-  "in": 3.5e-7,
-  "out": 0.0000015,
+  "in": 3e-7,
+  "out": 0.0000012,
   "context": 131072
  },
  {
@@ -1050,6 +1062,12 @@
   "context": 262144
  },
  {
+  "id": "mistralai/mistral-large-4-0",
+  "in": 6.8e-7,
+  "out": 0.00000209,
+  "context": 1048576
+ },
+ {
   "id": "mistralai/mistral-medium-3",
   "in": 4e-7,
   "out": 0.000002,
@@ -1081,7 +1099,7 @@
  },
  {
   "id": "mistralai/mistral-nemo",
-  "in": 1.9e-8,
+  "in": 2.9e-8,
   "out": 3e-8,
   "context": 131072
  },
@@ -1159,8 +1177,8 @@
  },
  {
   "id": "moonshotai/kimi-k2.6",
-  "in": 9.5e-7,
-  "out": 0.000004,
+  "in": 4.65e-7,
+  "out": 0.00000245,
   "context": 262144
  },
  {
@@ -1171,8 +1189,8 @@
  },
  {
   "id": "moonshotai/kimi-k3",
-  "in": 6.7e-7,
-  "out": 0.000014,
+  "in": 6.4e-7,
+  "out": 0.0000135,
   "context": 1048576
  },
  {
@@ -1225,8 +1243,8 @@
  },
  {
   "id": "nvidia/nemotron-3-nano-30b-a3b",
-  "in": 5e-8,
-  "out": 2e-7,
+  "in": 6e-8,
+  "out": 2.4e-7,
   "context": 262144
  },
  {
@@ -1249,8 +1267,8 @@
  },
  {
   "id": "nvidia/nemotron-3.5-lightning",
-  "in": 6e-8,
-  "out": 1.6e-7,
+  "in": 4.69e-8,
+  "out": 1.34e-7,
   "context": 262144
  },
  {
@@ -1752,6 +1770,18 @@
   "context": 1050000
  },
  {
+  "id": "openai/gpt-6.1-sol-pro:batch",
+  "in": 0.000001,
+  "out": 0.000005,
+  "context": 1050000
+ },
+ {
+  "id": "openai/gpt-6.1-sol:batch",
+  "in": 0.000001,
+  "out": 0.000005,
+  "context": 1050000
+ },
+ {
   "id": "openai/gpt-audio",
   "in": 0.0000025,
   "out": 0.00001,
@@ -1950,12 +1980,6 @@
   "context": 1000000
  },
  {
-  "id": "qwen/qwen-plus-2025-07-28",
-  "in": 2.6e-7,
-  "out": 7.8e-7,
-  "context": 1000000
- },
- {
   "id": "qwen/qwen2.5-vl-72b-instruct",
   "in": 8e-7,
   "out": 0.000001,
@@ -1963,56 +1987,38 @@
  },
  {
   "id": "qwen/qwen3-14b",
-  "in": 1.2e-7,
-  "out": 2.4e-7,
-  "context": 131072
- },
- {
-  "id": "qwen/qwen3-235b-a22b",
-  "in": 4.55e-7,
-  "out": 0.00000182,
-  "context": 131072
+  "in": 1e-7,
+  "out": 2.2e-7,
+  "context": 40960
  },
  {
   "id": "qwen/qwen3-235b-a22b-2507",
-  "in": 8.75e-8,
-  "out": 3.5e-7,
+  "in": 9e-8,
+  "out": 5.5e-7,
   "context": 262144
  },
  {
   "id": "qwen/qwen3-235b-a22b-thinking-2507",
-  "in": 2.3e-7,
-  "out": 0.0000023,
-  "context": 131072
+  "in": 4.5e-7,
+  "out": 0.0000035,
+  "context": 128000
  },
  {
   "id": "qwen/qwen3-30b-a3b",
   "in": 1.2e-7,
   "out": 5e-7,
-  "context": 131072
+  "context": 40960
  },
  {
   "id": "qwen/qwen3-30b-a3b-instruct-2507",
-  "in": 4.815e-8,
-  "out": 1.9305e-7,
+  "in": 1e-7,
+  "out": 3e-7,
   "context": 262144
- },
- {
-  "id": "qwen/qwen3-30b-a3b-thinking-2507",
-  "in": 2e-7,
-  "out": 0.0000024,
-  "context": 81920
  },
  {
   "id": "qwen/qwen3-32b",
   "in": 8e-8,
   "out": 2.8e-7,
-  "context": 131072
- },
- {
-  "id": "qwen/qwen3-8b",
-  "in": 1.17e-7,
-  "out": 4.55e-7,
   "context": 131072
  },
  {
@@ -2040,24 +2046,6 @@
   "context": 262144
  },
  {
-  "id": "qwen/qwen3-coder-plus",
-  "in": 6.5e-7,
-  "out": 0.00000325,
-  "context": 1000000
- },
- {
-  "id": "qwen/qwen3-max",
-  "in": 7.8e-7,
-  "out": 0.0000039,
-  "context": 262144
- },
- {
-  "id": "qwen/qwen3-max-thinking",
-  "in": 7.8e-7,
-  "out": 0.0000039,
-  "context": 262144
- },
- {
   "id": "qwen/qwen3-next-80b-a3b-instruct",
   "in": 1e-7,
   "out": 0.0000011,
@@ -2076,12 +2064,6 @@
   "context": 262144
  },
  {
-  "id": "qwen/qwen3-vl-235b-a22b-thinking",
-  "in": 4e-7,
-  "out": 0.000004,
-  "context": 131072
- },
- {
   "id": "qwen/qwen3-vl-30b-a3b-instruct",
   "in": 1.5e-7,
   "out": 6e-7,
@@ -2089,27 +2071,15 @@
  },
  {
   "id": "qwen/qwen3-vl-30b-a3b-thinking",
-  "in": 2e-7,
-  "out": 0.0000024,
+  "in": 2.9e-7,
+  "out": 0.000001,
   "context": 262144
- },
- {
-  "id": "qwen/qwen3-vl-32b-instruct",
-  "in": 1.04e-7,
-  "out": 4.16e-7,
-  "context": 131072
  },
  {
   "id": "qwen/qwen3-vl-8b-instruct",
-  "in": 1.17e-7,
-  "out": 4.55e-7,
+  "in": 2.5e-7,
+  "out": 7.5e-7,
   "context": 262144
- },
- {
-  "id": "qwen/qwen3-vl-8b-thinking",
-  "in": 1.8e-7,
-  "out": 0.0000021,
-  "context": 131072
  },
  {
   "id": "qwen/qwen3.5-122b-a10b",
@@ -2119,14 +2089,14 @@
  },
  {
   "id": "qwen/qwen3.5-27b",
-  "in": 1.95e-7,
-  "out": 0.00000156,
+  "in": 2.6e-7,
+  "out": 0.0000026,
   "context": 262144
  },
  {
   "id": "qwen/qwen3.5-35b-a3b",
-  "in": 1.5e-7,
-  "out": 0.000001,
+  "in": 8e-8,
+  "out": 7.5e-7,
   "context": 262144
  },
  {
@@ -2162,7 +2132,7 @@
  {
   "id": "qwen/qwen3.6-27b",
   "in": 3.2e-7,
-  "out": 0.0000027,
+  "out": 0.0000032,
   "context": 262144
  },
  {
@@ -2176,12 +2146,6 @@
   "in": 1.875e-7,
   "out": 0.000001125,
   "context": 1000000
- },
- {
-  "id": "qwen/qwen3.6-max-preview",
-  "in": 0.000001027,
-  "out": 0.000006162,
-  "context": 262144
  },
  {
   "id": "qwen/qwen3.6-plus",
@@ -2322,6 +2286,12 @@
   "context": 262144
  },
  {
+  "id": "stepfun/step-5-preview",
+  "in": 0.000001,
+  "out": 0.0000027,
+  "context": 1000000
+ },
+ {
   "id": "tencent/hunyuan-a13b-instruct",
   "in": 1.4e-7,
   "out": 5.7e-7,
@@ -2383,7 +2353,7 @@
  },
  {
   "id": "thinkingmachines/inkling",
-  "in": 9.5e-7,
+  "in": 0.000001,
   "out": 0.00000405,
   "context": 524288
  },
@@ -2533,8 +2503,8 @@
  },
  {
   "id": "z-ai/glm-4.6",
-  "in": 4.3e-7,
-  "out": 0.00000175,
+  "in": 5e-7,
+  "out": 0.000002,
   "context": 204800
  },
  {
@@ -2569,20 +2539,20 @@
  },
  {
   "id": "z-ai/glm-5.1",
-  "in": 0.0000014,
-  "out": 0.0000044,
+  "in": 9.66e-7,
+  "out": 0.000003036,
   "context": 204800
  },
  {
   "id": "z-ai/glm-5.2",
-  "in": 2.4e-8,
-  "out": 0.000016,
+  "in": 6e-8,
+  "out": 0.000007,
   "context": 1048576
  },
  {
   "id": "z-ai/glm-5.3",
-  "in": 0.0000014,
-  "out": 0.0000044,
+  "in": 3.9e-8,
+  "out": 0.0000048,
   "context": 1048576
  },
  {

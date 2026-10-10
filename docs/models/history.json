@@ -533,5 +533,34 @@
   ],
   "removed": [],
   "total": 437
+ },
+ {
+  "date": "2026-10-10",
+  "added": [
+   "anthropic/claude-haiku-5.5",
+   "anthropic/claude-haiku-5.5:batch",
+   "google/gemini-nano-banana-2.1",
+   "inclusionai/ling-3.0-flash-sante",
+   "mistralai/mistral-large-4-0",
+   "openai/gpt-6.1-sol-pro:batch",
+   "openai/gpt-6.1-sol:batch",
+   "stepfun/step-5-preview"
+  ],
+  "removed": [
+   "baidu/ernie-4.5-vl-424b-a47b",
+   "kwaipilot/kat-coder-pro-v2.5",
+   "qwen/qwen-plus-2025-07-28",
+   "qwen/qwen3-235b-a22b",
+   "qwen/qwen3-30b-a3b-thinking-2507",
+   "qwen/qwen3-8b",
+   "qwen/qwen3-coder-plus",
+   "qwen/qwen3-max",
+   "qwen/qwen3-max-thinking",
+   "qwen/qwen3-vl-235b-a22b-thinking",
+   "qwen/qwen3-vl-32b-instruct",
+   "qwen/qwen3-vl-8b-thinking",
+   "qwen/qwen3.6-max-preview"
+  ],
+  "total": 432
  }
 ]
